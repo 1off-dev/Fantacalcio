@@ -15,6 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 PUBLIC = ROOT / "public"
 URL = "https://www.fantacalcio.it/quotazioni-fantacalcio/2026-27"
+STATS_URL = "https://www.fantacalcio.it/statistiche-serie-a/2025-26"
+PREV_SEASON = "2025/26"
+PREV_MATCHES = 38  # giornate Serie A
 ROLE_MAP = {"p": "P", "d": "D", "c": "C", "a": "A"}
 
 TIERS = {
@@ -177,9 +180,9 @@ BUDGETS = {
 }
 
 
-def fetch_html() -> str:
+def fetch_html(url: str = URL) -> str:
     req = urllib.request.Request(
-        URL,
+        url,
         headers={
             "User-Agent": "Mozilla/5.0 (compatible; FantacalcioAstaBot/1.0)",
             "Accept-Language": "it-IT,it;q=0.9",
@@ -187,6 +190,20 @@ def fetch_html() -> str:
     )
     with urllib.request.urlopen(req, timeout=60) as resp:
         return resp.read().decode("utf-8", errors="replace")
+
+
+def _parse_num(raw: str | None) -> float | None:
+    if raw is None:
+        return None
+    text = raw.strip().replace(",", ".")
+    if not text or text in {"-", "—"}:
+        return None
+    if "/" in text:
+        text = text.split("/", 1)[0].strip()
+    try:
+        return float(text)
+    except ValueError:
+        return None
 
 
 def parse_players(html: str) -> list[dict]:
@@ -207,6 +224,7 @@ def parse_players(html: str) -> list[dict]:
         role = ROLE_MAP.get((attr("role-classic") or "").lower(), "?")
         name = unescape(name_m.group(1)).strip() if name_m else (attr("keywords") or "")
         team = team_m.group(1) if team_m else "???"
+        playeds = _parse_num(attr("playeds"))
         players.append(
             {
                 "id": f"{role}-{team}-{name}".replace(" ", "_"),
@@ -216,9 +234,51 @@ def parse_players(html: str) -> list[dict]:
                 "qi": int(col("c_qi") or 0),
                 "qa": int(col("c_qa") or 0),
                 "fvm": int(col("c_fvm") or 0),
+                # Stima titolarità attesa Fantacalcio (0–100, spesso a scaglioni).
+                "playedsExpected": int(playeds) if playeds is not None else None,
             }
         )
     return players
+
+
+def parse_prev_stats(html: str) -> dict[str, dict]:
+    """FM / presenze stagione precedente, indexate per nome listone."""
+    rows = re.findall(r'<tr class="player-row"(.*?)</tr>', html, re.S)
+    out: dict[str, dict] = {}
+    for block in rows:
+
+        def attr(name: str) -> str | None:
+            m = re.search(rf'data-filter-{name}="([^"]*)"', block)
+            return m.group(1) if m else None
+
+        def col(key: str) -> str | None:
+            m = re.search(rf'data-col-key="{key}">\s*([^<\s]+)', block)
+            return m.group(1).strip() if m else None
+
+        name = unescape(attr("keywords") or "").strip()
+        if not name:
+            continue
+        pg = _parse_num(col("pg"))
+        mv = _parse_num(col("mv"))
+        fm = _parse_num(col("mfv"))
+        out[name] = {
+            "pgPrev": int(pg) if pg is not None else None,
+            "mvPrev": mv,
+            "fmPrev": fm,
+        }
+    return out
+
+
+def starter_prob(playeds_expected: int | None, pg_prev: int | None) -> int | None:
+    """Probabilità titolare 0–100: proiezione listone + storico presenze."""
+    hist = (
+        min(100, round(100 * pg_prev / PREV_MATCHES)) if pg_prev is not None else None
+    )
+    if playeds_expected is not None and hist is not None:
+        return int(round(0.7 * playeds_expected + 0.3 * hist))
+    if playeds_expected is not None:
+        return int(playeds_expected)
+    return hist
 
 
 def curated_tier(role: str, name: str) -> str | None:
@@ -322,11 +382,15 @@ def note_for(p: dict, tier: str, penalty: dict | None) -> str:
     return note[:190]
 
 
-def enrich(players: list[dict]) -> list[dict]:
+def enrich(players: list[dict], prev_stats: dict[str, dict]) -> list[dict]:
     out = []
     for p in players:
         penalty = PENALTIES.get(p["name"])
         tier = tier_for(p["role"], p["name"], p["fvm"])
+        prev = prev_stats.get(p["name"], {})
+        pg_prev = prev.get("pgPrev")
+        fm_prev = prev.get("fmPrev")
+        mv_prev = prev.get("mvPrev")
         out.append(
             {
                 **p,
@@ -336,6 +400,10 @@ def enrich(players: list[dict]) -> list[dict]:
                 "penalty": penalty["order"] if penalty else None,
                 "penaltyLabel": penalty["label"] if penalty else None,
                 "note": note_for(p, tier, penalty),
+                "pgPrev": pg_prev,
+                "mvPrev": mv_prev,
+                "fmPrev": fm_prev,
+                "starterProb": starter_prob(p.get("playedsExpected"), pg_prev),
             }
         )
     return out
@@ -344,10 +412,15 @@ def enrich(players: list[dict]) -> list[dict]:
 def main() -> None:
     DATA.mkdir(exist_ok=True)
     PUBLIC.mkdir(exist_ok=True)
-    html = fetch_html()
+    html = fetch_html(URL)
     players = parse_players(html)
     if len(players) < 400:
         raise SystemExit(f"Parse fallito: solo {len(players)} giocatori")
+
+    stats_html = fetch_html(STATS_URL)
+    prev_stats = parse_prev_stats(stats_html)
+    if len(prev_stats) < 200:
+        raise SystemExit(f"Parse stats fallito: solo {len(prev_stats)} record")
 
     listone = {
         "source": URL,
@@ -361,12 +434,22 @@ def main() -> None:
     )
     with (DATA / "listone-2026-27.csv").open("w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(
-            f, fieldnames=["id", "name", "team", "role", "qi", "qa", "fvm"]
+            f,
+            fieldnames=[
+                "id",
+                "name",
+                "team",
+                "role",
+                "qi",
+                "qa",
+                "fvm",
+                "playedsExpected",
+            ],
         )
         w.writeheader()
         w.writerows(players)
 
-    enriched = enrich(players)
+    enriched = enrich(players, prev_stats)
     board = {
         "meta": {
             "season": "2026/27",
@@ -377,10 +460,16 @@ def main() -> None:
             "modifier": "difesa",
             "auction": "aperta",
             "source_listone": URL,
+            "source_stats": STATS_URL,
+            "prevSeason": PREV_SEASON,
             "updated": str(date.today()),
             "budgets": BUDGETS,
             "tiers": TIERS,
             "penaltiesSource": "Sintesi guide rigoristi Serie A 2026/27 (FCO/SOS/Goal)",
+            "starterProbNote": (
+                "Tit% = 70% stima titolarità listone Fantacalcio + 30% "
+                f"presenze/{PREV_MATCHES} in {PREV_SEASON} (se disponibili)."
+            ),
         },
         "players": enriched,
     }
@@ -391,9 +480,12 @@ def main() -> None:
     (PUBLIC / "asta-board-2026-27.json").write_text(payload, encoding="utf-8")
     shown = sum(1 for p in enriched if p["tier"] != "pool")
     pens = sum(1 for p in enriched if p["penalty"])
+    with_fm = sum(1 for p in enriched if p["fmPrev"] is not None)
+    with_tit = sum(1 for p in enriched if p["starterProb"] is not None)
     missing = [n for n in PENALTIES if n not in {p["name"] for p in players}]
     print(
-        f"OK {len(players)} giocatori | fasce estese {shown} | rigoristi {pens} | missing names {missing}"
+        f"OK {len(players)} giocatori | fasce {shown} | rigoristi {pens} | "
+        f"FM {PREV_SEASON} {with_fm} | Tit% {with_tit} | missing pens {missing}"
     )
 
 

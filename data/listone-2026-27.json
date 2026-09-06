@@ -11,7 +11,8 @@
       "role": "A",
       "qi": 34,
       "qa": 38,
-      "fvm": 450
+      "fvm": 450,
+      "playedsExpected": 100
     },
     {
       "id": "A-INT-Martinez_L.",
@@ -20,7 +21,8 @@
       "role": "A",
       "qi": 35,
       "qa": 33,
-      "fvm": 361
+      "fvm": 361,
+      "playedsExpected": 100
     },
     {
       "id": "D-INT-Dimarco",
@@ -29,7 +31,8 @@
       "role": "D",
       "qi": 32,
       "qa": 31,
-      "fvm": 240
+      "fvm": 240,
+      "playedsExpected": 100
     },
     {
       "id": "C-COM-Paz_N.",
@@ -38,7 +41,8 @@
       "role": "C",
       "qi": 30,
       "qa": 29,
-      "fvm": 245
+      "fvm": 245,
+      "playedsExpected": 100
     },
     {
       "id": "C-INT-Calhanoglu",
@@ -47,7 +51,8 @@
       "role": "C",
       "qi": 27,
       "qa": 28,
-      "fvm": 243
+      "fvm": 243,
+      "playedsExpected": 100
     },
     {
       "id": "A-INT-Thuram",
@@ -56,7 +61,8 @@
       "role": "A",
       "qi": 29,
       "qa": 28,
-      "fvm": 249
+      "fvm": 249,
+      "playedsExpected": 67
     },
     {
       "id": "A-NAP-Hojlund",
@@ -65,7 +71,8 @@
       "role": "A",
       "qi": 28,
       "qa": 28,
-      "fvm": 260
+      "fvm": 260,
+      "playedsExpected": 100
     },
     {
       "id": "A-MIL-Ramos_G.",
@@ -74,7 +81,8 @@
       "role": "A",
       "qi": 27,
       "qa": 27,
-      "fvm": 237
+      "fvm": 237,
+      "playedsExpected": 67
     },
     {
       "id": "C-NAP-McTominay",
@@ -83,7 +91,8 @@
       "role": "C",
       "qi": 28,
       "qa": 27,
-      "fvm": 220
+      "fvm": 220,
+      "playedsExpected": 67
     },
     {
       "id": "C-BOL-Orsolini",
@@ -92,7 +101,8 @@
       "role": "C",
       "qi": 26,
       "qa": 25,
-      "fvm": 177
+      "fvm": 177,
+      "playedsExpected": 67
     },
     {
       "id": "A-JUV-Kolo_Muani",
@@ -101,7 +111,8 @@
       "role": "A",
       "qi": 26,
       "qa": 25,
-      "fvm": 165
+      "fvm": 165,
+      "playedsExpected": 67
     },
     {
       "id": "A-COM-Kean",
@@ -110,7 +121,8 @@
       "role": "A",
       "qi": 25,
       "qa": 24,
-      "fvm": 183
+      "fvm": 183,
+      "playedsExpected": 67
     },
     {
       "id": "C-MIL-Pulisic",
@@ -119,7 +131,8 @@
       "role": "C",
       "qi": 25,
       "qa": 24,
-      "fvm": 150
+      "fvm": 150,
+      "playedsExpected": 0
     },
     {
       "id": "C-MIL-Rabiot",
@@ -128,7 +141,8 @@
       "role": "C",
       "qi": 22,
       "qa": 23,
-      "fvm": 145
+      "fvm": 145,
+      "playedsExpected": 67
     },
     {
       "id": "A-JUV-Woltemade",
@@ -137,7 +151,8 @@
       "role": "A",
       "qi": 23,
       "qa": 23,
-      "fvm": 160
+      "fvm": 160,
+      "playedsExpected": 0
     },
     {
       "id": "A-COM-Douvikas",
@@ -146,7 +161,8 @@
       "role": "A",
       "qi": 20,
       "qa": 22,
-      "fvm": 185
+      "fvm": 185,
+      "playedsExpected": 100
     },
     {
       "id": "A-JUV-Yildiz",
@@ -155,7 +171,8 @@
       "role": "A",
       "qi": 23,
       "qa": 22,
-      "fvm": 100
+      "fvm": 100,
+      "playedsExpected": 33
     },
     {
       "id": "C-COM-Baturina",
@@ -164,7 +181,8 @@
       "role": "C",
       "qi": 19,
       "qa": 20,
-      "fvm": 105
+      "fvm": 105,
+      "playedsExpected": 100
     },
     {
       "id": "C-ROM-Mora",
@@ -173,7 +191,8 @@
       "role": "C",
       "qi": 19,
       "qa": 20,
-      "fvm": 100
+      "fvm": 100,
+      "playedsExpected": 100
     },
     {
       "id": "A-ATA-Scamacca",
@@ -182,7 +201,8 @@
       "role": "A",
       "qi": 19,
       "qa": 19,
-      "fvm": 110
+      "fvm": 110,
+      "playedsExpected": 100
     },
     {
       "id": "P-ROM-Svilar",
@@ -191,7 +211,8 @@
       "role": "P",
       "qi": 18,
       "qa": 19,
-      "fvm": 85
+      "fvm": 85,
+      "playedsExpected": 100
     },
     {
       "id": "A-SAS-Berardi",
@@ -200,7 +221,8 @@
       "role": "A",
       "qi": 18,
       "qa": 19,
-      "fvm": 106
+      "fvm": 106,
+      "playedsExpected": 67
     },
     {
       "id": "A-UDI-Davis_K.",
@@ -209,7 +231,8 @@
       "role": "A",
       "qi": 19,
       "qa": 19,
-      "fvm": 108
+      "fvm": 108,
+      "playedsExpected": 33
     },
     {
       "id": "A-ATA-Krstovic",
@@ -218,7 +241,8 @@
       "role": "A",
       "qi": 18,
       "qa": 18,
-      "fvm": 98
+      "fvm": 98,
+      "playedsExpected": 100
     },
     {
       "id": "C-COM-Da_Cunha",
@@ -227,7 +251,8 @@
       "role": "C",
       "qi": 18,
       "qa": 18,
-      "fvm": 87
+      "fvm": 87,
+      "playedsExpected": 100
     },
     {
       "id": "C-INT-Barella",
@@ -236,7 +261,8 @@
       "role": "C",
       "qi": 17,
       "qa": 18,
-      "fvm": 81
+      "fvm": 81,
+      "playedsExpected": 100
     },
     {
       "id": "A-MIL-Leao",
@@ -245,7 +271,8 @@
       "role": "A",
       "qi": 18,
       "qa": 18,
-      "fvm": 75
+      "fvm": 75,
+      "playedsExpected": 0
     },
     {
       "id": "D-ROM-Wesley",
@@ -254,7 +281,8 @@
       "role": "D",
       "qi": 17,
       "qa": 18,
-      "fvm": 87
+      "fvm": 87,
+      "playedsExpected": 100
     },
     {
       "id": "C-UDI-Zaniolo",
@@ -263,7 +291,8 @@
       "role": "C",
       "qi": 18,
       "qa": 18,
-      "fvm": 80
+      "fvm": 80,
+      "playedsExpected": 33
     },
     {
       "id": "D-ROM-Molina_N.",
@@ -272,7 +301,8 @@
       "role": "D",
       "qi": 18,
       "qa": 18,
-      "fvm": 78
+      "fvm": 78,
+      "playedsExpected": 67
     },
     {
       "id": "P-ATA-Carnesecchi",
@@ -281,7 +311,8 @@
       "role": "P",
       "qi": 16,
       "qa": 17,
-      "fvm": 55
+      "fvm": 55,
+      "playedsExpected": 100
     },
     {
       "id": "A-ATA-De_Ketelaere",
@@ -290,7 +321,8 @@
       "role": "A",
       "qi": 17,
       "qa": 17,
-      "fvm": 95
+      "fvm": 95,
+      "playedsExpected": 100
     },
     {
       "id": "P-INT-Martinez_Jo.",
@@ -299,7 +331,8 @@
       "role": "P",
       "qi": 17,
       "qa": 17,
-      "fvm": 68
+      "fvm": 68,
+      "playedsExpected": 100
     },
     {
       "id": "A-INT-Esposito_F.P.",
@@ -308,7 +341,8 @@
       "role": "A",
       "qi": 16,
       "qa": 17,
-      "fvm": 105
+      "fvm": 105,
+      "playedsExpected": 100
     },
     {
       "id": "C-JUV-McKennie",
@@ -317,7 +351,8 @@
       "role": "C",
       "qi": 17,
       "qa": 17,
-      "fvm": 70
+      "fvm": 70,
+      "playedsExpected": 33
     },
     {
       "id": "C-NAP-De_Bruyne",
@@ -326,7 +361,8 @@
       "role": "C",
       "qi": 15,
       "qa": 17,
-      "fvm": 108
+      "fvm": 108,
+      "playedsExpected": 100
     },
     {
       "id": "P-JUV-Vicario",
@@ -335,7 +371,8 @@
       "role": "P",
       "qi": 16,
       "qa": 17,
-      "fvm": 70
+      "fvm": 70,
+      "playedsExpected": 67
     },
     {
       "id": "D-JUV-Bremer",
@@ -344,7 +381,8 @@
       "role": "D",
       "qi": 15,
       "qa": 16,
-      "fvm": 60
+      "fvm": 60,
+      "playedsExpected": 67
     },
     {
       "id": "C-LAZ-Zaccagni",
@@ -353,7 +391,8 @@
       "role": "C",
       "qi": 16,
       "qa": 16,
-      "fvm": 87
+      "fvm": 87,
+      "playedsExpected": 67
     },
     {
       "id": "D-ROM-Mancini",
@@ -362,7 +401,8 @@
       "role": "D",
       "qi": 15,
       "qa": 16,
-      "fvm": 50
+      "fvm": 50,
+      "playedsExpected": 100
     },
     {
       "id": "A-ROM-Dybala",
@@ -371,7 +411,8 @@
       "role": "A",
       "qi": 14,
       "qa": 16,
-      "fvm": 100
+      "fvm": 100,
+      "playedsExpected": 100
     },
     {
       "id": "A-BOL-Dovbyk",
@@ -380,7 +421,8 @@
       "role": "A",
       "qi": 16,
       "qa": 15,
-      "fvm": 51
+      "fvm": 51,
+      "playedsExpected": 100
     },
     {
       "id": "P-COM-Butez",
@@ -389,7 +431,8 @@
       "role": "P",
       "qi": 16,
       "qa": 15,
-      "fvm": 50
+      "fvm": 50,
+      "playedsExpected": 100
     },
     {
       "id": "C-FIO-Atta",
@@ -398,7 +441,8 @@
       "role": "C",
       "qi": 17,
       "qa": 15,
-      "fvm": 78
+      "fvm": 78,
+      "playedsExpected": 100
     },
     {
       "id": "D-INT-Akanji",
@@ -407,7 +451,8 @@
       "role": "D",
       "qi": 16,
       "qa": 15,
-      "fvm": 47
+      "fvm": 47,
+      "playedsExpected": 100
     },
     {
       "id": "P-MIL-Maignan",
@@ -416,7 +461,8 @@
       "role": "P",
       "qi": 15,
       "qa": 15,
-      "fvm": 52
+      "fvm": 52,
+      "playedsExpected": 67
     },
     {
       "id": "D-NAP-Rrahmani",
@@ -425,7 +471,8 @@
       "role": "D",
       "qi": 14,
       "qa": 15,
-      "fvm": 51
+      "fvm": 51,
+      "playedsExpected": 100
     },
     {
       "id": "A-SAS-Laurientè",
@@ -434,7 +481,8 @@
       "role": "A",
       "qi": 15,
       "qa": 15,
-      "fvm": 83
+      "fvm": 83,
+      "playedsExpected": 100
     },
     {
       "id": "A-ATA-Raspadori",
@@ -443,7 +491,8 @@
       "role": "A",
       "qi": 13,
       "qa": 14,
-      "fvm": 73
+      "fvm": 73,
+      "playedsExpected": 67
     },
     {
       "id": "D-INT-Bastoni",
@@ -452,7 +501,8 @@
       "role": "D",
       "qi": 14,
       "qa": 14,
-      "fvm": 43
+      "fvm": 43,
+      "playedsExpected": 100
     },
     {
       "id": "D-JUV-Kalulu",
@@ -461,7 +511,8 @@
       "role": "D",
       "qi": 13,
       "qa": 14,
-      "fvm": 47
+      "fvm": 47,
+      "playedsExpected": 67
     },
     {
       "id": "D-MIL-Pavlovic",
@@ -470,7 +521,8 @@
       "role": "D",
       "qi": 14,
       "qa": 14,
-      "fvm": 49
+      "fvm": 49,
+      "playedsExpected": 67
     },
     {
       "id": "A-NAP-Santos_A.",
@@ -479,7 +531,8 @@
       "role": "A",
       "qi": 14,
       "qa": 14,
-      "fvm": 61
+      "fvm": 61,
+      "playedsExpected": 100
     },
     {
       "id": "A-FIO-Pellegrino_M.",
@@ -488,7 +541,8 @@
       "role": "A",
       "qi": 15,
       "qa": 14,
-      "fvm": 40
+      "fvm": 40,
+      "playedsExpected": 100
     },
     {
       "id": "A-ROM-Castro_S.",
@@ -497,7 +551,8 @@
       "role": "A",
       "qi": 14,
       "qa": 14,
-      "fvm": 70
+      "fvm": 70,
+      "playedsExpected": 100
     },
     {
       "id": "A-TOR-Simeone",
@@ -506,7 +561,8 @@
       "role": "A",
       "qi": 15,
       "qa": 14,
-      "fvm": 80
+      "fvm": 80,
+      "playedsExpected": 100
     },
     {
       "id": "A-FIO-Beto",
@@ -515,7 +571,8 @@
       "role": "A",
       "qi": 14,
       "qa": 14,
-      "fvm": 50
+      "fvm": 50,
+      "playedsExpected": 33
     },
     {
       "id": "C-ATA-Samardzic",
@@ -524,7 +581,8 @@
       "role": "C",
       "qi": 12,
       "qa": 13,
-      "fvm": 44
+      "fvm": 44,
+      "playedsExpected": 100
     },
     {
       "id": "C-JUV-Conceicao",
@@ -533,7 +591,8 @@
       "role": "C",
       "qi": 12,
       "qa": 13,
-      "fvm": 68
+      "fvm": 68,
+      "playedsExpected": 67
     },
     {
       "id": "C-LAZ-Taylor_K.",
@@ -542,7 +601,8 @@
       "role": "C",
       "qi": 13,
       "qa": 13,
-      "fvm": 53
+      "fvm": 53,
+      "playedsExpected": 67
     },
     {
       "id": "D-MIL-Gila",
@@ -551,7 +611,8 @@
       "role": "D",
       "qi": 12,
       "qa": 13,
-      "fvm": 31
+      "fvm": 31,
+      "playedsExpected": 67
     },
     {
       "id": "A-MIL-Nkunku",
@@ -560,7 +621,8 @@
       "role": "A",
       "qi": 13,
       "qa": 13,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 0
     },
     {
       "id": "D-ROM-N'Dicka",
@@ -569,7 +631,8 @@
       "role": "D",
       "qi": 13,
       "qa": 13,
-      "fvm": 42
+      "fvm": 42,
+      "playedsExpected": 67
     },
     {
       "id": "A-ROM-Soulè",
@@ -578,7 +641,8 @@
       "role": "A",
       "qi": 12,
       "qa": 13,
-      "fvm": 48
+      "fvm": 48,
+      "playedsExpected": 100
     },
     {
       "id": "C-TOR-Vlasic",
@@ -587,7 +651,8 @@
       "role": "C",
       "qi": 14,
       "qa": 13,
-      "fvm": 73
+      "fvm": 73,
+      "playedsExpected": 100
     },
     {
       "id": "D-UDI-Solet",
@@ -596,7 +661,8 @@
       "role": "D",
       "qi": 13,
       "qa": 13,
-      "fvm": 46
+      "fvm": 46,
+      "playedsExpected": 67
     },
     {
       "id": "C-ATA-Ederson_D.S.",
@@ -605,7 +671,8 @@
       "role": "C",
       "qi": 12,
       "qa": 12,
-      "fvm": 46
+      "fvm": 46,
+      "playedsExpected": 100
     },
     {
       "id": "A-SAS-Esposito_Se.",
@@ -614,7 +681,8 @@
       "role": "A",
       "qi": 13,
       "qa": 12,
-      "fvm": 40
+      "fvm": 40,
+      "playedsExpected": 0
     },
     {
       "id": "A-COM-Diao",
@@ -623,7 +691,8 @@
       "role": "A",
       "qi": 11,
       "qa": 12,
-      "fvm": 50
+      "fvm": 50,
+      "playedsExpected": 100
     },
     {
       "id": "C-LAZ-Gudmundsson_A.",
@@ -632,7 +701,8 @@
       "role": "C",
       "qi": 13,
       "qa": 12,
-      "fvm": 40
+      "fvm": 40,
+      "playedsExpected": 33
     },
     {
       "id": "D-INT-Bisseck",
@@ -641,7 +711,8 @@
       "role": "D",
       "qi": 11,
       "qa": 12,
-      "fvm": 36
+      "fvm": 36,
+      "playedsExpected": 100
     },
     {
       "id": "D-INT-Stones",
@@ -650,7 +721,8 @@
       "role": "D",
       "qi": 12,
       "qa": 12,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 67
     },
     {
       "id": "C-INT-Zielinski",
@@ -659,7 +731,8 @@
       "role": "C",
       "qi": 10,
       "qa": 12,
-      "fvm": 45
+      "fvm": 45,
+      "playedsExpected": 100
     },
     {
       "id": "C-MIL-Modric",
@@ -668,7 +741,8 @@
       "role": "C",
       "qi": 12,
       "qa": 12,
-      "fvm": 45
+      "fvm": 45,
+      "playedsExpected": 67
     },
     {
       "id": "D-NAP-Di_Lorenzo",
@@ -677,7 +751,8 @@
       "role": "D",
       "qi": 12,
       "qa": 12,
-      "fvm": 39
+      "fvm": 39,
+      "playedsExpected": 100
     },
     {
       "id": "A-LAZ-Pinamonti",
@@ -686,7 +761,8 @@
       "role": "A",
       "qi": 13,
       "qa": 12,
-      "fvm": 53
+      "fvm": 53,
+      "playedsExpected": 0
     },
     {
       "id": "C-UDI-Ekkelenkamp",
@@ -695,7 +771,8 @@
       "role": "C",
       "qi": 10,
       "qa": 12,
-      "fvm": 57
+      "fvm": 57,
+      "playedsExpected": 67
     },
     {
       "id": "A-CAG-Kevin_Carlos",
@@ -704,7 +781,8 @@
       "role": "A",
       "qi": 13,
       "qa": 12,
-      "fvm": 36
+      "fvm": 36,
+      "playedsExpected": 33
     },
     {
       "id": "C-INT-Jones_C.",
@@ -713,7 +791,8 @@
       "role": "C",
       "qi": 12,
       "qa": 12,
-      "fvm": 47
+      "fvm": 47,
+      "playedsExpected": 67
     },
     {
       "id": "C-JUV-Gonzalez_N.",
@@ -722,7 +801,8 @@
       "role": "C",
       "qi": 11,
       "qa": 12,
-      "fvm": 45
+      "fvm": 45,
+      "playedsExpected": 33
     },
     {
       "id": "C-ATA-Kessiè",
@@ -731,7 +811,8 @@
       "role": "C",
       "qi": 12,
       "qa": 12,
-      "fvm": 47
+      "fvm": 47,
+      "playedsExpected": 0
     },
     {
       "id": "C-FIO-Goncalves_P.",
@@ -740,7 +821,8 @@
       "role": "C",
       "qi": 12,
       "qa": 12,
-      "fvm": 50
+      "fvm": 50,
+      "playedsExpected": 0
     },
     {
       "id": "C-COM-Rodriguez_Je.",
@@ -749,7 +831,8 @@
       "role": "C",
       "qi": 12,
       "qa": 11,
-      "fvm": 31
+      "fvm": 31,
+      "playedsExpected": 33
     },
     {
       "id": "P-FIO-De_Gea",
@@ -758,7 +841,8 @@
       "role": "P",
       "qi": 13,
       "qa": 11,
-      "fvm": 30
+      "fvm": 30,
+      "playedsExpected": 100
     },
     {
       "id": "D-GEN-Ostigard",
@@ -767,7 +851,8 @@
       "role": "D",
       "qi": 11,
       "qa": 11,
-      "fvm": 41
+      "fvm": 41,
+      "playedsExpected": 100
     },
     {
       "id": "C-GEN-Baldanzi",
@@ -776,7 +861,8 @@
       "role": "C",
       "qi": 11,
       "qa": 11,
-      "fvm": 28
+      "fvm": 28,
+      "playedsExpected": 100
     },
     {
       "id": "A-GEN-Colombo",
@@ -785,7 +871,8 @@
       "role": "A",
       "qi": 11,
       "qa": 11,
-      "fvm": 52
+      "fvm": 52,
+      "playedsExpected": 100
     },
     {
       "id": "C-JUV-Alajbegovic",
@@ -794,7 +881,8 @@
       "role": "C",
       "qi": 12,
       "qa": 11,
-      "fvm": 42
+      "fvm": 42,
+      "playedsExpected": 33
     },
     {
       "id": "C-MIL-Saelemaekers",
@@ -803,7 +891,8 @@
       "role": "C",
       "qi": 10,
       "qa": 11,
-      "fvm": 35
+      "fvm": 35,
+      "playedsExpected": 67
     },
     {
       "id": "P-NAP-Meret",
@@ -812,7 +901,8 @@
       "role": "P",
       "qi": 11,
       "qa": 11,
-      "fvm": 48
+      "fvm": 48,
+      "playedsExpected": 100
     },
     {
       "id": "D-ROM-Hermoso",
@@ -821,7 +911,8 @@
       "role": "D",
       "qi": 10,
       "qa": 11,
-      "fvm": 26
+      "fvm": 26,
+      "playedsExpected": 100
     },
     {
       "id": "A-VEN-Adams_A.",
@@ -830,7 +921,8 @@
       "role": "A",
       "qi": 12,
       "qa": 11,
-      "fvm": 35
+      "fvm": 35,
+      "playedsExpected": 100
     },
     {
       "id": "C-FIO-Mastantuono",
@@ -839,7 +931,8 @@
       "role": "C",
       "qi": 12,
       "qa": 11,
-      "fvm": 50
+      "fvm": 50,
+      "playedsExpected": 100
     },
     {
       "id": "D-INT-Spence",
@@ -848,7 +941,8 @@
       "role": "D",
       "qi": 12,
       "qa": 11,
-      "fvm": 37
+      "fvm": 37,
+      "playedsExpected": 0
     },
     {
       "id": "C-MIL-Moreira",
@@ -857,7 +951,8 @@
       "role": "C",
       "qi": 12,
       "qa": 11,
-      "fvm": 45
+      "fvm": 45,
+      "playedsExpected": 0
     },
     {
       "id": "D-ATA-Scalvini",
@@ -866,7 +961,8 @@
       "role": "D",
       "qi": 10,
       "qa": 10,
-      "fvm": 28
+      "fvm": 28,
+      "playedsExpected": 100
     },
     {
       "id": "P-BOL-Skorupski",
@@ -875,7 +971,8 @@
       "role": "P",
       "qi": 10,
       "qa": 10,
-      "fvm": 32
+      "fvm": 32,
+      "playedsExpected": 100
     },
     {
       "id": "C-BOL-Bernardeschi",
@@ -884,7 +981,8 @@
       "role": "C",
       "qi": 9,
       "qa": 10,
-      "fvm": 27
+      "fvm": 27,
+      "playedsExpected": 100
     },
     {
       "id": "C-ATA-Rowe",
@@ -893,7 +991,8 @@
       "role": "C",
       "qi": 11,
       "qa": 10,
-      "fvm": 40
+      "fvm": 40,
+      "playedsExpected": 33
     },
     {
       "id": "P-CAG-Caprile",
@@ -902,7 +1001,8 @@
       "role": "P",
       "qi": 9,
       "qa": 10,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 67
     },
     {
       "id": "D-COM-Ramon",
@@ -911,7 +1011,8 @@
       "role": "D",
       "qi": 10,
       "qa": 10,
-      "fvm": 31
+      "fvm": 31,
+      "playedsExpected": 100
     },
     {
       "id": "C-COM-Perrone",
@@ -920,7 +1021,8 @@
       "role": "C",
       "qi": 10,
       "qa": 10,
-      "fvm": 34
+      "fvm": 34,
+      "playedsExpected": 100
     },
     {
       "id": "C-LAZ-Frattesi",
@@ -929,7 +1031,8 @@
       "role": "C",
       "qi": 7,
       "qa": 10,
-      "fvm": 75
+      "fvm": 75,
+      "playedsExpected": 67
     },
     {
       "id": "P-LAZ-Mandas",
@@ -938,7 +1041,8 @@
       "role": "P",
       "qi": 9,
       "qa": 10,
-      "fvm": 36
+      "fvm": 36,
+      "playedsExpected": 67
     },
     {
       "id": "A-LAZ-Dia",
@@ -947,7 +1051,8 @@
       "role": "A",
       "qi": 10,
       "qa": 10,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 67
     },
     {
       "id": "C-NAP-Zambo_Anguissa",
@@ -956,7 +1061,8 @@
       "role": "C",
       "qi": 11,
       "qa": 10,
-      "fvm": 41
+      "fvm": 41,
+      "playedsExpected": 100
     },
     {
       "id": "C-NAP-Vergara",
@@ -965,7 +1071,8 @@
       "role": "C",
       "qi": 8,
       "qa": 10,
-      "fvm": 35
+      "fvm": 35,
+      "playedsExpected": 67
     },
     {
       "id": "A-NAP-Lukaku",
@@ -974,7 +1081,8 @@
       "role": "A",
       "qi": 10,
       "qa": 10,
-      "fvm": 45
+      "fvm": 45,
+      "playedsExpected": 0
     },
     {
       "id": "C-ROM-Konè_M.",
@@ -983,7 +1091,8 @@
       "role": "C",
       "qi": 10,
       "qa": 10,
-      "fvm": 42
+      "fvm": 42,
+      "playedsExpected": 100
     },
     {
       "id": "C-SAS-Thorstvedt",
@@ -992,7 +1101,8 @@
       "role": "C",
       "qi": 10,
       "qa": 10,
-      "fvm": 39
+      "fvm": 39,
+      "playedsExpected": 100
     },
     {
       "id": "A-TOR-Adams_C.",
@@ -1001,7 +1111,8 @@
       "role": "A",
       "qi": 9,
       "qa": 10,
-      "fvm": 33
+      "fvm": 33,
+      "playedsExpected": 100
     },
     {
       "id": "A-PAR-Tourè_E.",
@@ -1010,7 +1121,8 @@
       "role": "A",
       "qi": 11,
       "qa": 10,
-      "fvm": 37
+      "fvm": 37,
+      "playedsExpected": 100
     },
     {
       "id": "D-COM-Chalobah_T.",
@@ -1019,7 +1131,8 @@
       "role": "D",
       "qi": 9,
       "qa": 10,
-      "fvm": 32
+      "fvm": 32,
+      "playedsExpected": 100
     },
     {
       "id": "A-PAR-Romero_D.",
@@ -1028,7 +1141,8 @@
       "role": "A",
       "qi": 10,
       "qa": 10,
-      "fvm": 37
+      "fvm": 37,
+      "playedsExpected": 67
     },
     {
       "id": "D-FIO-Dodò",
@@ -1037,7 +1151,8 @@
       "role": "D",
       "qi": 10,
       "qa": 9,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 33
     },
     {
       "id": "A-FRO-Raimondo",
@@ -1046,7 +1161,8 @@
       "role": "A",
       "qi": 7,
       "qa": 9,
-      "fvm": 27
+      "fvm": 27,
+      "playedsExpected": 100
     },
     {
       "id": "D-GEN-Vasquez",
@@ -1055,7 +1171,8 @@
       "role": "D",
       "qi": 9,
       "qa": 9,
-      "fvm": 30
+      "fvm": 30,
+      "playedsExpected": 100
     },
     {
       "id": "C-INT-Diouf",
@@ -1064,7 +1181,8 @@
       "role": "C",
       "qi": 8,
       "qa": 9,
-      "fvm": 43
+      "fvm": 43,
+      "playedsExpected": 67
     },
     {
       "id": "C-INT-Sucic_P.",
@@ -1073,7 +1191,8 @@
       "role": "C",
       "qi": 8,
       "qa": 9,
-      "fvm": 21
+      "fvm": 21,
+      "playedsExpected": 100
     },
     {
       "id": "P-JUV-Di_Gregorio",
@@ -1082,7 +1201,8 @@
       "role": "P",
       "qi": 9,
       "qa": 9,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "C-JUV-Locatelli",
@@ -1091,7 +1211,8 @@
       "role": "C",
       "qi": 8,
       "qa": 9,
-      "fvm": 33
+      "fvm": 33,
+      "playedsExpected": 67
     },
     {
       "id": "C-JUV-Thuram_K.",
@@ -1100,7 +1221,8 @@
       "role": "C",
       "qi": 10,
       "qa": 9,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 0
     },
     {
       "id": "C-LAZ-Cancellieri",
@@ -1109,7 +1231,8 @@
       "role": "C",
       "qi": 9,
       "qa": 9,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 67
     },
     {
       "id": "C-LAZ-Isaksen",
@@ -1118,7 +1241,8 @@
       "role": "C",
       "qi": 9,
       "qa": 9,
-      "fvm": 22
+      "fvm": 22,
+      "playedsExpected": 67
     },
     {
       "id": "A-LAZ-Ratkov",
@@ -1127,7 +1251,8 @@
       "role": "A",
       "qi": 10,
       "qa": 9,
-      "fvm": 22
+      "fvm": 22,
+      "playedsExpected": 0
     },
     {
       "id": "C-MON-Colpani",
@@ -1136,7 +1261,8 @@
       "role": "C",
       "qi": 8,
       "qa": 9,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 100
     },
     {
       "id": "A-MON-Cutrone",
@@ -1145,7 +1271,8 @@
       "role": "A",
       "qi": 9,
       "qa": 9,
-      "fvm": 23
+      "fvm": 23,
+      "playedsExpected": 67
     },
     {
       "id": "C-NAP-Politano",
@@ -1154,7 +1281,8 @@
       "role": "C",
       "qi": 10,
       "qa": 9,
-      "fvm": 37
+      "fvm": 37,
+      "playedsExpected": 100
     },
     {
       "id": "C-ROM-Cristante",
@@ -1163,7 +1291,8 @@
       "role": "C",
       "qi": 8,
       "qa": 9,
-      "fvm": 29
+      "fvm": 29,
+      "playedsExpected": 100
     },
     {
       "id": "C-SAS-Volpato",
@@ -1172,7 +1301,8 @@
       "role": "C",
       "qi": 7,
       "qa": 9,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 100
     },
     {
       "id": "A-SAS-Bowie",
@@ -1181,7 +1311,8 @@
       "role": "A",
       "qi": 10,
       "qa": 9,
-      "fvm": 32
+      "fvm": 32,
+      "playedsExpected": 100
     },
     {
       "id": "C-TOR-Casadei",
@@ -1190,7 +1321,8 @@
       "role": "C",
       "qi": 10,
       "qa": 9,
-      "fvm": 27
+      "fvm": 27,
+      "playedsExpected": 33
     },
     {
       "id": "P-UDI-Okoye",
@@ -1199,7 +1331,8 @@
       "role": "P",
       "qi": 9,
       "qa": 9,
-      "fvm": 28
+      "fvm": 28,
+      "playedsExpected": 67
     },
     {
       "id": "D-UDI-Vojvoda",
@@ -1208,7 +1341,8 @@
       "role": "D",
       "qi": 8,
       "qa": 9,
-      "fvm": 19
+      "fvm": 19,
+      "playedsExpected": 67
     },
     {
       "id": "D-UDI-Kamara_H.",
@@ -1217,7 +1351,8 @@
       "role": "D",
       "qi": 6,
       "qa": 9,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "A-VEN-Yeboah_J.",
@@ -1226,7 +1361,8 @@
       "role": "A",
       "qi": 8,
       "qa": 9,
-      "fvm": 27
+      "fvm": 27,
+      "playedsExpected": 100
     },
     {
       "id": "C-ROM-Pellegrini_Lo.",
@@ -1235,7 +1371,8 @@
       "role": "C",
       "qi": 10,
       "qa": 9,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 0
     },
     {
       "id": "A-FRO-Bobcek",
@@ -1244,7 +1381,8 @@
       "role": "A",
       "qi": 9,
       "qa": 9,
-      "fvm": 31
+      "fvm": 31,
+      "playedsExpected": 0
     },
     {
       "id": "P-TOR-Perri",
@@ -1253,7 +1391,8 @@
       "role": "P",
       "qi": 9,
       "qa": 9,
-      "fvm": 26
+      "fvm": 26,
+      "playedsExpected": 33
     },
     {
       "id": "D-ATA-Zappacosta",
@@ -1262,7 +1401,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 19
+      "fvm": 19,
+      "playedsExpected": 100
     },
     {
       "id": "C-ATA-Pasalic",
@@ -1271,7 +1411,8 @@
       "role": "C",
       "qi": 9,
       "qa": 8,
-      "fvm": 22
+      "fvm": 22,
+      "playedsExpected": 100
     },
     {
       "id": "D-BOL-Miranda_J.",
@@ -1280,7 +1421,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 23
+      "fvm": 23,
+      "playedsExpected": 67
     },
     {
       "id": "C-BOL-Odgaard",
@@ -1289,7 +1431,8 @@
       "role": "C",
       "qi": 8,
       "qa": 8,
-      "fvm": 17
+      "fvm": 17,
+      "playedsExpected": 100
     },
     {
       "id": "C-BOL-Cambiaghi",
@@ -1298,7 +1441,8 @@
       "role": "C",
       "qi": 8,
       "qa": 8,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 100
     },
     {
       "id": "A-BOL-Dallinga",
@@ -1307,7 +1451,8 @@
       "role": "A",
       "qi": 8,
       "qa": 8,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "C-TOR-Mandragora",
@@ -1316,7 +1461,8 @@
       "role": "C",
       "qi": 9,
       "qa": 8,
-      "fvm": 23
+      "fvm": 23,
+      "playedsExpected": 100
     },
     {
       "id": "A-BOL-Piccoli",
@@ -1325,7 +1471,8 @@
       "role": "A",
       "qi": 8,
       "qa": 8,
-      "fvm": 29
+      "fvm": 29,
+      "playedsExpected": 100
     },
     {
       "id": "C-FRO-Calò",
@@ -1334,7 +1481,8 @@
       "role": "C",
       "qi": 7,
       "qa": 8,
-      "fvm": 27
+      "fvm": 27,
+      "playedsExpected": 100
     },
     {
       "id": "A-FRO-Ghedjemis",
@@ -1343,7 +1491,8 @@
       "role": "A",
       "qi": 9,
       "qa": 8,
-      "fvm": 23
+      "fvm": 23,
+      "playedsExpected": 33
     },
     {
       "id": "P-GEN-Bijlow",
@@ -1352,7 +1501,8 @@
       "role": "P",
       "qi": 8,
       "qa": 8,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 100
     },
     {
       "id": "D-GEN-Norton-Cuffy",
@@ -1361,7 +1511,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 67
     },
     {
       "id": "A-GEN-Vitinha_O.",
@@ -1370,7 +1521,8 @@
       "role": "A",
       "qi": 8,
       "qa": 8,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 100
     },
     {
       "id": "D-JUV-Celik",
@@ -1379,7 +1531,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 16
+      "fvm": 16,
+      "playedsExpected": 67
     },
     {
       "id": "D-JUV-Cambiaso",
@@ -1388,7 +1541,8 @@
       "role": "D",
       "qi": 9,
       "qa": 8,
-      "fvm": 18
+      "fvm": 18,
+      "playedsExpected": 33
     },
     {
       "id": "A-JUV-David",
@@ -1397,7 +1551,8 @@
       "role": "A",
       "qi": 9,
       "qa": 8,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 33
     },
     {
       "id": "D-LAZ-Doekhi",
@@ -1406,7 +1561,8 @@
       "role": "D",
       "qi": 7,
       "qa": 8,
-      "fvm": 16
+      "fvm": 16,
+      "playedsExpected": 67
     },
     {
       "id": "P-LEC-Falcone",
@@ -1415,7 +1571,8 @@
       "role": "P",
       "qi": 8,
       "qa": 8,
-      "fvm": 26
+      "fvm": 26,
+      "playedsExpected": 67
     },
     {
       "id": "D-LEC-Tiago_Gabriel",
@@ -1424,7 +1581,8 @@
       "role": "D",
       "qi": 7,
       "qa": 8,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 67
     },
     {
       "id": "A-LEC-Geubbels",
@@ -1433,7 +1591,8 @@
       "role": "A",
       "qi": 9,
       "qa": 8,
-      "fvm": 23
+      "fvm": 23,
+      "playedsExpected": 67
     },
     {
       "id": "D-MIL-Bartesaghi",
@@ -1442,7 +1601,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 22
+      "fvm": 22,
+      "playedsExpected": 67
     },
     {
       "id": "C-MIL-Chukwueze",
@@ -1451,7 +1611,8 @@
       "role": "C",
       "qi": 6,
       "qa": 8,
-      "fvm": 22
+      "fvm": 22,
+      "playedsExpected": 67
     },
     {
       "id": "D-NAP-Gutierrez",
@@ -1460,7 +1621,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 26
+      "fvm": 26,
+      "playedsExpected": 0
     },
     {
       "id": "D-NAP-Spinazzola",
@@ -1469,7 +1631,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 100
     },
     {
       "id": "C-NAP-Lobotka",
@@ -1478,7 +1641,8 @@
       "role": "C",
       "qi": 7,
       "qa": 8,
-      "fvm": 23
+      "fvm": 23,
+      "playedsExpected": 100
     },
     {
       "id": "D-PAR-Delprato",
@@ -1487,7 +1651,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 21
+      "fvm": 21,
+      "playedsExpected": 100
     },
     {
       "id": "D-PAR-Valeri",
@@ -1496,7 +1661,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 22
+      "fvm": 22,
+      "playedsExpected": 100
     },
     {
       "id": "D-ROM-Koulierakis",
@@ -1505,7 +1671,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 33
     },
     {
       "id": "C-SAS-Konè_I.",
@@ -1514,7 +1681,8 @@
       "role": "C",
       "qi": 9,
       "qa": 8,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 0
     },
     {
       "id": "D-TOR-Comuzzo",
@@ -1523,7 +1691,8 @@
       "role": "D",
       "qi": 6,
       "qa": 8,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 100
     },
     {
       "id": "D-COM-Couto",
@@ -1532,7 +1701,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 100
     },
     {
       "id": "C-FRO-Schmid",
@@ -1541,7 +1711,8 @@
       "role": "C",
       "qi": 8,
       "qa": 8,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 100
     },
     {
       "id": "A-GEN-Osmajic",
@@ -1550,7 +1721,8 @@
       "role": "A",
       "qi": 8,
       "qa": 8,
-      "fvm": 28
+      "fvm": 28,
+      "playedsExpected": 67
     },
     {
       "id": "D-BOL-Theate",
@@ -1559,7 +1731,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 33
     },
     {
       "id": "C-MIL-Hutchinson",
@@ -1568,7 +1741,8 @@
       "role": "C",
       "qi": 8,
       "qa": 8,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 0
     },
     {
       "id": "D-PAR-Diego_Carlos",
@@ -1577,7 +1751,8 @@
       "role": "D",
       "qi": 8,
       "qa": 8,
-      "fvm": 26
+      "fvm": 26,
+      "playedsExpected": 33
     },
     {
       "id": "C-BOL-Mbangula",
@@ -1586,7 +1761,8 @@
       "role": "C",
       "qi": 8,
       "qa": 8,
-      "fvm": 28
+      "fvm": 28,
+      "playedsExpected": 0
     },
     {
       "id": "P-COM-Sanchez_Ro.",
@@ -1595,7 +1771,8 @@
       "role": "P",
       "qi": 8,
       "qa": 8,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 0
     },
     {
       "id": "D-ATA-Djimsiti",
@@ -1604,7 +1781,8 @@
       "role": "D",
       "qi": 7,
       "qa": 7,
-      "fvm": 16
+      "fvm": 16,
+      "playedsExpected": 0
     },
     {
       "id": "D-ATA-Hien",
@@ -1613,7 +1791,8 @@
       "role": "D",
       "qi": 8,
       "qa": 7,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 0
     },
     {
       "id": "C-ATA-Gaetano",
@@ -1622,7 +1801,8 @@
       "role": "C",
       "qi": 7,
       "qa": 7,
-      "fvm": 30
+      "fvm": 30,
+      "playedsExpected": 100
     },
     {
       "id": "C-ATA-Zalewski",
@@ -1631,7 +1811,8 @@
       "role": "C",
       "qi": 6,
       "qa": 7,
-      "fvm": 18
+      "fvm": 18,
+      "playedsExpected": 100
     },
     {
       "id": "D-JUV-Lucumì",
@@ -1640,7 +1821,8 @@
       "role": "D",
       "qi": 8,
       "qa": 7,
-      "fvm": 17
+      "fvm": 17,
+      "playedsExpected": 33
     },
     {
       "id": "D-BOL-Zortea",
@@ -1649,7 +1831,8 @@
       "role": "D",
       "qi": 6,
       "qa": 7,
-      "fvm": 19
+      "fvm": 19,
+      "playedsExpected": 67
     },
     {
       "id": "C-BOL-Ferguson",
@@ -1658,7 +1841,8 @@
       "role": "C",
       "qi": 7,
       "qa": 7,
-      "fvm": 23
+      "fvm": 23,
+      "playedsExpected": 100
     },
     {
       "id": "D-CAG-Mina",
@@ -1667,7 +1851,8 @@
       "role": "D",
       "qi": 8,
       "qa": 7,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 0
     },
     {
       "id": "D-CAG-Obert",
@@ -1676,7 +1861,8 @@
       "role": "D",
       "qi": 7,
       "qa": 7,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 67
     },
     {
       "id": "C-CAG-Adopo",
@@ -1685,7 +1871,8 @@
       "role": "C",
       "qi": 6,
       "qa": 7,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 67
     },
     {
       "id": "C-CAG-Romano",
@@ -1694,7 +1881,8 @@
       "role": "C",
       "qi": 5,
       "qa": 7,
-      "fvm": 21
+      "fvm": 21,
+      "playedsExpected": 67
     },
     {
       "id": "D-FIO-Dragusin",
@@ -1703,7 +1891,8 @@
       "role": "D",
       "qi": 8,
       "qa": 7,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 100
     },
     {
       "id": "D-FIO-Jimenez_A.",
@@ -1712,7 +1901,8 @@
       "role": "D",
       "qi": 8,
       "qa": 7,
-      "fvm": 18
+      "fvm": 18,
+      "playedsExpected": 67
     },
     {
       "id": "C-FIO-Fagioli",
@@ -1721,7 +1911,8 @@
       "role": "C",
       "qi": 8,
       "qa": 7,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 100
     },
     {
       "id": "C-FIO-Ndour",
@@ -1730,7 +1921,8 @@
       "role": "C",
       "qi": 8,
       "qa": 7,
-      "fvm": 22
+      "fvm": 22,
+      "playedsExpected": 100
     },
     {
       "id": "D-FRO-Bracaglia",
@@ -1739,7 +1931,8 @@
       "role": "D",
       "qi": 5,
       "qa": 7,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 100
     },
     {
       "id": "C-GEN-Frendrup",
@@ -1748,7 +1941,8 @@
       "role": "C",
       "qi": 7,
       "qa": 7,
-      "fvm": 19
+      "fvm": 19,
+      "playedsExpected": 100
     },
     {
       "id": "A-INT-Bonny",
@@ -1757,7 +1951,8 @@
       "role": "A",
       "qi": 7,
       "qa": 7,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 33
     },
     {
       "id": "C-JUV-Koopmeiners",
@@ -1766,7 +1961,8 @@
       "role": "C",
       "qi": 5,
       "qa": 7,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 33
     },
     {
       "id": "A-JUV-Boga",
@@ -1775,7 +1971,8 @@
       "role": "A",
       "qi": 6,
       "qa": 7,
-      "fvm": 27
+      "fvm": 27,
+      "playedsExpected": 67
     },
     {
       "id": "D-LAZ-Tavares_N.",
@@ -1784,7 +1981,8 @@
       "role": "D",
       "qi": 6,
       "qa": 7,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 33
     },
     {
       "id": "C-LAZ-Rovella",
@@ -1793,7 +1991,8 @@
       "role": "C",
       "qi": 6,
       "qa": 7,
-      "fvm": 16
+      "fvm": 16,
+      "playedsExpected": 67
     },
     {
       "id": "C-LEC-Coulibaly_L.",
@@ -1802,7 +2001,8 @@
       "role": "C",
       "qi": 6,
       "qa": 7,
-      "fvm": 17
+      "fvm": 17,
+      "playedsExpected": 67
     },
     {
       "id": "D-MIL-Gabbia",
@@ -1811,7 +2011,8 @@
       "role": "D",
       "qi": 7,
       "qa": 7,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 33
     },
     {
       "id": "D-MON-Mangas",
@@ -1820,7 +2021,8 @@
       "role": "D",
       "qi": 6,
       "qa": 7,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 100
     },
     {
       "id": "C-MON-Akinsanmiro",
@@ -1829,7 +2031,8 @@
       "role": "C",
       "qi": 6,
       "qa": 7,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 67
     },
     {
       "id": "A-MON-Varela_G.",
@@ -1838,7 +2041,8 @@
       "role": "A",
       "qi": 3,
       "qa": 7,
-      "fvm": 40
+      "fvm": 40,
+      "playedsExpected": 67
     },
     {
       "id": "P-PAR-Suzuki",
@@ -1847,7 +2051,8 @@
       "role": "P",
       "qi": 7,
       "qa": 7,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 0
     },
     {
       "id": "C-PAR-Bernabè",
@@ -1856,7 +2061,8 @@
       "role": "C",
       "qi": 7,
       "qa": 7,
-      "fvm": 34
+      "fvm": 34,
+      "playedsExpected": 67
     },
     {
       "id": "C-ROM-Pisilli",
@@ -1865,7 +2071,8 @@
       "role": "C",
       "qi": 5,
       "qa": 7,
-      "fvm": 19
+      "fvm": 19,
+      "playedsExpected": 67
     },
     {
       "id": "P-SAS-Muric",
@@ -1874,7 +2081,8 @@
       "role": "P",
       "qi": 7,
       "qa": 7,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 100
     },
     {
       "id": "D-SAS-Idzes",
@@ -1883,7 +2091,8 @@
       "role": "D",
       "qi": 7,
       "qa": 7,
-      "fvm": 19
+      "fvm": 19,
+      "playedsExpected": 67
     },
     {
       "id": "D-TOR-Coco",
@@ -1892,7 +2101,8 @@
       "role": "D",
       "qi": 7,
       "qa": 7,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 100
     },
     {
       "id": "D-TOR-Ismajli",
@@ -1901,7 +2111,8 @@
       "role": "D",
       "qi": 7,
       "qa": 7,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 100
     },
     {
       "id": "C-UDI-Karlstrom",
@@ -1910,7 +2121,8 @@
       "role": "C",
       "qi": 6,
       "qa": 7,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 67
     },
     {
       "id": "C-UDI-Unai_Gomez",
@@ -1919,7 +2131,8 @@
       "role": "C",
       "qi": 7,
       "qa": 7,
-      "fvm": 16
+      "fvm": 16,
+      "playedsExpected": 33
     },
     {
       "id": "A-VEN-Rrahmani_Al.",
@@ -1928,7 +2141,8 @@
       "role": "A",
       "qi": 8,
       "qa": 7,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 33
     },
     {
       "id": "C-GEN-Sow",
@@ -1937,7 +2151,8 @@
       "role": "C",
       "qi": 7,
       "qa": 7,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 100
     },
     {
       "id": "C-ATA-Elmas",
@@ -1946,7 +2161,8 @@
       "role": "C",
       "qi": 7,
       "qa": 7,
-      "fvm": 22
+      "fvm": 22,
+      "playedsExpected": 67
     },
     {
       "id": "D-NAP-Badiashile",
@@ -1955,7 +2171,8 @@
       "role": "D",
       "qi": 7,
       "qa": 7,
-      "fvm": 18
+      "fvm": 18,
+      "playedsExpected": 33
     },
     {
       "id": "D-LAZ-Sutalo_J.",
@@ -1964,7 +2181,8 @@
       "role": "D",
       "qi": 7,
       "qa": 7,
-      "fvm": 19
+      "fvm": 19,
+      "playedsExpected": 0
     },
     {
       "id": "C-LEC-Monteiro_J.",
@@ -1973,7 +2191,8 @@
       "role": "C",
       "qi": 7,
       "qa": 7,
-      "fvm": 23
+      "fvm": 23,
+      "playedsExpected": 0
     },
     {
       "id": "D-TOR-Belghali",
@@ -1982,7 +2201,8 @@
       "role": "D",
       "qi": 7,
       "qa": 7,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 33
     },
     {
       "id": "C-JUV-Sarr_P.",
@@ -1991,7 +2211,8 @@
       "role": "C",
       "qi": 7,
       "qa": 7,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 0
     },
     {
       "id": "A-FIO-Gnonto",
@@ -2000,7 +2221,8 @@
       "role": "A",
       "qi": 7,
       "qa": 7,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 33
     },
     {
       "id": "C-GEN-El_Shaarawy",
@@ -2009,7 +2231,8 @@
       "role": "C",
       "qi": 7,
       "qa": 7,
-      "fvm": 25
+      "fvm": 25,
+      "playedsExpected": 0
     },
     {
       "id": "D-ATA-Kolasinac",
@@ -2018,7 +2241,8 @@
       "role": "D",
       "qi": 5,
       "qa": 6,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 100
     },
     {
       "id": "D-ATA-Ahanor",
@@ -2027,7 +2251,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 0
     },
     {
       "id": "D-ATA-Bellanova",
@@ -2036,7 +2261,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 17
+      "fvm": 17,
+      "playedsExpected": 33
     },
     {
       "id": "D-ATA-Bernasconi",
@@ -2045,7 +2271,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 18
+      "fvm": 18,
+      "playedsExpected": 33
     },
     {
       "id": "A-ATA-Sulemana_K.",
@@ -2054,7 +2281,8 @@
       "role": "A",
       "qi": 6,
       "qa": 6,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 0
     },
     {
       "id": "D-BOL-Heggem",
@@ -2063,7 +2291,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 100
     },
     {
       "id": "D-BOL-Holm",
@@ -2072,7 +2301,8 @@
       "role": "D",
       "qi": 5,
       "qa": 6,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 100
     },
     {
       "id": "C-BOL-Pobega",
@@ -2081,7 +2311,8 @@
       "role": "C",
       "qi": 6,
       "qa": 6,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "C-CAG-Winks",
@@ -2090,7 +2321,8 @@
       "role": "C",
       "qi": 6,
       "qa": 6,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 67
     },
     {
       "id": "C-CAG-Fazzini",
@@ -2099,7 +2331,8 @@
       "role": "C",
       "qi": 7,
       "qa": 6,
-      "fvm": 23
+      "fvm": 23,
+      "playedsExpected": 67
     },
     {
       "id": "A-CAG-Mutandwa",
@@ -2108,7 +2341,8 @@
       "role": "A",
       "qi": 6,
       "qa": 6,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 0
     },
     {
       "id": "D-COM-Kaiki",
@@ -2117,7 +2351,8 @@
       "role": "D",
       "qi": 7,
       "qa": 6,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 0
     },
     {
       "id": "D-COM-Valle",
@@ -2126,7 +2361,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 21
+      "fvm": 21,
+      "playedsExpected": 100
     },
     {
       "id": "C-COM-Milla",
@@ -2135,7 +2371,8 @@
       "role": "C",
       "qi": 5,
       "qa": 6,
-      "fvm": 30
+      "fvm": 30,
+      "playedsExpected": 67
     },
     {
       "id": "C-COM-Caqueret",
@@ -2144,7 +2381,8 @@
       "role": "C",
       "qi": 6,
       "qa": 6,
-      "fvm": 17
+      "fvm": 17,
+      "playedsExpected": 67
     },
     {
       "id": "C-COM-Liberali",
@@ -2153,7 +2391,8 @@
       "role": "C",
       "qi": 6,
       "qa": 6,
-      "fvm": 21
+      "fvm": 21,
+      "playedsExpected": 33
     },
     {
       "id": "D-FIO-Viery",
@@ -2162,7 +2401,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "C-FIO-Oulai",
@@ -2171,7 +2411,8 @@
       "role": "C",
       "qi": 6,
       "qa": 6,
-      "fvm": 18
+      "fvm": 18,
+      "playedsExpected": 100
     },
     {
       "id": "D-FRO-Monterisi",
@@ -2180,7 +2421,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 67
     },
     {
       "id": "D-FRO-Oyono_A.",
@@ -2189,7 +2431,8 @@
       "role": "D",
       "qi": 5,
       "qa": 6,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 100
     },
     {
       "id": "C-FRO-Zerbin",
@@ -2198,7 +2441,8 @@
       "role": "C",
       "qi": 5,
       "qa": 6,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "A-FRO-Kvernadze",
@@ -2207,7 +2451,8 @@
       "role": "A",
       "qi": 4,
       "qa": 6,
-      "fvm": 24
+      "fvm": 24,
+      "playedsExpected": 100
     },
     {
       "id": "D-GEN-Marcandalli",
@@ -2216,7 +2461,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 100
     },
     {
       "id": "C-GEN-Ellertsson",
@@ -2225,7 +2471,8 @@
       "role": "C",
       "qi": 6,
       "qa": 6,
-      "fvm": 16
+      "fvm": 16,
+      "playedsExpected": 100
     },
     {
       "id": "D-INT-Pavard",
@@ -2234,7 +2481,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 33
     },
     {
       "id": "D-INT-Carlos_Augusto",
@@ -2243,7 +2491,8 @@
       "role": "D",
       "qi": 7,
       "qa": 6,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 33
     },
     {
       "id": "P-JUV-Perin",
@@ -2252,7 +2501,8 @@
       "role": "P",
       "qi": 6,
       "qa": 6,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "C-JUV-Zhegrova",
@@ -2261,7 +2511,8 @@
       "role": "C",
       "qi": 6,
       "qa": 6,
-      "fvm": 17
+      "fvm": 17,
+      "playedsExpected": 33
     },
     {
       "id": "D-LAZ-Romagnoli",
@@ -2270,7 +2521,8 @@
       "role": "D",
       "qi": 7,
       "qa": 6,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 0
     },
     {
       "id": "D-LAZ-Pedraza",
@@ -2279,7 +2531,8 @@
       "role": "D",
       "qi": 5,
       "qa": 6,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 67
     },
     {
       "id": "D-LAZ-Marusic",
@@ -2288,7 +2541,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 33
     },
     {
       "id": "A-LAZ-Noslin",
@@ -2297,7 +2551,8 @@
       "role": "A",
       "qi": 6,
       "qa": 6,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 0
     },
     {
       "id": "D-LEC-Veiga_D.",
@@ -2306,7 +2561,8 @@
       "role": "D",
       "qi": 5,
       "qa": 6,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "D-LEC-Gallo",
@@ -2315,7 +2571,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 33
     },
     {
       "id": "C-LEC-Pierotti",
@@ -2324,7 +2581,8 @@
       "role": "C",
       "qi": 6,
       "qa": 6,
-      "fvm": 19
+      "fvm": 19,
+      "playedsExpected": 67
     },
     {
       "id": "A-LEC-Stulic",
@@ -2333,7 +2591,8 @@
       "role": "A",
       "qi": 7,
       "qa": 6,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 67
     },
     {
       "id": "D-MIL-Tomori",
@@ -2342,7 +2601,8 @@
       "role": "D",
       "qi": 7,
       "qa": 6,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 0
     },
     {
       "id": "A-MIL-Gimenez",
@@ -2351,7 +2611,8 @@
       "role": "A",
       "qi": 6,
       "qa": 6,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "C-MON-Pessina",
@@ -2360,7 +2621,8 @@
       "role": "C",
       "qi": 7,
       "qa": 6,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 0
     },
     {
       "id": "D-NAP-Beukema",
@@ -2369,7 +2631,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 0
     },
     {
       "id": "D-NAP-Buongiorno",
@@ -2378,7 +2641,8 @@
       "role": "D",
       "qi": 7,
       "qa": 6,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 0
     },
     {
       "id": "A-NAP-Neres",
@@ -2387,7 +2651,8 @@
       "role": "A",
       "qi": 6,
       "qa": 6,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 33
     },
     {
       "id": "P-PAR-Daffara",
@@ -2396,7 +2661,8 @@
       "role": "P",
       "qi": 7,
       "qa": 6,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 0
     },
     {
       "id": "D-PAR-Circati",
@@ -2405,7 +2671,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 18
+      "fvm": 18,
+      "playedsExpected": 0
     },
     {
       "id": "C-PAR-Nicolussi_Caviglia",
@@ -2414,7 +2681,8 @@
       "role": "C",
       "qi": 6,
       "qa": 6,
-      "fvm": 16
+      "fvm": 16,
+      "playedsExpected": 0
     },
     {
       "id": "C-SAS-Matic",
@@ -2423,7 +2691,8 @@
       "role": "C",
       "qi": 5,
       "qa": 6,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 100
     },
     {
       "id": "C-SAS-Adzic",
@@ -2432,7 +2701,8 @@
       "role": "C",
       "qi": 5,
       "qa": 6,
-      "fvm": 16
+      "fvm": 16,
+      "playedsExpected": 100
     },
     {
       "id": "C-SAS-Bakola",
@@ -2441,7 +2711,8 @@
       "role": "C",
       "qi": 5,
       "qa": 6,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 67
     },
     {
       "id": "C-TOR-Cacciamani",
@@ -2450,7 +2721,8 @@
       "role": "C",
       "qi": 5,
       "qa": 6,
-      "fvm": 24
+      "fvm": 24,
+      "playedsExpected": 100
     },
     {
       "id": "C-TOR-Oristanio",
@@ -2459,7 +2731,8 @@
       "role": "C",
       "qi": 7,
       "qa": 6,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 0
     },
     {
       "id": "A-TOR-Zapata_D.",
@@ -2468,7 +2741,8 @@
       "role": "A",
       "qi": 7,
       "qa": 6,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 0
     },
     {
       "id": "D-ATA-Kristensen_T.",
@@ -2477,7 +2751,8 @@
       "role": "D",
       "qi": 7,
       "qa": 6,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 0
     },
     {
       "id": "C-UDI-Piotrowski",
@@ -2486,7 +2761,8 @@
       "role": "C",
       "qi": 5,
       "qa": 6,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 67
     },
     {
       "id": "P-VEN-Stankovic_F.",
@@ -2495,7 +2771,8 @@
       "role": "P",
       "qi": 6,
       "qa": 6,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 100
     },
     {
       "id": "C-VEN-Basic",
@@ -2504,7 +2781,8 @@
       "role": "C",
       "qi": 6,
       "qa": 6,
-      "fvm": 19
+      "fvm": 19,
+      "playedsExpected": 67
     },
     {
       "id": "D-SAS-Obrador",
@@ -2513,7 +2791,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 33
     },
     {
       "id": "C-MON-Tourè_I.",
@@ -2522,7 +2801,8 @@
       "role": "C",
       "qi": 6,
       "qa": 6,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 0
     },
     {
       "id": "D-TOR-Fortini",
@@ -2531,7 +2811,8 @@
       "role": "D",
       "qi": 5,
       "qa": 6,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 100
     },
     {
       "id": "D-SAS-Leysen_F.",
@@ -2540,7 +2821,8 @@
       "role": "D",
       "qi": 5,
       "qa": 6,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 100
     },
     {
       "id": "D-ROM-Balerdi",
@@ -2549,7 +2831,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 33
     },
     {
       "id": "D-SAS-Caleta-Car",
@@ -2558,7 +2841,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 0
     },
     {
       "id": "A-MON-Zeballos",
@@ -2567,7 +2851,8 @@
       "role": "A",
       "qi": 6,
       "qa": 6,
-      "fvm": 18
+      "fvm": 18,
+      "playedsExpected": 0
     },
     {
       "id": "D-CAG-Sugawara",
@@ -2576,7 +2861,8 @@
       "role": "D",
       "qi": 6,
       "qa": 6,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 0
     },
     {
       "id": "C-TOR-Braganca",
@@ -2585,7 +2871,8 @@
       "role": "C",
       "qi": 6,
       "qa": 6,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 33
     },
     {
       "id": "A-CAG-Maldini",
@@ -2594,7 +2881,8 @@
       "role": "A",
       "qi": 5,
       "qa": 5,
-      "fvm": 21
+      "fvm": 21,
+      "playedsExpected": 67
     },
     {
       "id": "C-BOL-Amondarain",
@@ -2603,7 +2891,8 @@
       "role": "C",
       "qi": 5,
       "qa": 5,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 33
     },
     {
       "id": "D-CAG-Kofler",
@@ -2612,7 +2901,8 @@
       "role": "D",
       "qi": 5,
       "qa": 5,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 33
     },
     {
       "id": "D-CAG-Zè_Pedro",
@@ -2621,7 +2911,8 @@
       "role": "D",
       "qi": 5,
       "qa": 5,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 67
     },
     {
       "id": "C-CAG-Felici",
@@ -2630,7 +2921,8 @@
       "role": "C",
       "qi": 5,
       "qa": 5,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 33
     },
     {
       "id": "D-COM-Kempf",
@@ -2639,7 +2931,8 @@
       "role": "D",
       "qi": 5,
       "qa": 5,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 33
     },
     {
       "id": "D-FIO-Valdepenas",
@@ -2648,7 +2941,8 @@
       "role": "D",
       "qi": 6,
       "qa": 5,
-      "fvm": 16
+      "fvm": 16,
+      "playedsExpected": 67
     },
     {
       "id": "P-FRO-Palmisani",
@@ -2657,7 +2951,8 @@
       "role": "P",
       "qi": 4,
       "qa": 5,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 100
     },
     {
       "id": "D-FRO-Calvani",
@@ -2666,7 +2961,8 @@
       "role": "D",
       "qi": 4,
       "qa": 5,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 100
     },
     {
       "id": "C-GEN-Meichtry",
@@ -2675,7 +2971,8 @@
       "role": "C",
       "qi": 5,
       "qa": 5,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 67
     },
     {
       "id": "C-INT-Luis_Henrique",
@@ -2684,7 +2981,8 @@
       "role": "C",
       "qi": 4,
       "qa": 5,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "D-JUV-Kelly_L.",
@@ -2693,7 +2991,8 @@
       "role": "D",
       "qi": 5,
       "qa": 5,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "C-LAZ-Dele-Bashiru",
@@ -2702,7 +3001,8 @@
       "role": "C",
       "qi": 5,
       "qa": 5,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 33
     },
     {
       "id": "D-LEC-Gaspar_K.",
@@ -2711,7 +3011,8 @@
       "role": "D",
       "qi": 5,
       "qa": 5,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "D-MIL-De_Winter",
@@ -2720,7 +3021,8 @@
       "role": "D",
       "qi": 3,
       "qa": 5,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 67
     },
     {
       "id": "C-MIL-Jashari",
@@ -2729,7 +3031,8 @@
       "role": "C",
       "qi": 4,
       "qa": 5,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 67
     },
     {
       "id": "P-NAP-Milinkovic-Savic_V.",
@@ -2738,7 +3041,8 @@
       "role": "P",
       "qi": 5,
       "qa": 5,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "D-NAP-Olivera",
@@ -2747,7 +3051,8 @@
       "role": "D",
       "qi": 5,
       "qa": 5,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 33
     },
     {
       "id": "C-PAR-Keita_M.",
@@ -2756,7 +3061,8 @@
       "role": "C",
       "qi": 5,
       "qa": 5,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 100
     },
     {
       "id": "C-PAR-Ondrejka",
@@ -2765,7 +3071,8 @@
       "role": "C",
       "qi": 5,
       "qa": 5,
-      "fvm": 18
+      "fvm": 18,
+      "playedsExpected": 0
     },
     {
       "id": "D-ROM-Ghilardi",
@@ -2774,7 +3081,8 @@
       "role": "D",
       "qi": 4,
       "qa": 5,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 67
     },
     {
       "id": "D-SAS-Doig",
@@ -2783,7 +3091,8 @@
       "role": "D",
       "qi": 4,
       "qa": 5,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 100
     },
     {
       "id": "D-TOR-Pedersen",
@@ -2792,7 +3101,8 @@
       "role": "D",
       "qi": 5,
       "qa": 5,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 33
     },
     {
       "id": "C-TOR-Fitz-Jim",
@@ -2801,7 +3111,8 @@
       "role": "C",
       "qi": 4,
       "qa": 5,
-      "fvm": 18
+      "fvm": 18,
+      "playedsExpected": 100
     },
     {
       "id": "C-TOR-Gineitis",
@@ -2810,7 +3121,8 @@
       "role": "C",
       "qi": 5,
       "qa": 5,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 100
     },
     {
       "id": "D-VEN-Bella-Kotchap",
@@ -2819,7 +3131,8 @@
       "role": "D",
       "qi": 6,
       "qa": 5,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 67
     },
     {
       "id": "D-VEN-Correia_T.",
@@ -2828,7 +3141,8 @@
       "role": "D",
       "qi": 4,
       "qa": 5,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "D-VEN-Haps",
@@ -2837,7 +3151,8 @@
       "role": "D",
       "qi": 5,
       "qa": 5,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 100
     },
     {
       "id": "C-VEN-Busio",
@@ -2846,7 +3161,8 @@
       "role": "C",
       "qi": 5,
       "qa": 5,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 100
     },
     {
       "id": "C-VEN-Sohm",
@@ -2855,7 +3171,8 @@
       "role": "C",
       "qi": 5,
       "qa": 5,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 67
     },
     {
       "id": "C-VEN-Perez_K.",
@@ -2864,7 +3181,8 @@
       "role": "C",
       "qi": 5,
       "qa": 5,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 100
     },
     {
       "id": "C-MIL-Cissè_A.",
@@ -2873,7 +3191,8 @@
       "role": "C",
       "qi": 3,
       "qa": 5,
-      "fvm": 24
+      "fvm": 24,
+      "playedsExpected": 67
     },
     {
       "id": "A-FRO-Birligea",
@@ -2882,7 +3201,8 @@
       "role": "A",
       "qi": 5,
       "qa": 5,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 0
     },
     {
       "id": "A-MON-Ngonge",
@@ -2891,7 +3211,8 @@
       "role": "A",
       "qi": 5,
       "qa": 5,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 0
     },
     {
       "id": "D-TOR-Patterson",
@@ -2900,7 +3221,8 @@
       "role": "D",
       "qi": 5,
       "qa": 5,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 33
     },
     {
       "id": "D-TOR-Rodriguez_R.",
@@ -2909,7 +3231,8 @@
       "role": "D",
       "qi": 5,
       "qa": 5,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 0
     },
     {
       "id": "D-ATA-Kossounou",
@@ -2918,7 +3241,8 @@
       "role": "D",
       "qi": 3,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 100
     },
     {
       "id": "C-ROM-De_Roon",
@@ -2927,7 +3251,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "D-BOL-Vitik",
@@ -2936,7 +3261,8 @@
       "role": "D",
       "qi": 5,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "C-BOL-Moro_N.",
@@ -2945,7 +3271,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 33
     },
     {
       "id": "C-SAS-Dominguez_B.",
@@ -2954,7 +3281,8 @@
       "role": "C",
       "qi": 3,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "D-CAG-Rodriguez_Ju.",
@@ -2963,7 +3291,8 @@
       "role": "D",
       "qi": 3,
       "qa": 4,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 67
     },
     {
       "id": "D-CAG-Zappa",
@@ -2972,7 +3301,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 33
     },
     {
       "id": "C-CAG-Prati",
@@ -2981,7 +3311,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 0
     },
     {
       "id": "A-CAG-Borrelli",
@@ -2990,7 +3321,8 @@
       "role": "A",
       "qi": 4,
       "qa": 4,
-      "fvm": 9
+      "fvm": 9,
+      "playedsExpected": 33
     },
     {
       "id": "A-CAG-Mendy_P.",
@@ -2999,7 +3331,8 @@
       "role": "A",
       "qi": 4,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "D-COM-Smolcic_I.",
@@ -3008,7 +3341,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 33
     },
     {
       "id": "C-COM-Addai",
@@ -3017,7 +3351,8 @@
       "role": "C",
       "qi": 5,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "A-COM-Morata",
@@ -3026,7 +3361,8 @@
       "role": "A",
       "qi": 4,
       "qa": 4,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 0
     },
     {
       "id": "D-FIO-Pongracic",
@@ -3035,7 +3371,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 33
     },
     {
       "id": "D-FIO-Parisi",
@@ -3044,7 +3381,8 @@
       "role": "D",
       "qi": 5,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "C-PAR-Fabbian",
@@ -3053,7 +3391,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 33
     },
     {
       "id": "D-FRO-Cittadini",
@@ -3062,7 +3401,8 @@
       "role": "D",
       "qi": 3,
       "qa": 4,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 100
     },
     {
       "id": "C-FRO-Cichella",
@@ -3071,7 +3411,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "C-FRO-Koutsoupias",
@@ -3080,7 +3421,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 0
     },
     {
       "id": "C-FRO-Fini",
@@ -3089,7 +3431,8 @@
       "role": "C",
       "qi": 3,
       "qa": 4,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 100
     },
     {
       "id": "D-GEN-Martin",
@@ -3098,7 +3441,8 @@
       "role": "D",
       "qi": 5,
       "qa": 4,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 0
     },
     {
       "id": "D-GEN-Mitaj",
@@ -3107,7 +3451,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "C-GEN-Amorim",
@@ -3116,7 +3461,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 67
     },
     {
       "id": "C-GEN-Messias",
@@ -3125,7 +3471,8 @@
       "role": "C",
       "qi": 3,
       "qa": 4,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 100
     },
     {
       "id": "C-GEN-Traorè_Hj.",
@@ -3134,7 +3481,8 @@
       "role": "C",
       "qi": 5,
       "qa": 4,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 0
     },
     {
       "id": "A-GEN-Havel",
@@ -3143,7 +3491,8 @@
       "role": "A",
       "qi": 4,
       "qa": 4,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "C-INT-Mkhitaryan",
@@ -3152,7 +3501,8 @@
       "role": "C",
       "qi": 5,
       "qa": 4,
-      "fvm": 9
+      "fvm": 9,
+      "playedsExpected": 0
     },
     {
       "id": "D-JUV-Gatti",
@@ -3161,7 +3511,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "C-JUV-Douglas_Luiz",
@@ -3170,7 +3521,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 67
     },
     {
       "id": "D-LAZ-Provstgaard",
@@ -3179,7 +3531,8 @@
       "role": "D",
       "qi": 3,
       "qa": 4,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 67
     },
     {
       "id": "D-LAZ-Floriani_Mussolini",
@@ -3188,7 +3541,8 @@
       "role": "D",
       "qi": 3,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 67
     },
     {
       "id": "C-LAZ-Cataldi",
@@ -3197,7 +3551,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 0
     },
     {
       "id": "D-LEC-Siebert",
@@ -3206,7 +3561,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "C-LEC-Ngom",
@@ -3215,7 +3571,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "C-LEC-Berisha_M.",
@@ -3224,7 +3581,8 @@
       "role": "C",
       "qi": 5,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 0
     },
     {
       "id": "C-LEC-Gandelman",
@@ -3233,7 +3591,8 @@
       "role": "C",
       "qi": 5,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "A-LEC-N'Dri",
@@ -3242,7 +3601,8 @@
       "role": "A",
       "qi": 3,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "C-MIL-Fofana_Y.",
@@ -3251,7 +3611,8 @@
       "role": "C",
       "qi": 5,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "C-COM-Ricci_S.",
@@ -3260,7 +3621,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 0
     },
     {
       "id": "C-MIL-Loftus-Cheek",
@@ -3269,7 +3631,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 16
+      "fvm": 16,
+      "playedsExpected": 67
     },
     {
       "id": "A-MIL-Camarda",
@@ -3278,7 +3641,8 @@
       "role": "A",
       "qi": 5,
       "qa": 4,
-      "fvm": 20
+      "fvm": 20,
+      "playedsExpected": 0
     },
     {
       "id": "P-MON-Thiam",
@@ -3287,7 +3651,8 @@
       "role": "P",
       "qi": 5,
       "qa": 4,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 67
     },
     {
       "id": "D-MON-Delli_Carri",
@@ -3296,7 +3661,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 33
     },
     {
       "id": "D-MON-Birindelli",
@@ -3305,7 +3671,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 100
     },
     {
       "id": "A-MON-Mota",
@@ -3314,7 +3681,8 @@
       "role": "A",
       "qi": 5,
       "qa": 4,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 33
     },
     {
       "id": "C-MON-Folorunsho",
@@ -3323,7 +3691,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 17
+      "fvm": 17,
+      "playedsExpected": 67
     },
     {
       "id": "A-NAP-Giovane",
@@ -3332,7 +3701,8 @@
       "role": "A",
       "qi": 4,
       "qa": 4,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 0
     },
     {
       "id": "A-NAP-Lang",
@@ -3341,7 +3711,8 @@
       "role": "A",
       "qi": 3,
       "qa": 4,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 67
     },
     {
       "id": "A-NAP-Lucca",
@@ -3350,7 +3721,8 @@
       "role": "A",
       "qi": 3,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "D-PAR-Valenti",
@@ -3359,7 +3731,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 33
     },
     {
       "id": "C-PAR-Almqvist",
@@ -3368,7 +3741,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 67
     },
     {
       "id": "A-PAR-Frigan",
@@ -3377,7 +3751,8 @@
       "role": "A",
       "qi": 5,
       "qa": 4,
-      "fvm": 6
+      "fvm": 6,
+      "playedsExpected": 33
     },
     {
       "id": "D-ROM-Rensch",
@@ -3386,7 +3761,8 @@
       "role": "D",
       "qi": 5,
       "qa": 4,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 0
     },
     {
       "id": "C-ROM-El_Aynaoui",
@@ -3395,7 +3771,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 0
     },
     {
       "id": "D-SAS-Walukiewicz",
@@ -3404,7 +3781,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "D-TOR-Comert",
@@ -3413,7 +3791,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "C-TOR-Ilkhan",
@@ -3422,7 +3801,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 33
     },
     {
       "id": "C-FIO-Njie",
@@ -3431,7 +3811,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 28
+      "fvm": 28,
+      "playedsExpected": 67
     },
     {
       "id": "A-TOR-Kulenovic",
@@ -3440,7 +3821,8 @@
       "role": "A",
       "qi": 4,
       "qa": 4,
-      "fvm": 9
+      "fvm": 9,
+      "playedsExpected": 33
     },
     {
       "id": "D-UDI-Kabasele",
@@ -3449,7 +3831,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 0
     },
     {
       "id": "D-UDI-Bertola",
@@ -3458,7 +3841,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 33
     },
     {
       "id": "D-UDI-Zanoli",
@@ -3467,7 +3851,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "D-UDI-Arizala",
@@ -3476,7 +3861,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 0
     },
     {
       "id": "C-UDI-Miller_L.",
@@ -3485,7 +3871,8 @@
       "role": "C",
       "qi": 3,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "A-UDI-Gueye",
@@ -3494,7 +3881,8 @@
       "role": "A",
       "qi": 4,
       "qa": 4,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 67
     },
     {
       "id": "D-VEN-Moreno_M.",
@@ -3503,7 +3891,8 @@
       "role": "D",
       "qi": 5,
       "qa": 4,
-      "fvm": 6
+      "fvm": 6,
+      "playedsExpected": 33
     },
     {
       "id": "D-VEN-Hainaut",
@@ -3512,7 +3901,8 @@
       "role": "D",
       "qi": 3,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 100
     },
     {
       "id": "A-VEN-Adorante",
@@ -3521,7 +3911,8 @@
       "role": "A",
       "qi": 5,
       "qa": 4,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 0
     },
     {
       "id": "A-MON-Robinson_J.",
@@ -3530,7 +3921,8 @@
       "role": "A",
       "qi": 4,
       "qa": 4,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 33
     },
     {
       "id": "C-FRO-Grillitsch",
@@ -3539,7 +3931,8 @@
       "role": "C",
       "qi": 5,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "D-FRO-Terzic",
@@ -3548,7 +3941,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 67
     },
     {
       "id": "A-JUV-Milik",
@@ -3557,7 +3951,8 @@
       "role": "A",
       "qi": 5,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "D-NAP-Favasuli",
@@ -3566,7 +3961,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 0
     },
     {
       "id": "A-LEC-Fatah",
@@ -3575,7 +3971,8 @@
       "role": "A",
       "qi": 4,
       "qa": 4,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 33
     },
     {
       "id": "C-CAG-Massolin",
@@ -3584,7 +3981,8 @@
       "role": "C",
       "qi": 4,
       "qa": 4,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 0
     },
     {
       "id": "D-VEN-Juan_Jesus",
@@ -3593,7 +3991,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "A-CAG-Nzola",
@@ -3602,7 +4001,8 @@
       "role": "A",
       "qi": 4,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "D-GEN-Ehizibue",
@@ -3611,7 +4011,8 @@
       "role": "D",
       "qi": 4,
       "qa": 4,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 33
     },
     {
       "id": "C-SAS-Sulemana_I.",
@@ -3620,7 +4021,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 33
     },
     {
       "id": "D-BOL-Casale",
@@ -3629,7 +4031,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "D-BOL-Helland",
@@ -3638,7 +4041,8 @@
       "role": "D",
       "qi": 2,
       "qa": 3,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "D-CAG-Idrissi_R.",
@@ -3647,7 +4051,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 0
     },
     {
       "id": "C-CAG-Deiola",
@@ -3656,7 +4061,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 67
     },
     {
       "id": "A-COM-Kuhn",
@@ -3665,7 +4071,8 @@
       "role": "A",
       "qi": 3,
       "qa": 3,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "D-FIO-Ranieri_L.",
@@ -3674,7 +4081,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 33
     },
     {
       "id": "D-FIO-Joao_Mario",
@@ -3683,7 +4091,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "C-FIO-Brescianini",
@@ -3692,7 +4101,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 100
     },
     {
       "id": "D-FRO-Akpoguma",
@@ -3701,7 +4111,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 6
+      "fvm": 6,
+      "playedsExpected": 0
     },
     {
       "id": "C-FRO-Gelli_F.",
@@ -3710,7 +4121,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 6
+      "fvm": 6,
+      "playedsExpected": 0
     },
     {
       "id": "C-FRO-Masini",
@@ -3719,7 +4131,8 @@
       "role": "C",
       "qi": 2,
       "qa": 3,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 100
     },
     {
       "id": "C-INT-Stankovic_A.",
@@ -3728,7 +4141,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 0
     },
     {
       "id": "C-JUV-Miretti",
@@ -3737,7 +4151,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 0
     },
     {
       "id": "A-JUV-Ekhator",
@@ -3746,7 +4161,8 @@
       "role": "A",
       "qi": 3,
       "qa": 3,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "C-LEC-Gorter",
@@ -3755,7 +4171,8 @@
       "role": "C",
       "qi": 1,
       "qa": 3,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 67
     },
     {
       "id": "C-LEC-Maleh",
@@ -3764,7 +4181,8 @@
       "role": "C",
       "qi": 2,
       "qa": 3,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 67
     },
     {
       "id": "D-MIL-Athekame",
@@ -3773,7 +4191,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 0
     },
     {
       "id": "D-MIL-Estupinan",
@@ -3782,7 +4201,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 13
+      "fvm": 13,
+      "playedsExpected": 33
     },
     {
       "id": "C-MIL-Musah",
@@ -3791,7 +4211,8 @@
       "role": "C",
       "qi": 2,
       "qa": 3,
-      "fvm": 15
+      "fvm": 15,
+      "playedsExpected": 67
     },
     {
       "id": "D-MON-Lucchesi",
@@ -3800,7 +4221,8 @@
       "role": "D",
       "qi": 4,
       "qa": 3,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 100
     },
     {
       "id": "D-MON-Kouadio",
@@ -3809,7 +4231,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 100
     },
     {
       "id": "D-MON-Carboni_A.",
@@ -3818,7 +4241,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 9
+      "fvm": 9,
+      "playedsExpected": 100
     },
     {
       "id": "C-MON-Colombo_L.",
@@ -3827,7 +4251,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 33
     },
     {
       "id": "C-NAP-Gilmour",
@@ -3836,7 +4261,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "D-PAR-Troilo",
@@ -3845,7 +4271,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 14
+      "fvm": 14,
+      "playedsExpected": 100
     },
     {
       "id": "D-PAR-Britschgi",
@@ -3854,7 +4281,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 67
     },
     {
       "id": "C-PAR-Ordonez_C.",
@@ -3863,7 +4291,8 @@
       "role": "C",
       "qi": 2,
       "qa": 3,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 100
     },
     {
       "id": "C-PAR-Sorensen_O.",
@@ -3872,7 +4301,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 0
     },
     {
       "id": "C-PAR-Diallo_O.",
@@ -3881,7 +4311,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 33
     },
     {
       "id": "A-PAR-Elphege",
@@ -3890,7 +4321,8 @@
       "role": "A",
       "qi": 3,
       "qa": 3,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 33
     },
     {
       "id": "D-ROM-Angelino",
@@ -3899,7 +4331,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 0
     },
     {
       "id": "D-SAS-Candè",
@@ -3908,7 +4341,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 0
     },
     {
       "id": "C-TOR-Aboukhlal",
@@ -3917,7 +4351,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 67
     },
     {
       "id": "D-UDI-Palma",
@@ -3926,7 +4361,8 @@
       "role": "D",
       "qi": 2,
       "qa": 3,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 33
     },
     {
       "id": "D-UDI-Ebosse",
@@ -3935,7 +4371,8 @@
       "role": "D",
       "qi": 2,
       "qa": 3,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 67
     },
     {
       "id": "D-VEN-Halhal",
@@ -3944,7 +4381,8 @@
       "role": "D",
       "qi": 4,
       "qa": 3,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 67
     },
     {
       "id": "D-VEN-Schingtienne",
@@ -3953,7 +4391,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 100
     },
     {
       "id": "D-VEN-Sverko",
@@ -3962,7 +4401,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 0
     },
     {
       "id": "D-VEN-Franjic",
@@ -3971,7 +4411,8 @@
       "role": "D",
       "qi": 2,
       "qa": 3,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 67
     },
     {
       "id": "C-VEN-Helgason",
@@ -3980,7 +4421,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 0
     },
     {
       "id": "A-PAR-Lontani",
@@ -3989,7 +4431,8 @@
       "role": "A",
       "qi": 1,
       "qa": 3,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 100
     },
     {
       "id": "D-SAS-Odenthal",
@@ -3998,7 +4441,8 @@
       "role": "D",
       "qi": 1,
       "qa": 3,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 33
     },
     {
       "id": "D-FRO-Tchato",
@@ -4007,7 +4451,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 0
     },
     {
       "id": "D-COM-Kambwala",
@@ -4016,7 +4461,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 0
     },
     {
       "id": "C-CAG-Gagliardini",
@@ -4025,7 +4471,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 0
     },
     {
       "id": "D-GEN-Drameh",
@@ -4034,7 +4481,8 @@
       "role": "D",
       "qi": 3,
       "qa": 3,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "C-VEN-Fernandez_T.",
@@ -4043,7 +4491,8 @@
       "role": "C",
       "qi": 3,
       "qa": 3,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 33
     },
     {
       "id": "D-BOL-Alhassane",
@@ -4052,7 +4501,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 6
+      "fvm": 6,
+      "playedsExpected": 67
     },
     {
       "id": "C-BOL-El_Azzouzi_O.",
@@ -4061,7 +4511,8 @@
       "role": "C",
       "qi": 2,
       "qa": 2,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 33
     },
     {
       "id": "D-SAS-Van_Der_Brempt",
@@ -4070,7 +4521,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 11
+      "fvm": 11,
+      "playedsExpected": 0
     },
     {
       "id": "C-CAG-Fadera",
@@ -4079,7 +4531,8 @@
       "role": "C",
       "qi": 2,
       "qa": 2,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 33
     },
     {
       "id": "P-FRO-Desplanches",
@@ -4088,7 +4541,8 @@
       "role": "P",
       "qi": 2,
       "qa": 2,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-FRO-Hasa",
@@ -4097,7 +4551,8 @@
       "role": "C",
       "qi": 2,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 33
     },
     {
       "id": "D-GEN-Otoa",
@@ -4106,7 +4561,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 33
     },
     {
       "id": "D-GEN-Puczka",
@@ -4115,7 +4571,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 0
     },
     {
       "id": "D-GEN-Sabelli",
@@ -4124,7 +4581,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 33
     },
     {
       "id": "C-GEN-Venturino",
@@ -4133,7 +4591,8 @@
       "role": "C",
       "qi": 2,
       "qa": 2,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 0
     },
     {
       "id": "P-INT-Provedel",
@@ -4142,7 +4601,8 @@
       "role": "P",
       "qi": 2,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "D-LAZ-Lazzari",
@@ -4151,7 +4611,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "D-LAZ-Pellegrini_Lu.",
@@ -4160,7 +4621,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 7
+      "fvm": 7,
+      "playedsExpected": 0
     },
     {
       "id": "C-LAZ-Belahyane",
@@ -4169,7 +4631,8 @@
       "role": "C",
       "qi": 1,
       "qa": 2,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 33
     },
     {
       "id": "D-LEC-Jean",
@@ -4178,7 +4641,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 0
     },
     {
       "id": "D-LEC-Ndaba",
@@ -4187,7 +4651,8 @@
       "role": "D",
       "qi": 1,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 67
     },
     {
       "id": "D-MIL-Diawara_S.",
@@ -4196,7 +4661,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 0
     },
     {
       "id": "D-MON-Bakoune",
@@ -4205,7 +4671,8 @@
       "role": "D",
       "qi": 1,
       "qa": 2,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 33
     },
     {
       "id": "C-MON-Ciurria",
@@ -4214,7 +4681,8 @@
       "role": "C",
       "qi": 2,
       "qa": 2,
-      "fvm": 6
+      "fvm": 6,
+      "playedsExpected": 0
     },
     {
       "id": "A-MON-Petagna",
@@ -4223,7 +4691,8 @@
       "role": "A",
       "qi": 2,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "D-NAP-Marin_R.",
@@ -4232,7 +4701,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 100
     },
     {
       "id": "P-PAR-Corvi",
@@ -4241,7 +4711,8 @@
       "role": "P",
       "qi": 1,
       "qa": 2,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 100
     },
     {
       "id": "D-PAR-Ndiaye",
@@ -4250,7 +4721,8 @@
       "role": "D",
       "qi": 1,
       "qa": 2,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 33
     },
     {
       "id": "C-PAR-Cremaschi",
@@ -4259,7 +4731,8 @@
       "role": "C",
       "qi": 1,
       "qa": 2,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 33
     },
     {
       "id": "C-SAS-Boloca",
@@ -4268,7 +4741,8 @@
       "role": "C",
       "qi": 2,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "C-SAS-Lipani",
@@ -4277,7 +4751,8 @@
       "role": "C",
       "qi": 2,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 33
     },
     {
       "id": "D-TOR-Biraghi",
@@ -4286,7 +4761,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "D-UDI-Abankwah",
@@ -4295,7 +4771,8 @@
       "role": "D",
       "qi": 1,
       "qa": 2,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 67
     },
     {
       "id": "C-UDI-Zarraga",
@@ -4304,7 +4781,8 @@
       "role": "C",
       "qi": 1,
       "qa": 2,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 33
     },
     {
       "id": "C-UDI-Chakvetadze",
@@ -4313,7 +4791,8 @@
       "role": "C",
       "qi": 2,
       "qa": 2,
-      "fvm": 6
+      "fvm": 6,
+      "playedsExpected": 0
     },
     {
       "id": "A-UDI-Buksa",
@@ -4322,7 +4801,8 @@
       "role": "A",
       "qi": 2,
       "qa": 2,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 0
     },
     {
       "id": "D-VEN-Sagrado",
@@ -4331,7 +4811,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 33
     },
     {
       "id": "C-VEN-Duncan",
@@ -4340,7 +4821,8 @@
       "role": "C",
       "qi": 2,
       "qa": 2,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 0
     },
     {
       "id": "D-CAG-Aurelio",
@@ -4349,7 +4831,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "C-MON-Forson_O.",
@@ -4358,7 +4841,8 @@
       "role": "C",
       "qi": 1,
       "qa": 2,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 67
     },
     {
       "id": "D-MON-Goglichidze",
@@ -4367,7 +4851,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "D-SAS-Cinquegrano",
@@ -4376,7 +4861,8 @@
       "role": "D",
       "qi": 1,
       "qa": 2,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 100
     },
     {
       "id": "C-MON-Foe_Ondoa",
@@ -4385,7 +4871,8 @@
       "role": "C",
       "qi": 1,
       "qa": 2,
-      "fvm": 2
+      "fvm": 2,
+      "playedsExpected": 33
     },
     {
       "id": "D-MIL-Terracciano_F.",
@@ -4394,7 +4881,8 @@
       "role": "D",
       "qi": 2,
       "qa": 2,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 0
     },
     {
       "id": "D-ROM-Lulli",
@@ -4403,7 +4891,8 @@
       "role": "D",
       "qi": 1,
       "qa": 2,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 100
     },
     {
       "id": "D-PAR-Drobnic",
@@ -4412,7 +4901,8 @@
       "role": "D",
       "qi": 1,
       "qa": 2,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 33
     },
     {
       "id": "C-UDI-Jovanovic",
@@ -4421,7 +4911,8 @@
       "role": "C",
       "qi": 2,
       "qa": 2,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "A-BOL-Enem",
@@ -4430,7 +4921,8 @@
       "role": "A",
       "qi": 2,
       "qa": 2,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 0
     },
     {
       "id": "P-ATA-Rossi_F.",
@@ -4439,7 +4931,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-ATA-Sportiello",
@@ -4448,7 +4941,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-BOL-Happonen",
@@ -4457,7 +4951,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-BOL-Pessina_Mas.",
@@ -4466,7 +4961,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-BOL-De_Silvestri",
@@ -4475,7 +4971,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 0
     },
     {
       "id": "P-CAG-Ciocci",
@@ -4484,7 +4981,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-CAG-Sherri",
@@ -4493,7 +4991,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-CAG-Raterink",
@@ -4502,7 +5001,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-CAG-Liteta",
@@ -4511,7 +5011,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "A-CAG-Albarracin",
@@ -4520,7 +5021,8 @@
       "role": "A",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "A-CAG-Trepy",
@@ -4529,7 +5031,8 @@
       "role": "A",
       "qi": 1,
       "qa": 1,
-      "fvm": 2
+      "fvm": 2,
+      "playedsExpected": 0
     },
     {
       "id": "P-MON-Tornqvist",
@@ -4538,7 +5041,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "P-COM-Vigorito",
@@ -4547,7 +5051,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-COM-Goldaniga",
@@ -4556,7 +5061,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-COM-Cuenca_A.",
@@ -4565,7 +5071,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 0
     },
     {
       "id": "C-COM-Lahdo",
@@ -4574,7 +5081,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "A-COM-Azon",
@@ -4583,7 +5091,8 @@
       "role": "A",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-FIO-Christensen_O.",
@@ -4592,7 +5101,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-FIO-Lezzerini",
@@ -4601,7 +5111,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-FRO-Lolic",
@@ -4610,7 +5121,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-FRO-Amey",
@@ -4619,7 +5131,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-FRO-Gelli_J.",
@@ -4628,7 +5141,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-FRO-Oyono_J.",
@@ -4637,7 +5151,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 2
+      "fvm": 2,
+      "playedsExpected": 0
     },
     {
       "id": "D-FRO-Corrado",
@@ -4646,7 +5161,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-FRO-El_Azzouzi_A.",
@@ -4655,7 +5171,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-FRO-Kone_B.",
@@ -4664,7 +5181,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 0
     },
     {
       "id": "P-GEN-Sommariva",
@@ -4673,7 +5191,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-GEN-Stolz",
@@ -4682,7 +5201,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-GEN-Vogliacco",
@@ -4691,7 +5211,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 2
+      "fvm": 2,
+      "playedsExpected": 0
     },
     {
       "id": "D-GEN-Matturro",
@@ -4700,7 +5221,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 2
+      "fvm": 2,
+      "playedsExpected": 0
     },
     {
       "id": "P-INT-Di_Gennaro",
@@ -4709,7 +5231,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-JUV-Pinsoglio",
@@ -4718,7 +5241,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-JUV-Rugani",
@@ -4727,7 +5251,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 0
     },
     {
       "id": "D-JUV-Cabal",
@@ -4736,7 +5261,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 0
     },
     {
       "id": "P-LAZ-Motta",
@@ -4745,7 +5271,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-LAZ-Renzetti",
@@ -4754,7 +5281,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-LAZ-Patric",
@@ -4763,7 +5291,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-LAZ-Przyborek",
@@ -4772,7 +5301,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 0
     },
     {
       "id": "P-LEC-Fruchtl",
@@ -4781,7 +5311,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-LEC-Samooja",
@@ -4790,7 +5321,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-LEC-Perez_M.",
@@ -4799,7 +5331,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-LEC-Kaba",
@@ -4808,7 +5341,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 2
+      "fvm": 2,
+      "playedsExpected": 0
     },
     {
       "id": "C-LEC-Fofana_Sa.",
@@ -4817,7 +5351,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-MIL-Terracciano",
@@ -4826,7 +5361,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-MIL-Torriani",
@@ -4835,7 +5371,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-MON-Pizzignacco",
@@ -4844,7 +5381,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 33
     },
     {
       "id": "P-MON-Strajnar",
@@ -4853,7 +5391,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-MON-Antov",
@@ -4862,7 +5401,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 2
+      "fvm": 2,
+      "playedsExpected": 0
     },
     {
       "id": "P-NAP-Contini",
@@ -4871,7 +5411,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-NAP-Marianucci",
@@ -4880,7 +5421,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 0
     },
     {
       "id": "D-VEN-Mazzocchi",
@@ -4889,7 +5431,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 0
     },
     {
       "id": "D-PAR-Carboni_F.",
@@ -4898,7 +5441,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 0
     },
     {
       "id": "P-ROM-De_Marzi",
@@ -4907,7 +5451,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-ROM-Gollini",
@@ -4916,7 +5461,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-MON-Ziolkowski",
@@ -4925,7 +5471,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 8
+      "fvm": 8,
+      "playedsExpected": 0
     },
     {
       "id": "A-ROM-Vaz",
@@ -4934,7 +5481,8 @@
       "role": "A",
       "qi": 1,
       "qa": 1,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 0
     },
     {
       "id": "P-SAS-Russo_A.",
@@ -4943,7 +5491,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-SAS-Turati",
@@ -4952,7 +5501,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-SAS-Missori",
@@ -4961,7 +5511,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 2
+      "fvm": 2,
+      "playedsExpected": 0
     },
     {
       "id": "D-SAS-Pieragnolo",
@@ -4970,7 +5521,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-SAS-Iannoni",
@@ -4979,7 +5531,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "A-SAS-Moro_L.",
@@ -4988,7 +5541,8 @@
       "role": "A",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-TOR-Mascardi",
@@ -4997,7 +5551,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 5
+      "fvm": 5,
+      "playedsExpected": 67
     },
     {
       "id": "P-TOR-Paleari",
@@ -5006,7 +5561,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-TOR-Siviero",
@@ -5015,7 +5571,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-LEC-Ilic",
@@ -5024,7 +5581,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 10
+      "fvm": 10,
+      "playedsExpected": 33
     },
     {
       "id": "C-TOR-Anjorin",
@@ -5033,7 +5591,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 4
+      "fvm": 4,
+      "playedsExpected": 0
     },
     {
       "id": "P-UDI-Padelli",
@@ -5042,7 +5601,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-UDI-Piana",
@@ -5051,7 +5611,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-UDI-Mlacic",
@@ -5060,7 +5621,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 0
     },
     {
       "id": "C-UDI-Camara_A.",
@@ -5069,7 +5631,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 0
     },
     {
       "id": "A-UDI-Bayo_V.",
@@ -5078,7 +5641,8 @@
       "role": "A",
       "qi": 1,
       "qa": 1,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 33
     },
     {
       "id": "P-VEN-Grandi",
@@ -5087,7 +5651,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-VEN-Pozzi",
@@ -5096,7 +5661,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-VEN-Gomes",
@@ -5105,7 +5671,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-VEN-Bjarkason",
@@ -5114,7 +5681,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 0
     },
     {
       "id": "C-VEN-Dagasso",
@@ -5123,7 +5691,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 33
     },
     {
       "id": "A-VEN-Lisman",
@@ -5132,7 +5701,8 @@
       "role": "A",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "A-VEN-Lauberbach",
@@ -5141,7 +5711,8 @@
       "role": "A",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 33
     },
     {
       "id": "P-ATA-Vismara",
@@ -5150,7 +5721,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-SAS-Satalino",
@@ -5159,7 +5731,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-LEC-Penev",
@@ -5168,7 +5741,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-FRO-Pisseri",
@@ -5177,7 +5751,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-CAG-Radunovic",
@@ -5186,7 +5761,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "A-PAR-De_Martis",
@@ -5195,7 +5771,8 @@
       "role": "A",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-VEN-Montipò",
@@ -5204,7 +5781,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-FRO-Omar_Fayed",
@@ -5213,7 +5791,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-LEC-Bleve",
@@ -5222,7 +5801,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-LEC-Laerke",
@@ -5231,7 +5811,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-MIL-Comotto",
@@ -5240,7 +5821,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-SAS-Macchioni",
@@ -5249,7 +5831,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-MON-Mout",
@@ -5258,7 +5841,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 12
+      "fvm": 12,
+      "playedsExpected": 33
     },
     {
       "id": "C-CAG-Ciervo",
@@ -5267,7 +5851,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-JUV-Grabara",
@@ -5276,7 +5861,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-MON-Maye",
@@ -5285,7 +5871,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "P-UDI-Mrozek",
@@ -5294,7 +5881,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "D-LEC-Dembelè_A.",
@@ -5303,7 +5891,8 @@
       "role": "D",
       "qi": 1,
       "qa": 1,
-      "fvm": 2
+      "fvm": 2,
+      "playedsExpected": 0
     },
     {
       "id": "P-PAR-Ghidotti",
@@ -5312,7 +5901,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "A-GEN-Robinho_Junior",
@@ -5321,7 +5911,8 @@
       "role": "A",
       "qi": 1,
       "qa": 1,
-      "fvm": 3
+      "fvm": 3,
+      "playedsExpected": 0
     },
     {
       "id": "P-ATA-Pompei",
@@ -5330,7 +5921,8 @@
       "role": "P",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     },
     {
       "id": "C-PAR-Sierro",
@@ -5339,7 +5931,8 @@
       "role": "C",
       "qi": 1,
       "qa": 1,
-      "fvm": 1
+      "fvm": 1,
+      "playedsExpected": 0
     }
   ]
 }
