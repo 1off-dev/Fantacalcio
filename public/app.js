@@ -1,6 +1,6 @@
 /* Asta Scientifica Fantacalcio 2026/27 — 6 squadre, priorità adattiva */
 const STORAGE_KEY = "fantacalcio-asta-2026-27-v6";
-const ASSET_V = "20260906g";
+const ASSET_V = "20260906h";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -810,13 +810,22 @@ function bindEvents() {
   els.roster.addEventListener("click", onAction);
   els.priorityBox.addEventListener("click", onAction);
   els.teamsBar.addEventListener("click", onAction);
-  const renameTeamFromInput = (input, { rerender = false } = {}) => {
+  const renameTeamFromInput = (input) => {
     const id = input.dataset.teamName;
     if (!id) return;
     const name = input.value.trim() || "Squadra";
+    const prev = state.teams.find((t) => t.id === id)?.name;
+    if (prev === name) return;
     state.teams = state.teams.map((t) => (t.id === id ? { ...t, name } : t));
     persist();
-    if (rerender) render();
+    // Aggiorna solo etichette dipendenti dal nome, senza re-montare gli input (evita perdita focus/value).
+    document.querySelectorAll(`#buyTeam option[value="${id}"]`).forEach((opt) => {
+      const rem = remainingByTeam(id);
+      opt.textContent = `${name} (${rem} residui)${id === state.myTeamId ? " · tu" : ""}`;
+    });
+    document.querySelectorAll(`#roster [data-action="select-team"][data-id="${id}"]`).forEach((btn) => {
+      btn.textContent = `${name}${id === state.myTeamId ? " ★" : ""}`;
+    });
   };
   els.teamsBar.addEventListener("input", (e) => {
     const input = e.target.closest("[data-team-name]");
@@ -828,7 +837,7 @@ function bindEvents() {
   });
   els.teamsBar.addEventListener("focusout", (e) => {
     const input = e.target.closest("[data-team-name]");
-    if (input) renameTeamFromInput(input, { rerender: true });
+    if (input) renameTeamFromInput(input);
   });
   els.buyTeam.addEventListener("change", () => {
     const rem = remainingByTeam(els.buyTeam.value);
