@@ -30,7 +30,7 @@
   <section class="stats" id="stats"></section>
 
   <section class="controls">
-    <input id="search" type="search" placeholder="Cerca giocatore o squadra…" autocomplete="off" />
+    <input id="search" type="search" placeholder="Cerca giocatore, squadra o nota…" autocomplete="off" />
     <div class="chips" id="roleChips">
       <button type="button" data-role="ALL" class="chip active">Tutti</button>
       <button type="button" data-role="P" class="chip">P</button>
@@ -38,7 +38,8 @@
       <button type="button" data-role="C" class="chip">C</button>
       <button type="button" data-role="A" class="chip">A</button>
     </div>
-    <label class="check"><input type="checkbox" id="onlyTiered" checked /> Solo fasce chiave</label>
+    <label class="check"><input type="checkbox" id="onlyTiered" /> Solo fasce (nascondi pool)</label>
+    <label class="check"><input type="checkbox" id="onlyPenalties" /> Solo rigoristi</label>
     <label class="check"><input type="checkbox" id="hideTaken" /> Nascondi presi</label>
   </section>
 
@@ -57,7 +58,9 @@
               <th>Sq</th>
               <th>FVM</th>
               <th>Cap</th>
+              <th>Rigori</th>
               <th>Fascia</th>
+              <th>Nota</th>
               <th></th>
             </tr>
           </thead>
@@ -78,8 +81,9 @@
           <li>Cap = FVM × markup lega a 6. Se supera, lascia andare.</li>
           <li>Piano B: Anti-Malen 2+2 se Malen &gt; 420–450.</li>
           <li>Dimarco solo se restano ≥180 crediti in difesa.</li>
+          <li>Badge <strong>1°</strong>/<strong>2°</strong>/<strong>3°</strong> = gerarchia rigoristi (stima guide 26/27).</li>
         </ul>
-        <p class="fine">Dati: Fantacalcio.it quotazioni · aggiorna con <code>npm run fetch</code></p>
+        <p class="fine">Dati: Fantacalcio.it quotazioni + guide rigoristi · aggiorna con <code>npm run fetch</code></p>
       </section>
     </aside>
   </main>

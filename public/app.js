@@ -1,4 +1,4 @@
-const STORAGE_KEY = "fantacalcio-asta-2026-27-v2";
+const STORAGE_KEY = "fantacalcio-asta-2026-27-v3";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = {
   P: "Portieri",
@@ -14,7 +14,9 @@ const TIER_LABEL = {
   affidabile: "Affidabile",
   bonus: "Bonus",
   semi: "Semi",
+  interessante: "Interessante",
   value: "Value",
+  lowcost: "Low cost",
   pool: "Pool",
 };
 
@@ -24,7 +26,8 @@ const state = {
   plan: "modificatore_first",
   roleFilter: "ALL",
   query: "",
-  onlyTiered: true,
+  onlyTiered: false,
+  onlyPenalties: false,
   hideTaken: false,
   ownership: {},
   pendingId: null,
@@ -38,6 +41,7 @@ const els = {
   search: document.getElementById("search"),
   roleChips: document.getElementById("roleChips"),
   onlyTiered: document.getElementById("onlyTiered"),
+  onlyPenalties: document.getElementById("onlyPenalties"),
   hideTaken: document.getElementById("hideTaken"),
   resultCount: document.getElementById("resultCount"),
   playerTable: document.getElementById("playerTable"),
@@ -56,7 +60,8 @@ function loadSaved() {
     const saved = JSON.parse(raw);
     state.plan = saved.plan || state.plan;
     state.ownership = saved.ownership || {};
-    state.onlyTiered = saved.onlyTiered ?? true;
+    state.onlyTiered = saved.onlyTiered ?? false;
+    state.onlyPenalties = saved.onlyPenalties ?? false;
     state.hideTaken = saved.hideTaken ?? false;
   } catch {
     /* ignore */
@@ -70,6 +75,7 @@ function persist() {
       plan: state.plan,
       ownership: state.ownership,
       onlyTiered: state.onlyTiered,
+      onlyPenalties: state.onlyPenalties,
       hideTaken: state.hideTaken,
     })
   );
@@ -113,6 +119,7 @@ function filteredPlayers() {
   return state.players
     .filter((p) => (state.roleFilter === "ALL" ? true : p.role === state.roleFilter))
     .filter((p) => (state.onlyTiered ? p.tier !== "pool" : true))
+    .filter((p) => (state.onlyPenalties ? Boolean(p.penalty) : true))
     .filter((p) => {
       if (!state.hideTaken) return true;
       return state.ownership[p.id]?.status !== "taken";
@@ -126,10 +133,21 @@ function filteredPlayers() {
           .includes(q) ||
         String(TIER_LABEL[p.tier] || "")
           .toLowerCase()
+          .includes(q) ||
+        String(p.note || "")
+          .toLowerCase()
+          .includes(q) ||
+        String(p.penaltyLabel || "")
+          .toLowerCase()
           .includes(q)
       );
     })
-    .sort((a, b) => b.fvm - a.fvm || a.name.localeCompare(b.name, "it"));
+    .sort((a, b) => {
+      const pa = a.penalty || 99;
+      const pb = b.penalty || 99;
+      if (state.onlyPenalties && pa !== pb) return pa - pb;
+      return b.fvm - a.fvm || a.name.localeCompare(b.name, "it");
+    });
 }
 
 function renderPlans() {
@@ -173,9 +191,12 @@ function renderTable() {
       const rowClass =
         own?.status === "mine" ? "mine" : own?.status === "taken" ? "taken" : "";
       const tier = TIER_LABEL[p.tier] || p.tier;
-      const flags = (p.flags || []).length
-        ? `<div class="meta">${p.flags.join(" · ")}</div>`
-        : "";
+      const pen = p.penalty
+        ? `<span class="badge pen pen-${p.penalty}" title="${p.penaltyLabel || ""}">${p.penalty}°</span>`
+        : `<span class="muted">—</span>`;
+      const note = p.note
+        ? `<div class="note">${p.note}</div>`
+        : `<div class="muted">—</div>`;
       let actions = "";
       if (own?.status === "mine") {
         actions = `<button class="btn small danger" data-action="release" data-id="${p.id}">Rimuovi</button>`;
@@ -187,11 +208,13 @@ function renderTable() {
       }
       return `<tr class="${rowClass}">
         <td><span class="badge role-${p.role}">${p.role}</span></td>
-        <td><div class="name">${p.name}</div>${flags}</td>
+        <td><div class="name">${p.name}</div></td>
         <td>${p.team || "-"}</td>
         <td>${p.fvm}</td>
         <td><strong>${p.cap}</strong></td>
+        <td>${pen}</td>
         <td><span class="badge ${p.tier}">${tier}</span></td>
+        <td class="note-cell">${note}</td>
         <td class="actions">${actions}</td>
       </tr>`;
     })
@@ -244,7 +267,16 @@ function openBuy(id) {
   state.pendingId = id;
   els.buyTitle.textContent = `Compra ${player.name}`;
   els.buyPrice.value = Math.min(player.cap, Math.max(1, remainingBudget()));
-  els.buyHint.textContent = `FVM ${player.fvm} · Cap ${player.cap} · Residuo ${remainingBudget()} · Slot ${player.role} ${remainingSlots(player.role)}`;
+  els.buyHint.textContent = [
+    `FVM ${player.fvm}`,
+    `Cap ${player.cap}`,
+    `Residuo ${remainingBudget()}`,
+    `Slot ${player.role} ${remainingSlots(player.role)}`,
+    player.penaltyLabel || null,
+    player.note || null,
+  ]
+    .filter(Boolean)
+    .join(" · ");
   els.buyDialog.showModal();
   els.buyPrice.focus();
   els.buyPrice.select();
@@ -331,6 +363,10 @@ function bindEvents() {
     state.onlyTiered = e.target.checked;
     render();
   });
+  els.onlyPenalties.addEventListener("change", (e) => {
+    state.onlyPenalties = e.target.checked;
+    render();
+  });
   els.hideTaken.addEventListener("change", (e) => {
     state.hideTaken = e.target.checked;
     render();
@@ -376,6 +412,7 @@ async function init() {
     state.plan = Object.keys(state.meta.budgets)[0];
   }
   els.onlyTiered.checked = state.onlyTiered;
+  els.onlyPenalties.checked = state.onlyPenalties;
   els.hideTaken.checked = state.hideTaken;
   renderPlans();
   bindEvents();

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Scarica il listone Classic 2026/27 da Fantacalcio.it e rigenera la board asta."""
+"""Scarica listone Classic e genera board asta con note + rigoristi."""
 
 from __future__ import annotations
 
@@ -15,7 +15,6 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 PUBLIC = ROOT / "public"
 URL = "https://www.fantacalcio.it/quotazioni-fantacalcio/2026-27"
-
 ROLE_MAP = {"p": "P", "d": "D", "c": "C", "a": "A"}
 
 TIERS = {
@@ -44,12 +43,24 @@ TIERS = {
             "N'Dicka",
             "Di Lorenzo",
         ],
-        "value": ["Ostigard", "Spence"],
+        "value": ["Ostigard", "Spence", "Bisseck", "Chalobah T.", "Gila", "Scalvini"],
     },
     "C": {
         "super_top": ["Paz N.", "Calhanoglu", "McTominay"],
         "top": ["Orsolini", "Pulisic", "Rabiot", "De Bruyne", "Baturina", "Mora"],
-        "bonus": ["Da Cunha", "Zaccagni", "Barella", "Zaniolo", "Atta", "Frattesi"],
+        "bonus": [
+            "Da Cunha",
+            "Zaccagni",
+            "Barella",
+            "Zaniolo",
+            "Atta",
+            "Frattesi",
+            "Vlasic",
+            "McKennie",
+            "Conceicao",
+            "Kessie",
+            "Samardzic",
+        ],
     },
     "A": {
         "super_top": ["Malen", "Martinez L."],
@@ -69,8 +80,76 @@ TIERS = {
             "Esposito F.P.",
             "Yildiz",
             "Dybala",
+            "Krstovic",
+            "De Ketelaere",
+            "Laurientè",
+            "Simeone",
+            "Raspadori",
+            "Castro S.",
+            "Leao",
+            "Colombo",
         ],
     },
+}
+
+# Gerarchie rigoristi 2026/27 (sintesi guide FCO/SOS/Goal). Chiavi = nomi listone.
+PENALTIES: dict[str, dict] = {
+    "Calhanoglu": {"order": 1, "label": "1° rigorista", "detail": "Inter — designato"},
+    "Zielinski": {"order": 2, "label": "2° rigorista", "detail": "Inter — backup"},
+    "Martinez L.": {"order": 3, "label": "3° rigorista", "detail": "Inter — terza scelta"},
+    "Nkunku": {"order": 1, "label": "1° rigorista", "detail": "Milan — gerarchia aperta, in pole"},
+    "Ramos G.": {"order": 2, "label": "2° rigorista", "detail": "Milan — contendente"},
+    "Pulisic": {"order": 3, "label": "3° rigorista", "detail": "Milan — terza opzione"},
+    "Kolo Muani": {"order": 1, "label": "1° rigorista", "detail": "Juve — designato"},
+    "Yildiz": {"order": 2, "label": "2° rigorista", "detail": "Juve — ha calciato nel 25/26"},
+    "Locatelli": {"order": 3, "label": "3° rigorista", "detail": "Juve — terza scelta"},
+    "De Bruyne": {"order": 1, "label": "1° rigorista", "detail": "Napoli — specialista"},
+    "Hojlund": {"order": 2, "label": "2° rigorista", "detail": "Napoli — backup punta"},
+    "Politano": {"order": 3, "label": "3° rigorista", "detail": "Napoli — terza scelta"},
+    "Malen": {"order": 1, "label": "1° rigorista", "detail": "Roma — ha calciato nel 25/26"},
+    "Dybala": {"order": 2, "label": "2° rigorista", "detail": "Roma — classico dal dischetto"},
+    "Castro S.": {"order": 3, "label": "3° rigorista", "detail": "Roma — terza scelta"},
+    "Scamacca": {"order": 1, "label": "1° rigorista", "detail": "Atalanta — in pole"},
+    "Krstovic": {"order": 2, "label": "2° rigorista", "detail": "Atalanta — contendente"},
+    "Samardzic": {"order": 3, "label": "3° rigorista", "detail": "Atalanta — terza scelta"},
+    "Atta": {"order": 2, "label": "Possibile rigorista", "detail": "Fiorentina — upside piazzati"},
+    "Zaccagni": {"order": 1, "label": "1° rigorista", "detail": "Lazio — gerarchia fluida"},
+    "Taylor K.": {"order": 2, "label": "2° rigorista", "detail": "Lazio — ballottaggio"},
+    "Cataldi": {"order": 3, "label": "3° rigorista", "detail": "Lazio — ha calciato nel 25/26"},
+    "Orsolini": {"order": 1, "label": "1° rigorista", "detail": "Bologna — specialista"},
+    "Bernardeschi": {"order": 2, "label": "2° rigorista", "detail": "Bologna — backup"},
+    "Dovbyk": {"order": 3, "label": "3° rigorista", "detail": "Bologna — terza scelta"},
+    "Da Cunha": {"order": 1, "label": "1° rigorista", "detail": "Como — designato"},
+    "Douvikas": {"order": 2, "label": "2° rigorista", "detail": "Como — punta backup"},
+    "Paz N.": {"order": 3, "label": "3° rigorista", "detail": "Como — occhio ai falli dal dischetto"},
+    "Vlasic": {"order": 1, "label": "1° rigorista", "detail": "Torino — designato"},
+    "Simeone": {"order": 2, "label": "2° rigorista", "detail": "Torino — backup punta"},
+    "Kulenovic": {"order": 3, "label": "3° rigorista", "detail": "Torino — terza scelta"},
+    "Davis K.": {"order": 1, "label": "1° rigorista", "detail": "Udinese — designato"},
+    "Solet": {"order": 2, "label": "2° rigorista", "detail": "Udinese — backup"},
+    "Zaniolo": {"order": 3, "label": "3° rigorista", "detail": "Udinese — terza scelta"},
+    "Berardi": {"order": 1, "label": "1° rigorista", "detail": "Sassuolo — specialista"},
+    "Laurientè": {"order": 2, "label": "2° rigorista", "detail": "Sassuolo — contendente"},
+    "Esposito Se.": {"order": 3, "label": "3° rigorista", "detail": "Sassuolo — terza scelta"},
+    "Colombo": {"order": 1, "label": "1° rigorista", "detail": "Genoa — eredita il ruolo"},
+    "Ostigard": {"order": 2, "label": "2° rigorista", "detail": "Genoa — backup"},
+    "Tourè E.": {"order": 1, "label": "Possibile rigorista", "detail": "Parma — punta candidata"},
+    "Valeri": {"order": 3, "label": "3° rigorista", "detail": "Parma — terza scelta"},
+    "Kevin Carlos": {"order": 1, "label": "1° rigorista", "detail": "Cagliari — gerarchia aperta"},
+    "Maldini": {"order": 2, "label": "2° rigorista", "detail": "Cagliari — contendente"},
+    "Mina": {"order": 3, "label": "3° rigorista", "detail": "Cagliari — terza scelta"},
+    "Geubbels": {"order": 1, "label": "1° rigorista", "detail": "Lecce — in pole"},
+    "Stulic": {"order": 2, "label": "2° rigorista", "detail": "Lecce — ha calciato nel 25/26"},
+    "Berisha M.": {"order": 3, "label": "3° rigorista", "detail": "Lecce — terza scelta"},
+    "Pessina": {"order": 1, "label": "1° rigorista", "detail": "Monza — designato"},
+    "Cutrone": {"order": 2, "label": "2° rigorista", "detail": "Monza — backup"},
+    "Petagna": {"order": 3, "label": "3° rigorista", "detail": "Monza — terza scelta"},
+    "Adams A.": {"order": 1, "label": "1° rigorista", "detail": "Venezia — in pole"},
+    "Adorante": {"order": 2, "label": "2° rigorista", "detail": "Venezia — testa a testa"},
+    "Calò": {"order": 1, "label": "1° rigorista", "detail": "Frosinone — designato"},
+    "Raimondo": {"order": 2, "label": "2° rigorista", "detail": "Frosinone — backup"},
+    "Ghedjemis": {"order": 3, "label": "3° rigorista", "detail": "Frosinone — terza scelta"},
+    "Kean": {"order": 2, "label": "Possibile rigorista", "detail": "Como — contendente/backup"},
 }
 
 BUDGETS = {
@@ -142,14 +221,31 @@ def parse_players(html: str) -> list[dict]:
     return players
 
 
-def tier_for(role: str, name: str) -> str:
+def curated_tier(role: str, name: str) -> str | None:
     for tier, names in TIERS.get(role, {}).items():
         if name in names:
+            return tier
+    return None
+
+
+def auto_tier(role: str, fvm: int) -> str:
+    thresholds = {
+        "P": ((40, "top"), (18, "affidabile"), (6, "lowcost")),
+        "D": ((40, "top_bonus"), (22, "modificatore"), (10, "value"), (4, "lowcost")),
+        "C": ((80, "top"), (35, "bonus"), (12, "interessante"), (5, "lowcost")),
+        "A": ((120, "top"), (60, "semi"), (20, "interessante"), (6, "lowcost")),
+    }
+    for min_fvm, tier in thresholds.get(role, ()):
+        if fvm >= min_fvm:
             return tier
     return "pool"
 
 
-def flags_for(name: str) -> list[str]:
+def tier_for(role: str, name: str, fvm: int) -> str:
+    return curated_tier(role, name) or auto_tier(role, fvm)
+
+
+def flags_for(name: str, penalty: dict | None) -> list[str]:
     flags: list[str] = []
     if name == "Malen":
         flags += ["hype_post_gol", "lasciare_se_overpay"]
@@ -161,6 +257,8 @@ def flags_for(name: str) -> list[str]:
         flags += ["sposta_asta_centrocampo"]
     if name in ("Butez", "Sanchez Ro.", "Martinez Jo.", "Meret"):
         flags += ["verificare_gerarchia"]
+    if penalty:
+        flags.append(f"rigorista_{penalty['order']}")
     return flags
 
 
@@ -179,15 +277,65 @@ def cap_for(fvm: int, qa: int) -> int:
     return cap
 
 
+def note_for(p: dict, tier: str, penalty: dict | None) -> str:
+    role, fvm, name = p["role"], p["fvm"], p["name"]
+    bits: list[str] = []
+    if penalty:
+        bits.append(f"{penalty['label']} ({penalty['detail']}).")
+
+    if name == "Malen":
+        bits.append("Hype post-gol: non far saltare il budget attacco.")
+    elif name == "Dimarco":
+        bits.append("Bonus da esterno: ok solo se restano crediti per i voti.")
+    elif name == "Svilar":
+        bits.append("Certezza porta con modificatore.")
+    elif name in ("Paz N.", "Calhanoglu", "McTominay"):
+        bits.append("Top C: prendine uno, non inseguirli tutti.")
+    elif role == "P":
+        bits.append(
+            "Porta da modificatore."
+            if tier in ("super_top", "top", "affidabile")
+            else "Prendi solo titolari certi a 1–8."
+        )
+    elif role == "D":
+        bits.append(
+            "Priorità voto/bonus per il modificatore."
+            if tier in ("super_top", "top_bonus", "modificatore", "value")
+            else "Chiudi con titolari low-cost, evita ballottaggi cari."
+        )
+    elif role == "C":
+        bits.append(
+            "Investimento a centrocampo: fissa un max."
+            if tier in ("super_top", "top", "bonus")
+            else "Titolare da minutaggio per allungare la rosa."
+        )
+    else:
+        bits.append(
+            "Punta chiave: valuta piano anti-Malen 2+2."
+            if tier in ("super_top", "top", "semi")
+            else "Slot profondità: solo con minuti o upside chiaro."
+        )
+
+    note = " ".join(bits)
+    if fvm and "FVM" not in note:
+        note += f" FVM {fvm}, cap consigliato {cap_for(fvm, p['qa'])}."
+    return note[:190]
+
+
 def enrich(players: list[dict]) -> list[dict]:
     out = []
     for p in players:
+        penalty = PENALTIES.get(p["name"])
+        tier = tier_for(p["role"], p["name"], p["fvm"])
         out.append(
             {
                 **p,
                 "cap": cap_for(p["fvm"], p["qa"]),
-                "tier": tier_for(p["role"], p["name"]),
-                "flags": flags_for(p["name"]),
+                "tier": tier,
+                "flags": flags_for(p["name"], penalty),
+                "penalty": penalty["order"] if penalty else None,
+                "penaltyLabel": penalty["label"] if penalty else None,
+                "note": note_for(p, tier, penalty),
             }
         )
     return out
@@ -218,6 +366,7 @@ def main() -> None:
         w.writeheader()
         w.writerows(players)
 
+    enriched = enrich(players)
     board = {
         "meta": {
             "season": "2026/27",
@@ -231,17 +380,21 @@ def main() -> None:
             "updated": str(date.today()),
             "budgets": BUDGETS,
             "tiers": TIERS,
+            "penaltiesSource": "Sintesi guide rigoristi Serie A 2026/27 (FCO/SOS/Goal)",
         },
-        "players": enrich(players),
+        "players": enriched,
     }
+    payload = json.dumps(board, ensure_ascii=False)
     (DATA / "asta-board-2026-27.json").write_text(
         json.dumps(board, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    (PUBLIC / "asta-board-2026-27.json").write_text(
-        json.dumps(board, ensure_ascii=False), encoding="utf-8"
+    (PUBLIC / "asta-board-2026-27.json").write_text(payload, encoding="utf-8")
+    shown = sum(1 for p in enriched if p["tier"] != "pool")
+    pens = sum(1 for p in enriched if p["penalty"])
+    missing = [n for n in PENALTIES if n not in {p["name"] for p in players}]
+    print(
+        f"OK {len(players)} giocatori | fasce estese {shown} | rigoristi {pens} | missing names {missing}"
     )
-    tiered = sum(1 for p in board["players"] if p["tier"] != "pool")
-    print(f"OK {len(players)} giocatori, {tiered} in fascia → data/ + public/")
 
 
 if __name__ == "__main__":

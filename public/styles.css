@@ -282,7 +282,22 @@ tr.mine { background: #e7f6ef; }
 .badge.affidabile,
 .badge.semi,
 .badge.bonus,
-.badge.value { background: #eee; color: #444; }
+.badge.value,
+.badge.interessante,
+.badge.lowcost { background: #eee; color: #444; }
+
+.badge.pen {
+  min-width: 2rem;
+  justify-content: center;
+  font-variant-numeric: tabular-nums;
+}
+.badge.pen-1 { background: #ffe8c8; color: #7a3b00; }
+.badge.pen-2 { background: #e8eefc; color: #243b66; }
+.badge.pen-3 { background: #ececec; color: #444; }
+
+.note-cell { min-width: 220px; max-width: 340px; white-space: normal; }
+.note { font-size: 12px; line-height: 1.35; color: var(--muted); }
+.muted { color: var(--muted); font-size: 12px; }
 
 .side { display: grid; gap: 16px; }
 .roster { display: grid; gap: 10px; }
