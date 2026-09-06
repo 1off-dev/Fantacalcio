@@ -191,12 +191,12 @@ function renderTable() {
       const rowClass =
         own?.status === "mine" ? "mine" : own?.status === "taken" ? "taken" : "";
       const tier = TIER_LABEL[p.tier] || p.tier;
-      const pen = p.penalty
-        ? `<span class="badge pen pen-${p.penalty}" title="${p.penaltyLabel || ""}">${p.penalty}°</span>`
-        : `<span class="muted">—</span>`;
-      const note = p.note
-        ? `<div class="note">${p.note}</div>`
-        : `<div class="muted">—</div>`;
+      const penHtml = p.penalty
+        ? `<span class="badge pen pen-${p.penalty}" title="${
+            p.penaltyLabel || ""
+          }">${p.penalty}° ${p.penalty === 1 ? "rigorista" : "scelta"}</span>`
+        : `<span class="muted">no</span>`;
+      const noteHtml = `<div class="note">${p.note || "—"}</div>`;
       let actions = "";
       if (own?.status === "mine") {
         actions = `<button class="btn small danger" data-action="release" data-id="${p.id}">Rimuovi</button>`;
@@ -206,16 +206,17 @@ function renderTable() {
         actions = `<button class="btn small" data-action="buy" data-id="${p.id}">Compra</button>
           <button class="btn small ghost dark" data-action="take" data-id="${p.id}">Preso</button>`;
       }
+      // Ordine fissato = header HTML: ruolo, nome, sq, fvm, cap, rigori, fascia, nota, azioni
       return `<tr class="${rowClass}">
-        <td><span class="badge role-${p.role}">${p.role}</span></td>
-        <td><div class="name">${p.name}</div></td>
-        <td>${p.team || "-"}</td>
-        <td>${p.fvm}</td>
-        <td><strong>${p.cap}</strong></td>
-        <td>${pen}</td>
-        <td><span class="badge ${p.tier}">${tier}</span></td>
-        <td class="note-cell">${note}</td>
-        <td class="actions">${actions}</td>
+        <td data-col="role"><span class="badge role-${p.role}">${p.role}</span></td>
+        <td data-col="name"><div class="name">${p.name}</div></td>
+        <td data-col="team">${p.team || "-"}</td>
+        <td data-col="fvm">${p.fvm}</td>
+        <td data-col="cap"><strong>${p.cap}</strong></td>
+        <td data-col="penalty">${penHtml}</td>
+        <td data-col="tier"><span class="badge ${p.tier}">${tier}</span></td>
+        <td data-col="note" class="note-cell">${noteHtml}</td>
+        <td data-col="actions" class="actions">${actions}</td>
       </tr>`;
     })
     .join("");
@@ -403,7 +404,9 @@ function bindEvents() {
 
 async function init() {
   loadSaved();
-  const res = await fetch("./asta-board-2026-27.json", { cache: "no-store" });
+  const res = await fetch("./asta-board-2026-27.json?v=20260906c", {
+    cache: "no-store",
+  });
   if (!res.ok) throw new Error("Impossibile caricare asta-board-2026-27.json");
   const data = await res.json();
   state.meta = data.meta;

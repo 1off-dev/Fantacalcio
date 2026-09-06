@@ -242,6 +242,7 @@ th, td {
   border-bottom: 1px solid var(--line);
   text-align: left;
   white-space: nowrap;
+  vertical-align: top;
 }
 
 th {
