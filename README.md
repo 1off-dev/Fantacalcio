@@ -20,19 +20,17 @@ Nel browser: scegli il piano budget, cerca i giocatori, segna **Compra** / **Pre
 
 ## iPhone / GitHub Pages
 
-URL previsto dopo il deploy:
+URL: **https://1off-dev.github.io/Fantacalcio/**
 
-**https://1off-dev.github.io/Fantacalcio/**
+Il sito è già sul branch `gh-pages`, ma GitHub richiede **un click tuo** per attivarlo (il token dell’agent non può creare il sito Pages):
 
-### Attivazione (1 volta, da fare tu)
+1. Apri: https://github.com/1off-dev/Fantacalcio/settings/pages  
+2. **Build and deployment → Source**: scegli **Deploy from a branch**  
+3. Branch: **`gh-pages`** / folder: **`/` (root)** → **Save**  
+4. Aspetta 1–2 minuti, poi apri il link su Safari iPhone  
+5. Opzionale: Condividi → **Aggiungi a Schermata Home**
 
-Il repo è **privato**: GitHub Pages pubblico richiede account **Pro** oppure repo **pubblico**.
-
-1. (Consigliato per iPhone) Settings → General → Danger Zone → **Change visibility → Public**  
-   oppure tieni privato se hai GitHub Pro.
-2. Settings → **Pages** → Build and deployment → Source: **GitHub Actions**
-3. Aspetta il workflow **Deploy GitHub Pages** (tab Actions), poi apri il link sopra su Safari.
-4. Opzionale: Condividi → **Aggiungi a Home** per usarla come app.
+Se vedi ancora 404, attendi la pubblicazione (Settings → Pages mostra lo stato) e fai hard refresh.
 
 ## Configurazione lega
 
