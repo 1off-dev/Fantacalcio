@@ -439,3 +439,28 @@ dialog::backdrop { background: rgba(10, 20, 16, 0.55); }
   border-color: #c5d2ca;
   background: #fff;
 }
+
+th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+th.sortable:hover,
+th.sortable.sorted {
+  color: var(--ink, #14231e);
+}
+th .sort-ind {
+  font-size: 10px;
+  opacity: 0.75;
+  margin-left: 2px;
+}
+.tit {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+.tit-high { color: #0d5a40; }
+.tit-mid { color: #7a4b00; }
+.tit-low { color: #6b6b6b; }
+td[data-col="fmPrev"],
+td[data-col="starterProb"] {
+  font-variant-numeric: tabular-nums;
+}
