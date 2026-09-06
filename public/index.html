@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Asta Fantacalcio 2026/27 — Classic · Mod difesa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="top">
+    <div>
+      <p class="eyebrow">Classic · 6 squadre · 1000 crediti · Mod. difesa</p>
+      <h1>Board Asta <span>2026/27</span></h1>
+    </div>
+    <div class="top-actions">
+      <label class="field">
+        <span>Piano budget</span>
+        <select id="budgetPlan"></select>
+      </label>
+      <button id="resetBtn" class="btn ghost" type="button">Reset asta</button>
+      <button id="exportBtn" class="btn" type="button">Esporta rosa</button>
+    </div>
+  </header>
+
+  <section class="stats" id="stats"></section>
+
+  <section class="controls">
+    <input id="search" type="search" placeholder="Cerca giocatore o squadra…" autocomplete="off" />
+    <div class="chips" id="roleChips">
+      <button type="button" data-role="ALL" class="chip active">Tutti</button>
+      <button type="button" data-role="P" class="chip">P</button>
+      <button type="button" data-role="D" class="chip">D</button>
+      <button type="button" data-role="C" class="chip">C</button>
+      <button type="button" data-role="A" class="chip">A</button>
+    </div>
+    <label class="check"><input type="checkbox" id="onlyTiered" checked /> Solo fasce chiave</label>
+    <label class="check"><input type="checkbox" id="hideTaken" /> Nascondi presi</label>
+  </section>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Listone</h2>
+        <p id="resultCount"></p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ruolo</th>
+              <th>Giocatore</th>
+              <th>Sq</th>
+              <th>FVM</th>
+              <th>Cap</th>
+              <th>Fascia</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="playerTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <aside class="side">
+      <section class="panel">
+        <div class="panel-head"><h2>La tua rosa</h2></div>
+        <div id="roster" class="roster"></div>
+      </section>
+      <section class="panel tips">
+        <div class="panel-head"><h2>Promemoria</h2></div>
+        <ul>
+          <li>Priorità modificatore: non svuotare P/D per inseguire Malen.</li>
+          <li>Cap = FVM × markup lega a 6. Se supera, lascia andare.</li>
+          <li>Piano B: Anti-Malen 2+2 se Malen &gt; 420–450.</li>
+          <li>Dimarco solo se restano ≥180 crediti in difesa.</li>
+        </ul>
+        <p class="fine">Dati: Fantacalcio.it quotazioni · aggiorna con <code>npm run fetch</code></p>
+      </section>
+    </aside>
+  </main>
+
+  <dialog id="buyDialog">
+    <form method="dialog" id="buyForm">
+      <h3 id="buyTitle">Acquista</h3>
+      <label class="field">
+        <span>Prezzo pagato</span>
+        <input id="buyPrice" type="number" min="1" max="1000" required />
+      </label>
+      <p class="hint" id="buyHint"></p>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn ghost" type="submit">Annulla</button>
+        <button value="default" class="btn" type="submit">Conferma</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="./app.js"></script>
+</body>
+</html>
