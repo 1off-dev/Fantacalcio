@@ -1,8 +1,9 @@
 name: Deploy GitHub Pages
 
+# Disabilitato di default: il token Actions non puo' creare il sito Pages (403).
+# Pubblicazione attiva via branch `gh-pages` (Settings → Pages → Deploy from a branch).
+# Questo workflow resta disponibile solo a mano, se Pages e' gia' abilitato su Actions.
 on:
-  push:
-    branches: [main, cursor/asta-fantacalcio-classic-2c1f]
   workflow_dispatch:
 
 permissions:
@@ -18,17 +19,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          # Enable Pages with GitHub Actions source if missing
-          enablement: true
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: public
 
@@ -39,6 +32,5 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4
