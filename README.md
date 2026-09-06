@@ -9,7 +9,7 @@ Assistente per l'asta **Classic** (rosa 3-8-8-6, **1000 crediti**, **6 squadre**
 - [`public/`](public/) — tool web per il giorno dell'asta (listone, cap, rosa, export JSON)
 - [`scripts/fetch_listone.py`](scripts/fetch_listone.py) — aggiorna listone ufficiale da Fantacalcio.it
 
-## Avvio rapido
+## Avvio rapido (PC)
 
 ```bash
 npm run fetch   # aggiorna listone + board
@@ -17,6 +17,22 @@ npm start       # http://127.0.0.1:4173
 ```
 
 Nel browser: scegli il piano budget, cerca i giocatori, segna **Compra** / **Preso**, esporta la rosa a fine asta.
+
+## iPhone / GitHub Pages
+
+URL previsto dopo il deploy:
+
+**https://1off-dev.github.io/Fantacalcio/**
+
+### Attivazione (1 volta, da fare tu)
+
+Il repo è **privato**: GitHub Pages pubblico richiede account **Pro** oppure repo **pubblico**.
+
+1. (Consigliato per iPhone) Settings → General → Danger Zone → **Change visibility → Public**  
+   oppure tieni privato se hai GitHub Pro.
+2. Settings → **Pages** → Build and deployment → Source: **GitHub Actions**
+3. Aspetta il workflow **Deploy GitHub Pages** (tab Actions), poi apri il link sopra su Safari.
+4. Opzionale: Condividi → **Aggiungi a Home** per usarla come app.
 
 ## Configurazione lega
 
