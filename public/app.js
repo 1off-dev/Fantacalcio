@@ -1,6 +1,6 @@
 /* Asta Scientifica Fantacalcio 2026/27 — 6 squadre, priorità adattiva */
 const STORAGE_KEY = "fantacalcio-asta-2026-27-v6";
-const ASSET_V = "20260906h";
+const ASSET_V = "20260906i";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
