@@ -12,7 +12,8 @@
       "qi": 34,
       "qa": 38,
       "fvm": 450,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/malen/5585"
     },
     {
       "id": "A-INT-Martinez_L.",
@@ -22,7 +23,8 @@
       "qi": 35,
       "qa": 33,
       "fvm": 361,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/martinez-l/2764"
     },
     {
       "id": "D-INT-Dimarco",
@@ -32,7 +34,8 @@
       "qi": 32,
       "qa": 31,
       "fvm": 240,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/dimarco/254"
     },
     {
       "id": "C-COM-Paz_N.",
@@ -42,7 +45,8 @@
       "qi": 30,
       "qa": 29,
       "fvm": 245,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/paz-n/6875"
     },
     {
       "id": "C-INT-Calhanoglu",
@@ -52,7 +56,8 @@
       "qi": 27,
       "qa": 28,
       "fvm": 243,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/calhanoglu/2194"
     },
     {
       "id": "A-INT-Thuram",
@@ -62,7 +67,8 @@
       "qi": 29,
       "qa": 28,
       "fvm": 249,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/thuram/4871"
     },
     {
       "id": "A-NAP-Hojlund",
@@ -72,7 +78,8 @@
       "qi": 28,
       "qa": 28,
       "fvm": 260,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/hojlund/6052"
     },
     {
       "id": "A-MIL-Ramos_G.",
@@ -82,7 +89,8 @@
       "qi": 27,
       "qa": 27,
       "fvm": 237,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/ramos-g/6397"
     },
     {
       "id": "C-NAP-McTominay",
@@ -92,7 +100,8 @@
       "qi": 28,
       "qa": 27,
       "fvm": 220,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/mctominay/4777"
     },
     {
       "id": "C-BOL-Orsolini",
@@ -102,7 +111,8 @@
       "qi": 26,
       "qa": 25,
       "fvm": 177,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/orsolini/2167"
     },
     {
       "id": "A-JUV-Kolo_Muani",
@@ -112,7 +122,8 @@
       "qi": 26,
       "qa": 25,
       "fvm": 165,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/kolo-muani/5951"
     },
     {
       "id": "A-COM-Kean",
@@ -122,7 +133,8 @@
       "qi": 25,
       "qa": 24,
       "fvm": 183,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/kean/2097"
     },
     {
       "id": "C-MIL-Pulisic",
@@ -132,7 +144,8 @@
       "qi": 25,
       "qa": 24,
       "fvm": 150,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/pulisic/2423"
     },
     {
       "id": "C-MIL-Rabiot",
@@ -142,7 +155,8 @@
       "qi": 22,
       "qa": 23,
       "fvm": 145,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/rabiot/2379"
     },
     {
       "id": "A-JUV-Woltemade",
@@ -152,7 +166,8 @@
       "qi": 23,
       "qa": 23,
       "fvm": 160,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/woltemade/6752"
     },
     {
       "id": "A-COM-Douvikas",
@@ -162,7 +177,8 @@
       "qi": 20,
       "qa": 22,
       "fvm": 185,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/douvikas/7017"
     },
     {
       "id": "A-JUV-Yildiz",
@@ -172,7 +188,8 @@
       "qi": 23,
       "qa": 22,
       "fvm": 100,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/yildiz/6434"
     },
     {
       "id": "C-COM-Baturina",
@@ -182,7 +199,8 @@
       "qi": 19,
       "qa": 20,
       "fvm": 105,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/baturina/7126"
     },
     {
       "id": "C-ROM-Mora",
@@ -192,7 +210,8 @@
       "qi": 19,
       "qa": 20,
       "fvm": 100,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/mora/7556"
     },
     {
       "id": "A-ATA-Scamacca",
@@ -202,7 +221,8 @@
       "qi": 19,
       "qa": 19,
       "fvm": 110,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/scamacca/2137"
     },
     {
       "id": "P-ROM-Svilar",
@@ -212,7 +232,8 @@
       "qi": 18,
       "qa": 19,
       "fvm": 85,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/svilar/5841"
     },
     {
       "id": "A-SAS-Berardi",
@@ -222,7 +243,8 @@
       "qi": 18,
       "qa": 19,
       "fvm": 106,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/berardi/531"
     },
     {
       "id": "A-UDI-Davis_K.",
@@ -232,7 +254,8 @@
       "qi": 19,
       "qa": 19,
       "fvm": 108,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/davis-k/5637"
     },
     {
       "id": "A-ATA-Krstovic",
@@ -242,7 +265,8 @@
       "qi": 18,
       "qa": 18,
       "fvm": 98,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/krstovic/6435"
     },
     {
       "id": "C-COM-Da_Cunha",
@@ -252,7 +276,8 @@
       "qi": 18,
       "qa": 18,
       "fvm": 87,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/da-cunha/5559"
     },
     {
       "id": "C-INT-Barella",
@@ -262,7 +287,8 @@
       "qi": 17,
       "qa": 18,
       "fvm": 81,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/barella/1870"
     },
     {
       "id": "A-MIL-Leao",
@@ -272,7 +298,8 @@
       "qi": 18,
       "qa": 18,
       "fvm": 75,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/leao/4510"
     },
     {
       "id": "D-ROM-Wesley",
@@ -282,7 +309,8 @@
       "qi": 17,
       "qa": 18,
       "fvm": 87,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/wesley/7181"
     },
     {
       "id": "C-UDI-Zaniolo",
@@ -292,7 +320,8 @@
       "qi": 18,
       "qa": 18,
       "fvm": 80,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/zaniolo/2766"
     },
     {
       "id": "D-ROM-Molina_N.",
@@ -302,7 +331,8 @@
       "qi": 18,
       "qa": 18,
       "fvm": 78,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/molina-n/4998"
     },
     {
       "id": "P-ATA-Carnesecchi",
@@ -312,7 +342,8 @@
       "qi": 16,
       "qa": 17,
       "fvm": 55,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/carnesecchi/4431"
     },
     {
       "id": "A-ATA-De_Ketelaere",
@@ -322,7 +353,8 @@
       "qi": 17,
       "qa": 17,
       "fvm": 95,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/de-ketelaere/5995"
     },
     {
       "id": "P-INT-Martinez_Jo.",
@@ -332,7 +364,8 @@
       "qi": 17,
       "qa": 17,
       "fvm": 68,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/martinez-jo/5116"
     },
     {
       "id": "A-INT-Esposito_F.P.",
@@ -342,7 +375,8 @@
       "qi": 16,
       "qa": 17,
       "fvm": 105,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/esposito-f-p/7071"
     },
     {
       "id": "C-JUV-McKennie",
@@ -352,7 +386,8 @@
       "qi": 17,
       "qa": 17,
       "fvm": 70,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/mckennie/4973"
     },
     {
       "id": "C-NAP-De_Bruyne",
@@ -362,7 +397,8 @@
       "qi": 15,
       "qa": 17,
       "fvm": 108,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/de-bruyne/2517"
     },
     {
       "id": "P-JUV-Vicario",
@@ -372,7 +408,8 @@
       "qi": 16,
       "qa": 17,
       "fvm": 70,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/vicario/4964"
     },
     {
       "id": "D-JUV-Bremer",
@@ -382,7 +419,8 @@
       "qi": 15,
       "qa": 16,
       "fvm": 60,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/bremer/2788"
     },
     {
       "id": "C-LAZ-Zaccagni",
@@ -392,7 +430,8 @@
       "qi": 16,
       "qa": 16,
       "fvm": 87,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/zaccagni/632"
     },
     {
       "id": "D-ROM-Mancini",
@@ -402,7 +441,8 @@
       "qi": 15,
       "qa": 16,
       "fvm": 50,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/mancini/2296"
     },
     {
       "id": "A-ROM-Dybala",
@@ -412,7 +452,8 @@
       "qi": 14,
       "qa": 16,
       "fvm": 100,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/dybala/309"
     },
     {
       "id": "A-BOL-Dovbyk",
@@ -422,7 +463,8 @@
       "qi": 16,
       "qa": 15,
       "fvm": 51,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/dovbyk/6675"
     },
     {
       "id": "P-COM-Butez",
@@ -432,7 +474,8 @@
       "qi": 16,
       "qa": 15,
       "fvm": 50,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/butez/6966"
     },
     {
       "id": "C-FIO-Atta",
@@ -442,7 +485,8 @@
       "qi": 17,
       "qa": 15,
       "fvm": 78,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/atta/6908"
     },
     {
       "id": "D-INT-Akanji",
@@ -452,7 +496,8 @@
       "qi": 16,
       "qa": 15,
       "fvm": 47,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/akanji/4159"
     },
     {
       "id": "P-MIL-Maignan",
@@ -462,7 +507,8 @@
       "qi": 15,
       "qa": 15,
       "fvm": 52,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/maignan/4312"
     },
     {
       "id": "D-NAP-Rrahmani",
@@ -472,7 +518,8 @@
       "qi": 14,
       "qa": 15,
       "fvm": 51,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/rrahmani/4409"
     },
     {
       "id": "A-SAS-Laurientè",
@@ -482,7 +529,8 @@
       "qi": 15,
       "qa": 15,
       "fvm": 83,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/laurient&#xE8;/6060"
     },
     {
       "id": "A-ATA-Raspadori",
@@ -492,7 +540,8 @@
       "qi": 13,
       "qa": 14,
       "fvm": 73,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/raspadori/4371"
     },
     {
       "id": "D-INT-Bastoni",
@@ -502,7 +551,8 @@
       "qi": 14,
       "qa": 14,
       "fvm": 43,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/bastoni/2120"
     },
     {
       "id": "D-JUV-Kalulu",
@@ -512,7 +562,8 @@
       "qi": 13,
       "qa": 14,
       "fvm": 47,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/kalulu/4976"
     },
     {
       "id": "D-MIL-Pavlovic",
@@ -522,7 +573,8 @@
       "qi": 14,
       "qa": 14,
       "fvm": 49,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/pavlovic/5022"
     },
     {
       "id": "A-NAP-Santos_A.",
@@ -532,7 +584,8 @@
       "qi": 14,
       "qa": 14,
       "fvm": 61,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/santos-a/7351"
     },
     {
       "id": "A-FIO-Pellegrino_M.",
@@ -542,7 +595,8 @@
       "qi": 15,
       "qa": 14,
       "fvm": 40,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/pellegrino-m/7023"
     },
     {
       "id": "A-ROM-Castro_S.",
@@ -552,7 +606,8 @@
       "qi": 14,
       "qa": 14,
       "fvm": 70,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/castro-s/6572"
     },
     {
       "id": "A-TOR-Simeone",
@@ -562,7 +617,8 @@
       "qi": 15,
       "qa": 14,
       "fvm": 80,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/simeone/2061"
     },
     {
       "id": "A-FIO-Beto",
@@ -572,7 +628,8 @@
       "qi": 14,
       "qa": 14,
       "fvm": 50,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/beto/5694"
     },
     {
       "id": "C-ATA-Samardzic",
@@ -582,7 +639,8 @@
       "qi": 12,
       "qa": 13,
       "fvm": 44,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/samardzic/5119"
     },
     {
       "id": "C-JUV-Conceicao",
@@ -592,7 +650,8 @@
       "qi": 12,
       "qa": 13,
       "fvm": 68,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/conceicao/6884"
     },
     {
       "id": "C-LAZ-Taylor_K.",
@@ -602,7 +661,8 @@
       "qi": 13,
       "qa": 13,
       "fvm": 53,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/taylor-k/7314"
     },
     {
       "id": "D-MIL-Gila",
@@ -612,7 +672,8 @@
       "qi": 12,
       "qa": 13,
       "fvm": 31,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/gila/5833"
     },
     {
       "id": "A-MIL-Nkunku",
@@ -622,7 +683,8 @@
       "qi": 13,
       "qa": 13,
       "fvm": 20,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/nkunku/4728"
     },
     {
       "id": "D-ROM-N'Dicka",
@@ -632,7 +694,8 @@
       "qi": 13,
       "qa": 13,
       "fvm": 42,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/n-dicka/4317"
     },
     {
       "id": "A-ROM-Soulè",
@@ -642,7 +705,8 @@
       "qi": 12,
       "qa": 13,
       "fvm": 48,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/soul&#xE8;/5734"
     },
     {
       "id": "C-TOR-Vlasic",
@@ -652,7 +716,8 @@
       "qi": 14,
       "qa": 13,
       "fvm": 73,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/vlasic/5687"
     },
     {
       "id": "D-UDI-Solet",
@@ -662,7 +727,8 @@
       "qi": 13,
       "qa": 13,
       "fvm": 46,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/solet/6956"
     },
     {
       "id": "C-ATA-Ederson_D.S.",
@@ -672,7 +738,8 @@
       "qi": 12,
       "qa": 12,
       "fvm": 46,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/ederson-d-s/5792"
     },
     {
       "id": "A-SAS-Esposito_Se.",
@@ -682,7 +749,8 @@
       "qi": 13,
       "qa": 12,
       "fvm": 40,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/esposito-se/4463"
     },
     {
       "id": "A-COM-Diao",
@@ -692,7 +760,8 @@
       "qi": 11,
       "qa": 12,
       "fvm": 50,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/diao/6967"
     },
     {
       "id": "C-LAZ-Gudmundsson_A.",
@@ -702,7 +771,8 @@
       "qi": 13,
       "qa": 12,
       "fvm": 40,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/gudmundsson-a/5800"
     },
     {
       "id": "D-INT-Bisseck",
@@ -712,7 +782,8 @@
       "qi": 11,
       "qa": 12,
       "fvm": 36,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/bisseck/6217"
     },
     {
       "id": "D-INT-Stones",
@@ -722,7 +793,8 @@
       "qi": 12,
       "qa": 12,
       "fvm": 25,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/stones/2514"
     },
     {
       "id": "C-INT-Zielinski",
@@ -732,7 +804,8 @@
       "qi": 10,
       "qa": 12,
       "fvm": 45,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/zielinski/152"
     },
     {
       "id": "C-MIL-Modric",
@@ -742,7 +815,8 @@
       "qi": 12,
       "qa": 12,
       "fvm": 45,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/modric/2606"
     },
     {
       "id": "D-NAP-Di_Lorenzo",
@@ -752,7 +826,8 @@
       "qi": 12,
       "qa": 12,
       "fvm": 39,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/di-lorenzo/2816"
     },
     {
       "id": "A-LAZ-Pinamonti",
@@ -762,7 +837,8 @@
       "qi": 13,
       "qa": 12,
       "fvm": 53,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/pinamonti/2038"
     },
     {
       "id": "C-UDI-Ekkelenkamp",
@@ -772,7 +848,8 @@
       "qi": 10,
       "qa": 12,
       "fvm": 57,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/ekkelenkamp/6684"
     },
     {
       "id": "A-CAG-Kevin_Carlos",
@@ -782,7 +859,8 @@
       "qi": 13,
       "qa": 12,
       "fvm": 36,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/kevin-carlos/7547"
     },
     {
       "id": "C-INT-Jones_C.",
@@ -792,7 +870,8 @@
       "qi": 12,
       "qa": 12,
       "fvm": 47,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/jones-c/5172"
     },
     {
       "id": "C-JUV-Gonzalez_N.",
@@ -802,7 +881,8 @@
       "qi": 11,
       "qa": 12,
       "fvm": 45,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/gonzalez-n/4179"
     },
     {
       "id": "C-ATA-Kessiè",
@@ -812,7 +892,8 @@
       "qi": 12,
       "qa": 12,
       "fvm": 47,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/kessi&#xE8;/1850"
     },
     {
       "id": "C-FIO-Goncalves_P.",
@@ -822,7 +903,8 @@
       "qi": 12,
       "qa": 12,
       "fvm": 50,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/goncalves-p/7625"
     },
     {
       "id": "C-COM-Rodriguez_Je.",
@@ -832,7 +914,8 @@
       "qi": 12,
       "qa": 11,
       "fvm": 31,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/rodriguez-je/7129"
     },
     {
       "id": "P-FIO-De_Gea",
@@ -842,7 +925,8 @@
       "qi": 13,
       "qa": 11,
       "fvm": 30,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/de-gea/2521"
     },
     {
       "id": "D-GEN-Ostigard",
@@ -852,7 +936,8 @@
       "qi": 11,
       "qa": 11,
       "fvm": 41,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/ostigard/5750"
     },
     {
       "id": "C-GEN-Baldanzi",
@@ -862,7 +947,8 @@
       "qi": 11,
       "qa": 11,
       "fvm": 28,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/baldanzi/5823"
     },
     {
       "id": "A-GEN-Colombo",
@@ -872,7 +958,8 @@
       "qi": 11,
       "qa": 11,
       "fvm": 52,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/colombo/4923"
     },
     {
       "id": "C-JUV-Alajbegovic",
@@ -882,7 +969,8 @@
       "qi": 12,
       "qa": 11,
       "fvm": 42,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/alajbegovic/7436"
     },
     {
       "id": "C-MIL-Saelemaekers",
@@ -892,7 +980,8 @@
       "qi": 10,
       "qa": 11,
       "fvm": 35,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/saelemaekers/4892"
     },
     {
       "id": "P-NAP-Meret",
@@ -902,7 +991,8 @@
       "qi": 11,
       "qa": 11,
       "fvm": 48,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/meret/572"
     },
     {
       "id": "D-ROM-Hermoso",
@@ -912,7 +1002,8 @@
       "qi": 10,
       "qa": 11,
       "fvm": 26,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/hermoso/4807"
     },
     {
       "id": "A-VEN-Adams_A.",
@@ -922,7 +1013,8 @@
       "qi": 12,
       "qa": 11,
       "fvm": 35,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/adams-a/7484"
     },
     {
       "id": "C-FIO-Mastantuono",
@@ -932,7 +1024,8 @@
       "qi": 12,
       "qa": 11,
       "fvm": 50,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/mastantuono/7078"
     },
     {
       "id": "D-INT-Spence",
@@ -942,7 +1035,8 @@
       "qi": 12,
       "qa": 11,
       "fvm": 37,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/spence/5982"
     },
     {
       "id": "C-MIL-Moreira",
@@ -952,7 +1046,8 @@
       "qi": 12,
       "qa": 11,
       "fvm": 45,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/moreira/6372"
     },
     {
       "id": "D-ATA-Scalvini",
@@ -962,7 +1057,8 @@
       "qi": 10,
       "qa": 10,
       "fvm": 28,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/scalvini/5526"
     },
     {
       "id": "P-BOL-Skorupski",
@@ -972,7 +1068,8 @@
       "qi": 10,
       "qa": 10,
       "fvm": 32,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/skorupski/133"
     },
     {
       "id": "C-BOL-Bernardeschi",
@@ -982,7 +1079,8 @@
       "qi": 9,
       "qa": 10,
       "fvm": 27,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/bernardeschi/184"
     },
     {
       "id": "C-ATA-Rowe",
@@ -992,7 +1090,8 @@
       "qi": 11,
       "qa": 10,
       "fvm": 40,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/rowe/6844"
     },
     {
       "id": "P-CAG-Caprile",
@@ -1002,7 +1101,8 @@
       "qi": 9,
       "qa": 10,
       "fvm": 25,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/caprile/4360"
     },
     {
       "id": "D-COM-Ramon",
@@ -1012,7 +1112,8 @@
       "qi": 10,
       "qa": 10,
       "fvm": 31,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/ramon/6869"
     },
     {
       "id": "C-COM-Perrone",
@@ -1022,7 +1123,8 @@
       "qi": 10,
       "qa": 10,
       "fvm": 34,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/perrone/6151"
     },
     {
       "id": "C-LAZ-Frattesi",
@@ -1032,7 +1134,8 @@
       "qi": 7,
       "qa": 10,
       "fvm": 75,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/frattesi/2848"
     },
     {
       "id": "P-LAZ-Mandas",
@@ -1042,7 +1145,8 @@
       "qi": 9,
       "qa": 10,
       "fvm": 36,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/mandas/6482"
     },
     {
       "id": "A-LAZ-Dia",
@@ -1052,7 +1156,8 @@
       "qi": 10,
       "qa": 10,
       "fvm": 20,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/dia/5672"
     },
     {
       "id": "C-NAP-Zambo_Anguissa",
@@ -1062,7 +1167,8 @@
       "qi": 11,
       "qa": 10,
       "fvm": 41,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/zambo-anguissa/4220"
     },
     {
       "id": "C-NAP-Vergara",
@@ -1072,7 +1178,8 @@
       "qi": 8,
       "qa": 10,
       "fvm": 35,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/vergara/7223"
     },
     {
       "id": "A-NAP-Lukaku",
@@ -1082,7 +1189,8 @@
       "qi": 10,
       "qa": 10,
       "fvm": 45,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/lukaku/2531"
     },
     {
       "id": "C-ROM-Konè_M.",
@@ -1092,7 +1200,8 @@
       "qi": 10,
       "qa": 10,
       "fvm": 42,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/kon&#xE8;-m/5589"
     },
     {
       "id": "C-SAS-Thorstvedt",
@@ -1102,7 +1211,8 @@
       "qi": 10,
       "qa": 10,
       "fvm": 39,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/thorstvedt/5844"
     },
     {
       "id": "A-TOR-Adams_C.",
@@ -1112,7 +1222,8 @@
       "qi": 9,
       "qa": 10,
       "fvm": 33,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/adams-c/6646"
     },
     {
       "id": "A-PAR-Tourè_E.",
@@ -1122,7 +1233,8 @@
       "qi": 11,
       "qa": 10,
       "fvm": 37,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/tour&#xE8;-e/6229"
     },
     {
       "id": "D-COM-Chalobah_T.",
@@ -1132,7 +1244,8 @@
       "qi": 9,
       "qa": 10,
       "fvm": 32,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/chalobah-t/5641"
     },
     {
       "id": "A-PAR-Romero_D.",
@@ -1142,7 +1255,8 @@
       "qi": 10,
       "qa": 10,
       "fvm": 37,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/romero-d/7554"
     },
     {
       "id": "D-FIO-Dodò",
@@ -1152,7 +1266,8 @@
       "qi": 10,
       "qa": 9,
       "fvm": 20,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/dod&#xF2;/5885"
     },
     {
       "id": "A-FRO-Raimondo",
@@ -1162,7 +1277,8 @@
       "qi": 7,
       "qa": 9,
       "fvm": 27,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/raimondo/5436"
     },
     {
       "id": "D-GEN-Vasquez",
@@ -1172,7 +1288,8 @@
       "qi": 9,
       "qa": 9,
       "fvm": 30,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/vasquez/5514"
     },
     {
       "id": "C-INT-Diouf",
@@ -1182,7 +1299,8 @@
       "qi": 8,
       "qa": 9,
       "fvm": 43,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/diouf/6274"
     },
     {
       "id": "C-INT-Sucic_P.",
@@ -1192,7 +1310,8 @@
       "qi": 8,
       "qa": 9,
       "fvm": 21,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/sucic-p/7070"
     },
     {
       "id": "P-JUV-Di_Gregorio",
@@ -1202,7 +1321,8 @@
       "qi": 9,
       "qa": 9,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/di-gregorio/5876"
     },
     {
       "id": "C-JUV-Locatelli",
@@ -1212,7 +1332,8 @@
       "qi": 8,
       "qa": 9,
       "fvm": 33,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/locatelli/827"
     },
     {
       "id": "C-JUV-Thuram_K.",
@@ -1222,7 +1343,8 @@
       "qi": 10,
       "qa": 9,
       "fvm": 25,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/thuram-k/5562"
     },
     {
       "id": "C-LAZ-Cancellieri",
@@ -1232,7 +1354,8 @@
       "qi": 9,
       "qa": 9,
       "fvm": 25,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/cancellieri/5500"
     },
     {
       "id": "C-LAZ-Isaksen",
@@ -1242,7 +1365,8 @@
       "qi": 9,
       "qa": 9,
       "fvm": 22,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/isaksen/6398"
     },
     {
       "id": "A-LAZ-Ratkov",
@@ -1252,7 +1376,8 @@
       "qi": 10,
       "qa": 9,
       "fvm": 22,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/ratkov/7313"
     },
     {
       "id": "C-MON-Colpani",
@@ -1262,7 +1387,8 @@
       "qi": 8,
       "qa": 9,
       "fvm": 15,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/colpani/5878"
     },
     {
       "id": "A-MON-Cutrone",
@@ -1272,7 +1398,8 @@
       "qi": 9,
       "qa": 9,
       "fvm": 23,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/cutrone/2155"
     },
     {
       "id": "C-NAP-Politano",
@@ -1282,7 +1409,8 @@
       "qi": 10,
       "qa": 9,
       "fvm": 37,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/politano/536"
     },
     {
       "id": "C-ROM-Cristante",
@@ -1292,7 +1420,8 @@
       "qi": 8,
       "qa": 9,
       "fvm": 29,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/cristante/779"
     },
     {
       "id": "C-SAS-Volpato",
@@ -1302,7 +1431,8 @@
       "qi": 7,
       "qa": 9,
       "fvm": 25,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/volpato/5735"
     },
     {
       "id": "A-SAS-Bowie",
@@ -1312,7 +1442,8 @@
       "qi": 10,
       "qa": 9,
       "fvm": 32,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/bowie/7347"
     },
     {
       "id": "C-TOR-Casadei",
@@ -1322,7 +1453,8 @@
       "qi": 10,
       "qa": 9,
       "fvm": 27,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/casadei/5888"
     },
     {
       "id": "P-UDI-Okoye",
@@ -1332,7 +1464,8 @@
       "qi": 9,
       "qa": 9,
       "fvm": 28,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/okoye/6462"
     },
     {
       "id": "D-UDI-Vojvoda",
@@ -1342,7 +1475,8 @@
       "qi": 8,
       "qa": 9,
       "fvm": 19,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/vojvoda/4994"
     },
     {
       "id": "D-UDI-Kamara_H.",
@@ -1352,7 +1486,8 @@
       "qi": 6,
       "qa": 9,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/kamara-h/5555"
     },
     {
       "id": "A-VEN-Yeboah_J.",
@@ -1362,7 +1497,8 @@
       "qi": 8,
       "qa": 9,
       "fvm": 27,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/yeboah-j/6904"
     },
     {
       "id": "C-ROM-Pellegrini_Lo.",
@@ -1372,7 +1508,8 @@
       "qi": 10,
       "qa": 9,
       "fvm": 20,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/pellegrini-lo/530"
     },
     {
       "id": "A-FRO-Bobcek",
@@ -1382,7 +1519,8 @@
       "qi": 9,
       "qa": 9,
       "fvm": 31,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/bobcek/7612"
     },
     {
       "id": "P-TOR-Perri",
@@ -1392,7 +1530,8 @@
       "qi": 9,
       "qa": 9,
       "fvm": 26,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/perri/6534"
     },
     {
       "id": "D-ATA-Zappacosta",
@@ -1402,7 +1541,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 19,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/zappacosta/554"
     },
     {
       "id": "C-ATA-Pasalic",
@@ -1412,7 +1552,8 @@
       "qi": 9,
       "qa": 8,
       "fvm": 22,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/pasalic/2077"
     },
     {
       "id": "D-BOL-Miranda_J.",
@@ -1422,7 +1563,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 23,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/miranda-j/4734"
     },
     {
       "id": "C-BOL-Odgaard",
@@ -1432,7 +1574,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 17,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/odgaard/2765"
     },
     {
       "id": "C-BOL-Cambiaghi",
@@ -1442,7 +1585,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 25,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/cambiaghi/4436"
     },
     {
       "id": "A-BOL-Dallinga",
@@ -1452,7 +1596,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/dallinga/6643"
     },
     {
       "id": "C-TOR-Mandragora",
@@ -1462,7 +1607,8 @@
       "qi": 9,
       "qa": 8,
       "fvm": 23,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/mandragora/1933"
     },
     {
       "id": "A-BOL-Piccoli",
@@ -1472,7 +1618,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 29,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/piccoli/4359"
     },
     {
       "id": "C-FRO-Calò",
@@ -1482,7 +1629,8 @@
       "qi": 7,
       "qa": 8,
       "fvm": 27,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/cal&#xF2;/7472"
     },
     {
       "id": "A-FRO-Ghedjemis",
@@ -1492,7 +1640,8 @@
       "qi": 9,
       "qa": 8,
       "fvm": 23,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/ghedjemis/6530"
     },
     {
       "id": "P-GEN-Bijlow",
@@ -1502,7 +1651,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 15,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/bijlow/7332"
     },
     {
       "id": "D-GEN-Norton-Cuffy",
@@ -1512,7 +1662,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 15,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/norton-cuffy/6814"
     },
     {
       "id": "A-GEN-Vitinha_O.",
@@ -1522,7 +1673,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 13,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/vitinha-o/6164"
     },
     {
       "id": "D-JUV-Celik",
@@ -1532,7 +1684,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 16,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/celik/4657"
     },
     {
       "id": "D-JUV-Cambiaso",
@@ -1542,7 +1695,8 @@
       "qi": 9,
       "qa": 8,
       "fvm": 18,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/cambiaso/5520"
     },
     {
       "id": "A-JUV-David",
@@ -1552,7 +1706,8 @@
       "qi": 9,
       "qa": 8,
       "fvm": 25,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/david/5544"
     },
     {
       "id": "D-LAZ-Doekhi",
@@ -1562,7 +1717,8 @@
       "qi": 7,
       "qa": 8,
       "fvm": 16,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/doekhi/6320"
     },
     {
       "id": "P-LEC-Falcone",
@@ -1572,7 +1728,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 26,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/falcone/2134"
     },
     {
       "id": "D-LEC-Tiago_Gabriel",
@@ -1582,7 +1739,8 @@
       "qi": 7,
       "qa": 8,
       "fvm": 20,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/tiago-gabriel/6989"
     },
     {
       "id": "A-LEC-Geubbels",
@@ -1592,7 +1750,8 @@
       "qi": 9,
       "qa": 8,
       "fvm": 23,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/geubbels/5029"
     },
     {
       "id": "D-MIL-Bartesaghi",
@@ -1602,7 +1761,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 22,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/bartesaghi/6496"
     },
     {
       "id": "C-MIL-Chukwueze",
@@ -1612,7 +1772,8 @@
       "qi": 6,
       "qa": 8,
       "fvm": 22,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/chukwueze/4856"
     },
     {
       "id": "D-NAP-Gutierrez",
@@ -1622,7 +1783,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 26,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/gutierrez/5427"
     },
     {
       "id": "D-NAP-Spinazzola",
@@ -1632,7 +1794,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 25,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/spinazzola/1852"
     },
     {
       "id": "C-NAP-Lobotka",
@@ -1642,7 +1805,8 @@
       "qi": 7,
       "qa": 8,
       "fvm": 23,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/lobotka/4287"
     },
     {
       "id": "D-PAR-Delprato",
@@ -1652,7 +1816,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 21,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/delprato/6664"
     },
     {
       "id": "D-PAR-Valeri",
@@ -1662,7 +1827,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 22,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/valeri/5862"
     },
     {
       "id": "D-ROM-Koulierakis",
@@ -1672,7 +1838,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 15,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/koulierakis/7529"
     },
     {
       "id": "C-SAS-Konè_I.",
@@ -1682,7 +1849,8 @@
       "qi": 9,
       "qa": 8,
       "fvm": 20,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/kon&#xE8;-i/6717"
     },
     {
       "id": "D-TOR-Comuzzo",
@@ -1692,7 +1860,8 @@
       "qi": 6,
       "qa": 8,
       "fvm": 13,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/comuzzo/6495"
     },
     {
       "id": "D-COM-Couto",
@@ -1702,7 +1871,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 25,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/couto/6727"
     },
     {
       "id": "C-FRO-Schmid",
@@ -1712,7 +1882,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 25,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/schmid/7551"
     },
     {
       "id": "A-GEN-Osmajic",
@@ -1722,7 +1893,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 28,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/osmajic/7600"
     },
     {
       "id": "D-BOL-Theate",
@@ -1732,7 +1904,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 20,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/theate/5675"
     },
     {
       "id": "C-MIL-Hutchinson",
@@ -1742,7 +1915,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 25,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/hutchinson/7618"
     },
     {
       "id": "D-PAR-Diego_Carlos",
@@ -1752,7 +1926,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 26,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/diego-carlos/4137"
     },
     {
       "id": "C-BOL-Mbangula",
@@ -1762,7 +1937,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 28,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/mbangula/6833"
     },
     {
       "id": "P-COM-Sanchez_Ro.",
@@ -1772,7 +1948,8 @@
       "qi": 8,
       "qa": 8,
       "fvm": 25,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/sanchez-ro/6344"
     },
     {
       "id": "D-ATA-Djimsiti",
@@ -1782,7 +1959,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 16,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/djimsiti/787"
     },
     {
       "id": "D-ATA-Hien",
@@ -1792,7 +1970,8 @@
       "qi": 8,
       "qa": 7,
       "fvm": 11,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/hien/6046"
     },
     {
       "id": "C-ATA-Gaetano",
@@ -1802,7 +1981,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 30,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/gaetano/4364"
     },
     {
       "id": "C-ATA-Zalewski",
@@ -1812,7 +1992,8 @@
       "qi": 6,
       "qa": 7,
       "fvm": 18,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/zalewski/5422"
     },
     {
       "id": "D-JUV-Lucumì",
@@ -1822,7 +2003,8 @@
       "qi": 8,
       "qa": 7,
       "fvm": 17,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/lucum&#xEC;/6042"
     },
     {
       "id": "D-BOL-Zortea",
@@ -1832,7 +2014,8 @@
       "qi": 6,
       "qa": 7,
       "fvm": 19,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/zortea/4433"
     },
     {
       "id": "C-BOL-Ferguson",
@@ -1842,7 +2025,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 23,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/ferguson/5858"
     },
     {
       "id": "D-CAG-Mina",
@@ -1852,7 +2036,8 @@
       "qi": 8,
       "qa": 7,
       "fvm": 20,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/mina/4210"
     },
     {
       "id": "D-CAG-Obert",
@@ -1862,7 +2047,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 15,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/obert/5701"
     },
     {
       "id": "C-CAG-Adopo",
@@ -1872,7 +2058,8 @@
       "qi": 6,
       "qa": 7,
       "fvm": 13,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/adopo/4870"
     },
     {
       "id": "C-CAG-Romano",
@@ -1882,7 +2069,8 @@
       "qi": 5,
       "qa": 7,
       "fvm": 21,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/romano/7311"
     },
     {
       "id": "D-FIO-Dragusin",
@@ -1892,7 +2080,8 @@
       "qi": 8,
       "qa": 7,
       "fvm": 20,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/dragusin/5365"
     },
     {
       "id": "D-FIO-Jimenez_A.",
@@ -1902,7 +2091,8 @@
       "qi": 8,
       "qa": 7,
       "fvm": 18,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/jimenez-a/6531"
     },
     {
       "id": "C-FIO-Fagioli",
@@ -1912,7 +2102,8 @@
       "qi": 8,
       "qa": 7,
       "fvm": 20,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/fagioli/4465"
     },
     {
       "id": "C-FIO-Ndour",
@@ -1922,7 +2113,8 @@
       "qi": 8,
       "qa": 7,
       "fvm": 22,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/ndour/6294"
     },
     {
       "id": "D-FRO-Bracaglia",
@@ -1932,7 +2124,8 @@
       "qi": 5,
       "qa": 7,
       "fvm": 15,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/bracaglia/7469"
     },
     {
       "id": "C-GEN-Frendrup",
@@ -1942,7 +2135,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 19,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/frendrup/5791"
     },
     {
       "id": "A-INT-Bonny",
@@ -1952,7 +2146,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 15,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/bonny/6669"
     },
     {
       "id": "C-JUV-Koopmeiners",
@@ -1962,7 +2157,8 @@
       "qi": 5,
       "qa": 7,
       "fvm": 15,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/koopmeiners/5685"
     },
     {
       "id": "A-JUV-Boga",
@@ -1972,7 +2168,8 @@
       "qi": 6,
       "qa": 7,
       "fvm": 27,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/boga/2832"
     },
     {
       "id": "D-LAZ-Tavares_N.",
@@ -1982,7 +2179,8 @@
       "qi": 6,
       "qa": 7,
       "fvm": 25,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/tavares-n/5620"
     },
     {
       "id": "C-LAZ-Rovella",
@@ -1992,7 +2190,8 @@
       "qi": 6,
       "qa": 7,
       "fvm": 16,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/rovella/4459"
     },
     {
       "id": "C-LEC-Coulibaly_L.",
@@ -2002,7 +2201,8 @@
       "qi": 6,
       "qa": 7,
       "fvm": 17,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/coulibaly-l/5504"
     },
     {
       "id": "D-MIL-Gabbia",
@@ -2012,7 +2212,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 15,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/gabbia/4401"
     },
     {
       "id": "D-MON-Mangas",
@@ -2022,7 +2223,8 @@
       "qi": 6,
       "qa": 7,
       "fvm": 15,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/mangas/7485"
     },
     {
       "id": "C-MON-Akinsanmiro",
@@ -2032,7 +2234,8 @@
       "qi": 6,
       "qa": 7,
       "fvm": 11,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/akinsanmiro/6593"
     },
     {
       "id": "A-MON-Varela_G.",
@@ -2042,7 +2245,8 @@
       "qi": 3,
       "qa": 7,
       "fvm": 40,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/varela-g/7523"
     },
     {
       "id": "P-PAR-Suzuki",
@@ -2052,7 +2256,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 20,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/suzuki/6641"
     },
     {
       "id": "C-PAR-Bernabè",
@@ -2062,7 +2267,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 34,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/bernab&#xE8;/6666"
     },
     {
       "id": "C-ROM-Pisilli",
@@ -2072,7 +2278,8 @@
       "qi": 5,
       "qa": 7,
       "fvm": 19,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/pisilli/6190"
     },
     {
       "id": "P-SAS-Muric",
@@ -2082,7 +2289,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 15,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/muric/4236"
     },
     {
       "id": "D-SAS-Idzes",
@@ -2092,7 +2300,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 19,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/idzes/6672"
     },
     {
       "id": "D-TOR-Coco",
@@ -2102,7 +2311,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 14,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/coco/6642"
     },
     {
       "id": "D-TOR-Ismajli",
@@ -2112,7 +2322,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 13,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/ismajli/5010"
     },
     {
       "id": "C-UDI-Karlstrom",
@@ -2122,7 +2333,8 @@
       "qi": 6,
       "qa": 7,
       "fvm": 20,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/karlstrom/6680"
     },
     {
       "id": "C-UDI-Unai_Gomez",
@@ -2132,7 +2344,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 16,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/unai-gomez/6783"
     },
     {
       "id": "A-VEN-Rrahmani_Al.",
@@ -2142,7 +2355,8 @@
       "qi": 8,
       "qa": 7,
       "fvm": 13,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/rrahmani-al/7449"
     },
     {
       "id": "C-GEN-Sow",
@@ -2152,7 +2366,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 15,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/sow/5946"
     },
     {
       "id": "C-ATA-Elmas",
@@ -2162,7 +2377,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 22,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/elmas/4479"
     },
     {
       "id": "D-NAP-Badiashile",
@@ -2172,7 +2388,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 18,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/badiashile/4664"
     },
     {
       "id": "D-LAZ-Sutalo_J.",
@@ -2182,7 +2399,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 19,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/sutalo-j/7580"
     },
     {
       "id": "C-LEC-Monteiro_J.",
@@ -2192,7 +2410,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 23,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/monteiro-j/7619"
     },
     {
       "id": "D-TOR-Belghali",
@@ -2202,7 +2421,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 20,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/belghali/7220"
     },
     {
       "id": "C-JUV-Sarr_P.",
@@ -2212,7 +2432,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 25,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/sarr-p/5680"
     },
     {
       "id": "A-FIO-Gnonto",
@@ -2222,7 +2443,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 25,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/gnonto/7623"
     },
     {
       "id": "C-GEN-El_Shaarawy",
@@ -2232,7 +2454,8 @@
       "qi": 7,
       "qa": 7,
       "fvm": 25,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/el-shaarawy/795"
     },
     {
       "id": "D-ATA-Kolasinac",
@@ -2242,7 +2465,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 8,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/kolasinac/2640"
     },
     {
       "id": "D-ATA-Ahanor",
@@ -2252,7 +2476,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 13,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/ahanor/6916"
     },
     {
       "id": "D-ATA-Bellanova",
@@ -2262,7 +2487,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 17,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/bellanova/4887"
     },
     {
       "id": "D-ATA-Bernasconi",
@@ -2272,7 +2498,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 18,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/bernasconi/7219"
     },
     {
       "id": "A-ATA-Sulemana_K.",
@@ -2282,7 +2509,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 8,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/sulemana-k/5918"
     },
     {
       "id": "D-BOL-Heggem",
@@ -2292,7 +2520,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 15,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/heggem/7212"
     },
     {
       "id": "D-BOL-Holm",
@@ -2302,7 +2531,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 13,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/holm/5678"
     },
     {
       "id": "C-BOL-Pobega",
@@ -2312,7 +2542,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/pobega/5298"
     },
     {
       "id": "C-CAG-Winks",
@@ -2322,7 +2553,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 15,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/winks/4260"
     },
     {
       "id": "C-CAG-Fazzini",
@@ -2332,7 +2564,8 @@
       "qi": 7,
       "qa": 6,
       "fvm": 23,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/fazzini/6010"
     },
     {
       "id": "A-CAG-Mutandwa",
@@ -2342,7 +2575,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 7,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/mutandwa/6598"
     },
     {
       "id": "D-COM-Kaiki",
@@ -2352,7 +2586,8 @@
       "qi": 7,
       "qa": 6,
       "fvm": 13,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/kaiki/7414"
     },
     {
       "id": "D-COM-Valle",
@@ -2362,7 +2597,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 21,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/valle/6867"
     },
     {
       "id": "C-COM-Milla",
@@ -2372,7 +2608,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 30,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/milla/7412"
     },
     {
       "id": "C-COM-Caqueret",
@@ -2382,7 +2619,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 17,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/caqueret/5036"
     },
     {
       "id": "C-COM-Liberali",
@@ -2392,7 +2630,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 21,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/liberali/6678"
     },
     {
       "id": "D-FIO-Viery",
@@ -2402,7 +2641,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/viery/7410"
     },
     {
       "id": "C-FIO-Oulai",
@@ -2412,7 +2652,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 18,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/oulai/7464"
     },
     {
       "id": "D-FRO-Monterisi",
@@ -2422,7 +2663,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 13,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/monterisi/4952"
     },
     {
       "id": "D-FRO-Oyono_A.",
@@ -2432,7 +2674,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 10,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/oyono-a/6238"
     },
     {
       "id": "C-FRO-Zerbin",
@@ -2442,7 +2685,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/zerbin/5998"
     },
     {
       "id": "A-FRO-Kvernadze",
@@ -2452,7 +2696,8 @@
       "qi": 4,
       "qa": 6,
       "fvm": 24,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/kvernadze/6204"
     },
     {
       "id": "D-GEN-Marcandalli",
@@ -2462,7 +2707,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 14,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/marcandalli/6660"
     },
     {
       "id": "C-GEN-Ellertsson",
@@ -2472,7 +2718,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 16,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/ellertsson/6020"
     },
     {
       "id": "D-INT-Pavard",
@@ -2482,7 +2729,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 14,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/pavard/4177"
     },
     {
       "id": "D-INT-Carlos_Augusto",
@@ -2492,7 +2740,8 @@
       "qi": 7,
       "qa": 6,
       "fvm": 20,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/carlos-augusto/5877"
     },
     {
       "id": "P-JUV-Perin",
@@ -2502,7 +2751,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/perin/218"
     },
     {
       "id": "C-JUV-Zhegrova",
@@ -2512,7 +2762,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 17,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/zhegrova/5761"
     },
     {
       "id": "D-LAZ-Romagnoli",
@@ -2522,7 +2773,8 @@
       "qi": 7,
       "qa": 6,
       "fvm": 20,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/romagnoli/460"
     },
     {
       "id": "D-LAZ-Pedraza",
@@ -2532,7 +2784,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 14,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/pedraza/4817"
     },
     {
       "id": "D-LAZ-Marusic",
@@ -2542,7 +2795,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 20,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/marusic/2188"
     },
     {
       "id": "A-LAZ-Noslin",
@@ -2552,7 +2806,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 8,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/noslin/6556"
     },
     {
       "id": "D-LEC-Veiga_D.",
@@ -2562,7 +2817,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/veiga-d/6990"
     },
     {
       "id": "D-LEC-Gallo",
@@ -2572,7 +2828,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 12,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/gallo/4502"
     },
     {
       "id": "C-LEC-Pierotti",
@@ -2582,7 +2839,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 19,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/pierotti/6549"
     },
     {
       "id": "A-LEC-Stulic",
@@ -2592,7 +2850,8 @@
       "qi": 7,
       "qa": 6,
       "fvm": 11,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/stulic/7252"
     },
     {
       "id": "D-MIL-Tomori",
@@ -2602,7 +2861,8 @@
       "qi": 7,
       "qa": 6,
       "fvm": 8,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/tomori/4751"
     },
     {
       "id": "A-MIL-Gimenez",
@@ -2612,7 +2872,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/gimenez/7008"
     },
     {
       "id": "C-MON-Pessina",
@@ -2622,7 +2883,8 @@
       "qi": 7,
       "qa": 6,
       "fvm": 15,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/pessina/2741"
     },
     {
       "id": "D-NAP-Beukema",
@@ -2632,7 +2894,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 12,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/beukema/6202"
     },
     {
       "id": "D-NAP-Buongiorno",
@@ -2642,7 +2905,8 @@
       "qi": 7,
       "qa": 6,
       "fvm": 15,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/buongiorno/2724"
     },
     {
       "id": "A-NAP-Neres",
@@ -2652,7 +2916,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 20,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/neres/6831"
     },
     {
       "id": "P-PAR-Daffara",
@@ -2662,7 +2927,8 @@
       "qi": 7,
       "qa": 6,
       "fvm": 7,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/daffara/7411"
     },
     {
       "id": "D-PAR-Circati",
@@ -2672,7 +2938,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 18,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/circati/6663"
     },
     {
       "id": "C-PAR-Nicolussi_Caviglia",
@@ -2682,7 +2949,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 16,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/nicolussi-caviglia/4349"
     },
     {
       "id": "C-SAS-Matic",
@@ -2692,7 +2960,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 15,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/matic/2528"
     },
     {
       "id": "C-SAS-Adzic",
@@ -2702,7 +2971,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 16,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/adzic/6677"
     },
     {
       "id": "C-SAS-Bakola",
@@ -2712,7 +2982,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 14,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/bakola/7036"
     },
     {
       "id": "C-TOR-Cacciamani",
@@ -2722,7 +2993,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 24,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/cacciamani/7060"
     },
     {
       "id": "C-TOR-Oristanio",
@@ -2732,7 +3004,8 @@
       "qi": 7,
       "qa": 6,
       "fvm": 12,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/oristanio/6218"
     },
     {
       "id": "A-TOR-Zapata_D.",
@@ -2742,7 +3015,8 @@
       "qi": 7,
       "qa": 6,
       "fvm": 12,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/zapata-d/608"
     },
     {
       "id": "D-ATA-Kristensen_T.",
@@ -2752,7 +3026,8 @@
       "qi": 7,
       "qa": 6,
       "fvm": 20,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/kristensen-t/6485"
     },
     {
       "id": "C-UDI-Piotrowski",
@@ -2762,7 +3037,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 15,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/piotrowski/7198"
     },
     {
       "id": "P-VEN-Stankovic_F.",
@@ -2772,7 +3048,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 11,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/stankovic-f/6248"
     },
     {
       "id": "C-VEN-Basic",
@@ -2782,7 +3059,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 19,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/basic/5674"
     },
     {
       "id": "D-SAS-Obrador",
@@ -2792,7 +3070,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 13,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/obrador/7329"
     },
     {
       "id": "C-MON-Tourè_I.",
@@ -2802,7 +3081,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 14,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/tour&#xE8;-i/7146"
     },
     {
       "id": "D-TOR-Fortini",
@@ -2812,7 +3092,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 12,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/fortini/7069"
     },
     {
       "id": "D-SAS-Leysen_F.",
@@ -2822,7 +3103,8 @@
       "qi": 5,
       "qa": 6,
       "fvm": 12,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/leysen-f/7564"
     },
     {
       "id": "D-ROM-Balerdi",
@@ -2832,7 +3114,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 11,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/balerdi/4705"
     },
     {
       "id": "D-SAS-Caleta-Car",
@@ -2842,7 +3125,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 15,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/caleta-car/4147"
     },
     {
       "id": "A-MON-Zeballos",
@@ -2852,7 +3136,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 18,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/zeballos/7620"
     },
     {
       "id": "D-CAG-Sugawara",
@@ -2862,7 +3147,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 15,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/sugawara/7621"
     },
     {
       "id": "C-TOR-Braganca",
@@ -2872,7 +3158,8 @@
       "qi": 6,
       "qa": 6,
       "fvm": 20,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/braganca/7624"
     },
     {
       "id": "A-CAG-Maldini",
@@ -2882,7 +3169,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 21,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/maldini/4896"
     },
     {
       "id": "C-BOL-Amondarain",
@@ -2892,7 +3180,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 10,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/amondarain/7528"
     },
     {
       "id": "D-CAG-Kofler",
@@ -2902,7 +3191,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 8,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/kofler/7532"
     },
     {
       "id": "D-CAG-Zè_Pedro",
@@ -2912,7 +3202,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 13,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/z&#xE8;-pedro/7274"
     },
     {
       "id": "C-CAG-Felici",
@@ -2922,7 +3213,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 7,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/felici/6640"
     },
     {
       "id": "D-COM-Kempf",
@@ -2932,7 +3224,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 13,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/kempf/6893"
     },
     {
       "id": "D-FIO-Valdepenas",
@@ -2942,7 +3235,8 @@
       "qi": 6,
       "qa": 5,
       "fvm": 16,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/valdepenas/7294"
     },
     {
       "id": "P-FRO-Palmisani",
@@ -2952,7 +3246,8 @@
       "qi": 4,
       "qa": 5,
       "fvm": 12,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/palmisani/6415"
     },
     {
       "id": "D-FRO-Calvani",
@@ -2962,7 +3257,8 @@
       "qi": 4,
       "qa": 5,
       "fvm": 13,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/calvani/7467"
     },
     {
       "id": "C-GEN-Meichtry",
@@ -2972,7 +3268,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 11,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/meichtry/7409"
     },
     {
       "id": "C-INT-Luis_Henrique",
@@ -2982,7 +3279,8 @@
       "qi": 4,
       "qa": 5,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/luis-henrique/5301"
     },
     {
       "id": "D-JUV-Kelly_L.",
@@ -2992,7 +3290,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/kelly-l/6766"
     },
     {
       "id": "C-LAZ-Dele-Bashiru",
@@ -3002,7 +3301,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 13,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/dele-bashiru/6629"
     },
     {
       "id": "D-LEC-Gaspar_K.",
@@ -3012,7 +3312,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/gaspar-k/6632"
     },
     {
       "id": "D-MIL-De_Winter",
@@ -3022,7 +3323,8 @@
       "qi": 3,
       "qa": 5,
       "fvm": 20,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/de-winter/5739"
     },
     {
       "id": "C-MIL-Jashari",
@@ -3032,7 +3334,8 @@
       "qi": 4,
       "qa": 5,
       "fvm": 13,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/jashari/7203"
     },
     {
       "id": "P-NAP-Milinkovic-Savic_V.",
@@ -3042,7 +3345,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/milinkovic-savic-v/2170"
     },
     {
       "id": "D-NAP-Olivera",
@@ -3052,7 +3356,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 13,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/olivera/5840"
     },
     {
       "id": "C-PAR-Keita_M.",
@@ -3062,7 +3367,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 15,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/keita-m/6898"
     },
     {
       "id": "C-PAR-Ondrejka",
@@ -3072,7 +3378,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 18,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/ondrejka/6984"
     },
     {
       "id": "D-ROM-Ghilardi",
@@ -3082,7 +3389,8 @@
       "qi": 4,
       "qa": 5,
       "fvm": 10,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/ghilardi/6631"
     },
     {
       "id": "D-SAS-Doig",
@@ -3092,7 +3400,8 @@
       "qi": 4,
       "qa": 5,
       "fvm": 10,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/doig/5851"
     },
     {
       "id": "D-TOR-Pedersen",
@@ -3102,7 +3411,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 12,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/pedersen/6426"
     },
     {
       "id": "C-TOR-Fitz-Jim",
@@ -3112,7 +3422,8 @@
       "qi": 4,
       "qa": 5,
       "fvm": 18,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/fitz-jim/7535"
     },
     {
       "id": "C-TOR-Gineitis",
@@ -3122,7 +3433,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 12,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/gineitis/6170"
     },
     {
       "id": "D-VEN-Bella-Kotchap",
@@ -3132,7 +3444,8 @@
       "qi": 6,
       "qa": 5,
       "fvm": 13,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/bella-kotchap/7253"
     },
     {
       "id": "D-VEN-Correia_T.",
@@ -3142,7 +3455,8 @@
       "qi": 4,
       "qa": 5,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/correia-t/4845"
     },
     {
       "id": "D-VEN-Haps",
@@ -3152,7 +3466,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 10,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/haps/5695"
     },
     {
       "id": "C-VEN-Busio",
@@ -3162,7 +3477,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 14,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/busio/5507"
     },
     {
       "id": "C-VEN-Sohm",
@@ -3172,7 +3488,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 11,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/sohm/5319"
     },
     {
       "id": "C-VEN-Perez_K.",
@@ -3182,7 +3499,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 15,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/perez-k/6994"
     },
     {
       "id": "C-MIL-Cissè_A.",
@@ -3192,7 +3510,8 @@
       "qi": 3,
       "qa": 5,
       "fvm": 24,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/ciss&#xE8;-a/6618"
     },
     {
       "id": "A-FRO-Birligea",
@@ -3202,7 +3521,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 11,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/birligea/7610"
     },
     {
       "id": "A-MON-Ngonge",
@@ -3212,7 +3532,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 13,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/ngonge/6145"
     },
     {
       "id": "D-TOR-Patterson",
@@ -3222,7 +3543,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 12,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/patterson/5751"
     },
     {
       "id": "D-TOR-Rodriguez_R.",
@@ -3232,7 +3554,8 @@
       "qi": 5,
       "qa": 5,
       "fvm": 12,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/rodriguez-r/2169"
     },
     {
       "id": "D-ATA-Kossounou",
@@ -3242,7 +3565,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/kossounou/5578"
     },
     {
       "id": "C-ROM-De_Roon",
@@ -3252,7 +3576,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/de-roon/22"
     },
     {
       "id": "D-BOL-Vitik",
@@ -3262,7 +3587,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/vitik/7068"
     },
     {
       "id": "C-BOL-Moro_N.",
@@ -3272,7 +3598,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 14,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/moro-n/6054"
     },
     {
       "id": "C-SAS-Dominguez_B.",
@@ -3282,7 +3609,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/dominguez-b/6895"
     },
     {
       "id": "D-CAG-Rodriguez_Ju.",
@@ -3292,7 +3620,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 14,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/rodriguez-ju/7268"
     },
     {
       "id": "D-CAG-Zappa",
@@ -3302,7 +3631,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 7,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/zappa/4461"
     },
     {
       "id": "C-CAG-Prati",
@@ -3312,7 +3642,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 7,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/prati/6424"
     },
     {
       "id": "A-CAG-Borrelli",
@@ -3322,7 +3653,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 9,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/borrelli/6243"
     },
     {
       "id": "A-CAG-Mendy_P.",
@@ -3332,7 +3664,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/mendy-p/7374"
     },
     {
       "id": "D-COM-Smolcic_I.",
@@ -3342,7 +3675,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/smolcic-i/7014"
     },
     {
       "id": "C-COM-Addai",
@@ -3352,7 +3686,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/addai/7127"
     },
     {
       "id": "A-COM-Morata",
@@ -3362,7 +3697,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 7,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/morata/313"
     },
     {
       "id": "D-FIO-Pongracic",
@@ -3372,7 +3708,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 8,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/pongracic/5603"
     },
     {
       "id": "D-FIO-Parisi",
@@ -3382,7 +3719,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/parisi/5449"
     },
     {
       "id": "C-PAR-Fabbian",
@@ -3392,7 +3730,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 8,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/fabbian/6206"
     },
     {
       "id": "D-FRO-Cittadini",
@@ -3402,7 +3741,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 8,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/cittadini/5757"
     },
     {
       "id": "C-FRO-Cichella",
@@ -3412,7 +3752,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/cichella/7473"
     },
     {
       "id": "C-FRO-Koutsoupias",
@@ -3422,7 +3763,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 11,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/koutsoupias/7474"
     },
     {
       "id": "C-FRO-Fini",
@@ -3432,7 +3774,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 13,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/fini/6506"
     },
     {
       "id": "D-GEN-Martin",
@@ -3442,7 +3785,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 8,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/martin/2593"
     },
     {
       "id": "D-GEN-Mitaj",
@@ -3452,7 +3796,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/mitaj/7537"
     },
     {
       "id": "C-GEN-Amorim",
@@ -3462,7 +3807,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 11,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/amorim/7341"
     },
     {
       "id": "C-GEN-Messias",
@@ -3472,7 +3818,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 8,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/messias/4970"
     },
     {
       "id": "C-GEN-Traorè_Hj.",
@@ -3482,7 +3829,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 11,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/traor&#xE8;-hj/2857"
     },
     {
       "id": "A-GEN-Havel",
@@ -3492,7 +3840,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/havel/7453"
     },
     {
       "id": "C-INT-Mkhitaryan",
@@ -3502,7 +3851,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 9,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/mkhitaryan/2529"
     },
     {
       "id": "D-JUV-Gatti",
@@ -3512,7 +3862,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/gatti/5831"
     },
     {
       "id": "C-JUV-Douglas_Luiz",
@@ -3522,7 +3873,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 15,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/douglas-luiz/4911"
     },
     {
       "id": "D-LAZ-Provstgaard",
@@ -3532,7 +3884,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 13,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/provstgaard/7012"
     },
     {
       "id": "D-LAZ-Floriani_Mussolini",
@@ -3542,7 +3895,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/floriani-mussolini/7131"
     },
     {
       "id": "C-LAZ-Cataldi",
@@ -3552,7 +3906,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/cataldi/333"
     },
     {
       "id": "D-LEC-Siebert",
@@ -3562,7 +3917,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/siebert/7240"
     },
     {
       "id": "C-LEC-Ngom",
@@ -3572,7 +3928,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/ngom/7322"
     },
     {
       "id": "C-LEC-Berisha_M.",
@@ -3582,7 +3939,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/berisha-m/6015"
     },
     {
       "id": "C-LEC-Gandelman",
@@ -3592,7 +3950,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/gandelman/7318"
     },
     {
       "id": "A-LEC-N'Dri",
@@ -3602,7 +3961,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/n-dri/7001"
     },
     {
       "id": "C-MIL-Fofana_Y.",
@@ -3612,7 +3972,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/fofana-y/4686"
     },
     {
       "id": "C-COM-Ricci_S.",
@@ -3622,7 +3983,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/ricci-s/5453"
     },
     {
       "id": "C-MIL-Loftus-Cheek",
@@ -3632,7 +3994,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 16,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/loftus-cheek/4199"
     },
     {
       "id": "A-MIL-Camarda",
@@ -3642,7 +4005,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 20,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/camarda/6519"
     },
     {
       "id": "P-MON-Thiam",
@@ -3652,7 +4016,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 5,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/thiam/4485"
     },
     {
       "id": "D-MON-Delli_Carri",
@@ -3662,7 +4027,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 11,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/delli-carri/2115"
     },
     {
       "id": "D-MON-Birindelli",
@@ -3672,7 +4038,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/birindelli/5838"
     },
     {
       "id": "A-MON-Mota",
@@ -3682,7 +4049,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 8,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/mota/5882"
     },
     {
       "id": "C-MON-Folorunsho",
@@ -3692,7 +4060,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 17,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/folorunsho/6252"
     },
     {
       "id": "A-NAP-Giovane",
@@ -3702,7 +4071,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 7,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/giovane/7162"
     },
     {
       "id": "A-NAP-Lang",
@@ -3712,7 +4082,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 14,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/lang/7120"
     },
     {
       "id": "A-NAP-Lucca",
@@ -3722,7 +4093,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/lucca/6215"
     },
     {
       "id": "D-PAR-Valenti",
@@ -3732,7 +4104,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/valenti/5307"
     },
     {
       "id": "C-PAR-Almqvist",
@@ -3742,7 +4115,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 11,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/almqvist/6207"
     },
     {
       "id": "A-PAR-Frigan",
@@ -3752,7 +4126,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 6,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/frigan/7213"
     },
     {
       "id": "D-ROM-Rensch",
@@ -3762,7 +4137,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 14,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/rensch/6986"
     },
     {
       "id": "C-ROM-El_Aynaoui",
@@ -3772,7 +4148,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 13,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/el-aynaoui/6271"
     },
     {
       "id": "D-SAS-Walukiewicz",
@@ -3782,7 +4159,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/walukiewicz/4374"
     },
     {
       "id": "D-TOR-Comert",
@@ -3792,7 +4170,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/comert/7526"
     },
     {
       "id": "C-TOR-Ilkhan",
@@ -3802,7 +4181,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 8,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/ilkhan/6005"
     },
     {
       "id": "C-FIO-Njie",
@@ -3812,7 +4192,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 28,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/njie/6827"
     },
     {
       "id": "A-TOR-Kulenovic",
@@ -3822,7 +4203,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 9,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/kulenovic/7349"
     },
     {
       "id": "D-UDI-Kabasele",
@@ -3832,7 +4214,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/kabasele/4263"
     },
     {
       "id": "D-UDI-Bertola",
@@ -3842,7 +4225,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/bertola/5820"
     },
     {
       "id": "D-UDI-Zanoli",
@@ -3852,7 +4236,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/zanoli/5527"
     },
     {
       "id": "D-UDI-Arizala",
@@ -3862,7 +4247,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 8,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/arizala/7312"
     },
     {
       "id": "C-UDI-Miller_L.",
@@ -3872,7 +4258,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/miller-l/7208"
     },
     {
       "id": "A-UDI-Gueye",
@@ -3882,7 +4269,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 7,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/gueye/7272"
     },
     {
       "id": "D-VEN-Moreno_M.",
@@ -3892,7 +4280,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 6,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/moreno-m/6890"
     },
     {
       "id": "D-VEN-Hainaut",
@@ -3902,7 +4291,8 @@
       "qi": 3,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/hainaut/6821"
     },
     {
       "id": "A-VEN-Adorante",
@@ -3912,7 +4302,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 8,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/adorante/4387"
     },
     {
       "id": "A-MON-Robinson_J.",
@@ -3922,7 +4313,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 5,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/robinson-j/7546"
     },
     {
       "id": "C-FRO-Grillitsch",
@@ -3932,7 +4324,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/grillitsch/7550"
     },
     {
       "id": "D-FRO-Terzic",
@@ -3942,7 +4335,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 8,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/terzic/4375"
     },
     {
       "id": "A-JUV-Milik",
@@ -3952,7 +4346,8 @@
       "qi": 5,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/milik/2012"
     },
     {
       "id": "D-NAP-Favasuli",
@@ -3962,7 +4357,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 11,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/favasuli/7563"
     },
     {
       "id": "A-LEC-Fatah",
@@ -3972,7 +4368,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 14,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/fatah/7602"
     },
     {
       "id": "C-CAG-Massolin",
@@ -3982,7 +4379,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 12,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/massolin/7579"
     },
     {
       "id": "D-VEN-Juan_Jesus",
@@ -3992,7 +4390,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/juan-jesus/256"
     },
     {
       "id": "A-CAG-Nzola",
@@ -4002,7 +4401,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/nzola/5336"
     },
     {
       "id": "D-GEN-Ehizibue",
@@ -4012,7 +4412,8 @@
       "qi": 4,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/ehizibue/6047"
     },
     {
       "id": "C-SAS-Sulemana_I.",
@@ -4022,7 +4423,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 7,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/sulemana-i/6024"
     },
     {
       "id": "D-BOL-Casale",
@@ -4032,7 +4434,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/casale/5498"
     },
     {
       "id": "D-BOL-Helland",
@@ -4042,7 +4445,8 @@
       "qi": 2,
       "qa": 3,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/helland/7326"
     },
     {
       "id": "D-CAG-Idrissi_R.",
@@ -4052,7 +4456,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 3,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/idrissi-r/7125"
     },
     {
       "id": "C-CAG-Deiola",
@@ -4062,7 +4467,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 8,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/deiola/1871"
     },
     {
       "id": "A-COM-Kuhn",
@@ -4072,7 +4478,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/kuhn/7128"
     },
     {
       "id": "D-FIO-Ranieri_L.",
@@ -4082,7 +4489,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 10,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/ranieri-l/4378"
     },
     {
       "id": "D-FIO-Joao_Mario",
@@ -4092,7 +4500,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/joao-mario/7175"
     },
     {
       "id": "C-FIO-Brescianini",
@@ -4102,7 +4511,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 11,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/brescianini/4947"
     },
     {
       "id": "D-FRO-Akpoguma",
@@ -4112,7 +4522,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 6,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/akpoguma/7540"
     },
     {
       "id": "C-FRO-Gelli_F.",
@@ -4122,7 +4533,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 6,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/gelli-f/6241"
     },
     {
       "id": "C-FRO-Masini",
@@ -4132,7 +4544,8 @@
       "qi": 2,
       "qa": 3,
       "fvm": 8,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/masini/6917"
     },
     {
       "id": "C-INT-Stankovic_A.",
@@ -4142,7 +4555,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 7,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/stankovic-a/6503"
     },
     {
       "id": "C-JUV-Miretti",
@@ -4152,7 +4566,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 7,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/miretti/5813"
     },
     {
       "id": "A-JUV-Ekhator",
@@ -4162,7 +4577,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/ekhator/6822"
     },
     {
       "id": "C-LEC-Gorter",
@@ -4172,7 +4588,8 @@
       "qi": 1,
       "qa": 3,
       "fvm": 12,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/gorter/7248"
     },
     {
       "id": "C-LEC-Maleh",
@@ -4182,7 +4599,8 @@
       "qi": 2,
       "qa": 3,
       "fvm": 7,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/maleh/5457"
     },
     {
       "id": "D-MIL-Athekame",
@@ -4192,7 +4610,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 8,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/athekame/7211"
     },
     {
       "id": "D-MIL-Estupinan",
@@ -4202,7 +4621,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 13,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/estupinan/5273"
     },
     {
       "id": "C-MIL-Musah",
@@ -4212,7 +4632,8 @@
       "qi": 2,
       "qa": 3,
       "fvm": 15,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/musah/5295"
     },
     {
       "id": "D-MON-Lucchesi",
@@ -4222,7 +4643,8 @@
       "qi": 4,
       "qa": 3,
       "fvm": 11,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/lucchesi/6659"
     },
     {
       "id": "D-MON-Kouadio",
@@ -4232,7 +4654,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 14,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/kouadio/7238"
     },
     {
       "id": "D-MON-Carboni_A.",
@@ -4242,7 +4665,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 9,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/carboni-a/4925"
     },
     {
       "id": "C-MON-Colombo_L.",
@@ -4252,7 +4676,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 4,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/colombo-l/7477"
     },
     {
       "id": "C-NAP-Gilmour",
@@ -4262,7 +4687,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/gilmour/5131"
     },
     {
       "id": "D-PAR-Troilo",
@@ -4272,7 +4698,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 14,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/troilo/7235"
     },
     {
       "id": "D-PAR-Britschgi",
@@ -4282,7 +4709,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 10,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/britschgi/7255"
     },
     {
       "id": "C-PAR-Ordonez_C.",
@@ -4292,7 +4720,8 @@
       "qi": 2,
       "qa": 3,
       "fvm": 10,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/ordonez-c/7138"
     },
     {
       "id": "C-PAR-Sorensen_O.",
@@ -4302,7 +4731,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 12,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/sorensen-o/7209"
     },
     {
       "id": "C-PAR-Diallo_O.",
@@ -4312,7 +4742,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 12,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/diallo-o/7536"
     },
     {
       "id": "A-PAR-Elphege",
@@ -4322,7 +4753,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 11,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/elphege/7342"
     },
     {
       "id": "D-ROM-Angelino",
@@ -4332,7 +4764,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 12,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/angelino/4772"
     },
     {
       "id": "D-SAS-Candè",
@@ -4342,7 +4775,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 7,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/cand&#xE8;/6985"
     },
     {
       "id": "C-TOR-Aboukhlal",
@@ -4352,7 +4786,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 5,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/aboukhlal/7183"
     },
     {
       "id": "D-UDI-Palma",
@@ -4362,7 +4797,8 @@
       "qi": 2,
       "qa": 3,
       "fvm": 11,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/palma/6925"
     },
     {
       "id": "D-UDI-Ebosse",
@@ -4372,7 +4808,8 @@
       "qi": 2,
       "qa": 3,
       "fvm": 5,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/ebosse/5994"
     },
     {
       "id": "D-VEN-Halhal",
@@ -4382,7 +4819,8 @@
       "qi": 4,
       "qa": 3,
       "fvm": 10,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/halhal/7538"
     },
     {
       "id": "D-VEN-Schingtienne",
@@ -4392,7 +4830,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 10,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/schingtienne/6892"
     },
     {
       "id": "D-VEN-Sverko",
@@ -4402,7 +4841,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 7,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/sverko/6673"
     },
     {
       "id": "D-VEN-Franjic",
@@ -4412,7 +4852,8 @@
       "qi": 2,
       "qa": 3,
       "fvm": 7,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/franjic/7478"
     },
     {
       "id": "C-VEN-Helgason",
@@ -4422,7 +4863,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 3,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/helgason/5872"
     },
     {
       "id": "A-PAR-Lontani",
@@ -4432,7 +4874,8 @@
       "qi": 1,
       "qa": 3,
       "fvm": 11,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/lontani/7561"
     },
     {
       "id": "D-SAS-Odenthal",
@@ -4442,7 +4885,8 @@
       "qi": 1,
       "qa": 3,
       "fvm": 8,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/odenthal/7154"
     },
     {
       "id": "D-FRO-Tchato",
@@ -4452,7 +4896,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 8,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/tchato/7605"
     },
     {
       "id": "D-COM-Kambwala",
@@ -4462,7 +4907,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 8,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/kambwala/6601"
     },
     {
       "id": "C-CAG-Gagliardini",
@@ -4472,7 +4918,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 8,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/gagliardini/801"
     },
     {
       "id": "D-GEN-Drameh",
@@ -4482,7 +4929,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/drameh/5742"
     },
     {
       "id": "C-VEN-Fernandez_T.",
@@ -4492,7 +4940,8 @@
       "qi": 3,
       "qa": 3,
       "fvm": 8,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/fernandez-t/7232"
     },
     {
       "id": "D-BOL-Alhassane",
@@ -4502,7 +4951,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 6,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/alhassane/7483"
     },
     {
       "id": "C-BOL-El_Azzouzi_O.",
@@ -4512,7 +4962,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 10,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/el-azzouzi-o/6225"
     },
     {
       "id": "D-SAS-Van_Der_Brempt",
@@ -4522,7 +4973,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 11,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/van-der-brempt/6896"
     },
     {
       "id": "C-CAG-Fadera",
@@ -4532,7 +4984,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 12,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/fadera/6815"
     },
     {
       "id": "P-FRO-Desplanches",
@@ -4542,7 +4995,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/desplanches/7463"
     },
     {
       "id": "C-FRO-Hasa",
@@ -4552,7 +5006,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/hasa/6903"
     },
     {
       "id": "D-GEN-Otoa",
@@ -4562,7 +5017,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/otoa/6977"
     },
     {
       "id": "D-GEN-Puczka",
@@ -4572,7 +5028,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 3,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/puczka/7413"
     },
     {
       "id": "D-GEN-Sabelli",
@@ -4582,7 +5039,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/sabelli/791"
     },
     {
       "id": "C-GEN-Venturino",
@@ -4592,7 +5050,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 4,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/venturino/6980"
     },
     {
       "id": "P-INT-Provedel",
@@ -4602,7 +5061,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/provedel/2814"
     },
     {
       "id": "D-LAZ-Lazzari",
@@ -4612,7 +5072,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/lazzari/2263"
     },
     {
       "id": "D-LAZ-Pellegrini_Lu.",
@@ -4622,7 +5083,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 7,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/pellegrini-lu/2728"
     },
     {
       "id": "C-LAZ-Belahyane",
@@ -4632,7 +5094,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 3,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/belahyane/6191"
     },
     {
       "id": "D-LEC-Jean",
@@ -4642,7 +5105,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 4,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/jean/6883"
     },
     {
       "id": "D-LEC-Ndaba",
@@ -4652,7 +5116,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/ndaba/7182"
     },
     {
       "id": "D-MIL-Diawara_S.",
@@ -4662,7 +5127,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 4,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/diawara-s/7525"
     },
     {
       "id": "D-MON-Bakoune",
@@ -4672,7 +5138,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 4,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/bakoune/7476"
     },
     {
       "id": "C-MON-Ciurria",
@@ -4682,7 +5149,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 6,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/ciurria/5880"
     },
     {
       "id": "A-MON-Petagna",
@@ -4692,7 +5160,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/petagna/383"
     },
     {
       "id": "D-NAP-Marin_R.",
@@ -4702,7 +5171,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 8,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/marin-r/6638"
     },
     {
       "id": "P-PAR-Corvi",
@@ -4712,7 +5182,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 10,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/corvi/6662"
     },
     {
       "id": "D-PAR-Ndiaye",
@@ -4722,7 +5193,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 8,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/ndiaye/7202"
     },
     {
       "id": "C-PAR-Cremaschi",
@@ -4732,7 +5204,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 3,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/cremaschi/7276"
     },
     {
       "id": "C-SAS-Boloca",
@@ -4742,7 +5215,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/boloca/6219"
     },
     {
       "id": "C-SAS-Lipani",
@@ -4752,7 +5226,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/lipani/6246"
     },
     {
       "id": "D-TOR-Biraghi",
@@ -4762,7 +5237,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/biraghi/252"
     },
     {
       "id": "D-UDI-Abankwah",
@@ -4772,7 +5248,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 10,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/abankwah/6021"
     },
     {
       "id": "C-UDI-Zarraga",
@@ -4782,7 +5259,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 4,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/zarraga/6212"
     },
     {
       "id": "C-UDI-Chakvetadze",
@@ -4792,7 +5270,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 6,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/chakvetadze/7418"
     },
     {
       "id": "A-UDI-Buksa",
@@ -4802,7 +5281,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 4,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/buksa/7249"
     },
     {
       "id": "D-VEN-Sagrado",
@@ -4812,7 +5292,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 4,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/sagrado/6681"
     },
     {
       "id": "C-VEN-Duncan",
@@ -4822,7 +5303,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 4,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/duncan/526"
     },
     {
       "id": "D-CAG-Aurelio",
@@ -4832,7 +5314,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/aurelio/7548"
     },
     {
       "id": "C-MON-Forson_O.",
@@ -4842,7 +5325,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 1,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/forson-o/6592"
     },
     {
       "id": "D-MON-Goglichidze",
@@ -4852,7 +5336,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/goglichidze/6537"
     },
     {
       "id": "D-SAS-Cinquegrano",
@@ -4862,7 +5347,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 4,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/cinquegrano/7573"
     },
     {
       "id": "C-MON-Foe_Ondoa",
@@ -4872,7 +5358,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 2,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/foe-ondoa/7574"
     },
     {
       "id": "D-MIL-Terracciano_F.",
@@ -4882,7 +5369,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 4,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/terracciano-f/5812"
     },
     {
       "id": "D-ROM-Lulli",
@@ -4892,7 +5380,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 10,
-      "playedsExpected": 100
+      "playedsExpected": 100,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/lulli/7599"
     },
     {
       "id": "D-PAR-Drobnic",
@@ -4902,7 +5391,8 @@
       "qi": 1,
       "qa": 2,
       "fvm": 1,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/drobnic/7615"
     },
     {
       "id": "C-UDI-Jovanovic",
@@ -4912,7 +5402,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/jovanovic/7092"
     },
     {
       "id": "A-BOL-Enem",
@@ -4922,7 +5413,8 @@
       "qi": 2,
       "qa": 2,
       "fvm": 4,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/enem/7627"
     },
     {
       "id": "P-ATA-Rossi_F.",
@@ -4932,7 +5424,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/rossi-f/2297"
     },
     {
       "id": "P-ATA-Sportiello",
@@ -4942,7 +5435,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/sportiello/4"
     },
     {
       "id": "P-BOL-Happonen",
@@ -4952,7 +5446,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/happonen/7533"
     },
     {
       "id": "P-BOL-Pessina_Mas.",
@@ -4962,7 +5457,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/pessina-mas/7172"
     },
     {
       "id": "D-BOL-De_Silvestri",
@@ -4972,7 +5468,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 4,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/bologna/de-silvestri/487"
     },
     {
       "id": "P-CAG-Ciocci",
@@ -4982,7 +5479,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/ciocci/4929"
     },
     {
       "id": "P-CAG-Sherri",
@@ -4992,7 +5490,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/sherri/6650"
     },
     {
       "id": "D-CAG-Raterink",
@@ -5002,7 +5501,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/raterink/7346"
     },
     {
       "id": "C-CAG-Liteta",
@@ -5012,7 +5512,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/liteta/7165"
     },
     {
       "id": "A-CAG-Albarracin",
@@ -5022,7 +5523,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/albarracin/7338"
     },
     {
       "id": "A-CAG-Trepy",
@@ -5032,7 +5534,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 2,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/trepy/7317"
     },
     {
       "id": "P-MON-Tornqvist",
@@ -5042,7 +5545,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/tornqvist/7301"
     },
     {
       "id": "P-COM-Vigorito",
@@ -5052,7 +5556,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/vigorito/2809"
     },
     {
       "id": "D-COM-Goldaniga",
@@ -5062,7 +5567,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/goldaniga/418"
     },
     {
       "id": "D-COM-Cuenca_A.",
@@ -5072,7 +5578,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 8,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/cuenca-a/7407"
     },
     {
       "id": "C-COM-Lahdo",
@@ -5082,7 +5589,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/lahdo/7357"
     },
     {
       "id": "A-COM-Azon",
@@ -5092,7 +5600,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/como/azon/7027"
     },
     {
       "id": "P-FIO-Christensen_O.",
@@ -5102,7 +5611,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/christensen-o/6403"
     },
     {
       "id": "P-FIO-Lezzerini",
@@ -5112,7 +5622,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/fiorentina/lezzerini/158"
     },
     {
       "id": "P-FRO-Lolic",
@@ -5122,7 +5633,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/lolic/7466"
     },
     {
       "id": "D-FRO-Amey",
@@ -5132,7 +5644,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/amey/5424"
     },
     {
       "id": "D-FRO-Gelli_J.",
@@ -5142,7 +5655,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/gelli-j/7468"
     },
     {
       "id": "D-FRO-Oyono_J.",
@@ -5152,7 +5666,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 2,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/oyono-j/7470"
     },
     {
       "id": "D-FRO-Corrado",
@@ -5162,7 +5677,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/corrado/7471"
     },
     {
       "id": "C-FRO-El_Azzouzi_A.",
@@ -5172,7 +5688,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/el-azzouzi-a/7456"
     },
     {
       "id": "C-FRO-Kone_B.",
@@ -5182,7 +5699,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 3,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/kone-b/5725"
     },
     {
       "id": "P-GEN-Sommariva",
@@ -5192,7 +5710,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/sommariva/219"
     },
     {
       "id": "P-GEN-Stolz",
@@ -5202,7 +5721,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/stolz/6569"
     },
     {
       "id": "D-GEN-Vogliacco",
@@ -5212,7 +5732,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 2,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/vogliacco/6245"
     },
     {
       "id": "D-GEN-Matturro",
@@ -5222,7 +5743,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 2,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/matturro/6244"
     },
     {
       "id": "P-INT-Di_Gennaro",
@@ -5232,7 +5754,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/inter/di-gennaro/1926"
     },
     {
       "id": "P-JUV-Pinsoglio",
@@ -5242,7 +5765,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/pinsoglio/1930"
     },
     {
       "id": "D-JUV-Rugani",
@@ -5252,7 +5776,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 3,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/rugani/294"
     },
     {
       "id": "D-JUV-Cabal",
@@ -5262,7 +5787,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 4,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/cabal/6039"
     },
     {
       "id": "P-LAZ-Motta",
@@ -5272,7 +5798,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/motta/7337"
     },
     {
       "id": "P-LAZ-Renzetti",
@@ -5282,7 +5809,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/renzetti/7534"
     },
     {
       "id": "D-LAZ-Patric",
@@ -5292,7 +5820,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/patric/327"
     },
     {
       "id": "C-LAZ-Przyborek",
@@ -5302,7 +5831,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 5,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lazio/przyborek/7345"
     },
     {
       "id": "P-LEC-Fruchtl",
@@ -5312,7 +5842,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/fruchtl/2401"
     },
     {
       "id": "P-LEC-Samooja",
@@ -5322,7 +5853,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/samooja/6523"
     },
     {
       "id": "D-LEC-Perez_M.",
@@ -5332,7 +5864,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/perez-m/7164"
     },
     {
       "id": "C-LEC-Kaba",
@@ -5342,7 +5875,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 2,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/kaba/6410"
     },
     {
       "id": "C-LEC-Fofana_Sa.",
@@ -5352,7 +5886,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/fofana-sa/7319"
     },
     {
       "id": "P-MIL-Terracciano",
@@ -5362,7 +5897,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/terracciano/2815"
     },
     {
       "id": "P-MIL-Torriani",
@@ -5372,7 +5908,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/torriani/6813"
     },
     {
       "id": "P-MON-Pizzignacco",
@@ -5382,7 +5919,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/pizzignacco/6682"
     },
     {
       "id": "P-MON-Strajnar",
@@ -5392,7 +5930,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/strajnar/7475"
     },
     {
       "id": "D-MON-Antov",
@@ -5402,7 +5941,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 2,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/antov/5399"
     },
     {
       "id": "P-NAP-Contini",
@@ -5412,7 +5952,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/contini/2845"
     },
     {
       "id": "D-NAP-Marianucci",
@@ -5422,7 +5963,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 3,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/napoli/marianucci/6809"
     },
     {
       "id": "D-VEN-Mazzocchi",
@@ -5432,7 +5974,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 10,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/mazzocchi/5481"
     },
     {
       "id": "D-PAR-Carboni_F.",
@@ -5442,7 +5985,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 3,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/carboni-f/6149"
     },
     {
       "id": "P-ROM-De_Marzi",
@@ -5452,7 +5996,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/de-marzi/7048"
     },
     {
       "id": "P-ROM-Gollini",
@@ -5462,7 +6007,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/gollini/610"
     },
     {
       "id": "D-MON-Ziolkowski",
@@ -5472,7 +6018,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 8,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/ziolkowski/7260"
     },
     {
       "id": "A-ROM-Vaz",
@@ -5482,7 +6029,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 4,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/roma/vaz/6981"
     },
     {
       "id": "P-SAS-Russo_A.",
@@ -5492,7 +6040,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/russo-a/4518"
     },
     {
       "id": "P-SAS-Turati",
@@ -5502,7 +6051,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/turati/4867"
     },
     {
       "id": "D-SAS-Missori",
@@ -5512,7 +6062,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 2,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/missori/6189"
     },
     {
       "id": "D-SAS-Pieragnolo",
@@ -5522,7 +6073,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/pieragnolo/7156"
     },
     {
       "id": "C-SAS-Iannoni",
@@ -5532,7 +6084,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/iannoni/7157"
     },
     {
       "id": "A-SAS-Moro_L.",
@@ -5542,7 +6095,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/moro-l/7158"
     },
     {
       "id": "P-TOR-Mascardi",
@@ -5552,7 +6106,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 5,
-      "playedsExpected": 67
+      "playedsExpected": 67,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/mascardi/7457"
     },
     {
       "id": "P-TOR-Paleari",
@@ -5562,7 +6117,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/paleari/5320"
     },
     {
       "id": "P-TOR-Siviero",
@@ -5572,7 +6128,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/siviero/7363"
     },
     {
       "id": "C-LEC-Ilic",
@@ -5582,7 +6139,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 10,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/ilic/5007"
     },
     {
       "id": "C-TOR-Anjorin",
@@ -5592,7 +6150,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 4,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/torino/anjorin/6889"
     },
     {
       "id": "P-UDI-Padelli",
@@ -5602,7 +6161,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/padelli/543"
     },
     {
       "id": "P-UDI-Piana",
@@ -5612,7 +6172,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/piana/5707"
     },
     {
       "id": "D-UDI-Mlacic",
@@ -5622,7 +6183,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 3,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/mlacic/7356"
     },
     {
       "id": "C-UDI-Camara_A.",
@@ -5632,7 +6194,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 3,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/camara-a/7392"
     },
     {
       "id": "A-UDI-Bayo_V.",
@@ -5642,7 +6205,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 3,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/bayo-v/7161"
     },
     {
       "id": "P-VEN-Grandi",
@@ -5652,7 +6216,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/grandi/6671"
     },
     {
       "id": "P-VEN-Pozzi",
@@ -5662,7 +6227,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/pozzi/7531"
     },
     {
       "id": "D-VEN-Gomes",
@@ -5672,7 +6238,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/gomes/7454"
     },
     {
       "id": "C-VEN-Bjarkason",
@@ -5682,7 +6249,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 3,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/bjarkason/5485"
     },
     {
       "id": "C-VEN-Dagasso",
@@ -5692,7 +6260,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/dagasso/7481"
     },
     {
       "id": "A-VEN-Lisman",
@@ -5702,7 +6271,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/lisman/7408"
     },
     {
       "id": "A-VEN-Lauberbach",
@@ -5712,7 +6282,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/lauberbach/7482"
     },
     {
       "id": "P-ATA-Vismara",
@@ -5722,7 +6293,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/vismara/7545"
     },
     {
       "id": "P-SAS-Satalino",
@@ -5732,7 +6304,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/satalino/2127"
     },
     {
       "id": "P-LEC-Penev",
@@ -5742,7 +6315,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/penev/7557"
     },
     {
       "id": "P-FRO-Pisseri",
@@ -5752,7 +6326,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/pisseri/7560"
     },
     {
       "id": "P-CAG-Radunovic",
@@ -5762,7 +6337,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/radunovic/3"
     },
     {
       "id": "A-PAR-De_Martis",
@@ -5772,7 +6348,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/de-martis/7568"
     },
     {
       "id": "P-VEN-Montipò",
@@ -5782,7 +6359,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/venezia/montip&#xF2;/4957"
     },
     {
       "id": "D-FRO-Omar_Fayed",
@@ -5792,7 +6370,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/frosinone/omar-fayed/7553"
     },
     {
       "id": "P-LEC-Bleve",
@@ -5802,7 +6381,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/bleve/4468"
     },
     {
       "id": "C-LEC-Laerke",
@@ -5812,7 +6392,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/laerke/7571"
     },
     {
       "id": "C-MIL-Comotto",
@@ -5822,7 +6403,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/comotto/7572"
     },
     {
       "id": "D-SAS-Macchioni",
@@ -5832,7 +6414,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/sassuolo/macchioni/7396"
     },
     {
       "id": "C-MON-Mout",
@@ -5842,7 +6425,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 12,
-      "playedsExpected": 33
+      "playedsExpected": 33,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/mout/7575"
     },
     {
       "id": "C-CAG-Ciervo",
@@ -5852,7 +6436,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/cagliari/ciervo/5462"
     },
     {
       "id": "P-JUV-Grabara",
@@ -5862,7 +6447,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/grabara/7603"
     },
     {
       "id": "D-MON-Maye",
@@ -5872,7 +6458,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/monza/maye/7604"
     },
     {
       "id": "P-UDI-Mrozek",
@@ -5882,7 +6469,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/udinese/mrozek/7611"
     },
     {
       "id": "D-LEC-Dembelè_A.",
@@ -5892,7 +6480,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 2,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/lecce/dembel&#xE8;-a/6826"
     },
     {
       "id": "P-PAR-Ghidotti",
@@ -5902,7 +6491,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/ghidotti/2874"
     },
     {
       "id": "A-GEN-Robinho_Junior",
@@ -5912,7 +6502,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 3,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/genoa/robinho-junior/7622"
     },
     {
       "id": "P-ATA-Pompei",
@@ -5922,7 +6513,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/atalanta/pompei/7626"
     },
     {
       "id": "C-PAR-Sierro",
@@ -5932,7 +6524,8 @@
       "qi": 1,
       "qa": 1,
       "fvm": 1,
-      "playedsExpected": 0
+      "playedsExpected": 0,
+      "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/parma/sierro/7628"
     }
   ]
 }

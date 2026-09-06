@@ -7,9 +7,12 @@ import csv
 import json
 import re
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date
 from html import unescape
 from pathlib import Path
+
+from science_data import AGE_HINTS, EXPERT_NOTES, compute_fitness
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -18,7 +21,22 @@ URL = "https://www.fantacalcio.it/quotazioni-fantacalcio/2026-27"
 STATS_URL = "https://www.fantacalcio.it/statistiche-serie-a/2025-26"
 PREV_SEASON = "2025/26"
 PREV_MATCHES = 38  # giornate Serie A
+REF_YEAR = 2026  # età alla stagione 2026/27
 ROLE_MAP = {"p": "P", "d": "D", "c": "C", "a": "A"}
+MONTHS_IT = {
+    "gen": 1,
+    "feb": 2,
+    "mar": 3,
+    "apr": 4,
+    "mag": 5,
+    "giu": 6,
+    "lug": 7,
+    "ago": 8,
+    "set": 9,
+    "ott": 10,
+    "nov": 11,
+    "dic": 12,
+}
 
 TIERS = {
     "P": {
@@ -221,6 +239,7 @@ def parse_players(html: str) -> list[dict]:
 
         name_m = re.search(r"<span>([^<]+)</span>\s*</a>", block)
         team_m = re.search(r'data-col-key="sq">\s*([A-Z]{3})', block)
+        href_m = re.search(r'href="(https://www\.fantacalcio\.it/serie-a/squadre/[^"]+)"', block)
         role = ROLE_MAP.get((attr("role-classic") or "").lower(), "?")
         name = unescape(name_m.group(1)).strip() if name_m else (attr("keywords") or "")
         team = team_m.group(1) if team_m else "???"
@@ -236,6 +255,7 @@ def parse_players(html: str) -> list[dict]:
                 "fvm": int(col("c_fvm") or 0),
                 # Stima titolarità attesa Fantacalcio (0–100, spesso a scaglioni).
                 "playedsExpected": int(playeds) if playeds is not None else None,
+                "profileUrl": href_m.group(1) if href_m else None,
             }
         )
     return players
@@ -260,13 +280,93 @@ def parse_prev_stats(html: str) -> dict[str, dict]:
             continue
         pg = _parse_num(col("pg"))
         mv = _parse_num(col("mv"))
-        fm = _parse_num(col("mfv"))
+        fm = _parse_num(col("mfv")) or _parse_num(col("mfv"))
         out[name] = {
             "pgPrev": int(pg) if pg is not None else None,
             "mvPrev": mv,
             "fmPrev": fm,
         }
     return out
+
+
+def age_from_birthdate(text: str) -> int | None:
+    m = re.search(
+        r"(\d{1,2})\s+(gen|feb|mar|apr|mag|giu|lug|ago|set|ott|nov|dic)\s+(\d{4})",
+        text.lower(),
+    )
+    if not m:
+        return None
+    day, mon, year = int(m.group(1)), MONTHS_IT[m.group(2)], int(m.group(3))
+    # Età al 1° agosto 2026 (inizio stagione).
+    season_start = date(REF_YEAR, 8, 1)
+    born = date(year, mon, day)
+    years = season_start.year - born.year
+    if (season_start.month, season_start.day) < (born.month, born.day):
+        years -= 1
+    return years if 15 <= years <= 45 else None
+
+
+def scrape_age(url: str) -> int | None:
+    try:
+        html = fetch_html(url)
+    except Exception:
+        return None
+    m = re.search(r'class="birthdate">\s*([^<]+)</dd>', html, re.I)
+    if not m:
+        m = re.search(r"Nato il</dt>\s*<dd[^>]*>\s*([^<]+)</dd>", html, re.I)
+    if not m:
+        return None
+    return age_from_birthdate(unescape(m.group(1)).strip())
+
+
+def load_age_cache() -> dict[str, int]:
+    path = DATA / "ages-cache.json"
+    if not path.exists():
+        return {}
+    try:
+        return {k: int(v) for k, v in json.loads(path.read_text(encoding="utf-8")).items()}
+    except Exception:
+        return {}
+
+
+def save_age_cache(cache: dict[str, int]) -> None:
+    DATA.mkdir(exist_ok=True)
+    (DATA / "ages-cache.json").write_text(
+        json.dumps(cache, ensure_ascii=False, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+
+def resolve_ages(players: list[dict]) -> dict[str, int]:
+    """Risolve età: cache → scrape profili → hint curati."""
+    cache = load_age_cache()
+    # Seed hints
+    for name, age in AGE_HINTS.items():
+        cache.setdefault(name, age)
+
+    missing = [
+        p
+        for p in players
+        if p["name"] not in cache and p.get("profileUrl") and (p.get("fvm") or 0) >= 1
+    ]
+    # Priorità: FVM alto prima, max ~220 scrape per run (resto resta hint/null).
+    missing.sort(key=lambda p: p.get("fvm") or 0, reverse=True)
+    missing = missing[:220]
+
+    if missing:
+        print(f"Scraping età per {len(missing)} profili…")
+        with ThreadPoolExecutor(max_workers=14) as pool:
+            futs = {
+                pool.submit(scrape_age, p["profileUrl"]): p["name"] for p in missing
+            }
+            for fut in as_completed(futs):
+                name = futs[fut]
+                age = fut.result()
+                if age is not None:
+                    cache[name] = age
+        save_age_cache(cache)
+
+    return cache
 
 
 def starter_prob(playeds_expected: int | None, pg_prev: int | None) -> int | None:
@@ -337,13 +437,24 @@ def cap_for(fvm: int, qa: int) -> int:
     return cap
 
 
-def note_for(p: dict, tier: str, penalty: dict | None) -> str:
+def note_for(
+    p: dict,
+    tier: str,
+    penalty: dict | None,
+    *,
+    age: int | None,
+    fitness: int | None,
+    fitness_label: str | None,
+) -> str:
     role, fvm, name = p["role"], p["fvm"], p["name"]
     bits: list[str] = []
     if penalty:
         bits.append(f"{penalty['label']} ({penalty['detail']}).")
 
-    if name == "Malen":
+    expert = EXPERT_NOTES.get(name)
+    if expert:
+        bits.append(expert)
+    elif name == "Malen":
         bits.append("Hype post-gol: non far saltare il budget attacco.")
     elif name == "Dimarco":
         bits.append("Bonus da esterno: ok solo se restano crediti per i voti.")
@@ -376,13 +487,21 @@ def note_for(p: dict, tier: str, penalty: dict | None) -> str:
             else "Slot profondità: solo con minuti o upside chiaro."
         )
 
+    if fitness is not None and fitness_label:
+        if fitness < 55:
+            bits.append(f"Forma {fitness_label} ({fitness}): rischio minuti/infortuni.")
+        elif age and age >= 33:
+            bits.append(f"Età {age}: monitorare carico e rendimento.")
+
     note = " ".join(bits)
     if fvm and "FVM" not in note:
         note += f" FVM {fvm}, cap consigliato {cap_for(fvm, p['qa'])}."
-    return note[:190]
+    return note[:220]
 
 
-def enrich(players: list[dict], prev_stats: dict[str, dict]) -> list[dict]:
+def enrich(
+    players: list[dict], prev_stats: dict[str, dict], ages: dict[str, int]
+) -> list[dict]:
     out = []
     for p in players:
         penalty = PENALTIES.get(p["name"])
@@ -391,19 +510,44 @@ def enrich(players: list[dict], prev_stats: dict[str, dict]) -> list[dict]:
         pg_prev = prev.get("pgPrev")
         fm_prev = prev.get("fmPrev")
         mv_prev = prev.get("mvPrev")
+        age = ages.get(p["name"])
+        fitness, fit_label = compute_fitness(
+            name=p["name"],
+            age=age,
+            pg_prev=pg_prev,
+            playeds_expected=p.get("playedsExpected"),
+            prev_matches=PREV_MATCHES,
+        )
+        flags = flags_for(p["name"], penalty)
+        if fitness < 55:
+            flags.append("rischio_fisico")
+        if age is not None and age >= 33:
+            flags.append("over_30")
+        # Non esporre URL profilo nel board pubblico.
+        base = {k: v for k, v in p.items() if k != "profileUrl"}
         out.append(
             {
-                **p,
+                **base,
                 "cap": cap_for(p["fvm"], p["qa"]),
                 "tier": tier,
-                "flags": flags_for(p["name"], penalty),
+                "flags": flags,
                 "penalty": penalty["order"] if penalty else None,
                 "penaltyLabel": penalty["label"] if penalty else None,
-                "note": note_for(p, tier, penalty),
+                "note": note_for(
+                    p,
+                    tier,
+                    penalty,
+                    age=age,
+                    fitness=fitness,
+                    fitness_label=fit_label,
+                ),
                 "pgPrev": pg_prev,
                 "mvPrev": mv_prev,
                 "fmPrev": fm_prev,
                 "starterProb": starter_prob(p.get("playedsExpected"), pg_prev),
+                "age": age,
+                "fitness": fitness,
+                "fitnessLabel": fit_label,
             }
         )
     return out
@@ -447,9 +591,11 @@ def main() -> None:
             ],
         )
         w.writeheader()
-        w.writerows(players)
+        for row in players:
+            w.writerow({k: row.get(k) for k in w.fieldnames})
 
-    enriched = enrich(players, prev_stats)
+    ages = resolve_ages(players)
+    enriched = enrich(players, prev_stats, ages)
     board = {
         "meta": {
             "season": "2026/27",
@@ -458,7 +604,12 @@ def main() -> None:
             "budget": 1000,
             "roster": {"P": 3, "D": 8, "C": 8, "A": 6},
             "modifier": "difesa",
-            "auction": "aperta",
+            "auction": "ruoli",
+            "auctionOrder": ["P", "D", "C", "A"],
+            "auctionNote": (
+                "Asta a ruoli: si chiama un ruolo alla volta fino a quando "
+                "tutte le 6 rose hanno completato gli slot di quel ruolo."
+            ),
             "source_listone": URL,
             "source_stats": STATS_URL,
             "prevSeason": PREV_SEASON,
@@ -469,6 +620,15 @@ def main() -> None:
             "starterProbNote": (
                 "Tit% = 70% stima titolarità listone Fantacalcio + 30% "
                 f"presenze/{PREV_MATCHES} in {PREV_SEASON} (se disponibili)."
+            ),
+            "fitnessNote": (
+                "Forma = disponibilità PG 25/26 − penalità fragilità curata − età. "
+                "Età da profili Fantacalcio (cache) + hint guida."
+            ),
+            "notesSource": "Sintesi guide SOS/Goal/FCO + regole asta scientifica repo",
+            "priorityNote": (
+                "Pri% dinamica in UI: Tit% + Forma + FM + fascia + rigorista "
+                "+ fabbisogno slot/budget del ruolo corrente."
             ),
         },
         "players": enriched,
@@ -482,10 +642,13 @@ def main() -> None:
     pens = sum(1 for p in enriched if p["penalty"])
     with_fm = sum(1 for p in enriched if p["fmPrev"] is not None)
     with_tit = sum(1 for p in enriched if p["starterProb"] is not None)
+    with_age = sum(1 for p in enriched if p.get("age") is not None)
+    fragile = sum(1 for p in enriched if (p.get("fitness") or 100) < 55)
     missing = [n for n in PENALTIES if n not in {p["name"] for p in players}]
     print(
         f"OK {len(players)} giocatori | fasce {shown} | rigoristi {pens} | "
-        f"FM {PREV_SEASON} {with_fm} | Tit% {with_tit} | missing pens {missing}"
+        f"FM {PREV_SEASON} {with_fm} | Tit% {with_tit} | età {with_age} | "
+        f"fragili {fragile} | missing pens {missing}"
     )
 
 

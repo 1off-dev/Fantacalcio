@@ -1,100 +1,88 @@
-# Dossier asta Fantacalcio 2026/27
+# Dossier asta Fantacalcio 2026/27 — metodo a ruoli
 
-**Aggiornato:** 6 settembre 2026 (post 2ª giornata, mercato chiuso)  
-**Lega:** 6 squadre · Classic · rosa **3-8-8-6** · **1000 crediti** · asta aperta · **modificatore difesa**  
-**Fonti:** [Quotazioni ufficiali Fantacalcio.it](https://www.fantacalcio.it/quotazioni-fantacalcio/2026-27), guide SOS Fanta / Goal / Fantacalcio-Online / Sportnews BetFlag (ago–set 2026)
+**Aggiornato:** 6 settembre 2026  
+**Lega:** 6 squadre · Classic · rosa **3-8-8-6** · **1000 crediti** · **modificatore difesa**  
+**Formato asta:** chiamata **per ruolo** (P → D → C → A). Si resta su un ruolo finché tutte le rose hanno chiuso quegli slot.
 
-Il listone del tool (`data/asta-board-2026-27.json`) è allineato alla pagina quotazioni Classic (QI / QA / FVM base 1000).
-
----
-
-## 1. Contesto stagione
-
-- Serie A 2026/27 già partita; molte aste arrivano **dopo** le prime due giornate.
-- **Malen (Roma)** ha distorto i prezzi: exploit iniziale → FVM ufficiale **450**/1000.
-- In lega a **6** con **1000** crediti l’inflazione sui top è massima.
-- Con **modificatore difesa** i voti puri di P+D valgono punti di classifica; **Dimarco** resta un outlier (produzione da attaccante in slot difesa).
+Il tool (`public/asta-board-2026-27.json`) calcola live **Pri**, **Tit%**, **Forma**, **Età**, FM 25/26 e note guida.
 
 ---
 
-## 2. Budget consigliato (1000 crediti)
+## 1. Perché l’asta a ruoli cambia tutto
 
-| Strategia | P | D | C | A | Quando |
+In asta aperta “mista” puoi bilanciare P/D mentre gli altri bruciano crediti in A.  
+In asta **a ruoli**:
+
+1. Il mercato di un ruolo si **svuota prima** (es. 18 portieri in 6×3).
+2. I top del ruolo corrente gonfiano subito; i value spariscono se resti passivo.
+3. Il budget residuo degli altri ruoli è **bloccato**: non puoi “recuperare dopo” comprando un P low-cost mentre gli altri prendono Malen.
+
+**Regola madre:** ogni ruolo ha un budget piano e uno **spend-safe** = residuo ruolo − 1 credito × slot ancora vuoti.
+
+---
+
+## 2. Budget consigliato (invariato, ma vincolato al ruolo)
+
+| Strategia | P | D | C | A | Uso |
 |---|---:|---:|---:|---:|---|
-| **Modificatore first** (consigliata) | 100 | 250 | 270 | 380 | Priorità P top + difesa da voto/bonus, senza inseguire Malen a ogni costo |
-| Equilibrata + mod | 90 | 210 | 300 | 400 | 1 top C + attacco solido |
-| Anti-Malen (2+2) | 85 | 200 | 315 | 400 | Malen > ~420–450: due punte + due semi |
+| **Modificatore first** | 100 | 250 | 270 | 380 | Default scientifici + mod |
+| Equilibrata + mod | 90 | 210 | 300 | 400 | Più peso C |
+| Anti-Malen 2+2 | 85 | 200 | 315 | 400 | Se Malen > 420–450 |
 
-**Regole:** piano A/B/C per reparto; non scendere sotto ~25–30 crediti prima degli ultimi slot; in asta aperta a 6 rispetta i **cap** del tool.
+Durante la fase P spendi solo il budget P (salvo aggiustamenti manuali). Il motore Pri penalizza chi sforerebbe lo spend-safe.
 
 ---
 
-## 3. Fasce (nomi = listone ufficiale)
+## 3. Playbook per fase
 
 ### Portieri
-
-| Fascia | Nomi |
-|---|---|
-| Super top | **Svilar** |
-| Top | Vicario, Martinez Jo., Carnesecchi, Maignan, Butez |
-| Affidabili | Meret, Mandas, Skorupski, De Gea, Okoye, Perri, Falcone, Caprile |
-
-Piani: Svilar (~90–100) + P2 provincia; oppure due medio-alti (es. Carnesecchi + Okoye/Falcone). Su Inter/Como/Napoli valuta pacchetto titolare+vice (`Sanchez Ro.` per Como).
+- Target: 1 **cemento** (Tit% alto + Forma Solido/Normale) + 1/2 titolari provincia.
+- Non overpayare il secondo big se il primo è già uscito caro.
+- Evita gerarchie incerte (flag “verificare_gerarchia”).
 
 ### Difensori
-
-| Fascia | Nomi |
-|---|---|
-| Super top | **Dimarco** (FVM 240) |
-| Top bonus | Wesley, Molina N., Bremer, Pavlovic, Mancini, Solet |
-| Modificatore | Akanji, Bastoni, Rrahmani, Kalulu, N'Dicka, Di Lorenzo |
-| Value | Ostigard, Spence |
-
-Meglio spesso **no-Dimarco** a 6: Wesley/Molina N. + centrali da voto. Dimarco solo se dopo l’acquisto restano ≥180 crediti difesa.
+- Prima i **voti mod** (centrali affidabili), poi 1 esterno bonus se resta spend-safe.
+- Dimarco solo se dopo restano ≥180 sul budget D.
+- Forma Fragile/Vetro sui centrali = sconto obbligatorio.
 
 ### Centrocampisti
-
-| Fascia | Nomi |
-|---|---|
-| Super top | Paz N., Calhanoglu, McTominay |
-| Top | Orsolini, Pulisic, Rabiot, De Bruyne, Baturina, Mora |
-| Bonus | Da Cunha, Zaccagni, Barella, Zaniolo, Atta, Frattesi |
-
-**1 super-top oppure 2 top**, non entrambi i pacchetti.
+- Max **uno** tra Paz N. / Calhanoglu / McTominay.
+- Poi rigoristi/bonus con Forma ≥55.
+- Se i top scappano, non inseguire: ruota su Orsolini / Zaccagni / Da Cunha value.
 
 ### Attaccanti
-
-| Fascia | Nomi | Cap mentale |
-|---|---|---|
-| Super top | Malen, Martinez L. | Malen **max ~420–450**; Martinez L. **~360–400** |
-| Top | Hojlund, Thuram, Ramos G., Douvikas, Kean, Kolo Muani, Woltemade | ~180–300 |
-| Semi | Scamacca, Davis K., Berardi, Esposito F.P., Yildiz, Dybala | ~90–140 |
-
-Strategie: star+depth **oppure** anti-Malen 2+2 (due top + due semi).
+- Se Malen > cap, attiva **2+2**.
+- Ranking scientifico: FM × Tit% × Forma / prezzo, non il nome.
+- Scamacca/Dybala/Chiesa: solo a forte sconto (Vetro).
 
 ---
 
-## 4. Tattica asta aperta a 6
+## 4. Metriche del tool (asta scientifica)
 
-1. Non aprire tu i super-top se puoi evitarlo.  
-2. Àncora al **FVM**, non alla QA (Malen QA 38 vs FVM 450).  
-3. Se a metà asta hai già speso >45% in A+C e la Difesa è vuota, sei fuori piano.  
-4. Preferisci rigoristi anche in 3ª fascia.  
-5. Chiudi con titolari da 1–5 crediti.
+| Metrica | Formula / fonte | Uso |
+|---|---|---|
+| **Tit%** | 70% playeds listone + 30% PG/38 del 25/26 | Continuità schieramento |
+| **Forma** | Disponibilità PG − fragilità curata − età | Chi si rompe gioca poco |
+| **Età** | Profili Fantacalcio (+ hint) | Declino / upside young |
+| **FM 25/26** | Statistiche Fantacalcio | Produzione reale |
+| **Pri** | Mix Tit%+Forma+FM+fascia+rigori+fabbisogno slot/budget | Ordine d’acquisto live |
+| **Note** | Guide SOS/Goal/FCO + regole repo | Contesto asta |
+
+La **Pri si aggiorna** a ogni Compra/Preso: top usciti, slot rimasti, budget ruolo, scarcity di mercato.
 
 ---
 
 ## 5. Checklist giorno asta
 
-- [ ] Avvia il tool (`npm start`)
-- [ ] Seleziona budget **Modificatore first** (o Anti-Malen)
-- [ ] Segna i giocatori presi dagli altri
-- [ ] Rispetta i cap; ricalcola residuo per slot
-- [ ] Piano B se Malen > 450 o Dimarco > 250
-- [ ] Esporta la rosa JSON e caricala su Leghe Fantacalcio
+- [ ] Apri il tool, piano **Modificatore first**
+- [ ] Lascia attivo **Solo ruolo di fase**
+- [ ] Segna **Preso** su ogni assegnazione altrui
+- [ ] Segui la colonna **Pri** / pannello Priorità
+- [ ] Quando i tuoi slot del ruolo sono pieni → **Ruolo fatto → avanza**
+- [ ] Esporta JSON a fine asta
 
 ---
 
-## 6. API e formazioni
+## 6. API / dati
 
-Vedi [api-e-integrazioni.md](./api-e-integrazioni.md): **nessuna API ufficiale** per voti/formazioni write; il repo aggiorna il listone via scrape della pagina quotazioni; le formazioni restano sull’app ufficiale.
+Vedi [api-e-integrazioni.md](./api-e-integrazioni.md). Aggiorna listone/età/stats con `npm run fetch`.

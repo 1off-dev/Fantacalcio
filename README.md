@@ -16,7 +16,7 @@ npm run fetch   # aggiorna listone + board
 npm start       # http://127.0.0.1:4173
 ```
 
-Nel browser: scegli il piano budget, cerca i giocatori, segna **Compra** / **Preso**, esporta la rosa a fine asta.
+Nel browser: l’asta è **a ruoli** (P→D→C→A). Segui la fase, usa la colonna **Pri** (si aggiorna a ogni Compra/Preso), controlla **Forma** ed **Età**, segna acquisti e giocatori presi, poi esporta la rosa.
 
 ## iPhone / GitHub Pages
 
