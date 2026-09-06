@@ -1,5 +1,6 @@
-const STORAGE_KEY = "fantacalcio-asta-2026-27-v5";
-const ASSET_V = "20260906e";
+/* Asta Scientifica Fantacalcio 2026/27 — 6 squadre, priorità adattiva */
+const STORAGE_KEY = "fantacalcio-asta-2026-27-v6";
+const ASSET_V = "20260906f";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -12,11 +13,12 @@ const TIER_RANK = {
   semi: 6, interessante: 5, value: 5, lowcost: 3, pool: 1,
 };
 const COLUMNS = [
-  { key: "priority", label: "Pri", type: "num", title: "Priorità dinamica" },
+  { key: "priority", label: "Pri", type: "num", title: "Priorità dinamica vs rivali" },
   { key: "role", label: "Ruolo", type: "text" },
   { key: "name", label: "Giocatore", type: "text" },
   { key: "team", label: "Sq", type: "text" },
   { key: "fvm", label: "FVM", type: "num" },
+  { key: "fair", label: "Fair", type: "num", title: "Fair market stimato" },
   { key: "cap", label: "Cap", type: "num" },
   { key: "fmPrev", label: "FM 25/26", type: "num", title: "Fantamedia 2025/26" },
   { key: "starterProb", label: "Tit%", type: "num", title: "Probabilità titolare" },
@@ -24,20 +26,77 @@ const COLUMNS = [
   { key: "age", label: "Età", type: "num" },
   { key: "penalty", label: "Rigori", type: "num" },
   { key: "tier", label: "Fascia", type: "tier" },
+  { key: "owner", label: "Owner", type: "text" },
   { key: "note", label: "Nota", type: "text" },
 ];
 
 const state = {
-  meta: null, players: [], plan: "modificatore_first", roleFilter: "P", query: "",
-  onlyTiered: false, onlyPenalties: false, hideTaken: true, ownership: {}, pendingId: null,
-  sortKey: "priority", sortDir: "desc", auctionRole: "P", roleLock: true,
+  meta: null,
+  players: [],
+  plan: "modificatore_first",
+  roleFilter: "P",
+  query: "",
+  onlyTiered: false,
+  onlyPenalties: false,
+  hideTaken: true,
+  ownership: {},
+  teams: [],
+  myTeamId: "t1",
+  selectedTeamId: "t1",
+  pendingId: null,
+  pendingMode: "buy",
+  sortKey: "priority",
+  sortDir: "desc",
+  auctionRole: "P",
+  roleLock: true,
 };
 
-const els = Object.fromEntries([
-  "budgetPlan","resetBtn","exportBtn","stats","search","roleChips","onlyTiered","onlyPenalties",
-  "hideTaken","roleLock","resultCount","playerHead","playerTable","roster","buyDialog","buyForm",
-  "buyTitle","buyPrice","buyHint","auctionBanner","priorityBox","strategyBox",
-].map((id) => [id, document.getElementById(id)]));
+const $ = (id) => document.getElementById(id);
+const els = {
+  budgetPlan: $("budgetPlan"),
+  resetBtn: $("resetBtn"),
+  exportBtn: $("exportBtn"),
+  teamsBar: $("teamsBar"),
+  auctionBanner: $("auctionBanner"),
+  stats: $("stats"),
+  search: $("search"),
+  roleChips: $("roleChips"),
+  roleLock: $("roleLock"),
+  onlyTiered: $("onlyTiered"),
+  onlyPenalties: $("onlyPenalties"),
+  hideTaken: $("hideTaken"),
+  resultCount: $("resultCount"),
+  playerHead: $("playerHead"),
+  playerTable: $("playerTable"),
+  priorityBox: $("priorityBox"),
+  strategyBox: $("strategyBox"),
+  roster: $("roster"),
+  buyDialog: $("buyDialog"),
+  buyForm: $("buyForm"),
+  buyTitle: $("buyTitle"),
+  buyTeam: $("buyTeam"),
+  buyPrice: $("buyPrice"),
+  buyHint: $("buyHint"),
+};
+
+function defaultTeams() {
+  const fromMeta = state.meta?.defaultTeams;
+  if (Array.isArray(fromMeta) && fromMeta.length === 6) {
+    return fromMeta.map((t, i) => ({
+      id: t.id || `t${i + 1}`,
+      name: t.name || `Squadra ${i + 1}`,
+      isMe: Boolean(t.isMe) || i === 0,
+    }));
+  }
+  return [
+    { id: "t1", name: "La mia squadra", isMe: true },
+    { id: "t2", name: "Riva 2", isMe: false },
+    { id: "t3", name: "Riva 3", isMe: false },
+    { id: "t4", name: "Riva 4", isMe: false },
+    { id: "t5", name: "Riva 5", isMe: false },
+    { id: "t6", name: "Riva 6", isMe: false },
+  ];
+}
 
 function loadSaved() {
   try {
@@ -46,6 +105,9 @@ function loadSaved() {
     Object.assign(state, {
       plan: saved.plan || state.plan,
       ownership: saved.ownership || {},
+      teams: Array.isArray(saved.teams) && saved.teams.length === 6 ? saved.teams : [],
+      myTeamId: saved.myTeamId || state.myTeamId,
+      selectedTeamId: saved.selectedTeamId || saved.myTeamId || state.selectedTeamId,
       onlyTiered: saved.onlyTiered ?? false,
       onlyPenalties: saved.onlyPenalties ?? false,
       hideTaken: saved.hideTaken ?? true,
@@ -55,28 +117,70 @@ function loadSaved() {
       roleLock: saved.roleLock ?? true,
     });
     state.roleFilter = state.roleLock ? state.auctionRole : (saved.roleFilter || state.auctionRole);
-  } catch {}
+  } catch { /* ignore */ }
 }
+
 function persist() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify({
-    plan: state.plan, ownership: state.ownership, onlyTiered: state.onlyTiered,
-    onlyPenalties: state.onlyPenalties, hideTaken: state.hideTaken, sortKey: state.sortKey,
-    sortDir: state.sortDir, auctionRole: state.auctionRole, roleLock: state.roleLock,
+    plan: state.plan,
+    ownership: state.ownership,
+    teams: state.teams,
+    myTeamId: state.myTeamId,
+    selectedTeamId: state.selectedTeamId,
+    onlyTiered: state.onlyTiered,
+    onlyPenalties: state.onlyPenalties,
+    hideTaken: state.hideTaken,
+    sortKey: state.sortKey,
+    sortDir: state.sortDir,
+    auctionRole: state.auctionRole,
+    roleLock: state.roleLock,
     roleFilter: state.roleFilter,
   }));
 }
 
-const currentBudget = () => state.meta.budgets[state.plan];
+const budgetTotal = () => Number(state.meta.budget || 1000);
 const rosterSlots = () => state.meta.roster;
 const teamsCount = () => Number(state.meta.teams || 6);
-const mineByRole = (role) => state.players.filter((p) => p.role === role && state.ownership[p.id]?.status === "mine");
-const spentByRole = (role) => mineByRole(role).reduce((s, p) => s + Number(state.ownership[p.id]?.price || 0), 0);
-const totalSpent = () => ROLES.reduce((s, r) => s + spentByRole(r), 0);
-const remainingBudget = () => Number(state.meta.budget) - totalSpent();
-const remainingSlots = (role) => Number(rosterSlots()[role]) - mineByRole(role).length;
-const marketTaken = (role) => state.players.filter((p) => p.role === role && ["mine","taken"].includes(state.ownership[p.id]?.status)).length;
-const marketTarget = (role) => Number(rosterSlots()[role]) * teamsCount();
-const roleBudgetLeft = (role) => Number(currentBudget()[role]) - spentByRole(role);
+const currentBudget = () => state.meta.budgets[state.plan];
+const teamById = (id) => state.teams.find((t) => t.id === id);
+const rivals = () => state.teams.filter((t) => t.id !== state.myTeamId);
+
+function ownedByTeam(teamId) {
+  return state.players.filter((p) => state.ownership[p.id]?.teamId === teamId);
+}
+function spentByTeam(teamId) {
+  return ownedByTeam(teamId).reduce((s, p) => s + Number(state.ownership[p.id]?.price || 0), 0);
+}
+function remainingByTeam(teamId) {
+  return budgetTotal() - spentByTeam(teamId);
+}
+function teamByRole(teamId, role) {
+  return ownedByTeam(teamId).filter((p) => p.role === role);
+}
+function slotsLeftTeam(teamId, role) {
+  return Number(rosterSlots()[role]) - teamByRole(teamId, role).length;
+}
+function mineByRole(role) {
+  return teamByRole(state.myTeamId, role);
+}
+function spentByRole(role) {
+  return mineByRole(role).reduce((s, p) => s + Number(state.ownership[p.id]?.price || 0), 0);
+}
+function remainingBudget() {
+  return remainingByTeam(state.myTeamId);
+}
+function remainingSlots(role) {
+  return slotsLeftTeam(state.myTeamId, role);
+}
+function marketTaken(role) {
+  return state.players.filter((p) => p.role === role && state.ownership[p.id]).length;
+}
+function marketTarget(role) {
+  return Number(rosterSlots()[role]) * teamsCount();
+}
+function roleBudgetLeft(role) {
+  return Number(currentBudget()[role]) - spentByRole(role);
+}
 function safeSpend(role) {
   const slots = remainingSlots(role);
   const left = roleBudgetLeft(role);
@@ -84,52 +188,184 @@ function safeSpend(role) {
   return Math.max(1, left - Math.max(0, slots - 1));
 }
 
+function marketIntel(role = state.auctionRole) {
+  const rivalRows = rivals().map((t) => {
+    const rolePlayers = teamByRole(t.id, role);
+    return {
+      id: t.id,
+      name: t.name,
+      rem: remainingByTeam(t.id),
+      spent: spentByTeam(t.id),
+      roleCount: rolePlayers.length,
+      roleSpent: rolePlayers.reduce((s, p) => s + Number(state.ownership[p.id]?.price || 0), 0),
+      slotsLeft: slotsLeftTeam(t.id, role),
+      hasElite: rolePlayers.some((p) => (TIER_RANK[p.tier] || 0) >= 9),
+    };
+  });
+  const avgRivalRem = rivalRows.length
+    ? rivalRows.reduce((s, r) => s + r.rem, 0) / rivalRows.length
+    : budgetTotal();
+  const avgRivalRoleSpent = rivalRows.length
+    ? rivalRows.reduce((s, r) => s + r.roleSpent, 0) / rivalRows.length
+    : 0;
+  const hungryRivals = rivalRows.filter((r) => r.slotsLeft > 0 && r.rem >= 120).length;
+  const brokeRivals = rivalRows.filter((r) => r.rem < 80 || (r.slotsLeft > 2 && r.rem < 150)).length;
+  const eliteTaken = state.players.filter(
+    (p) => p.role === role && (TIER_RANK[p.tier] || 0) >= 9 && state.ownership[p.id]
+  );
+  const myElite = mineByRole(role).some((p) => (TIER_RANK[p.tier] || 0) >= 9);
+  const planSlice = Math.max(40, Number(currentBudget()[role]) * 0.35);
+  const inflation = avgRivalRoleSpent > 0
+    ? Math.min(1.35, Math.max(0.75, avgRivalRoleSpent / planSlice))
+    : 1;
+  return { rivalRows, avgRivalRem, avgRivalRoleSpent, hungryRivals, brokeRivals, eliteTaken, myElite, inflation };
+}
+
 function priorityScore(p) {
   const role = state.auctionRole;
   if (p.role !== role) return -1;
-  if (["mine","taken"].includes(state.ownership[p.id]?.status)) return -1;
+  if (state.ownership[p.id]) return -1;
   const slotsLeft = remainingSlots(role);
   if (slotsLeft <= 0) return -1;
+
+  const intel = marketIntel(role);
   const roleLeft = roleBudgetLeft(role);
   const maxAfford = safeSpend(role);
-  const mine = mineByRole(role);
-  const hasElite = mine.some((m) => (TIER_RANK[m.tier] || 0) >= 9);
   const marketLeft = Math.max(0, marketTarget(role) - marketTaken(role));
+  const fair = p.fair || p.cap || p.fvm || 1;
+
   let s = 0;
-  s += (p.starterProb || 0) * 0.3;
-  s += (p.fitness || 50) * 0.24;
-  s += Math.min(100, ((p.fmPrev || 5.8) / 9) * 100) * 0.12;
-  s += (TIER_RANK[p.tier] || 1) * 7;
-  if (p.penalty === 1) s += 11; else if (p.penalty === 2) s += 5; else if (p.penalty === 3) s += 2;
-  const value = ((p.fmPrev || 6) * ((p.starterProb || 50) / 100) * ((p.fitness || 50) / 100)) / Math.max(p.cap, 1);
-  s += Math.min(18, value * 35);
-  if (p.cap > remainingBudget()) s -= 40;
-  else if (p.cap > maxAfford) s -= 22;
-  else if (slotsLeft > 1 && p.cap > roleLeft * 0.6) s -= 10;
-  else if (p.cap <= maxAfford * 0.55 && (TIER_RANK[p.tier] || 0) >= 7) s += 6;
-  if (hasElite && (TIER_RANK[p.tier] || 0) >= 9) s -= 18;
-  if (hasElite && (p.fitness || 0) >= 75 && p.cap <= maxAfford) s += 8;
-  if (role === "P" && mine.some((m) => (m.fitness || 0) >= 70) && (p.fitness || 0) < 60) s -= 8;
+  s += (p.starterProb || 0) * 0.28;
+  s += (p.fitness || 50) * 0.22;
+  s += Math.min(100, ((p.fmPrev || 5.8) / 9) * 100) * 0.1;
+  if (p.per90Prod != null) s += Math.min(14, p.per90Prod * 18);
+  else if (p.bonusProxy != null) s += Math.min(10, p.bonusProxy * 0.35);
+  s += (TIER_RANK[p.tier] || 1) * 6.5;
+  if (p.penalty === 1) s += 11;
+  else if (p.penalty === 2) s += 5;
+  else if (p.penalty === 3) s += 2;
+
+  const value = ((p.fmPrev || 6) * ((p.starterProb || 50) / 100) * ((p.fitness || 50) / 100)) / Math.max(fair, 1);
+  s += Math.min(16, value * 32);
+
+  if (p.cap > remainingBudget()) s -= 42;
+  else if (p.cap > maxAfford) s -= 20;
+  else if (slotsLeft > 1 && p.cap > roleLeft * 0.55) s -= 9;
+  else if (p.cap <= maxAfford * 0.55 && (TIER_RANK[p.tier] || 0) >= 7) s += 7;
+
+  if (p.fairHigh && p.fvm > p.fairHigh) s -= 6;
+  if (p.fairLow && p.fvm < p.fairLow) s += 5;
+
+  if (intel.myElite && (TIER_RANK[p.tier] || 0) >= 9) s -= 20;
+  if (intel.myElite && (p.fitness || 0) >= 75 && p.cap <= maxAfford) s += 7;
+
+  if (intel.hungryRivals >= 3 && (p.starterProb || 0) >= 75) s += 8;
+  if (intel.brokeRivals >= 3 && (TIER_RANK[p.tier] || 0) >= 8) s -= 6;
+  if (intel.brokeRivals >= 3 && p.cap <= maxAfford * 0.7) s += 5;
+
+  if (intel.eliteTaken.length >= 2 && (TIER_RANK[p.tier] || 0) >= 9) s -= 12;
+  if (intel.eliteTaken.length >= 2 && (TIER_RANK[p.tier] || 0) >= 6 && (TIER_RANK[p.tier] || 0) < 9) s += 9;
+
+  if (intel.inflation > 1.15 && p.cap >= fair * 1.05) s -= 8;
+  if (intel.inflation > 1.15 && p.cap <= fair * 0.9) s += 6;
+
+  const later = ROLES.slice(ROLES.indexOf(role) + 1);
+  if (later.length) {
+    const laterPlan = later.reduce((acc, r) => acc + Number(currentBudget()[r] || 0), 0);
+    if (remainingBudget() < laterPlan * 0.85 && (TIER_RANK[p.tier] || 0) >= 9) s -= 10;
+  }
+
+  if (role === "P" && mineByRole("P").some((m) => (m.fitness || 0) >= 70) && (p.fitness || 0) < 60) s -= 8;
+  if (role === "D" && p.name === "Dimarco" && intel.hungryRivals >= 2) s -= 4;
+  if (role === "A" && p.name === "Malen") {
+    if (intel.avgRivalRem > 700) s += 3;
+    if ((p.cap || 0) > roleLeft * 0.7) s -= 5;
+  }
+  if (role === "C" && intel.myElite && p.penalty === 1) s += 6;
+
   if (slotsLeft > 0 && marketLeft <= slotsLeft * teamsCount() * 0.35) s += (p.starterProb || 0) * 0.08;
   if ((p.fitness || 100) < 40) s -= 10;
   if ((p.age || 0) >= 34) s -= 4;
+
   return Math.round(s * 10) / 10;
 }
 
 function priorityWhy(p) {
+  const intel = marketIntel(p.role);
   const bits = [];
   if ((p.starterProb || 0) >= 80) bits.push("titolare");
   if ((p.fitness || 0) >= 75) bits.push("forma ok");
   if ((p.fitness || 0) < 45) bits.push("rischio fisico");
   if (p.penalty === 1) bits.push("1° rigore");
   if ((TIER_RANK[p.tier] || 0) >= 9) bits.push("fascia top");
-  bits.push(p.cap <= safeSpend(p.role) ? "nel budget ruolo" : "oltre spend-safe");
-  if ((p.age || 0) >= 33) bits.push(`età ${p.age}`);
-  return bits.slice(0, 4).join(" · ");
+  if (p.fairLow != null && p.fvm < p.fairLow) bits.push("sotto fair");
+  if (intel.hungryRivals >= 3) bits.push("rivali affamati");
+  if (intel.brokeRivals >= 3) bits.push("rivali corti");
+  if (intel.eliteTaken.length >= 2) bits.push("top usciti→value");
+  bits.push(p.cap <= safeSpend(p.role) ? "nel budget" : "oltre spend-safe");
+  return bits.slice(0, 5).join(" · ");
+}
+
+function adaptiveStrategyLines(role) {
+  const intel = marketIntel(role);
+  const lines = [];
+  const base = {
+    P: "Base: 1 cemento (Tit%+Forma), poi titolari low-cost.",
+    D: "Base: voti mod prima, 1 esterno bonus sotto spend-safe.",
+    C: "Base: max uno tra Paz/Calha/McT, poi rigoristi/bonus Forma≥55.",
+    A: "Base: se Malen > fair/cap, piano 2+2 value.",
+  };
+  lines.push(base[role]);
+
+  if (intel.eliteTaken.length === 0) {
+    lines.push("Top ancora disponibili: non sparare il primo nome se i rivali hanno budget pieno.");
+  } else if (intel.eliteTaken.length === 1) {
+    const who = intel.eliteTaken[0];
+    const own = state.ownership[who.id];
+    const owner = teamById(own?.teamId);
+    lines.push(`${who.name} preso da ${owner?.name || "?"} a ${own?.price ?? "?"}: rivaluta il piano B nello stesso tier.`);
+  } else {
+    lines.push(`${intel.eliteTaken.length} top già usciti: sposta Pri su semi/value con Tit%+Forma.`);
+  }
+
+  if (intel.hungryRivals >= 3) {
+    lines.push(`${intel.hungryRivals} rivali ancora carichi: alza aggressività su titolari certi, evita aste lunghe su Vetro.`);
+  }
+  if (intel.brokeRivals >= 2) {
+    lines.push(`${intel.brokeRivals} rivali corti di budget: puoi aspettare sconti e chiudere depth a 1–8.`);
+  }
+  if (intel.inflation > 1.18) {
+    lines.push(`Inflazione ruolo alta (~${Math.round(intel.inflation * 100)}%): non inseguire sopra fairHigh.`);
+  } else if (intel.inflation < 0.9 && marketTaken(role) >= 3) {
+    lines.push("Mercato freddo sul ruolo: puoi salire di uno scaglione sul target primario.");
+  }
+
+  const myRem = remainingBudget();
+  const avgR = Math.round(intel.avgRivalRem);
+  if (myRem > avgR + 120) lines.push(`Hai +${myRem - avgR} vs media rivali: puoi forzare 1 pezzo chiave ora.`);
+  else if (myRem < avgR - 120) lines.push(`Sei −${avgR - myRem} vs media rivali: difendi il warchest dei ruoli successivi.`);
+
+  if (intel.myElite) lines.push("Hai già un elite nel ruolo: priorità cemento/minuti, non un secondo listone.");
+
+  const idx = ROLES.indexOf(role);
+  if (idx >= 0 && idx < ROLES.length - 1) {
+    const next = ROLES[idx + 1];
+    const hot = intel.rivalRows.filter((r) => r.spent > budgetTotal() * 0.35).length;
+    if (hot >= 2) {
+      lines.push(`${hot} rivali hanno bruciato >35% budget: preparati a essere aggressivo su ${ROLE_LABEL[next]} value.`);
+    }
+  }
+
+  lines.push(`Spend-safe ${safeSpend(role)} · slot ${remainingSlots(role)} · mercato ${marketTaken(role)}/${marketTarget(role)}.`);
+  return lines;
 }
 
 function sortValue(p, key, type) {
   if (key === "priority") return priorityScore(p);
+  if (key === "owner") {
+    const o = state.ownership[p.id];
+    return o ? (teamById(o.teamId)?.name || "") : "";
+  }
   if (type === "tier") return TIER_RANK[p.tier] || 0;
   if (key === "penalty") return p.penalty == null ? 99 : Number(p.penalty);
   if (type === "num") {
@@ -144,12 +380,16 @@ function comparePlayers(a, b) {
   const dir = state.sortDir === "asc" ? 1 : -1;
   const av = sortValue(a, col.key, col.type);
   const bv = sortValue(b, col.key, col.type);
-  let cmp = typeof av === "number" && typeof bv === "number" ? av - bv : String(av).localeCompare(String(bv), "it", { sensitivity: "base" });
+  let cmp = typeof av === "number" && typeof bv === "number"
+    ? av - bv
+    : String(av).localeCompare(String(bv), "it", { sensitivity: "base" });
   if (cmp !== 0) return cmp * dir;
   return priorityScore(b) - priorityScore(a) || b.fvm - a.fvm;
 }
 
-function activeRoleFilter() { return state.roleLock ? state.auctionRole : state.roleFilter; }
+function activeRoleFilter() {
+  return state.roleLock ? state.auctionRole : state.roleFilter;
+}
 
 function filteredPlayers() {
   const q = state.query.trim().toLowerCase();
@@ -158,8 +398,17 @@ function filteredPlayers() {
     .filter((p) => (role === "ALL" ? true : p.role === role))
     .filter((p) => (state.onlyTiered ? p.tier !== "pool" : true))
     .filter((p) => (state.onlyPenalties ? Boolean(p.penalty) : true))
-    .filter((p) => (!state.hideTaken ? true : state.ownership[p.id]?.status !== "taken"))
-    .filter((p) => !q || [p.name, p.team, TIER_LABEL[p.tier], p.note, p.penaltyLabel, p.fitnessLabel].some((x) => String(x || "").toLowerCase().includes(q)))
+    .filter((p) => {
+      if (!state.hideTaken) return true;
+      const o = state.ownership[p.id];
+      return !o || o.teamId === state.myTeamId;
+    })
+    .filter((p) => {
+      if (!q) return true;
+      const owner = state.ownership[p.id] ? teamById(state.ownership[p.id].teamId)?.name : "";
+      return [p.name, p.team, TIER_LABEL[p.tier], p.note, p.penaltyLabel, p.fitnessLabel, owner]
+        .some((x) => String(x || "").toLowerCase().includes(q));
+    })
     .sort(comparePlayers);
 }
 
@@ -189,35 +438,76 @@ function syncRoleChips() {
   });
 }
 
+function escapeAttr(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+}
+
 function renderPlans() {
   els.budgetPlan.innerHTML = Object.entries(state.meta.budgets).map(([key, b]) =>
     `<option value="${key}" ${key === state.plan ? "selected" : ""}>${b.label} · P${b.P}/D${b.D}/C${b.C}/A${b.A}</option>`
   ).join("");
 }
 
+function renderTeamsBar() {
+  els.teamsBar.innerHTML = state.teams.map((t) => {
+    const spent = spentByTeam(t.id);
+    const rem = remainingByTeam(t.id);
+    const role = state.auctionRole;
+    const filled = teamByRole(t.id, role).length;
+    const need = rosterSlots()[role];
+    const isMe = t.id === state.myTeamId;
+    const selected = t.id === state.selectedTeamId;
+    return `<article class="team-card ${isMe ? "me" : ""} ${selected ? "selected" : ""}" data-team="${t.id}">
+      <label class="team-name-field">
+        <span class="sr-only">Nome squadra</span>
+        <input type="text" data-team-name="${t.id}" value="${escapeAttr(t.name)}" maxlength="28" />
+      </label>
+      <div class="team-meta"><strong>${spent}</strong> spesi · <strong>${rem}</strong> residui</div>
+      <div class="team-role">${role}: ${filled}/${need}</div>
+      <div class="team-actions">
+        ${isMe ? '<span class="me-tag">Tu</span>' : `<button type="button" class="btn tiny ghost dark" data-action="set-me" data-id="${t.id}">Segna come tu</button>`}
+        <button type="button" class="btn tiny ghost dark" data-action="select-team" data-id="${t.id}">Rosa</button>
+      </div>
+    </article>`;
+  }).join("");
+}
+
 function renderStats() {
   const plan = currentBudget();
   const rem = remainingBudget();
   const role = state.auctionRole;
+  const intel = marketIntel(role);
   const cards = [
-    { label: "Budget residuo", value: rem, cls: rem < 50 ? "warn" : "ok" },
+    { label: "Tuo residuo", value: rem, cls: rem < 50 ? "warn" : "ok" },
+    { label: "Media rivali", value: Math.round(intel.avgRivalRem), cls: "" },
     { label: `Tu · ${ROLE_LABEL[role]}`, value: `${mineByRole(role).length}/${rosterSlots()[role]}`, cls: "ok" },
     { label: "Mercato ruolo", value: `${marketTaken(role)}/${marketTarget(role)}`, cls: "" },
     ...ROLES.map((r) => {
       const left = plan[r] - spentByRole(r);
-      return { label: `${r} piano`, value: `${left} · ${mineByRole(r).length}/${rosterSlots()[r]}`, cls: left < 0 ? "warn" : r === role ? "ok" : "" };
+      return {
+        label: `${r} piano`,
+        value: `${left} · ${mineByRole(r).length}/${rosterSlots()[r]}`,
+        cls: left < 0 ? "warn" : r === role ? "ok" : "",
+      };
     }),
   ];
-  els.stats.innerHTML = cards.map((c) => `<div class="stat ${c.cls}"><strong>${c.value}</strong><span>${c.label}</span></div>`).join("");
+  els.stats.innerHTML = cards.map((c) =>
+    `<div class="stat ${c.cls}"><strong>${c.value}</strong><span>${c.label}</span></div>`
+  ).join("");
 }
 
 function renderAuctionBanner() {
   const role = state.auctionRole;
+  const intel = marketIntel(role);
   els.auctionBanner.innerHTML = `
     <div class="auction-main">
-      <p class="eyebrow">Asta a ruoli · motore scientifico</p>
+      <p class="eyebrow">Asta a ruoli · 6 squadre · motore adattivo</p>
       <h2>Fase <span>${ROLE_LABEL[role]}</span></h2>
-      <p>Tu <strong>${mineByRole(role).length}/${rosterSlots()[role]}</strong> · Mercato <strong>${marketTaken(role)}/${marketTarget(role)}</strong> · Budget ruolo <strong>${roleBudgetLeft(role)}</strong> · spend-safe <strong>${safeSpend(role)}</strong></p>
+      <p>Tu <strong>${mineByRole(role).length}/${rosterSlots()[role]}</strong>
+        · Mercato <strong>${marketTaken(role)}/${marketTarget(role)}</strong>
+        · Budget ruolo <strong>${roleBudgetLeft(role)}</strong>
+        · spend-safe <strong>${safeSpend(role)}</strong>
+        · rivali affamati <strong>${intel.hungryRivals}</strong></p>
     </div>
     <div class="auction-actions">
       <button type="button" class="btn ghost dark" id="advanceRoleBtn">Ruolo fatto → avanza</button>
@@ -234,23 +524,11 @@ function renderAuctionBanner() {
 }
 
 function renderStrategy() {
-  const role = state.auctionRole;
-  const tips = {
-    P: "1 cemento (Tit%+Forma alti), poi titolari low-cost. Non bruciare >55% del budget P sul primo se sei biporta.",
-    D: "Prima voti mod (centrali solidi), poi 1 esterno bonus sotto spend-safe. Evita Vetro cari.",
-    C: "Max uno tra Paz/Calha/McT. Poi rigoristi/bonus con Forma ≥55. Se i top scappano, ruota su value.",
-    A: "Se Malen > cap, passa al 2+2. Preferisci FM+Tit%+Forma al nome. Mai Vetro a prezzo pieno.",
-  };
-  const eliteGone = state.players.filter((p) => p.role === role && (TIER_RANK[p.tier] || 0) >= 9 && ["taken","mine"].includes(state.ownership[p.id]?.status)).length;
+  const lines = adaptiveStrategyLines(state.auctionRole);
   els.strategyBox.innerHTML = `
     <div class="panel-head"><h2>Strategia live</h2></div>
-    <p class="strategy-lead">${tips[role]}</p>
-    <ul>
-      <li>Slot da riempire: <strong>${remainingSlots(role)}</strong></li>
-      <li>Top già usciti nel ruolo: <strong>${eliteGone}</strong></li>
-      <li>Spend-safe: <strong>${safeSpend(role)}</strong></li>
-      <li>Pri ricalcolata a ogni Compra/Preso.</li>
-    </ul>`;
+    <p class="strategy-lead">${lines[0]}</p>
+    <ul>${lines.slice(1).map((l) => `<li>${l}</li>`).join("")}</ul>`;
 }
 
 function renderPriorities() {
@@ -263,7 +541,7 @@ function renderPriorities() {
     <div class="panel-head"><h2>Priorità ${ROLE_LABEL[state.auctionRole]}</h2></div>
     <ol class="priority-list">${rows.map(({ p, score }) => `<li>
       <div><strong>${p.name}</strong>
-        <span class="meta">${p.team} · cap ${p.cap} · Tit ${p.starterProb ?? "—"}% · Forma ${p.fitness ?? "—"}</span>
+        <span class="meta">${p.team} · fair ${p.fair ?? "—"} · cap ${p.cap} · Tit ${p.starterProb ?? "—"}%</span>
         <span class="meta">${priorityWhy(p)}</span></div>
       <div class="priority-side"><span class="pri-score">${score}</span>
         <button class="btn small" data-action="buy" data-id="${p.id}">Compra</button></div>
@@ -286,6 +564,13 @@ function fmtFit(p) {
   const cls = n >= 80 ? "fit-high" : n >= 55 ? "fit-mid" : "fit-low";
   return `<span class="fit ${cls}" title="${p.fitnessLabel || ""}">${p.fitnessLabel || n}<small>${n}</small></span>`;
 }
+function fmtOwner(p) {
+  const o = state.ownership[p.id];
+  if (!o) return '<span class="muted">—</span>';
+  const t = teamById(o.teamId);
+  const me = o.teamId === state.myTeamId;
+  return `<span class="owner ${me ? "mine" : "riv"}">${t?.name || "?"}<small>${o.price}</small></span>`;
+}
 
 function renderHead() {
   els.playerHead.innerHTML = `<tr>${COLUMNS.map((col) => {
@@ -301,14 +586,13 @@ function renderTable() {
   renderHead();
   els.playerTable.innerHTML = rows.map((p) => {
     const own = state.ownership[p.id];
-    const rowClass = own?.status === "mine" ? "mine" : own?.status === "taken" ? "taken" : "";
+    const rowClass = own?.teamId === state.myTeamId ? "mine" : own ? "taken" : "";
     const pri = priorityScore(p);
     const penHtml = p.penalty
       ? `<span class="badge pen pen-${p.penalty}" title="${p.penaltyLabel || ""}">${p.penalty}° ${p.penalty === 1 ? "rigorista" : "scelta"}</span>`
       : '<span class="muted">no</span>';
     let actions = "";
-    if (own?.status === "mine") actions = `<button class="btn small danger" data-action="release" data-id="${p.id}">Rimuovi</button>`;
-    else if (own?.status === "taken") actions = `<button class="btn small ghost dark" data-action="untake" data-id="${p.id}">Libera</button>`;
+    if (own) actions = `<button class="btn small danger" data-action="release" data-id="${p.id}">Libera</button>`;
     else actions = `<button class="btn small" data-action="buy" data-id="${p.id}">Compra</button>
       <button class="btn small ghost dark" data-action="take" data-id="${p.id}">Preso</button>`;
     return `<tr class="${rowClass}">
@@ -317,6 +601,7 @@ function renderTable() {
       <td><div class="name">${p.name}</div></td>
       <td>${p.team || "-"}</td>
       <td>${p.fvm}</td>
+      <td title="${p.fairLow ?? "?"}–${p.fairHigh ?? "?"}">${p.fair ?? "—"}</td>
       <td><strong>${p.cap}</strong></td>
       <td>${fmtFm(p.fmPrev)}</td>
       <td>${fmtTit(p)}</td>
@@ -324,30 +609,62 @@ function renderTable() {
       <td>${p.age ?? "—"}</td>
       <td>${penHtml}</td>
       <td><span class="badge ${p.tier}">${TIER_LABEL[p.tier] || p.tier}</span></td>
-      <td class="note-cell"><div class="note">${p.note || "—"}</div></td>
+      <td>${fmtOwner(p)}</td>
+      <td class="note-cell"><div class="note" title="${escapeAttr(p.note || "")}">${p.note || "—"}</div></td>
       <td class="actions">${actions}</td>
     </tr>`;
   }).join("");
 }
 
 function renderRoster() {
+  const focusId = state.selectedTeamId || state.myTeamId;
+  const focus = teamById(focusId) || teamById(state.myTeamId);
   const plan = currentBudget();
-  els.roster.innerHTML = ROLES.map((role) => {
-    const mine = mineByRole(role);
-    const spent = spentByRole(role);
-    const list = mine.length === 0 ? '<li><span class="meta">Nessuno</span><span></span></li>' : mine.map((p) => `
-      <li><span>${p.name} <span class="meta">${p.team || ""} · F${p.fitness ?? "—"}</span></span>
-      <span><strong>${state.ownership[p.id].price}</strong>
-      <button class="btn small danger" data-action="release" data-id="${p.id}">×</button></span></li>`).join("");
+  const teamTabs = state.teams.map((t) =>
+    `<button type="button" class="chip ${t.id === focusId ? "active" : ""}" data-action="select-team" data-id="${t.id}">${t.name}${t.id === state.myTeamId ? " ★" : ""}</button>`
+  ).join("");
+
+  const blocks = ROLES.map((role) => {
+    const mine = teamByRole(focus.id, role);
+    const spent = mine.reduce((s, p) => s + Number(state.ownership[p.id]?.price || 0), 0);
+    const planAmt = focus.id === state.myTeamId ? plan[role] : null;
+    const list = mine.length === 0
+      ? '<li><span class="meta">Nessuno</span><span></span></li>'
+      : mine.map((p) => `
+        <li><span>${p.name} <span class="meta">${p.team || ""}</span></span>
+        <span><strong>${state.ownership[p.id].price}</strong>
+        <button class="btn small danger" data-action="release" data-id="${p.id}">×</button></span></li>`).join("");
     return `<div class="role-block ${role === state.auctionRole ? "active-role" : ""}">
       <h3>${ROLE_LABEL[role]}</h3>
-      <div class="role-spent ${spent > plan[role] ? "over" : ""}">${spent}/${plan[role]} · ${mine.length}/${rosterSlots()[role]}</div>
+      <div class="role-spent ${planAmt != null && spent > planAmt ? "over" : ""}">${spent}${planAmt != null ? `/${planAmt}` : ""} · ${mine.length}/${rosterSlots()[role]}</div>
       <ul>${list}</ul></div>`;
   }).join("");
+
+  els.roster.innerHTML = `
+    <div class="roster-tabs">${teamTabs}</div>
+    <p class="roster-sum"><strong>${focus.name}</strong> · ${spentByTeam(focus.id)} spesi · ${remainingByTeam(focus.id)} residui</p>
+    ${blocks}`;
+}
+
+function fillBuyTeamSelect(mode) {
+  els.buyTeam.innerHTML = state.teams.map((t) => {
+    const rem = remainingByTeam(t.id);
+    return `<option value="${t.id}">${t.name} (${rem} residui)${t.id === state.myTeamId ? " · tu" : ""}</option>`;
+  }).join("");
+  if (mode === "take") {
+    const rival = rivals().find((t) => slotsLeftTeam(t.id, state.auctionRole) > 0) || rivals()[0];
+    if (rival) els.buyTeam.value = rival.id;
+  } else {
+    els.buyTeam.value = state.myTeamId;
+  }
+  const teamField = els.buyTeam.closest(".field");
+  if (teamField) teamField.hidden = mode === "buy";
+  els.buyTeam.disabled = mode === "buy";
 }
 
 function render() {
   maybeAdvanceRole();
+  renderTeamsBar();
   renderAuctionBanner();
   renderStats();
   renderStrategy();
@@ -362,61 +679,92 @@ function setSort(key) {
   if (state.sortKey === key) state.sortDir = state.sortDir === "asc" ? "desc" : "asc";
   else {
     state.sortKey = key;
-    state.sortDir = (COLUMNS.find((c) => c.key === key)?.type === "text") ? "asc" : "desc";
+    state.sortDir = COLUMNS.find((c) => c.key === key)?.type === "text" ? "asc" : "desc";
   }
   render();
 }
 
-function openBuy(id) {
+function openAssign(id, mode) {
   const player = state.players.find((p) => p.id === id);
   if (!player) return;
-  if (state.roleLock && player.role !== state.auctionRole) return alert(`Fase attuale: ${ROLE_LABEL[state.auctionRole]}`);
-  if (remainingSlots(player.role) <= 0) return alert(`Rosa ${player.role} completa.`);
+  if (state.roleLock && player.role !== state.auctionRole) {
+    return alert(`Fase attuale: ${ROLE_LABEL[state.auctionRole]}`);
+  }
   state.pendingId = id;
-  els.buyTitle.textContent = `Compra ${player.name}`;
-  els.buyPrice.value = Math.min(player.cap, safeSpend(player.role), Math.max(1, remainingBudget()));
+  state.pendingMode = mode;
+  fillBuyTeamSelect(mode);
+  els.buyTitle.textContent = mode === "buy" ? `Compra ${player.name}` : `Assegna ${player.name} a un rivale`;
+  const teamId = els.buyTeam.value;
+  const rem = remainingByTeam(teamId);
+  const defaultPrice = Math.min(
+    player.cap || player.fvm || 1,
+    Math.max(1, rem),
+    mode === "buy" ? (safeSpend(player.role) || rem) : Math.max(1, Math.round(player.fair || player.cap || 10))
+  );
+  els.buyPrice.value = defaultPrice;
   els.buyHint.textContent = [
-    `Pri ${priorityScore(player)}`, `FVM ${player.fvm}`, `Cap ${player.cap}`, `Spend-safe ${safeSpend(player.role)}`,
-    player.fmPrev != null ? `FM ${Number(player.fmPrev).toFixed(2).replace(".", ",")}` : null,
+    `Pri ${priorityScore(player)}`,
+    `FVM ${player.fvm}`,
+    `Fair ${player.fair ?? "—"} (${player.fairLow ?? "?"}–${player.fairHigh ?? "?"})`,
+    `Cap ${player.cap}`,
+    mode === "buy" ? `Spend-safe ${safeSpend(player.role)}` : null,
     player.starterProb != null ? `Tit ${player.starterProb}%` : null,
-    player.fitness != null ? `Forma ${player.fitnessLabel} ${player.fitness}` : null,
-    player.age != null ? `Età ${player.age}` : null, `Residuo ${remainingBudget()}`, player.note || null,
+    player.fitness != null ? `Forma ${player.fitnessLabel || ""} ${player.fitness}` : null,
+    player.note ? `${player.note.slice(0, 180)}…` : null,
   ].filter(Boolean).join(" · ");
   els.buyDialog.showModal();
   els.buyPrice.focus();
   els.buyPrice.select();
 }
 
-function confirmBuy(price) {
+function confirmAssign(price) {
   const player = state.players.find((p) => p.id === state.pendingId);
   if (!player) return false;
-  if (!Number.isFinite(price) || price < 1 || price > remainingBudget()) return alert("Prezzo non valido."), false;
-  if (price > safeSpend(player.role) && !confirm(`Sopra spend-safe ${safeSpend(player.role)}. Confermi?`)) return false;
-  if (price > player.cap * 1.15 && !confirm(`Oltre cap ${player.cap} (+15%). Confermi?`)) return false;
-  state.ownership[state.pendingId] = { status: "mine", price };
+  const teamId = els.buyTeam.value;
+  const team = teamById(teamId);
+  if (!team) return alert("Squadra non valida."), false;
+  if (!Number.isFinite(price) || price < 1) return alert("Prezzo non valido."), false;
+  if (price > remainingByTeam(teamId)) return alert(`${team.name} non ha abbastanza crediti.`), false;
+  if (slotsLeftTeam(teamId, player.role) <= 0) return alert(`${team.name}: rosa ${player.role} completa.`), false;
+
+  const isMe = teamId === state.myTeamId;
+  if (isMe && price > safeSpend(player.role) && !confirm(`Sopra spend-safe ${safeSpend(player.role)}. Confermi?`)) return false;
+  if (price > (player.cap || player.fvm) * 1.15 && !confirm(`Oltre cap ${player.cap} (+15%). Confermi?`)) return false;
+
+  state.ownership[state.pendingId] = { status: isMe ? "mine" : "taken", price, teamId };
   state.pendingId = null;
+  state.selectedTeamId = teamId;
   render();
   return true;
 }
 
-function markTaken(id) {
-  const player = state.players.find((p) => p.id === id);
-  if (state.roleLock && player && player.role !== state.auctionRole) return alert(`Fase attuale: ${ROLE_LABEL[state.auctionRole]}`);
-  state.ownership[id] = { status: "taken", price: 0 };
+function releasePlayer(id) {
+  delete state.ownership[id];
   render();
 }
-function releasePlayer(id) { delete state.ownership[id]; render(); }
 
 function exportRoster() {
-  const rosa = ROLES.flatMap((role) => mineByRole(role).map((p) => ({
-    role, name: p.name, team: p.team, price: state.ownership[p.id].price,
-    fvm: p.fvm, cap: p.cap, fmPrev: p.fmPrev, starterProb: p.starterProb, fitness: p.fitness, age: p.age,
-  })));
-  const payload = { exportedAt: new Date().toISOString(), plan: state.plan, auctionRole: state.auctionRole,
-    budget: state.meta.budget, spent: totalSpent(), remaining: remainingBudget(), rosa };
+  const teams = state.teams.map((t) => ({
+    id: t.id,
+    name: t.name,
+    isMe: t.id === state.myTeamId,
+    spent: spentByTeam(t.id),
+    remaining: remainingByTeam(t.id),
+    rosa: ROLES.flatMap((role) => teamByRole(t.id, role).map((p) => ({
+      role, name: p.name, club: p.team, price: state.ownership[p.id].price,
+      fvm: p.fvm, fair: p.fair, cap: p.cap,
+    }))),
+  }));
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    plan: state.plan,
+    auctionRole: state.auctionRole,
+    budget: budgetTotal(),
+    teams,
+  };
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
-  a.download = "rosa-asta-fantacalcio-2026-27.json";
+  a.download = "asta-6-squadre-2026-27.json";
   a.click();
   URL.revokeObjectURL(a.href);
 }
@@ -425,9 +773,16 @@ function onAction(e) {
   const btn = e.target.closest("[data-action]");
   if (!btn) return;
   const { action, id } = btn.dataset;
-  if (action === "buy") openBuy(id);
-  if (action === "take") markTaken(id);
-  if (action === "untake" || action === "release") releasePlayer(id);
+  if (action === "buy") openAssign(id, "buy");
+  if (action === "take") openAssign(id, "take");
+  if (action === "release") releasePlayer(id);
+  if (action === "select-team") { state.selectedTeamId = id; render(); }
+  if (action === "set-me") {
+    state.myTeamId = id;
+    state.selectedTeamId = id;
+    state.teams = state.teams.map((t) => ({ ...t, isMe: t.id === id }));
+    render();
+  }
 }
 
 function bindEvents() {
@@ -454,19 +809,72 @@ function bindEvents() {
   els.playerTable.addEventListener("click", onAction);
   els.roster.addEventListener("click", onAction);
   els.priorityBox.addEventListener("click", onAction);
+  els.teamsBar.addEventListener("click", onAction);
+  els.teamsBar.addEventListener("change", (e) => {
+    const input = e.target.closest("[data-team-name]");
+    if (!input) return;
+    const id = input.dataset.teamName;
+    const name = input.value.trim() || "Squadra";
+    state.teams = state.teams.map((t) => (t.id === id ? { ...t, name } : t));
+    persist();
+  });
+  els.teamsBar.addEventListener("focusout", (e) => {
+    const input = e.target.closest("[data-team-name]");
+    if (!input) return;
+    const id = input.dataset.teamName;
+    const name = input.value.trim() || "Squadra";
+    state.teams = state.teams.map((t) => (t.id === id ? { ...t, name } : t));
+    render();
+  });
+  els.buyTeam.addEventListener("change", () => {
+    const rem = remainingByTeam(els.buyTeam.value);
+    const cur = Number(els.buyPrice.value) || 1;
+    if (cur > rem) els.buyPrice.value = Math.max(1, rem);
+  });
   els.resetBtn.addEventListener("click", () => {
-    if (!confirm("Azzerare rosa/presi e tornare ai Portieri?")) return;
+    if (!confirm("Azzerare tutti gli acquisti delle 6 squadre e tornare ai Portieri?")) return;
     state.ownership = {};
     state.auctionRole = "P";
     state.roleFilter = "P";
+    state.selectedTeamId = state.myTeamId;
     render();
   });
   els.exportBtn.addEventListener("click", exportRoster);
   els.buyForm.addEventListener("submit", (e) => {
     if (e.submitter?.value === "cancel") { state.pendingId = null; return; }
     e.preventDefault();
-    if (confirmBuy(Number(els.buyPrice.value))) els.buyDialog.close();
+    if (confirmAssign(Number(els.buyPrice.value))) els.buyDialog.close();
   });
+}
+
+function normalizePlayer(raw) {
+  const cap = raw.cap ?? raw.fvm ?? null;
+  const fvm = raw.fvm ?? raw.cap ?? null;
+  const fair = raw.fair ?? cap ?? fvm ?? null;
+  const fairLow = raw.fairLow ?? (fair != null ? Math.round(fair * 0.88) : null);
+  const fairHigh = raw.fairHigh ?? (fair != null ? Math.round(fair * 1.12) : null);
+  return {
+    id: raw.id,
+    name: raw.name,
+    team: raw.team,
+    role: raw.role,
+    fvm,
+    cap,
+    fair,
+    fairLow,
+    fairHigh,
+    fmPrev: raw.fmPrev ?? raw.fm_prev ?? null,
+    starterProb: raw.starterProb ?? raw.starter_prob ?? raw.playedsExpected ?? null,
+    fitness: raw.fitness ?? null,
+    fitnessLabel: raw.fitnessLabel ?? raw.fitness_label ?? null,
+    age: raw.age ?? null,
+    penalty: raw.penalty ?? null,
+    penaltyLabel: raw.penaltyLabel ?? raw.penalty_label ?? null,
+    tier: raw.tier,
+    note: raw.note || "",
+    per90Prod: raw.per90Prod ?? raw.per90_prod ?? null,
+    bonusProxy: raw.bonusProxy ?? raw.bonus_proxy ?? null,
+  };
 }
 
 async function init() {
@@ -475,14 +883,29 @@ async function init() {
   if (!res.ok) throw new Error("Impossibile caricare asta-board-2026-27.json");
   const data = await res.json();
   state.meta = data.meta;
-  state.players = data.players;
+  state.players = data.players.map(normalizePlayer);
+
+  if (!state.teams.length) state.teams = defaultTeams();
+  if (!state.teams.some((t) => t.id === state.myTeamId)) {
+    state.myTeamId = state.teams.find((t) => t.isMe)?.id || state.teams[0].id;
+  }
+  if (!state.teams.some((t) => t.id === state.selectedTeamId)) {
+    state.selectedTeamId = state.myTeamId;
+  }
+  for (const [, o] of Object.entries(state.ownership)) {
+    if (o && !o.teamId) {
+      o.teamId = o.status === "mine" ? state.myTeamId : (rivals()[0]?.id || state.teams[1]?.id);
+    }
+  }
   if (!state.meta.budgets[state.plan]) state.plan = Object.keys(state.meta.budgets)[0];
   if (!ROLES.includes(state.auctionRole)) state.auctionRole = "P";
   if (state.roleLock) state.roleFilter = state.auctionRole;
+
   els.onlyTiered.checked = state.onlyTiered;
   els.onlyPenalties.checked = state.onlyPenalties;
   els.hideTaken.checked = state.hideTaken;
   els.roleLock.checked = state.roleLock;
+
   renderPlans();
   bindEvents();
   render();
