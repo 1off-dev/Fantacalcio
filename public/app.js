@@ -1,6 +1,6 @@
 /* Asta Scientifica Fantacalcio 2026/27 — 6 squadre, priorità adattiva */
 const STORAGE_KEY = "fantacalcio-asta-2026-27-v6";
-const ASSET_V = "20260906f";
+const ASSET_V = "20260906g";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -810,21 +810,25 @@ function bindEvents() {
   els.roster.addEventListener("click", onAction);
   els.priorityBox.addEventListener("click", onAction);
   els.teamsBar.addEventListener("click", onAction);
-  els.teamsBar.addEventListener("change", (e) => {
-    const input = e.target.closest("[data-team-name]");
-    if (!input) return;
+  const renameTeamFromInput = (input, { rerender = false } = {}) => {
     const id = input.dataset.teamName;
+    if (!id) return;
     const name = input.value.trim() || "Squadra";
     state.teams = state.teams.map((t) => (t.id === id ? { ...t, name } : t));
     persist();
+    if (rerender) render();
+  };
+  els.teamsBar.addEventListener("input", (e) => {
+    const input = e.target.closest("[data-team-name]");
+    if (input) renameTeamFromInput(input);
+  });
+  els.teamsBar.addEventListener("change", (e) => {
+    const input = e.target.closest("[data-team-name]");
+    if (input) renameTeamFromInput(input);
   });
   els.teamsBar.addEventListener("focusout", (e) => {
     const input = e.target.closest("[data-team-name]");
-    if (!input) return;
-    const id = input.dataset.teamName;
-    const name = input.value.trim() || "Squadra";
-    state.teams = state.teams.map((t) => (t.id === id ? { ...t, name } : t));
-    render();
+    if (input) renameTeamFromInput(input, { rerender: true });
   });
   els.buyTeam.addEventListener("change", () => {
     const rem = remainingByTeam(els.buyTeam.value);

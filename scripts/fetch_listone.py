@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Scarica listone Classic e genera board asta con note + rigoristi."""
+"""Scarica listone Classic e genera board asta con note scientifiche + rigoristi."""
 
 from __future__ import annotations
 
@@ -12,7 +12,14 @@ from datetime import date
 from html import unescape
 from pathlib import Path
 
-from science_data import AGE_HINTS, EXPERT_NOTES, compute_fitness
+from science_data import (
+    AGES,
+    build_scientific_note,
+    est_minutes,
+    fair_price,
+    production_metrics,
+    score_fitness,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -20,8 +27,8 @@ PUBLIC = ROOT / "public"
 URL = "https://www.fantacalcio.it/quotazioni-fantacalcio/2026-27"
 STATS_URL = "https://www.fantacalcio.it/statistiche-serie-a/2025-26"
 PREV_SEASON = "2025/26"
-PREV_MATCHES = 38  # giornate Serie A
-REF_YEAR = 2026  # età alla stagione 2026/27
+PREV_MATCHES = 38
+REF_YEAR = 2026
 ROLE_MAP = {"p": "P", "d": "D", "c": "C", "a": "A"}
 MONTHS_IT = {
     "gen": 1,
@@ -113,7 +120,6 @@ TIERS = {
     },
 }
 
-# Gerarchie rigoristi 2026/27 (sintesi guide FCO/SOS/Goal). Chiavi = nomi listone.
 PENALTIES: dict[str, dict] = {
     "Calhanoglu": {"order": 1, "label": "1° rigorista", "detail": "Inter — designato"},
     "Zielinski": {"order": 2, "label": "2° rigorista", "detail": "Inter — backup"},
@@ -197,6 +203,15 @@ BUDGETS = {
     },
 }
 
+DEFAULT_TEAMS = [
+    {"id": "t1", "name": "La mia squadra", "isMe": True},
+    {"id": "t2", "name": "Riva 2", "isMe": False},
+    {"id": "t3", "name": "Riva 3", "isMe": False},
+    {"id": "t4", "name": "Riva 4", "isMe": False},
+    {"id": "t5", "name": "Riva 5", "isMe": False},
+    {"id": "t6", "name": "Riva 6", "isMe": False},
+]
+
 
 def fetch_html(url: str = URL) -> str:
     req = urllib.request.Request(
@@ -253,7 +268,6 @@ def parse_players(html: str) -> list[dict]:
                 "qi": int(col("c_qi") or 0),
                 "qa": int(col("c_qa") or 0),
                 "fvm": int(col("c_fvm") or 0),
-                # Stima titolarità attesa Fantacalcio (0–100, spesso a scaglioni).
                 "playedsExpected": int(playeds) if playeds is not None else None,
                 "profileUrl": href_m.group(1) if href_m else None,
             }
@@ -262,7 +276,7 @@ def parse_players(html: str) -> list[dict]:
 
 
 def parse_prev_stats(html: str) -> dict[str, dict]:
-    """FM / presenze stagione precedente, indexate per nome listone."""
+    """Stats stagione precedente, indexate per nome listone."""
     rows = re.findall(r'<tr class="player-row"(.*?)</tr>', html, re.S)
     out: dict[str, dict] = {}
     for block in rows:
@@ -280,11 +294,19 @@ def parse_prev_stats(html: str) -> dict[str, dict]:
             continue
         pg = _parse_num(col("pg"))
         mv = _parse_num(col("mv"))
-        fm = _parse_num(col("mfv")) or _parse_num(col("mfv"))
+        fm = _parse_num(col("mfv"))
+        gol = _parse_num(col("gol"))
+        ass = _parse_num(col("ass"))
+        rig = _parse_num(col("rig"))  # scored portion of "x / y"
+        gs = _parse_num(col("gs"))
         out[name] = {
             "pgPrev": int(pg) if pg is not None else None,
             "mvPrev": mv,
             "fmPrev": fm,
+            "goalsPrev": int(gol) if gol is not None else None,
+            "assistsPrev": int(ass) if ass is not None else None,
+            "pensPrev": int(rig) if rig is not None else None,
+            "gsPrev": int(gs) if gs is not None else None,
         }
     return out
 
@@ -297,7 +319,6 @@ def age_from_birthdate(text: str) -> int | None:
     if not m:
         return None
     day, mon, year = int(m.group(1)), MONTHS_IT[m.group(2)], int(m.group(3))
-    # Età al 1° agosto 2026 (inizio stagione).
     season_start = date(REF_YEAR, 8, 1)
     born = date(year, mon, day)
     years = season_start.year - born.year
@@ -338,10 +359,8 @@ def save_age_cache(cache: dict[str, int]) -> None:
 
 
 def resolve_ages(players: list[dict]) -> dict[str, int]:
-    """Risolve età: cache → scrape profili → hint curati."""
     cache = load_age_cache()
-    # Seed hints
-    for name, age in AGE_HINTS.items():
+    for name, age in AGES.items():
         cache.setdefault(name, age)
 
     missing = [
@@ -349,7 +368,6 @@ def resolve_ages(players: list[dict]) -> dict[str, int]:
         for p in players
         if p["name"] not in cache and p.get("profileUrl") and (p.get("fvm") or 0) >= 1
     ]
-    # Priorità: FVM alto prima, max ~220 scrape per run (resto resta hint/null).
     missing.sort(key=lambda p: p.get("fvm") or 0, reverse=True)
     missing = missing[:220]
 
@@ -370,7 +388,6 @@ def resolve_ages(players: list[dict]) -> dict[str, int]:
 
 
 def starter_prob(playeds_expected: int | None, pg_prev: int | None) -> int | None:
-    """Probabilità titolare 0–100: proiezione listone + storico presenze."""
     hist = (
         min(100, round(100 * pg_prev / PREV_MATCHES)) if pg_prev is not None else None
     )
@@ -437,68 +454,6 @@ def cap_for(fvm: int, qa: int) -> int:
     return cap
 
 
-def note_for(
-    p: dict,
-    tier: str,
-    penalty: dict | None,
-    *,
-    age: int | None,
-    fitness: int | None,
-    fitness_label: str | None,
-) -> str:
-    role, fvm, name = p["role"], p["fvm"], p["name"]
-    bits: list[str] = []
-    if penalty:
-        bits.append(f"{penalty['label']} ({penalty['detail']}).")
-
-    expert = EXPERT_NOTES.get(name)
-    if expert:
-        bits.append(expert)
-    elif name == "Malen":
-        bits.append("Hype post-gol: non far saltare il budget attacco.")
-    elif name == "Dimarco":
-        bits.append("Bonus da esterno: ok solo se restano crediti per i voti.")
-    elif name == "Svilar":
-        bits.append("Certezza porta con modificatore.")
-    elif name in ("Paz N.", "Calhanoglu", "McTominay"):
-        bits.append("Top C: prendine uno, non inseguirli tutti.")
-    elif role == "P":
-        bits.append(
-            "Porta da modificatore."
-            if tier in ("super_top", "top", "affidabile")
-            else "Prendi solo titolari certi a 1–8."
-        )
-    elif role == "D":
-        bits.append(
-            "Priorità voto/bonus per il modificatore."
-            if tier in ("super_top", "top_bonus", "modificatore", "value")
-            else "Chiudi con titolari low-cost, evita ballottaggi cari."
-        )
-    elif role == "C":
-        bits.append(
-            "Investimento a centrocampo: fissa un max."
-            if tier in ("super_top", "top", "bonus")
-            else "Titolare da minutaggio per allungare la rosa."
-        )
-    else:
-        bits.append(
-            "Punta chiave: valuta piano anti-Malen 2+2."
-            if tier in ("super_top", "top", "semi")
-            else "Slot profondità: solo con minuti o upside chiaro."
-        )
-
-    if fitness is not None and fitness_label:
-        if fitness < 55:
-            bits.append(f"Forma {fitness_label} ({fitness}): rischio minuti/infortuni.")
-        elif age and age >= 33:
-            bits.append(f"Età {age}: monitorare carico e rendimento.")
-
-    note = " ".join(bits)
-    if fvm and "FVM" not in note:
-        note += f" FVM {fvm}, cap consigliato {cap_for(fvm, p['qa'])}."
-    return note[:220]
-
-
 def enrich(
     players: list[dict], prev_stats: dict[str, dict], ages: dict[str, int]
 ) -> list[dict]:
@@ -510,41 +465,68 @@ def enrich(
         pg_prev = prev.get("pgPrev")
         fm_prev = prev.get("fmPrev")
         mv_prev = prev.get("mvPrev")
+        goals = prev.get("goalsPrev")
+        assists = prev.get("assistsPrev")
+        pens = prev.get("pensPrev")
+        gs = prev.get("gsPrev")
         age = ages.get(p["name"])
-        fitness, fit_label = compute_fitness(
-            name=p["name"],
-            age=age,
-            pg_prev=pg_prev,
-            playeds_expected=p.get("playedsExpected"),
-            prev_matches=PREV_MATCHES,
+        start = starter_prob(p.get("playedsExpected"), pg_prev)
+        fitness, fit_label = score_fitness(p["name"], age, start)
+        minutes = est_minutes(pg_prev, p.get("playedsExpected"))
+        prod = production_metrics(
+            p["role"], pg_prev, fm_prev, mv_prev, goals, assists, pens, gs, minutes
         )
+        band = fair_price(p["fvm"], p["role"], start, fitness, prod)
         flags = flags_for(p["name"], penalty)
-        if fitness < 55:
+        if fitness is not None and fitness < 55:
             flags.append("rischio_fisico")
         if age is not None and age >= 33:
             flags.append("over_30")
-        # Non esporre URL profilo nel board pubblico.
+        note = build_scientific_note(
+            name=p["name"],
+            role=p["role"],
+            team=p["team"],
+            fvm=p["fvm"],
+            tier=tier,
+            age=age,
+            starter=start,
+            fitness=fitness,
+            fitness_lbl=fit_label,
+            fm=fm_prev,
+            mv=mv_prev,
+            pg=pg_prev,
+            playeds_expected=p.get("playedsExpected"),
+            goals=goals,
+            assists=assists,
+            pens=pens,
+            gs=gs,
+            penalty_label=penalty["label"] if penalty else "—",
+            flags=flags,
+        )
         base = {k: v for k, v in p.items() if k != "profileUrl"}
         out.append(
             {
                 **base,
                 "cap": cap_for(p["fvm"], p["qa"]),
+                "fair": band["fair"],
+                "fairLow": band["low"],
+                "fairHigh": band["high"],
                 "tier": tier,
                 "flags": flags,
                 "penalty": penalty["order"] if penalty else None,
                 "penaltyLabel": penalty["label"] if penalty else None,
-                "note": note_for(
-                    p,
-                    tier,
-                    penalty,
-                    age=age,
-                    fitness=fitness,
-                    fitness_label=fit_label,
-                ),
+                "note": note,
                 "pgPrev": pg_prev,
                 "mvPrev": mv_prev,
                 "fmPrev": fm_prev,
-                "starterProb": starter_prob(p.get("playedsExpected"), pg_prev),
+                "goalsPrev": goals,
+                "assistsPrev": assists,
+                "pensPrev": pens,
+                "gsPrev": gs,
+                "minutesEst": minutes,
+                "per90Prod": prod.get("per90Prod"),
+                "bonusProxy": prod.get("bonusProxy"),
+                "starterProb": start,
                 "age": age,
                 "fitness": fitness,
                 "fitnessLabel": fit_label,
@@ -610,6 +592,7 @@ def main() -> None:
                 "Asta a ruoli: si chiama un ruolo alla volta fino a quando "
                 "tutte le 6 rose hanno completato gli slot di quel ruolo."
             ),
+            "defaultTeams": DEFAULT_TEAMS,
             "source_listone": URL,
             "source_stats": STATS_URL,
             "prevSeason": PREV_SEASON,
@@ -622,13 +605,17 @@ def main() -> None:
                 f"presenze/{PREV_MATCHES} in {PREV_SEASON} (se disponibili)."
             ),
             "fitnessNote": (
-                "Forma = disponibilità PG 25/26 − penalità fragilità curata − età. "
+                "Forma = disponibilità − fragilità curata − età. "
                 "Età da profili Fantacalcio (cache) + hint guida."
             ),
-            "notesSource": "Sintesi guide SOS/Goal/FCO + regole asta scientifica repo",
+            "scienceNote": (
+                "Nota scientifica: fair band, prod/90, contesto club, "
+                "durabilità, fit rosa, scenari vs rivali + sintesi guide."
+            ),
+            "notesSource": "Motore scientifico repo + guide SOS/Goal/FCO",
             "priorityNote": (
                 "Pri% dinamica in UI: Tit% + Forma + FM + fascia + rigorista "
-                "+ fabbisogno slot/budget del ruolo corrente."
+                "+ fabbisogno slot/budget + spese e rose delle 6 squadre."
             ),
         },
         "players": enriched,
@@ -643,13 +630,16 @@ def main() -> None:
     with_fm = sum(1 for p in enriched if p["fmPrev"] is not None)
     with_tit = sum(1 for p in enriched if p["starterProb"] is not None)
     with_age = sum(1 for p in enriched if p.get("age") is not None)
+    with_gol = sum(1 for p in enriched if p.get("goalsPrev") is not None)
     fragile = sum(1 for p in enriched if (p.get("fitness") or 100) < 55)
     missing = [n for n in PENALTIES if n not in {p["name"] for p in players}]
+    sample = next((p for p in enriched if p["name"] == "Malen"), enriched[0])
     print(
         f"OK {len(players)} giocatori | fasce {shown} | rigoristi {pens} | "
-        f"FM {PREV_SEASON} {with_fm} | Tit% {with_tit} | età {with_age} | "
-        f"fragili {fragile} | missing pens {missing}"
+        f"FM {PREV_SEASON} {with_fm} | gol {with_gol} | Tit% {with_tit} | "
+        f"età {with_age} | fragili {fragile} | missing pens {missing}"
     )
+    print(f"Sample note ({sample['name']}): {sample['note'][:220]}…")
 
 
 if __name__ == "__main__":
