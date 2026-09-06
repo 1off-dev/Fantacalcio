@@ -464,3 +464,87 @@ td[data-col="fmPrev"],
 td[data-col="starterProb"] {
   font-variant-numeric: tabular-nums;
 }
+
+/* Asta a ruoli / scientifica */
+.auction-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: end;
+  margin: 0 0 16px;
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  background:
+    linear-gradient(120deg, rgba(15, 122, 90, 0.92), rgba(20, 50, 40, 0.92)),
+    #16352b;
+  color: #eef6f1;
+  box-shadow: var(--shadow);
+}
+.auction-banner h2 {
+  margin: 4px 0 8px;
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+.auction-banner h2 span { color: #f0c9a8; }
+.auction-banner .eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 11px;
+  opacity: 0.8;
+}
+.auction-banner p { margin: 0; opacity: 0.92; font-size: 14px; }
+.btn.ghost.dark {
+  color: #eef6f1;
+  border: 1px solid rgba(238, 246, 241, 0.35);
+  background: transparent;
+}
+.priority-list, .tips ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.priority-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: start;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+.priority-list .meta, .strategy-lead {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+  margin-top: 2px;
+}
+.priority-side { display: grid; gap: 6px; justify-items: end; }
+.pri-score, .pri {
+  font-variant-numeric: tabular-nums;
+  color: #0f7a5a;
+  font-weight: 700;
+}
+.fit {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.fit small { font-weight: 500; color: var(--muted); font-size: 11px; }
+.fit-high { color: #0d5a40; }
+.fit-mid { color: #7a4b00; }
+.fit-low { color: #8a2a1a; }
+.role-block.active-role {
+  outline: 2px solid rgba(15, 122, 90, 0.35);
+  border-radius: 12px;
+  padding: 8px;
+  background: rgba(231, 246, 239, 0.55);
+}
+.chip:disabled { opacity: 0.35; cursor: not-allowed; }
+.strategy-lead { margin: 0 0 10px; color: var(--ink); font-size: 14px; }
+.panel-head h2 { margin: 0 0 10px; font-size: 1rem; }
