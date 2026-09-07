@@ -11,13 +11,15 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907x";
+const ASSET_V = "20260907y";
 const GITHUB_SYNC = {
   owner: "1off-dev",
   repo: "Fantacalcio",
   branch: "gh-pages",
   path: "asta-live.json",
 };
+const REALTIME_PEER_ID = "fantacalcio-1off-asta-live";
+const REALTIME_POLL_MS = 2500;
 const GITHUB_CFG_KEY = "fantacalcio-asta-github-sync";
 const AUTH_KEY = "fantacalcio-asta-auth";
 const AUTH_USERS = {
@@ -86,6 +88,7 @@ const els = {
   loginAdminBtn: $("loginAdminBtn"),
   loginReadonlyBtn: $("loginReadonlyBtn"),
   authStatus: $("authStatus"),
+  liveStatus: $("liveStatus"),
   resetBtn: $("resetBtn"),
   exportBtn: $("exportBtn"),
   shareAuctionBtn: $("shareAuctionBtn"),
@@ -143,6 +146,13 @@ let githubPollTimer = null;
 let lastRemoteSavedAt = null;
 let githubPushTimer = null;
 let authSession = null;
+let realtimePeer = null;
+let realtimeHostConn = null;
+const realtimeGuests = new Set();
+let realtimeRole = null; // "host" | "guest" | null
+let realtimeReady = false;
+let applyingRealtime = false;
+let lastRealtimeSentAt = null;
 
 function readAuth() {
   try {
@@ -222,6 +232,13 @@ function logout() {
   if (els.loginError) els.loginError.hidden = true;
   clearInterval(githubPollTimer);
   githubPollTimer = null;
+  try { realtimePeer?.destroy(); } catch { /* ignore */ }
+  realtimePeer = null;
+  realtimeGuests.clear();
+  realtimeHostConn = null;
+  realtimeReady = false;
+  realtimeRole = null;
+  updateLiveBadge();
   openLoginDialog();
 }
 
@@ -244,16 +261,20 @@ function afterAuthContinue() {
   applyTeamsFromUrl();
   render();
   const cfg = readGithubCfg();
-  // Sola lettura / privato: scarica sempre la copia live (rose + nomi pubblicati).
   void pullGithubLive({ quiet: true });
-  if (cfg.autoPull || new URLSearchParams(location.search).has("sync") || !canWrite()) {
-    if (els.githubAutoPull) els.githubAutoPull.checked = true;
-    setGithubAutoPull(true);
-  }
-  if (cfg.autoPush && canWrite() && els.githubAutoPush) els.githubAutoPush.checked = true;
-  if (!canWrite() && els.githubAutoPush) {
+  // Realtime sempre on: PeerJS + poll GitHub di backup.
+  if (els.githubAutoPull) els.githubAutoPull.checked = true;
+  setGithubAutoPull(true);
+  if (canWrite()) {
+    // Host: pubblica in automatico se c’è token.
+    if (cfg.token || els.githubToken?.value) {
+      if (els.githubAutoPush) els.githubAutoPush.checked = true;
+      writeGithubCfg({ autoPush: true, token: (els.githubToken?.value || cfg.token || "").trim() });
+    }
+  } else if (els.githubAutoPush) {
     els.githubAutoPush.checked = false;
   }
+  void startRealtime();
   updateTeamsPublishHint();
   if (!readPov()?.chosenAt || new URLSearchParams(location.search).has("choose")) {
     openPovDialog();
@@ -888,11 +909,227 @@ function updateSyncStatus(ok, detail = "") {
     ? new Date(lastRemoteSavedAt).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
     : "—";
   const names = state.teams?.length === 6 ? state.teams.map((t) => t.name).join(" · ") : "";
+  const live = realtimeReady
+    ? (realtimeRole === "host" ? "LIVE host" : "LIVE")
+    : "LIVE off";
   const bit = detail ? ` · ${detail}` : "";
   els.authStatus.textContent = role
-    ? `Accesso: ${role} · sync ${when}${bit}${names ? ` · ${names}` : ""}`
+    ? `Accesso: ${role} · ${live} · sync ${when}${bit}${names ? ` · ${names}` : ""}`
     : "";
   els.authStatus.classList.toggle("warn", !ok);
+  updateLiveBadge();
+}
+
+function updateLiveBadge() {
+  if (!els.liveStatus) return;
+  const on = Boolean(realtimeReady);
+  els.liveStatus.hidden = !authSession?.role;
+  els.liveStatus.classList.toggle("on", on);
+  els.liveStatus.classList.toggle("host", realtimeRole === "host");
+  if (!authSession?.role) {
+    els.liveStatus.textContent = "";
+    return;
+  }
+  if (!on) {
+    els.liveStatus.textContent = "LIVE…";
+    return;
+  }
+  const n = realtimeRole === "host" ? realtimeGuests.size : 0;
+  els.liveStatus.textContent = realtimeRole === "host"
+    ? `LIVE · host${n ? ` · ${n} collegati` : ""}`
+    : "LIVE · collegato";
+}
+
+function loadPeerJs() {
+  if (window.Peer) return Promise.resolve();
+  return new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = "https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js";
+    s.async = true;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error("PeerJS non caricabile"));
+    document.head.appendChild(s);
+  });
+}
+
+function realtimePayload() {
+  return {
+    ...sharedAuctionPayload(),
+    shared: true,
+    publishedVia: "realtime-peer",
+  };
+}
+
+function applyRealtimeSnapshot(data, source = "live") {
+  if (!data || typeof data !== "object") return false;
+  if (applyingRealtime) return false;
+  if (data.savedAt && data.savedAt === lastRemoteSavedAt && data.savedAt === lastRealtimeSentAt) {
+    return false;
+  }
+  applyingRealtime = true;
+  try {
+    const keepTeams = canWrite()
+      ? state.teams.map((t) => ({ id: t.id, name: t.name, isMe: t.isMe }))
+      : null;
+    applySaved({ ...data, shared: true }, { keepPov: true });
+    if (keepTeams?.length === 6) {
+      state.teams = keepTeams;
+      syncOwnershipStatuses();
+    } else if (!canWrite() && Array.isArray(data.teams)) {
+      applyRemoteTeams(data.teams);
+    }
+    if (!canWrite()) applyTeamsFromUrl();
+    if (data.savedAt) lastRemoteSavedAt = data.savedAt;
+    persistPov();
+    persist();
+    render();
+    updateSyncStatus(true, source);
+    return true;
+  } finally {
+    applyingRealtime = false;
+  }
+}
+
+function broadcastRealtime(reason = "update") {
+  if (!canWrite() || applyingRealtime) return;
+  const payload = realtimePayload();
+  lastRealtimeSentAt = payload.savedAt;
+  lastRemoteSavedAt = payload.savedAt;
+  let sent = 0;
+  for (const conn of [...realtimeGuests]) {
+    try {
+      if (conn.open) {
+        conn.send({ type: "snapshot", reason, payload });
+        sent += 1;
+      }
+    } catch (err) {
+      console.warn("realtime send failed", err);
+    }
+  }
+  updateLiveBadge();
+  if (sent) updateSyncStatus(true, `push live ×${sent}`);
+}
+
+function wireGuestConnection(conn) {
+  realtimeHostConn = conn;
+  conn.on("open", () => {
+    realtimeReady = true;
+    realtimeRole = "guest";
+    updateLiveBadge();
+    updateSyncStatus(true, "peer collegato");
+    try { conn.send({ type: "hello", role: "readonly" }); } catch { /* ignore */ }
+  });
+  conn.on("data", (msg) => {
+    if (msg?.type === "snapshot" && msg.payload) {
+      applyRealtimeSnapshot(msg.payload, "peer");
+    }
+  });
+  conn.on("close", () => {
+    realtimeReady = false;
+    updateLiveBadge();
+    updateSyncStatus(false, "peer disconnesso");
+    // ritenta tra poco
+    setTimeout(() => { if (!canWrite()) void connectRealtimeGuest(); }, 1500);
+  });
+  conn.on("error", () => {
+    realtimeReady = false;
+    updateLiveBadge();
+  });
+}
+
+function wireHostConnection(conn) {
+  realtimeGuests.add(conn);
+  conn.on("open", () => {
+    realtimeReady = true;
+    updateLiveBadge();
+    try {
+      conn.send({ type: "snapshot", reason: "welcome", payload: realtimePayload() });
+    } catch { /* ignore */ }
+  });
+  conn.on("close", () => {
+    realtimeGuests.delete(conn);
+    updateLiveBadge();
+  });
+  conn.on("error", () => {
+    realtimeGuests.delete(conn);
+    updateLiveBadge();
+  });
+  conn.on("data", (msg) => {
+    if (msg?.type === "hello") updateLiveBadge();
+  });
+}
+
+async function startRealtimeHost() {
+  realtimeRole = "host";
+  realtimePeer = new window.Peer(REALTIME_PEER_ID, { debug: 0 });
+  realtimePeer.on("open", () => {
+    realtimeReady = true;
+    updateLiveBadge();
+    updateSyncStatus(true, "host live");
+    broadcastRealtime("host-open");
+  });
+  realtimePeer.on("connection", wireHostConnection);
+  realtimePeer.on("error", (err) => {
+    console.warn("realtime host error", err);
+    // ID già preso: prova come guest (un altro admin è host)
+    if (String(err?.type || err?.message || "").includes("unavailable")) {
+      try { realtimePeer.destroy(); } catch { /* ignore */ }
+      realtimePeer = null;
+      void connectRealtimeGuest();
+      return;
+    }
+    realtimeReady = false;
+    updateLiveBadge();
+    updateSyncStatus(false, "host error");
+  });
+}
+
+async function connectRealtimeGuest() {
+  realtimeRole = "guest";
+  if (!realtimePeer) {
+    realtimePeer = new window.Peer(undefined, { debug: 0 });
+  }
+  const connect = () => {
+    const conn = realtimePeer.connect(REALTIME_PEER_ID, { reliable: true });
+    wireGuestConnection(conn);
+  };
+  if (realtimePeer.open) connect();
+  else realtimePeer.on("open", connect);
+  realtimePeer.on("error", (err) => {
+    console.warn("realtime guest error", err);
+    realtimeReady = false;
+    updateLiveBadge();
+  });
+}
+
+async function startRealtime() {
+  try {
+    await loadPeerJs();
+  } catch (err) {
+    console.warn(err);
+    updateSyncStatus(false, "PeerJS offline → solo GitHub");
+    return;
+  }
+  try {
+    if (realtimePeer) {
+      try { realtimePeer.destroy(); } catch { /* ignore */ }
+      realtimePeer = null;
+      realtimeGuests.clear();
+      realtimeHostConn = null;
+      realtimeReady = false;
+    }
+    if (canWrite()) await startRealtimeHost();
+    else await connectRealtimeGuest();
+  } catch (err) {
+    console.warn("realtime start failed", err);
+    updateSyncStatus(false, "live non disponibile");
+  }
+}
+
+function publishLiveChange(reason = "update") {
+  if (!canWrite() || applyingRealtime) return;
+  broadcastRealtime(reason);
+  scheduleGithubAutoPush(true);
 }
 
 function utf8ToBase64(str) {
@@ -956,8 +1193,9 @@ async function pushGithubLive() {
     }
     lastRemoteSavedAt = payload.savedAt;
     persist();
+    broadcastRealtime("github-publish");
     updateSaveStatus(true, "pubblicato su GitHub");
-    setGithubStatus(`Pubblicato · ${new Date(payload.savedAt).toLocaleTimeString("it-IT")}. Gli altri cliccano Aggiorna (o auto-pull).`);
+    setGithubStatus(`Pubblicato · ${new Date(payload.savedAt).toLocaleTimeString("it-IT")}. Gli altri in LIVE lo vedono subito; Aggiorna resta come backup.`);
     return true;
   } catch (err) {
     setGithubStatus(`Publish fallito: ${err.message || err}`, false);
@@ -971,22 +1209,22 @@ function setGithubAutoPull(on) {
   clearInterval(githubPollTimer);
   githubPollTimer = null;
   if (!on) return;
-  // Senza token l’API pubblica ha rate limit basso: raw/API ogni 20s.
-  const token = (els.githubToken?.value || readGithubCfg().token || "").trim();
-  const ms = token ? 12000 : 20000;
+  // Backup del canale LIVE (PeerJS). Intervallo corto.
   githubPollTimer = setInterval(() => {
     pullGithubLive({ quiet: true });
-  }, ms);
+  }, REALTIME_POLL_MS);
 }
 
-function scheduleGithubAutoPush() {
+function scheduleGithubAutoPush(force = false) {
   if (!canWrite()) return;
   const cfg = readGithubCfg();
-  if (!cfg.autoPush || !(cfg.token || els.githubToken?.value)) return;
+  const token = (els.githubToken?.value || cfg.token || "").trim();
+  if (!token) return;
+  if (!force && !cfg.autoPush) return;
   clearTimeout(githubPushTimer);
   githubPushTimer = setTimeout(() => {
     pushGithubLive();
-  }, 800);
+  }, force ? 400 : 800);
 }
 
 /** Pubblica i nomi anche senza auto-push: indispensabile per il privato. */
@@ -995,13 +1233,11 @@ function scheduleTeamsPublish() {
   const cfg = readGithubCfg();
   const token = (els.githubToken?.value || cfg.token || "").trim();
   if (!token) {
-    updateSaveStatus(false, "nomi solo su questo browser — apri GitHub live → Pubblica");
+    updateSaveStatus(false, "nomi solo su questo browser — apri GitHub live → Pubblica (token)");
+    broadcastRealtime("rename-local");
     return;
   }
-  clearTimeout(githubPushTimer);
-  githubPushTimer = setTimeout(() => {
-    void pushGithubLive();
-  }, 600);
+  publishLiveChange("rename");
 }
 
 function setGithubAutoPush(on) {
@@ -1591,7 +1827,7 @@ function renderAuctionBanner() {
       state.auctionRole = ROLES[idx + 1];
       if (state.roleLock) state.roleFilter = state.auctionRole;
       render();
-      scheduleGithubAutoPush();
+      publishLiveChange("advance-role");
     } else alert("Sei già sugli Attaccanti.");
   });
   applyAuthUi();
@@ -2058,7 +2294,7 @@ function confirmAssign(price) {
   state.pendingId = null;
   state.selectedTeamId = teamId;
   render();
-  scheduleGithubAutoPush();
+  publishLiveChange("assign");
   return true;
 }
 
@@ -2066,7 +2302,7 @@ function releasePlayer(id) {
   if (!requireWrite("liberare un giocatore")) return;
   delete state.ownership[id];
   render();
-  scheduleGithubAutoPush();
+  publishLiveChange("release");
 }
 
 function onAction(e) {
@@ -2139,8 +2375,7 @@ function bindEvents() {
     if (prev === name) return;
     state.teams = state.teams.map((t) => (t.id === id ? { ...t, name } : t));
     persist();
-    scheduleTeamsPublish();
-    scheduleGithubAutoPush();
+    publishLiveChange("rename");
     // Aggiorna solo etichette dipendenti dal nome, senza re-montare gli input (evita perdita focus/value).
     document.querySelectorAll(`.team-card[data-team="${id}"] .team-name-text`).forEach((el) => {
       el.textContent = name;
@@ -2181,7 +2416,7 @@ function bindEvents() {
     state.roleFilter = "P";
     state.selectedTeamId = state.myTeamId;
     render();
-    scheduleGithubAutoPush();
+    publishLiveChange("reset");
   });
   els.exportBtn.addEventListener("click", exportRoster);
   els.shareAuctionBtn?.addEventListener("click", exportSharedAuction);
