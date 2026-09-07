@@ -9,7 +9,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907c";
+const ASSET_V = "20260907d";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -24,6 +24,7 @@ const TIER_RANK = {
 const TRAFFIC_LABEL = {
   value: "Value", fair: "Fair", rich: "Ricco", overpay: "Overpay",
 };
+/** Colonne compatte: niente scroll orizzontale; il resto sta nel dettaglio. */
 const COLUMNS = [
   { key: "priority", label: "Pri", type: "num", title: "Priorità dinamica vs rivali + fit rosa" },
   { key: "role", label: "Ruolo", type: "text" },
@@ -31,17 +32,9 @@ const COLUMNS = [
   { key: "team", label: "Sq", type: "text" },
   { key: "fvm", label: "FVM", type: "num" },
   { key: "fair", label: "Fair", type: "num", title: "Fair market stimato" },
-  { key: "leave", label: "Leave", type: "num", title: "Tetto leave mock a 6" },
   { key: "traffic", label: "Semaforo", type: "text", title: "Value / Fair / Ricco / Overpay vs FVM" },
-  { key: "cap", label: "Cap", type: "num" },
-  { key: "fmPrev", label: "FM 25/26", type: "num", title: "Fantamedia 2025/26" },
   { key: "starterProb", label: "Tit%", type: "num", title: "Probabilità titolare" },
-  { key: "fitness", label: "Forma", type: "num", title: "Affidabilità fisica" },
-  { key: "age", label: "Età", type: "num" },
-  { key: "penalty", label: "Rigori", type: "num" },
-  { key: "tier", label: "Fascia", type: "tier" },
   { key: "owner", label: "Owner", type: "text" },
-  { key: "note", label: "Nota", type: "text" },
 ];
 
 const state = {
@@ -95,6 +88,9 @@ const els = {
   buyTeam: $("buyTeam"),
   buyPrice: $("buyPrice"),
   buyHint: $("buyHint"),
+  detailDialog: $("detailDialog"),
+  detailBody: $("detailBody"),
+  detailClose: $("detailClose"),
 };
 
 let lastSavedAt = null;
@@ -941,44 +937,161 @@ function renderHead() {
 
 function renderTable() {
   const rows = filteredPlayers();
-  els.resultCount.textContent = `${rows.length} in vista · sort ${state.sortKey}`;
+  els.resultCount.textContent = `${rows.length} in vista · clicca riga per dettaglio · sort ${state.sortKey}`;
   renderHead();
   els.playerTable.innerHTML = rows.map((p) => {
     const own = state.ownership[p.id];
-    const rowClass = own?.teamId === state.myTeamId ? "mine" : own ? "taken" : "";
+    const rowClass = [
+      own?.teamId === state.myTeamId ? "mine" : own ? "taken" : "",
+      "clickable",
+    ].filter(Boolean).join(" ");
     const pri = priorityScore(p);
-    const penHtml = p.penalty
-      ? `<span class="badge pen pen-${p.penalty}" title="${p.penaltyLabel || ""}">${p.penalty}° ${p.penalty === 1 ? "rigorista" : "scelta"}</span>`
-      : '<span class="muted">no</span>';
     const fairTitle = [
-      p.fairLow != null || p.fairHigh != null ? `${p.fairLow ?? "?"}–${p.fairHigh ?? "?"}` : null,
+      p.fairLow != null || p.fairHigh != null ? `fascia ${p.fairLow ?? "?"}–${p.fairHigh ?? "?"}` : null,
+      p.leave != null ? `leave ${p.leave}` : null,
       p.mockLow != null ? `mock ${p.mockLow}–${p.mockHigh}` : null,
     ].filter(Boolean).join(" · ");
     let actions = "";
     if (own) actions = `<button class="btn small danger" data-action="release" data-id="${p.id}">Libera</button>`;
     else actions = `<button class="btn small" data-action="buy" data-id="${p.id}">Compra</button>
       <button class="btn small ghost dark" data-action="take" data-id="${p.id}">Preso</button>`;
-    return `<tr class="${rowClass}">
+    return `<tr class="${rowClass}" data-id="${p.id}" title="Apri scheda ${escapeAttr(p.name)}">
       <td><strong class="pri">${pri < 0 ? "—" : pri}</strong></td>
       <td><span class="badge role-${p.role}">${p.role}</span></td>
       <td><div class="name">${p.name}</div></td>
       <td>${p.team || "-"}</td>
       <td>${p.fvm}</td>
       <td title="${escapeAttr(fairTitle)}">${p.fair ?? "—"}</td>
-      <td>${p.leave ?? "—"}</td>
       <td>${fmtTraffic(p)}</td>
-      <td><strong>${p.cap}</strong></td>
-      <td>${fmtFm(p.fmPrev)}</td>
       <td>${fmtTit(p)}</td>
-      <td>${fmtFit(p)}</td>
-      <td>${p.age ?? "—"}</td>
-      <td>${penHtml}</td>
-      <td><span class="badge ${p.tier}">${TIER_LABEL[p.tier] || p.tier}</span></td>
       <td>${fmtOwner(p)}</td>
-      <td class="note-cell"><div class="note" title="${escapeAttr(p.note || "")}">${p.note || "—"}</div></td>
       <td class="actions">${actions}</td>
     </tr>`;
   }).join("");
+}
+
+function metricCard(label, value, hint = "") {
+  return `<div class="metric-card" title="${escapeAttr(hint)}">
+    <span>${label}</span><strong>${value ?? "—"}</strong>
+  </div>`;
+}
+
+function noteParagraphs(note) {
+  if (!note) return [];
+  return String(note)
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function openDetail(id) {
+  const p = state.players.find((x) => x.id === id);
+  if (!p || !els.detailDialog || !els.detailBody) return;
+  const pri = priorityScore(p);
+  const own = state.ownership[p.id];
+  const ownerName = own ? (teamById(own.teamId)?.name || "?") : null;
+  const paragraphs = noteParagraphs(p.note);
+  const fairBand = p.fairLow != null || p.fairHigh != null
+    ? `${p.fairLow ?? "?"}–${p.fairHigh ?? "?"}`
+    : "—";
+  const mockBand = p.mockLow != null
+    ? `${p.mockLow}–${p.mockHigh}${p.mockMid != null ? ` (media ${p.mockMid})` : ""}`
+    : "—";
+
+  let actions = "";
+  if (own) {
+    actions = `<button type="button" class="btn danger" data-action="release" data-id="${p.id}">Libera</button>`;
+  } else {
+    actions = `
+      <button type="button" class="btn" data-action="buy" data-id="${p.id}">Compra</button>
+      <button type="button" class="btn ghost dark" data-action="take" data-id="${p.id}">Preso</button>`;
+  }
+
+  els.detailBody.innerHTML = `
+    <header class="detail-head">
+      <div>
+        <p class="eyebrow">${ROLE_LABEL[p.role] || p.role} · ${p.team || "—"} · ${TIER_LABEL[p.tier] || p.tier || ""}</p>
+        <h3>${p.name}</h3>
+        <p class="detail-sub">
+          ${ownerName ? `Assegnato a <strong>${ownerName}</strong> per ${own.price}` : "Disponibile"}
+          ${p.penaltyLabel ? ` · ${p.penaltyLabel}` : ""}
+          ${pri >= 0 ? ` · Pri ${pri}` : ""}
+        </p>
+      </div>
+      <div class="detail-head-side">
+        ${fmtTraffic(p)}
+        <span class="badge ${p.tier || ""}">${TIER_LABEL[p.tier] || p.tier || "—"}</span>
+      </div>
+    </header>
+
+    <section class="detail-section">
+      <h4>Prezzo e mercato</h4>
+      <div class="metric-grid">
+        ${metricCard("FVM", p.fvm, "Quotazione listone")}
+        ${metricCard("Fair", p.fair, `Fascia ${fairBand}`)}
+        ${metricCard("Leave", p.leave, "Tetto oltre cui lasciare")}
+        ${metricCard("Cap", p.cap, "Cap asta consigliato")}
+        ${metricCard("Mock a 6", mockBand, "Range tipico aste a 6")}
+        ${metricCard("Semaforo", TRAFFIC_LABEL[p.traffic] || p.traffic || "—")}
+      </div>
+    </section>
+
+    <section class="detail-section">
+      <h4>Affidabilità e profilo</h4>
+      <div class="metric-grid">
+        ${metricCard("Titolarità", p.starterProb != null ? `${Math.round(p.starterProb)}%` : "—")}
+        ${metricCard("Forma", p.fitness != null ? `${p.fitnessLabel || ""} ${p.fitness}`.trim() : "—")}
+        ${metricCard("Età", p.age)}
+        ${metricCard("FM 25/26", p.fmPrev != null ? Number(p.fmPrev).toFixed(2).replace(".", ",") : "—")}
+        ${metricCard("Minuti stimati", p.minutesEst != null ? `${p.minutesEst}'` : "—", p.minutesNote || "Proxy da presenze")}
+        ${metricCard("Panchina", p.benchRate != null ? `~${p.benchRate}%` : "—")}
+      </div>
+    </section>
+
+    <section class="detail-section">
+      <h4>Produzione e contesto</h4>
+      <div class="metric-grid">
+        ${metricCard("Prod /90", p.per90Prod)}
+        ${metricCard("Prod /90 no-rig", p.per90ProdNoPen)}
+        ${metricCard("Bonus puro", p.bonusPure != null ? `${p.bonusPure > 0 ? "+" : ""}${p.bonusPure}` : "—")}
+        ${metricCard("CS proxy", p.csProxy)}
+        ${metricCard("Modulo club", p.teamModule || "—")}
+        ${metricCard("Calendario", p.teamSched != null ? `${p.teamSched}/5` : "—", "1 duro · 5 morbido")}
+      </div>
+      ${p.injuryRisk || p.injuryDaysOut != null ? `
+        <p class="detail-alert">
+          <strong>Disponibilità:</strong>
+          ${p.injuryRisk || "monitorare"}
+          ${p.injuryDaysOut != null ? ` · ~${p.injuryDaysOut} giorni persi` : ""}
+          ${p.injuryMuscular ? " · rischio muscolare" : ""}
+          ${p.injuryMultiComp != null ? ` · carico competizioni ${p.injuryMultiComp}/2` : ""}
+        </p>` : ""}
+      ${p.teamStyle ? `<p class="detail-muted">Club: stile «${p.teamStyle}»${p.teamAtt != null ? ` · att ${p.teamAtt}/5` : ""}${p.teamDef != null ? ` · dif ${p.teamDef}/5` : ""}.</p>` : ""}
+    </section>
+
+    <section class="detail-section">
+      <h4>Nota di analisi</h4>
+      <div class="detail-notes">
+        ${paragraphs.length
+          ? paragraphs.map((para) => `<p>${para}</p>`).join("")
+          : '<p class="muted">Nessuna nota disponibile.</p>'}
+      </div>
+    </section>
+
+    <div class="detail-actions">${actions}</div>`;
+
+  if (!els.detailDialog.open) els.detailDialog.showModal();
+}
+
+function focusRoster(teamId) {
+  state.selectedTeamId = teamId;
+  render();
+  requestAnimationFrame(() => {
+    const panel = document.getElementById("rosterPanel") || els.roster?.closest(".panel") || els.roster;
+    panel?.scrollIntoView({ behavior: "smooth", block: "start" });
+    panel?.classList.add("roster-flash");
+    setTimeout(() => panel?.classList.remove("roster-flash"), 1200);
+  });
 }
 
 function renderRoster() {
@@ -986,7 +1099,7 @@ function renderRoster() {
   const focus = teamById(focusId) || teamById(state.myTeamId);
   const plan = currentBudget();
   const teamTabs = state.teams.map((t) =>
-    `<button type="button" class="chip ${t.id === focusId ? "active" : ""}" data-action="select-team" data-id="${t.id}">${t.name}${t.id === state.myTeamId ? " ★" : ""}</button>`
+    `<button type="button" class="roster-chip ${t.id === focusId ? "active" : ""}" data-action="select-team" data-id="${t.id}">${t.name}${t.id === state.myTeamId ? " ★" : ""}</button>`
   ).join("");
 
   const blocks = ROLES.map((role) => {
@@ -996,7 +1109,7 @@ function renderRoster() {
     const list = mine.length === 0
       ? '<li><span class="meta">Nessuno</span><span></span></li>'
       : mine.map((p) => `
-        <li><span>${p.name} <span class="meta">${p.team || ""}</span></span>
+        <li><span><button type="button" class="linkish" data-action="detail" data-id="${p.id}">${p.name}</button> <span class="meta">${p.team || ""}</span></span>
         <span><strong>${state.ownership[p.id].price}</strong>
         <button class="btn small danger" data-action="release" data-id="${p.id}">×</button></span></li>`).join("");
     return `<div class="role-block ${role === state.auctionRole ? "active-role" : ""}">
@@ -1117,16 +1230,21 @@ function releasePlayer(id) {
 function onAction(e) {
   const btn = e.target.closest("[data-action]");
   if (!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
   const { action, id } = btn.dataset;
+  if (els.detailDialog?.open && (action === "buy" || action === "take" || action === "release")) {
+    els.detailDialog.close();
+  }
   if (action === "buy") openAssign(id, "buy");
   if (action === "take") openAssign(id, "take");
   if (action === "release") releasePlayer(id);
-  if (action === "select-team") { state.selectedTeamId = id; render(); }
+  if (action === "detail") openDetail(id);
+  if (action === "select-team") focusRoster(id);
   if (action === "set-me") {
     state.myTeamId = id;
-    state.selectedTeamId = id;
     state.teams = state.teams.map((t) => ({ ...t, isMe: t.id === id }));
-    render();
+    focusRoster(id);
   }
 }
 
@@ -1151,10 +1269,18 @@ function bindEvents() {
     const th = e.target.closest("[data-sort]");
     if (th) setSort(th.dataset.sort);
   });
-  els.playerTable.addEventListener("click", onAction);
+  els.playerTable.addEventListener("click", (e) => {
+    if (e.target.closest("[data-action]")) {
+      onAction(e);
+      return;
+    }
+    const tr = e.target.closest("tr[data-id]");
+    if (tr) openDetail(tr.dataset.id);
+  });
   els.roster.addEventListener("click", onAction);
   els.priorityBox.addEventListener("click", onAction);
   els.teamsBar.addEventListener("click", onAction);
+  els.detailBody?.addEventListener("click", onAction);
   const renameTeamFromInput = (input) => {
     const id = input.dataset.teamName;
     if (!id) return;
@@ -1170,6 +1296,9 @@ function bindEvents() {
     });
     document.querySelectorAll(`#roster [data-action="select-team"][data-id="${id}"]`).forEach((btn) => {
       btn.textContent = `${name}${id === state.myTeamId ? " ★" : ""}`;
+    });
+    document.querySelectorAll(`.team-card[data-team="${id}"] .team-name-field input`).forEach((input) => {
+      if (document.activeElement !== input) input.value = name;
     });
   };
   els.teamsBar.addEventListener("input", (e) => {

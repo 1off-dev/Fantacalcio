@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=20260907c" />
+  <link rel="stylesheet" href="./styles.css?v=20260907d" />
 </head>
 <body>
   <div class="bg-glow" aria-hidden="true"></div>
@@ -67,18 +67,16 @@
       <section class="panel" id="priorityBox"></section>
       <section class="panel" id="scenarioBox"></section>
       <section class="panel" id="strategyBox"></section>
-      <section class="panel">
+      <section class="panel" id="rosterPanel">
         <div class="panel-head"><h2>Rose &amp; budget</h2></div>
         <div id="roster" class="roster"></div>
       </section>
       <section class="panel tips">
         <div class="panel-head"><h2>Metodo</h2></div>
         <ul>
-          <li>Rinomina le <strong>6 squadre</strong> nella barra; <em>Compra</em> = tua, <em>Preso</em> = rivale + prezzo.</li>
-          <li><strong>Pri</strong> include fit rosa, traffic/leave e spese rivali.</li>
-          <li><strong>Scenari A/B/C</strong> si aggiornano sul ruolo di fase.</li>
-          <li>I dati si salvano in automatico (localStorage + IndexedDB); usa Backup/Importa.</li>
-          <li>Note: minuti proxy, prod/90, mock6, calendario club, infortuni fini.</li>
+          <li>Clicca un giocatore sul listone per aprire la scheda dettaglio.</li>
+          <li><strong>Rosa</strong> sulla card squadra apre Rose &amp; budget su quella rosa.</li>
+          <li>I dati si salvano in automatico; usa Backup/Importa tra dispositivi.</li>
           <li>Asta a ruoli P→D→C→A finché tutte chiudono il ruolo.</li>
         </ul>
         <p class="fine">Dati Fantacalcio.it + motore scientifico · <code>npm run fetch</code></p>
@@ -105,6 +103,13 @@
     </form>
   </dialog>
 
-  <script src="./app.js?v=20260907c"></script>
+  <dialog id="detailDialog" class="detail-dialog">
+    <div id="detailBody"></div>
+    <form method="dialog" class="detail-footer">
+      <button value="cancel" class="btn ghost dark" id="detailClose" type="submit">Chiudi</button>
+    </form>
+  </dialog>
+
+  <script src="./app.js?v=20260907d"></script>
 </body>
 </html>
