@@ -328,9 +328,11 @@ th {
 .col-num { width: 2.7rem; text-align: right; font-variant-numeric: tabular-nums; }
 .col-traffic { width: 4.2rem; }
 .col-tit { width: 3.1rem; text-align: right; font-variant-numeric: tabular-nums; }
-.col-fm { width: 3.1rem; text-align: right; font-variant-numeric: tabular-nums; }
-.col-fit { width: 3.2rem; text-align: right; font-variant-numeric: tabular-nums; }
-.col-ga { width: 3.4rem; text-align: right; font-variant-numeric: tabular-nums; }
+.col-fm { width: 3rem; text-align: right; font-variant-numeric: tabular-nums; }
+.col-fit { width: 3.1rem; text-align: right; font-variant-numeric: tabular-nums; }
+.col-gol { width: 2.6rem; text-align: right; font-variant-numeric: tabular-nums; }
+.col-ass { width: 2.6rem; text-align: right; font-variant-numeric: tabular-nums; }
+.col-rp { width: 2.5rem; text-align: right; font-variant-numeric: tabular-nums; }
 .col-actions {
   width: 7.2rem;
   white-space: nowrap;
@@ -837,6 +839,16 @@ td[data-col="starterProb"] {
   font-weight: 600;
   color: var(--ink);
 }
+.stat-num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.rp {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--ink);
+}
+.rp-hot { color: #0d5a40; }
 .role-block.active-role {
   outline: 2px solid rgba(15, 122, 90, 0.35);
   border-radius: 12px;
