@@ -9,7 +9,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907e";
+const ASSET_V = "20260907f";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -27,14 +27,12 @@ const TRAFFIC_LABEL = {
 /** Colonne compatte: niente scroll orizzontale; il resto sta nel dettaglio. */
 const COLUMNS = [
   { key: "priority", label: "Pri", type: "num", title: "Priorità dinamica vs rivali + fit rosa" },
-  { key: "role", label: "Ruolo", type: "text" },
   { key: "name", label: "Giocatore", type: "text" },
   { key: "team", label: "Sq", type: "text" },
   { key: "fvm", label: "FVM", type: "num" },
   { key: "fair", label: "Fair", type: "num", title: "Fair market stimato" },
   { key: "traffic", label: "Semaforo", type: "text", title: "Value / Fair / Ricco / Overpay vs FVM" },
   { key: "starterProb", label: "Tit%", type: "num", title: "Probabilità titolare" },
-  { key: "owner", label: "Owner", type: "text" },
 ];
 
 const state = {
@@ -90,6 +88,7 @@ const els = {
   buyHint: $("buyHint"),
   detailDialog: $("detailDialog"),
   detailBody: $("detailBody"),
+  detailActions: $("detailActions"),
   detailClose: $("detailClose"),
 };
 
@@ -931,8 +930,17 @@ function renderHead() {
   els.playerHead.innerHTML = `<tr>${COLUMNS.map((col) => {
     const active = state.sortKey === col.key;
     const arrow = !active ? "" : state.sortDir === "asc" ? " ▲" : " ▼";
-    return `<th class="sortable ${active ? "sorted" : ""}" data-sort="${col.key}" title="${col.title || col.label}" scope="col">${col.label}<span class="sort-ind">${arrow}</span></th>`;
-  }).join("")}<th aria-label="Azioni"></th></tr>`;
+    const cls = {
+      priority: "col-pri",
+      name: "col-name",
+      team: "col-team",
+      fvm: "col-num",
+      fair: "col-num",
+      traffic: "col-traffic",
+      starterProb: "col-tit",
+    }[col.key] || "";
+    return `<th class="sortable ${active ? "sorted" : ""} ${cls}" data-sort="${col.key}" title="${col.title || col.label}" scope="col">${col.label}<span class="sort-ind">${arrow}</span></th>`;
+  }).join("")}<th class="col-actions" aria-label="Azioni"></th></tr>`;
 }
 
 function renderTable() {
@@ -952,20 +960,30 @@ function renderTable() {
       p.mockLow != null ? `mock ${p.mockLow}–${p.mockHigh}` : null,
     ].filter(Boolean).join(" · ");
     let actions = "";
-    if (own) actions = `<button class="btn small danger" data-action="release" data-id="${p.id}">Libera</button>`;
-    else actions = `<button class="btn small" data-action="buy" data-id="${p.id}">Compra</button>
-      <button class="btn small ghost dark" data-action="take" data-id="${p.id}">Preso</button>`;
+    if (own) {
+      actions = `<button class="btn tiny danger" data-action="release" data-id="${p.id}" title="Libera">Libera</button>`;
+    } else {
+      actions = `<button class="btn tiny" data-action="buy" data-id="${p.id}" title="Compra">Compra</button>
+      <button class="btn tiny ghost dark" data-action="take" data-id="${p.id}" title="Preso da rivale">Preso</button>`;
+    }
+    const ownerBit = own
+      ? `<span class="row-owner ${own.teamId === state.myTeamId ? "mine" : "riv"}">${teamById(own.teamId)?.name || "?"} · ${own.price}</span>`
+      : "";
     return `<tr class="${rowClass}" data-id="${p.id}" title="Apri scheda ${escapeAttr(p.name)}">
-      <td><strong class="pri">${pri < 0 ? "—" : pri}</strong></td>
-      <td><span class="badge role-${p.role}">${p.role}</span></td>
-      <td><div class="name">${p.name}</div></td>
-      <td>${p.team || "-"}</td>
-      <td>${p.fvm}</td>
-      <td title="${escapeAttr(fairTitle)}">${p.fair ?? "—"}</td>
-      <td>${fmtTraffic(p)}</td>
-      <td>${fmtTit(p)}</td>
-      <td>${fmtOwner(p)}</td>
-      <td class="actions">${actions}</td>
+      <td class="col-pri"><strong class="pri">${pri < 0 ? "—" : pri}</strong></td>
+      <td class="col-name">
+        <div class="name-cell">
+          <span class="badge role-${p.role}">${p.role}</span>
+          <span class="name">${p.name}</span>
+        </div>
+        ${ownerBit}
+      </td>
+      <td class="col-team">${p.team || "-"}</td>
+      <td class="col-num">${p.fvm}</td>
+      <td class="col-num" title="${escapeAttr(fairTitle)}">${p.fair ?? "—"}</td>
+      <td class="col-traffic">${fmtTraffic(p)}</td>
+      <td class="col-tit">${fmtTit(p)}</td>
+      <td class="col-actions"><div class="actions">${actions}</div></td>
     </tr>`;
   }).join("");
 }
@@ -1076,11 +1094,16 @@ function openDetail(id) {
           ? paragraphs.map((para) => `<p>${para}</p>`).join("")
           : '<p class="muted">Nessuna nota disponibile.</p>'}
       </div>
-    </section>
+    </section>`;
 
-    <div class="detail-actions">${actions}</div>`;
-
+  if (els.detailActions) els.detailActions.innerHTML = actions;
   if (!els.detailDialog.open) els.detailDialog.showModal();
+  // Safari: forza ripaint dopo showModal
+  requestAnimationFrame(() => {
+    els.detailDialog.style.maxHeight = "min(92vh, 900px)";
+    const scroll = els.detailBody;
+    if (scroll) scroll.scrollTop = 0;
+  });
 }
 
 function focusRoster(teamId) {
@@ -1285,7 +1308,7 @@ function bindEvents() {
   els.roster.addEventListener("click", onAction);
   els.priorityBox.addEventListener("click", onAction);
   els.teamsBar.addEventListener("click", onAction);
-  els.detailBody?.addEventListener("click", onAction);
+  els.detailActions?.addEventListener("click", onAction);
   const renameTeamFromInput = (input) => {
     const id = input.dataset.teamName;
     if (!id) return;

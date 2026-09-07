@@ -236,13 +236,15 @@ input[type="search"] {
 }
 
 .table-wrap {
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: auto;
   max-height: 70vh;
   border-radius: 12px;
   border: 1px solid var(--line);
+  -webkit-overflow-scrolling: touch;
 }
 
+table.listone,
 table {
   width: 100%;
   table-layout: fixed;
@@ -252,40 +254,76 @@ table {
 }
 
 th, td {
-  padding: 8px 8px;
+  padding: 8px 6px;
   border-bottom: 1px solid var(--line);
   text-align: left;
   vertical-align: middle;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
-
-th:nth-child(1), td:nth-child(1) { width: 7%; }
-th:nth-child(2), td:nth-child(2) { width: 7%; }
-th:nth-child(3), td:nth-child(3) { width: 18%; }
-th:nth-child(4), td:nth-child(4) { width: 7%; }
-th:nth-child(5), td:nth-child(5),
-th:nth-child(6), td:nth-child(6) { width: 8%; }
-th:nth-child(7), td:nth-child(7) { width: 11%; }
-th:nth-child(8), td:nth-child(8) { width: 8%; }
-th:nth-child(9), td:nth-child(9) { width: 12%; }
-th:nth-child(10), td:nth-child(10) { width: 14%; white-space: normal; }
-
-tr.clickable { cursor: pointer; }
-tr.clickable:hover { background: #f3faf6; }
-tr.mine.clickable:hover { background: #dcede3; }
-.actions { display: flex; flex-wrap: wrap; gap: 4px; white-space: normal; }
 
 th {
   position: sticky;
   top: 0;
   background: #f4f8f5;
   z-index: 1;
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--muted);
+  white-space: nowrap;
+}
+
+.col-pri { width: 3.2rem; }
+.col-name { width: auto; min-width: 0; }
+.col-team { width: 3.2rem; }
+.col-num { width: 3rem; text-align: right; font-variant-numeric: tabular-nums; }
+.col-traffic { width: 4.6rem; }
+.col-tit { width: 3.4rem; }
+.col-actions {
+  width: 7.6rem;
+  white-space: nowrap;
+  overflow: visible;
+}
+.col-name .name,
+.col-team {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.name-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.name-cell .name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.row-owner {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.row-owner.mine { color: #0d5a40; }
+.row-owner.riv { color: #6b3b1a; }
+
+tr.clickable { cursor: pointer; }
+tr.clickable:hover { background: #f3faf6; }
+tr.mine.clickable:hover { background: #dcede3; }
+.col-actions .actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  justify-content: flex-end;
+}
+.col-actions .btn.tiny {
+  padding: 5px 8px;
+  font-size: 11px;
+  line-height: 1.1;
+  flex: 0 0 auto;
 }
 
 tr.taken { opacity: 0.45; }
@@ -398,32 +436,72 @@ dialog {
   border-radius: 18px;
   padding: 20px;
   width: min(92vw, 380px);
+  max-width: 96vw;
   box-shadow: var(--shadow);
+  background: #fff;
+  color: var(--ink);
 }
 
+/* Safari: non mettere display:flex sul <dialog> — collassa l'altezza. */
 dialog.detail-dialog {
   width: min(96vw, 760px);
+  max-width: 96vw;
+  height: auto;
   max-height: min(92vh, 900px);
   padding: 0;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  border: 0;
 }
 dialog.detail-dialog[open] {
-  display: flex;
+  display: block;
 }
-#detailBody {
-  overflow: auto;
-  padding: 20px 22px 8px;
-  flex: 1;
+.detail-shell {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  max-height: min(92vh, 900px);
+  min-height: min(70vh, 560px);
+  background: #fff;
+}
+.detail-scroll {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 22px 12px;
 }
 .detail-footer {
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 12px 22px 18px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px 22px 16px;
   border-top: 1px solid var(--line);
   background: #f7faf8;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+.detail-footer .detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+}
+.detail-footer form {
+  margin: 0;
+  margin-left: auto;
 }
 .detail-head {
   display: flex;
@@ -512,7 +590,7 @@ dialog.detail-dialog[open] {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 8px 0 12px;
+  margin: 0;
 }
 
 @media (max-width: 640px) {
