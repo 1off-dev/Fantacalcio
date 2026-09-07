@@ -9,7 +9,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907a";
+const ASSET_V = "20260907b";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -21,13 +21,18 @@ const TIER_RANK = {
   super_top: 10, top: 9, top_bonus: 9, modificatore: 8, affidabile: 7, bonus: 7,
   semi: 6, interessante: 5, value: 5, lowcost: 3, pool: 1,
 };
+const TRAFFIC_LABEL = {
+  value: "Value", fair: "Fair", rich: "Ricco", overpay: "Overpay",
+};
 const COLUMNS = [
-  { key: "priority", label: "Pri", type: "num", title: "Priorità dinamica vs rivali" },
+  { key: "priority", label: "Pri", type: "num", title: "Priorità dinamica vs rivali + fit rosa" },
   { key: "role", label: "Ruolo", type: "text" },
   { key: "name", label: "Giocatore", type: "text" },
   { key: "team", label: "Sq", type: "text" },
   { key: "fvm", label: "FVM", type: "num" },
   { key: "fair", label: "Fair", type: "num", title: "Fair market stimato" },
+  { key: "leave", label: "Leave", type: "num", title: "Tetto leave mock a 6" },
+  { key: "traffic", label: "Semaforo", type: "text", title: "Value / Fair / Ricco / Overpay vs FVM" },
   { key: "cap", label: "Cap", type: "num" },
   { key: "fmPrev", label: "FM 25/26", type: "num", title: "Fantamedia 2025/26" },
   { key: "starterProb", label: "Tit%", type: "num", title: "Probabilità titolare" },
@@ -81,6 +86,7 @@ const els = {
   playerHead: $("playerHead"),
   playerTable: $("playerTable"),
   priorityBox: $("priorityBox"),
+  scenarioBox: $("scenarioBox"),
   strategyBox: $("strategyBox"),
   roster: $("roster"),
   buyDialog: $("buyDialog"),
@@ -457,6 +463,64 @@ function marketIntel(role = state.auctionRole) {
   return { rivalRows, avgRivalRem, avgRivalRoleSpent, hungryRivals, brokeRivals, eliteTaken, myElite, inflation };
 }
 
+function rosterFitDelta(p) {
+  const role = p.role;
+  const mine = mineByRole(role);
+  const slotsLeft = remainingSlots(role);
+  const eliteMine = mine.filter((m) => (TIER_RANK[m.tier] || 0) >= 9).length;
+  const midMine = mine.filter((m) => (TIER_RANK[m.tier] || 0) >= 6 && (TIER_RANK[m.tier] || 0) < 9).length;
+  const penMine = mine.filter((m) => m.penalty === 1).length;
+  const isElite = (TIER_RANK[p.tier] || 0) >= 9;
+  const isMid = (TIER_RANK[p.tier] || 0) >= 6 && (TIER_RANK[p.tier] || 0) < 9;
+  let d = 0;
+
+  // Schema alerts: fill holes first, avoid second elite when slots tight.
+  if (slotsLeft <= 0) return -50;
+  if (slotsLeft === 1 && isElite && eliteMine >= 1) d -= 14;
+  if (slotsLeft <= 2 && !isElite && (p.starterProb || 0) >= 75) d += 8;
+  if (eliteMine === 0 && isElite && slotsLeft >= 2) d += 6;
+  if (eliteMine >= 1 && isElite) d -= 16;
+  if (eliteMine >= 1 && isMid && (p.fitness || 0) >= 70) d += 7;
+  if (midMine === 0 && isMid) d += 4;
+
+  if (role === "P") {
+    const solid = mine.some((m) => (m.fitness || 0) >= 70 && (m.starterProb || 0) >= 70);
+    if (solid && (p.fitness || 0) < 55) d -= 10;
+    if (!solid && (p.starterProb || 0) >= 80) d += 9;
+  }
+  if (role === "D") {
+    const hasBonusWing = mine.some((m) => (TIER_RANK[m.tier] || 0) >= 8 || m.name === "Dimarco");
+    if (!hasBonusWing && (p.name === "Dimarco" || (TIER_RANK[p.tier] || 0) >= 8)) d += 5;
+    if (hasBonusWing && (TIER_RANK[p.tier] || 0) < 8 && (p.starterProb || 0) >= 75) d += 6;
+    if (p.csProxy != null && p.csProxy >= 0.8) d += 3;
+  }
+  if (role === "C") {
+    if (penMine === 0 && p.penalty === 1) d += 9;
+    if (penMine >= 1 && p.penalty === 1) d -= 8;
+    if (eliteMine >= 1 && p.penalty !== 1 && (p.starterProb || 0) >= 75) d += 5;
+  }
+  if (role === "A") {
+    const hasTop = mine.some((m) => (TIER_RANK[m.tier] || 0) >= 9);
+    if (!hasTop && isElite) d += 5;
+    if (hasTop && isElite) d -= 14;
+    if (hasTop && isMid) d += 8;
+    if (mine.length >= 3 && (p.cap || 0) > roleBudgetLeft(role) * 0.45) d -= 6;
+  }
+
+  // Leave / traffic vs listone price.
+  if (p.leave != null && p.fvm >= p.leave) d -= 10;
+  if (p.traffic === "overpay") d -= 8;
+  if (p.traffic === "value") d += 6;
+  if (p.traffic === "fair") d += 2;
+  if (p.injuryDaysOut != null && p.injuryDaysOut >= 60) d -= 7;
+  else if (p.injuryMuscular) d -= 3;
+  if (p.benchRate != null && p.benchRate >= 40) d -= 4;
+  if (p.teamSched != null && p.teamSched >= 4 && role !== "P") d += 2;
+  if (p.teamSched != null && p.teamSched <= 2 && (TIER_RANK[p.tier] || 0) >= 8) d -= 1;
+
+  return d;
+}
+
 function priorityScore(p) {
   const role = state.auctionRole;
   if (p.role !== role) return -1;
@@ -476,6 +540,9 @@ function priorityScore(p) {
   s += Math.min(100, ((p.fmPrev || 5.8) / 9) * 100) * 0.1;
   if (p.per90Prod != null) s += Math.min(14, p.per90Prod * 18);
   else if (p.bonusProxy != null) s += Math.min(10, p.bonusProxy * 0.35);
+  if (p.per90ProdNoPen != null) s += Math.min(6, p.per90ProdNoPen * 10);
+  if (p.bonusPure != null && p.bonusPure > 0.35) s += Math.min(5, p.bonusPure * 6);
+  if (p.csProxy != null && role !== "A") s += Math.min(5, p.csProxy * 3);
   s += (TIER_RANK[p.tier] || 1) * 6.5;
   if (p.penalty === 1) s += 11;
   else if (p.penalty === 2) s += 5;
@@ -483,6 +550,7 @@ function priorityScore(p) {
 
   const value = ((p.fmPrev || 6) * ((p.starterProb || 50) / 100) * ((p.fitness || 50) / 100)) / Math.max(fair, 1);
   s += Math.min(16, value * 32);
+  s += rosterFitDelta(p);
 
   if (p.cap > remainingBudget()) s -= 42;
   else if (p.cap > maxAfford) s -= 20;
@@ -491,6 +559,7 @@ function priorityScore(p) {
 
   if (p.fairHigh && p.fvm > p.fairHigh) s -= 6;
   if (p.fairLow && p.fvm < p.fairLow) s += 5;
+  if (p.leave != null && p.cap > p.leave) s -= 7;
 
   if (intel.myElite && (TIER_RANK[p.tier] || 0) >= 9) s -= 20;
   if (intel.myElite && (p.fitness || 0) >= 75 && p.cap <= maxAfford) s += 7;
@@ -535,11 +604,39 @@ function priorityWhy(p) {
   if (p.penalty === 1) bits.push("1° rigore");
   if ((TIER_RANK[p.tier] || 0) >= 9) bits.push("fascia top");
   if (p.fairLow != null && p.fvm < p.fairLow) bits.push("sotto fair");
+  if (p.traffic === "value") bits.push("semaforo value");
+  if (p.traffic === "overpay") bits.push("semaforo overpay");
+  if (p.leave != null) bits.push(`leave ${p.leave}`);
+  if (rosterFitDelta(p) >= 6) bits.push("fit rosa+");
+  if (rosterFitDelta(p) <= -8) bits.push("fit rosa−");
   if (intel.hungryRivals >= 3) bits.push("rivali affamati");
   if (intel.brokeRivals >= 3) bits.push("rivali corti");
   if (intel.eliteTaken.length >= 2) bits.push("top usciti→value");
   bits.push(p.cap <= safeSpend(p.role) ? "nel budget" : "oltre spend-safe");
-  return bits.slice(0, 5).join(" · ");
+  return bits.slice(0, 6).join(" · ");
+}
+
+function pickScenarioLetter(role) {
+  const intel = marketIntel(role);
+  const mine = mineByRole(role);
+  const eliteMine = mine.some((m) => (TIER_RANK[m.tier] || 0) >= 9);
+  const topStill = state.players.filter(
+    (p) => p.role === role && (TIER_RANK[p.tier] || 0) >= 9 && !state.ownership[p.id]
+  );
+  const topLeaveRisk = topStill.filter((p) => p.leave != null && (p.fvm || p.cap || 0) >= p.leave * 0.95);
+
+  if (eliteMine) return "B";
+  if (intel.eliteTaken.length >= 2 || topStill.length === 0) return "C";
+  if (intel.inflation > 1.18 || topLeaveRisk.length >= 2) return "B";
+  if (intel.hungryRivals >= 4 && topStill.length) return "A";
+  return "A";
+}
+
+function scenarioPlansFor(role) {
+  const fromMeta = state.meta?.scenarioPlans?.[role];
+  if (fromMeta && (fromMeta.A || fromMeta.B || fromMeta.C)) return fromMeta;
+  const sample = state.players.find((p) => p.role === role && p.scenarios);
+  return sample?.scenarios || {};
 }
 
 function adaptiveStrategyLines(role) {
@@ -549,7 +646,7 @@ function adaptiveStrategyLines(role) {
     P: "Base: 1 cemento (Tit%+Forma), poi titolari low-cost.",
     D: "Base: voti mod prima, 1 esterno bonus sotto spend-safe.",
     C: "Base: max uno tra Paz/Calha/McT, poi rigoristi/bonus Forma≥55.",
-    A: "Base: se Malen > fair/cap, piano 2+2 value.",
+    A: "Base: se Malen > fair/leave, piano 2+2 value.",
   };
   lines.push(base[role]);
 
@@ -571,7 +668,7 @@ function adaptiveStrategyLines(role) {
     lines.push(`${intel.brokeRivals} rivali corti di budget: puoi aspettare sconti e chiudere depth a 1–8.`);
   }
   if (intel.inflation > 1.18) {
-    lines.push(`Inflazione ruolo alta (~${Math.round(intel.inflation * 100)}%): non inseguire sopra fairHigh.`);
+    lines.push(`Inflazione ruolo alta (~${Math.round(intel.inflation * 100)}%): non inseguire sopra leave/fairHigh.`);
   } else if (intel.inflation < 0.9 && marketTaken(role) >= 3) {
     lines.push("Mercato freddo sul ruolo: puoi salire di uno scaglione sul target primario.");
   }
@@ -601,6 +698,10 @@ function sortValue(p, key, type) {
   if (key === "owner") {
     const o = state.ownership[p.id];
     return o ? (teamById(o.teamId)?.name || "") : "";
+  }
+  if (key === "traffic") {
+    const rank = { value: 1, fair: 2, rich: 3, overpay: 4 };
+    return rank[p.traffic] || 0;
   }
   if (type === "tier") return TIER_RANK[p.tier] || 0;
   if (key === "penalty") return p.penalty == null ? 99 : Number(p.penalty);
@@ -767,6 +868,23 @@ function renderStrategy() {
     <ul>${lines.slice(1).map((l) => `<li>${l}</li>`).join("")}</ul>`;
 }
 
+function renderScenarios() {
+  if (!els.scenarioBox) return;
+  const role = state.auctionRole;
+  const plans = scenarioPlansFor(role);
+  const active = pickScenarioLetter(role);
+  const letters = ["A", "B", "C"];
+  els.scenarioBox.innerHTML = `
+    <div class="panel-head"><h2>Scenari ${ROLE_LABEL[role]}</h2></div>
+    <p class="strategy-lead">Piano attivo: <strong>Scenario ${active}</strong></p>
+    <ul class="scenario-list">${letters.map((L) => `
+      <li class="${L === active ? "active" : ""}">
+        <span class="scenario-letter">${L}</span>
+        <span>${plans[L] || "—"}</span>
+      </li>`).join("")}</ul>
+    ${plans.pivot ? `<p class="scenario-pivot"><strong>Pivot:</strong> ${plans.pivot}</p>` : ""}`;
+}
+
 function renderPriorities() {
   const rows = topPriorities(8);
   if (!rows.length) {
@@ -777,7 +895,7 @@ function renderPriorities() {
     <div class="panel-head"><h2>Priorità ${ROLE_LABEL[state.auctionRole]}</h2></div>
     <ol class="priority-list">${rows.map(({ p, score }) => `<li>
       <div><strong>${p.name}</strong>
-        <span class="meta">${p.team} · fair ${p.fair ?? "—"} · cap ${p.cap} · Tit ${p.starterProb ?? "—"}%</span>
+        <span class="meta">${p.team} · fair ${p.fair ?? "—"} · leave ${p.leave ?? "—"} · Tit ${p.starterProb ?? "—"}%</span>
         <span class="meta">${priorityWhy(p)}</span></div>
       <div class="priority-side"><span class="pri-score">${score}</span>
         <button class="btn small" data-action="buy" data-id="${p.id}">Compra</button></div>
@@ -799,6 +917,11 @@ function fmtFit(p) {
   const n = Math.round(Number(p.fitness));
   const cls = n >= 80 ? "fit-high" : n >= 55 ? "fit-mid" : "fit-low";
   return `<span class="fit ${cls}" title="${p.fitnessLabel || ""}">${p.fitnessLabel || n}<small>${n}</small></span>`;
+}
+function fmtTraffic(p) {
+  const t = p.traffic;
+  if (!t) return '<span class="muted">—</span>';
+  return `<span class="traffic traffic-${t}" title="FVM vs fair/mock">${TRAFFIC_LABEL[t] || t}</span>`;
 }
 function fmtOwner(p) {
   const o = state.ownership[p.id];
@@ -827,6 +950,10 @@ function renderTable() {
     const penHtml = p.penalty
       ? `<span class="badge pen pen-${p.penalty}" title="${p.penaltyLabel || ""}">${p.penalty}° ${p.penalty === 1 ? "rigorista" : "scelta"}</span>`
       : '<span class="muted">no</span>';
+    const fairTitle = [
+      p.fairLow != null || p.fairHigh != null ? `${p.fairLow ?? "?"}–${p.fairHigh ?? "?"}` : null,
+      p.mockLow != null ? `mock ${p.mockLow}–${p.mockHigh}` : null,
+    ].filter(Boolean).join(" · ");
     let actions = "";
     if (own) actions = `<button class="btn small danger" data-action="release" data-id="${p.id}">Libera</button>`;
     else actions = `<button class="btn small" data-action="buy" data-id="${p.id}">Compra</button>
@@ -837,7 +964,9 @@ function renderTable() {
       <td><div class="name">${p.name}</div></td>
       <td>${p.team || "-"}</td>
       <td>${p.fvm}</td>
-      <td title="${p.fairLow ?? "?"}–${p.fairHigh ?? "?"}">${p.fair ?? "—"}</td>
+      <td title="${escapeAttr(fairTitle)}">${p.fair ?? "—"}</td>
+      <td>${p.leave ?? "—"}</td>
+      <td>${fmtTraffic(p)}</td>
       <td><strong>${p.cap}</strong></td>
       <td>${fmtFm(p.fmPrev)}</td>
       <td>${fmtTit(p)}</td>
@@ -903,6 +1032,7 @@ function render() {
   renderTeamsBar();
   renderAuctionBanner();
   renderStats();
+  renderScenarios();
   renderStrategy();
   renderPriorities();
   renderTable();
@@ -942,10 +1072,14 @@ function openAssign(id, mode) {
     `Pri ${priorityScore(player)}`,
     `FVM ${player.fvm}`,
     `Fair ${player.fair ?? "—"} (${player.fairLow ?? "?"}–${player.fairHigh ?? "?"})`,
+    player.leave != null ? `Leave ${player.leave}` : null,
+    player.traffic ? `Semaforo ${TRAFFIC_LABEL[player.traffic] || player.traffic}` : null,
     `Cap ${player.cap}`,
     mode === "buy" ? `Spend-safe ${safeSpend(player.role)}` : null,
     player.starterProb != null ? `Tit ${player.starterProb}%` : null,
     player.fitness != null ? `Forma ${player.fitnessLabel || ""} ${player.fitness}` : null,
+    player.minutesEst != null ? `Min~${player.minutesEst}'` : null,
+    player.per90Prod != null ? `Prod/90 ${player.per90Prod}` : null,
     player.note ? `${player.note.slice(0, 180)}…` : null,
   ].filter(Boolean).join(" · ");
   els.buyDialog.showModal();
@@ -965,6 +1099,7 @@ function confirmAssign(price) {
 
   const isMe = teamId === state.myTeamId;
   if (isMe && price > safeSpend(player.role) && !confirm(`Sopra spend-safe ${safeSpend(player.role)}. Confermi?`)) return false;
+  if (player.leave != null && price > player.leave && !confirm(`Sopra leave mock ${player.leave}. Confermi?`)) return false;
   if (price > (player.cap || player.fvm) * 1.15 && !confirm(`Oltre cap ${player.cap} (+15%). Confermi?`)) return false;
 
   state.ownership[state.pendingId] = { status: isMe ? "mine" : "taken", price, teamId };
@@ -1107,6 +1242,11 @@ function normalizePlayer(raw) {
     fair,
     fairLow,
     fairHigh,
+    leave: raw.leave ?? null,
+    mockLow: raw.mockLow ?? null,
+    mockMid: raw.mockMid ?? null,
+    mockHigh: raw.mockHigh ?? null,
+    traffic: raw.traffic ?? null,
     fmPrev: raw.fmPrev ?? raw.fm_prev ?? null,
     starterProb: raw.starterProb ?? raw.starter_prob ?? raw.playedsExpected ?? null,
     fitness: raw.fitness ?? null,
@@ -1117,7 +1257,26 @@ function normalizePlayer(raw) {
     tier: raw.tier,
     note: raw.note || "",
     per90Prod: raw.per90Prod ?? raw.per90_prod ?? null,
+    per90ProdNoPen: raw.per90ProdNoPen ?? null,
     bonusProxy: raw.bonusProxy ?? raw.bonus_proxy ?? null,
+    bonusPure: raw.bonusPure ?? null,
+    votePure: raw.votePure ?? null,
+    csProxy: raw.csProxy ?? null,
+    minutesEst: raw.minutesEst ?? null,
+    appsEst: raw.appsEst ?? null,
+    mpg: raw.mpg ?? null,
+    startRate: raw.startRate ?? null,
+    benchRate: raw.benchRate ?? null,
+    injuryRisk: raw.injuryRisk ?? null,
+    injuryDaysOut: raw.injuryDaysOut ?? null,
+    injuryMuscular: raw.injuryMuscular ?? null,
+    injuryMultiComp: raw.injuryMultiComp ?? null,
+    teamAtt: raw.teamAtt ?? null,
+    teamDef: raw.teamDef ?? null,
+    teamStyle: raw.teamStyle ?? null,
+    teamSched: raw.teamSched ?? null,
+    teamModule: raw.teamModule ?? null,
+    scenarios: raw.scenarios ?? null,
   };
 }
 

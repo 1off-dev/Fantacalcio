@@ -1,18 +1,19 @@
 # Dossier asta Fantacalcio 2026/27 — metodo a ruoli
 
-**Aggiornato:** 6 settembre 2026  
+**Aggiornato:** 7 settembre 2026  
 **Lega:** 6 squadre · Classic · rosa **3-8-8-6** · **1000 crediti** · **modificatore difesa**  
 **Formato asta:** chiamata **per ruolo** (P → D → C → A). Si resta su un ruolo finché tutte le rose hanno chiuso quegli slot.
 
-Il tool (`public/`) calcola live **Pri**, **Tit%**, **Forma**, **Età**, FM 25/26, **fair band**, prod/90 e **note scientifiche** per ogni giocatore.
+Il tool (`public/`) calcola live **Pri** (con fit rosa), **Tit%**, **Forma**, **Età**, FM 25/26, **fair/mock/leave**, semaforo overpay, prod/90, **scenari A/B/C** e note scientifiche per ogni giocatore.
 
 ### Tracking 6 squadre (live)
 1. Rinomina le 6 squadre nella barra (la tua + 5 rivali).
 2. **Compra** = assegna a te + prezzo; **Preso** = assegna a un rivale + prezzo.
-3. Residui/slot per squadra aggiornano **Pri** e la **strategia live**:
+3. Residui/slot per squadra aggiornano **Pri**, gli **scenari A/B/C** e la **strategia live**:
    - rivali “affamati” (budget alto + slot aperti) → alza aggressività sui titolari certi;
    - top già usciti → sposta Pri su semi/value;
-   - inflazione ruolo / warchest residuo → evita overpay e protegge i ruoli successivi.
+   - leave/semaforo overpay → non inseguire;
+   - inflazione ruolo / warchest residuo → protegge i ruoli successivi.
 
 ---
 

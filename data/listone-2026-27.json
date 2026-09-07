@@ -1,7 +1,7 @@
 {
   "source": "https://www.fantacalcio.it/quotazioni-fantacalcio/2026-27",
   "season": "2026/27",
-  "updated": "2026-09-06",
+  "updated": "2026-09-07",
   "count": 593,
   "players": [
     {
@@ -89,7 +89,7 @@
       "qi": 27,
       "qa": 27,
       "fvm": 237,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/ramos-g/6397"
     },
     {
@@ -122,7 +122,7 @@
       "qi": 26,
       "qa": 25,
       "fvm": 165,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/kolo-muani/5951"
     },
     {
@@ -155,7 +155,7 @@
       "qi": 22,
       "qa": 23,
       "fvm": 145,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/rabiot/2379"
     },
     {
@@ -166,7 +166,7 @@
       "qi": 23,
       "qa": 23,
       "fvm": 160,
-      "playedsExpected": 0,
+      "playedsExpected": 33,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/woltemade/6752"
     },
     {
@@ -408,7 +408,7 @@
       "qi": 16,
       "qa": 17,
       "fvm": 70,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/vicario/4964"
     },
     {
@@ -419,7 +419,7 @@
       "qi": 15,
       "qa": 16,
       "fvm": 60,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/bremer/2788"
     },
     {
@@ -507,7 +507,7 @@
       "qi": 15,
       "qa": 15,
       "fvm": 52,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/maignan/4312"
     },
     {
@@ -562,7 +562,7 @@
       "qi": 13,
       "qa": 14,
       "fvm": 47,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/kalulu/4976"
     },
     {
@@ -573,7 +573,7 @@
       "qi": 14,
       "qa": 14,
       "fvm": 49,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/pavlovic/5022"
     },
     {
@@ -650,7 +650,7 @@
       "qi": 12,
       "qa": 13,
       "fvm": 68,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/conceicao/6884"
     },
     {
@@ -672,7 +672,7 @@
       "qi": 12,
       "qa": 13,
       "fvm": 31,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/gila/5833"
     },
     {
@@ -815,7 +815,7 @@
       "qi": 12,
       "qa": 12,
       "fvm": 45,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/modric/2606"
     },
     {
@@ -881,7 +881,7 @@
       "qi": 11,
       "qa": 12,
       "fvm": 45,
-      "playedsExpected": 33,
+      "playedsExpected": 67,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/gonzalez-n/4179"
     },
     {
@@ -969,7 +969,7 @@
       "qi": 12,
       "qa": 11,
       "fvm": 42,
-      "playedsExpected": 33,
+      "playedsExpected": 67,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/alajbegovic/7436"
     },
     {
@@ -980,7 +980,7 @@
       "qi": 10,
       "qa": 11,
       "fvm": 35,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/saelemaekers/4892"
     },
     {
@@ -1046,7 +1046,7 @@
       "qi": 12,
       "qa": 11,
       "fvm": 45,
-      "playedsExpected": 0,
+      "playedsExpected": 33,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/moreira/6372"
     },
     {
@@ -1332,7 +1332,7 @@
       "qi": 8,
       "qa": 9,
       "fvm": 33,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/locatelli/827"
     },
     {
@@ -1684,7 +1684,7 @@
       "qi": 8,
       "qa": 8,
       "fvm": 16,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/celik/4657"
     },
     {
@@ -1772,7 +1772,7 @@
       "qi": 6,
       "qa": 8,
       "fvm": 22,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/chukwueze/4856"
     },
     {
@@ -2003,7 +2003,7 @@
       "qi": 8,
       "qa": 7,
       "fvm": 17,
-      "playedsExpected": 33,
+      "playedsExpected": 67,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/lucum&#xEC;/6042"
     },
     {
@@ -2157,7 +2157,7 @@
       "qi": 5,
       "qa": 7,
       "fvm": 15,
-      "playedsExpected": 33,
+      "playedsExpected": 67,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/koopmeiners/5685"
     },
     {
@@ -2168,7 +2168,7 @@
       "qi": 6,
       "qa": 7,
       "fvm": 27,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/boga/2832"
     },
     {
@@ -3323,7 +3323,7 @@
       "qi": 3,
       "qa": 5,
       "fvm": 20,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/de-winter/5739"
     },
     {
@@ -3510,7 +3510,7 @@
       "qi": 3,
       "qa": 5,
       "fvm": 24,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/ciss&#xE8;-a/6618"
     },
     {
@@ -3862,7 +3862,7 @@
       "qi": 4,
       "qa": 4,
       "fvm": 10,
-      "playedsExpected": 0,
+      "playedsExpected": 33,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/gatti/5831"
     },
     {
@@ -3873,7 +3873,7 @@
       "qi": 4,
       "qa": 4,
       "fvm": 15,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/juventus/douglas-luiz/4911"
     },
     {
@@ -3994,7 +3994,7 @@
       "qi": 4,
       "qa": 4,
       "fvm": 16,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/loftus-cheek/4199"
     },
     {
@@ -4621,7 +4621,7 @@
       "qi": 3,
       "qa": 3,
       "fvm": 13,
-      "playedsExpected": 33,
+      "playedsExpected": 67,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/estupinan/5273"
     },
     {
@@ -4632,7 +4632,7 @@
       "qi": 2,
       "qa": 3,
       "fvm": 15,
-      "playedsExpected": 67,
+      "playedsExpected": 100,
       "profileUrl": "https://www.fantacalcio.it/serie-a/squadre/milan/musah/5295"
     },
     {

@@ -14,11 +14,16 @@ from pathlib import Path
 
 from science_data import (
     AGES,
+    SCENARIO_PLANS,
     build_scientific_note,
-    est_minutes,
     fair_price,
+    injury_profile,
+    minutes_model,
     production_metrics,
+    scenario_plans,
     score_fitness,
+    team_context,
+    traffic_light,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -369,7 +374,8 @@ def resolve_ages(players: list[dict]) -> dict[str, int]:
         if p["name"] not in cache and p.get("profileUrl") and (p.get("fvm") or 0) >= 1
     ]
     missing.sort(key=lambda p: p.get("fvm") or 0, reverse=True)
-    missing = missing[:220]
+    # Completa copertura età: tutti i listati con profilo (fino a 400).
+    missing = missing[:400]
 
     if missing:
         print(f"Scraping età per {len(missing)} profili…")
@@ -472,16 +478,27 @@ def enrich(
         age = ages.get(p["name"])
         start = starter_prob(p.get("playedsExpected"), pg_prev)
         fitness, fit_label = score_fitness(p["name"], age, start)
-        minutes = est_minutes(pg_prev, p.get("playedsExpected"))
+        mins = minutes_model(p["role"], pg_prev, p.get("playedsExpected"), start)
+        minutes = mins["minutesEst"]
         prod = production_metrics(
             p["role"], pg_prev, fm_prev, mv_prev, goals, assists, pens, gs, minutes
         )
-        band = fair_price(p["fvm"], p["role"], start, fitness, prod)
+        band = fair_price(p["fvm"], p["role"], start, fitness, prod, p["name"])
+        light = traffic_light(p["fvm"], band)
+        injury = injury_profile(p["name"])
+        ctx = team_context(p["team"])
+        scenarios = scenario_plans(p["role"])
         flags = flags_for(p["name"], penalty)
         if fitness is not None and fitness < 55:
             flags.append("rischio_fisico")
         if age is not None and age >= 33:
             flags.append("over_30")
+        if light == "overpay":
+            flags.append("listone_overpay")
+        elif light == "value":
+            flags.append("listone_value")
+        if injury and (injury.get("daysOut") or 0) >= 40:
+            flags.append("infortunio_fine")
         note = build_scientific_note(
             name=p["name"],
             role=p["role"],
@@ -511,6 +528,11 @@ def enrich(
                 "fair": band["fair"],
                 "fairLow": band["low"],
                 "fairHigh": band["high"],
+                "leave": band.get("leave"),
+                "mockLow": band.get("mockLow"),
+                "mockMid": band.get("mockMid"),
+                "mockHigh": band.get("mockHigh"),
+                "traffic": light,
                 "tier": tier,
                 "flags": flags,
                 "penalty": penalty["order"] if penalty else None,
@@ -524,12 +546,34 @@ def enrich(
                 "pensPrev": pens,
                 "gsPrev": gs,
                 "minutesEst": minutes,
+                "appsEst": mins.get("appsEst"),
+                "mpg": mins.get("mpg"),
+                "startRate": mins.get("startRate"),
+                "benchRate": mins.get("benchRate"),
+                "minutesNote": mins.get("minutesNote"),
                 "per90Prod": prod.get("per90Prod"),
+                "per90ProdNoPen": prod.get("per90ProdNoPen"),
+                "per90Goals": prod.get("per90Goals"),
+                "per90Assists": prod.get("per90Assists"),
+                "votePure": prod.get("votePure"),
+                "bonusPure": prod.get("bonusPure"),
+                "csProxy": prod.get("csProxy"),
                 "bonusProxy": prod.get("bonusProxy"),
                 "starterProb": start,
                 "age": age,
                 "fitness": fitness,
                 "fitnessLabel": fit_label,
+                "injuryRisk": injury.get("label") if injury else None,
+                "injuryDaysOut": injury.get("daysOut") if injury else None,
+                "injuryMuscular": injury.get("muscular") if injury else None,
+                "injuryMultiComp": injury.get("multiComp") if injury else None,
+                "teamAtt": ctx.get("att"),
+                "teamDef": ctx.get("def"),
+                "teamStyle": ctx.get("style"),
+                "teamCs": ctx.get("cs"),
+                "teamSched": ctx.get("sched"),
+                "teamModule": ctx.get("module"),
+                "scenarios": scenarios,
             }
         )
     return out
@@ -609,13 +653,19 @@ def main() -> None:
                 "Età da profili Fantacalcio (cache) + hint guida."
             ),
             "scienceNote": (
-                "Nota scientifica: fair band, prod/90, contesto club, "
-                "durabilità, fit rosa, scenari vs rivali + sintesi guide."
+                "Nota scientifica: fair/mock/leave, traffic light, minuti proxy "
+                "(PG×mpg), prod/90 e no-rig, voto vs bonus, CS proxy, calendario "
+                "apertura curato, infortuni fini, fit rosa, scenari A/B/C."
             ),
+            "minutesNote": (
+                "Minuti stimati da PG/playeds × mpg (no feed minuti ufficiali "
+                "sul listone Fantacalcio)."
+            ),
+            "scenarioPlans": SCENARIO_PLANS,
             "notesSource": "Motore scientifico repo + guide SOS/Goal/FCO",
             "priorityNote": (
-                "Pri% dinamica in UI: Tit% + Forma + FM + fascia + rigorista "
-                "+ fabbisogno slot/budget + spese e rose delle 6 squadre."
+                "Pri dinamica: Tit% + Forma + FM + prod/90 + fascia + rigorista "
+                "+ fit rosa (slot/schema) + traffic/leave + spese rivali."
             ),
         },
         "players": enriched,
@@ -632,12 +682,16 @@ def main() -> None:
     with_age = sum(1 for p in enriched if p.get("age") is not None)
     with_gol = sum(1 for p in enriched if p.get("goalsPrev") is not None)
     fragile = sum(1 for p in enriched if (p.get("fitness") or 100) < 55)
+    with_min = sum(1 for p in enriched if p.get("minutesEst") is not None)
+    with_p90 = sum(1 for p in enriched if p.get("per90Prod") is not None)
+    with_mock = sum(1 for p in enriched if p.get("mockMid") is not None)
     missing = [n for n in PENALTIES if n not in {p["name"] for p in players}]
     sample = next((p for p in enriched if p["name"] == "Malen"), enriched[0])
     print(
         f"OK {len(players)} giocatori | fasce {shown} | rigoristi {pens} | "
         f"FM {PREV_SEASON} {with_fm} | gol {with_gol} | Tit% {with_tit} | "
-        f"età {with_age} | fragili {fragile} | missing pens {missing}"
+        f"età {with_age} | min {with_min} | /90 {with_p90} | mock {with_mock} | "
+        f"fragili {fragile} | missing pens {missing}"
     )
     print(f"Sample note ({sample['name']}): {sample['note'][:220]}…")
 

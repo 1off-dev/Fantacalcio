@@ -4,6 +4,21 @@ Stato al **6 settembre 2026**. Focus: cosa si può automatizzare senza violare t
 
 ---
 
+## 1bis. Roadmap affidabilità (stato nel board)
+
+Il motore in `scripts/science_data.py` completa i 8 punti con i migliori proxy disponibili sul listone Fantacalcio (senza feed minuti/xG ufficiali):
+
+1. **Minuti / panchina / trend** — `minutesEst`, `mpg`, `startRate`, `benchRate` da PG/playeds (proxy).
+2. **Produzione /90** — `per90Prod`, `per90ProdNoPen`, `votePure`, `bonusPure`, `csProxy`.
+3. **Calendario + club** — `teamSched` / `teamModule` / att-def curati in `TEAM_CONTEXT`.
+4. **Infortuni fini** — `injuryDaysOut`, `injuryMuscular`, `injuryMultiComp` + Forma.
+5. **Fit rosa in Pri** — `rosterFitDelta` in UI (slot, elite, rigoristi, schema).
+6. **Range mock a 6** — `mockLow/Mid/High`, `leave`, semaforo `traffic`.
+7. **Scenario A/B/C** — `meta.scenarioPlans` + pannello UI con piano attivo.
+8. **Età** — cache profili + `AGES` curate (`npm run fetch` aggiorna).
+
+---
+
 ## 1. Statistiche e voti — cosa esiste davvero
 
 | Fonte | Tipo accesso | Utile per | Limiti |

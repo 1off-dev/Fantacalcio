@@ -1,4 +1,8 @@
-"""Heuristic scientific signals for Fantacalcio Classic auction board."""
+"""Heuristic scientific signals for Fantacalcio Classic auction board.
+
+Completes the 8-point reliability roadmap with best-available proxies when
+true minutes/injury feeds are not on Fantacalcio listone pages.
+"""
 
 from __future__ import annotations
 
@@ -16,8 +20,33 @@ FRAGILE: dict[str, int] = {
     "Lauriente": 1, "Castro S.": 1, "Colombo": 1, "Raspadori": 1, "Simeone": 1,
     "Atta": 1, "Vlasic": 1, "McKennie": 1, "Kessie": 1, "Akanji": 1,
     "Rrahmani": 1, "Kalulu": 1, "N'Dicka": 1, "Di Lorenzo": 1, "Pavlovic": 1,
-    "Solet": 1, "Gila": 1, "Spence": 1, "Chalobah T.": 1, "Lookman": 2,
-    "Chiesa": 4, "Vlahovic": 3, "Koopmeiners": 1, "Retegui": 1,
+    "Solet": 1, "Gila": 1, "Spence": 1, "Chalobah T.": 1, "Koopmeiners": 1,
+    "Retegui": 1, "Soulè": 2, "Kessiè": 1,
+}
+
+# Fine injury profile: daysOut last 2 seasons (est.), muscular recurrence, multi-comp load 0–2.
+INJURY_FINE: dict[str, dict] = {
+    "Scalvini": {"daysOut": 180, "muscular": True, "multiComp": 1, "note": "ACL/storico grave"},
+    "Scamacca": {"daysOut": 90, "muscular": True, "multiComp": 1, "note": "ricorrente muscolare"},
+    "Dybala": {"daysOut": 70, "muscular": True, "multiComp": 1, "note": "flessori/disponibilità"},
+    "Chiesa": {"daysOut": 100, "muscular": True, "multiComp": 2, "note": "storico grave + carico"},
+    "Zaniolo": {"daysOut": 80, "muscular": True, "multiComp": 1, "note": "infortuni + gestione"},
+    "Bremer": {"daysOut": 55, "muscular": True, "multiComp": 1, "note": "muscolare ripetuto"},
+    "De Bruyne": {"daysOut": 60, "muscular": True, "multiComp": 1, "note": "età + carico"},
+    "Vlahovic": {"daysOut": 45, "muscular": True, "multiComp": 1, "note": "muscolari"},
+    "Leao": {"daysOut": 25, "muscular": False, "multiComp": 2, "note": "carico europeo"},
+    "Lookman": {"daysOut": 30, "muscular": True, "multiComp": 1, "note": "disponibilità a tratti"},
+    "Hojlund": {"daysOut": 35, "muscular": True, "multiComp": 1, "note": "giovane + carico"},
+    "Ramos G.": {"daysOut": 40, "muscular": True, "multiComp": 2, "note": "rotazioni+muscolari"},
+    "Kolo Muani": {"daysOut": 35, "muscular": False, "multiComp": 1, "note": "gestione minuti"},
+    "Thuram": {"daysOut": 20, "muscular": False, "multiComp": 2, "note": "carico Inter/UE"},
+    "Calhanoglu": {"daysOut": 15, "muscular": False, "multiComp": 2, "note": "carico UE"},
+    "Dimarco": {"daysOut": 18, "muscular": False, "multiComp": 2, "note": "carico UE"},
+    "Pulisic": {"daysOut": 22, "muscular": False, "multiComp": 2, "note": "carico UE"},
+    "Malen": {"daysOut": 12, "muscular": False, "multiComp": 1, "note": "affidabile recente"},
+    "Svilar": {"daysOut": 5, "muscular": False, "multiComp": 1, "note": "alta disponibilità"},
+    "Vicario": {"daysOut": 8, "muscular": False, "multiComp": 0, "note": "continua"},
+    "Soulè": {"daysOut": 25, "muscular": False, "multiComp": 1, "note": "monitorare"},
 }
 
 AGES: dict[str, int] = {
@@ -35,29 +64,94 @@ AGES: dict[str, int] = {
     "McKennie": 27, "Conceicao": 23, "Kessie": 29, "Scalvini": 22, "Ostigard": 26,
     "Spence": 25, "Bisseck": 25, "Chalobah T.": 27, "Gila": 26, "Lookman": 28,
     "Chiesa": 29, "Vlahovic": 26, "Koopmeiners": 28, "Retegui": 26,
+    "Soulè": 22, "Kessiè": 29, "Konè M.": 23, "Tourè E.": 23, "Dodò": 27,
+    "Calò": 28, "Konè I.": 22, "Lucumì": 27, "Bernabè": 22, "Tourè I.": 21,
+    "Zè Pedro": 28, "Cissè A.": 22, "Traorè Hj.": 23, "Candè": 23,
 }
 
+# Club context + opening schedule ease (1=duro, 5=morbido) + module hint.
 TEAM_CONTEXT: dict[str, dict] = {
-    "INT": {"att": 5, "def": 5, "style": "top-attacco+mod", "cs": "alto"},
-    "NAP": {"att": 5, "def": 4, "style": "attacco alto", "cs": "medio-alto"},
-    "MIL": {"att": 4, "def": 4, "style": "bilanciato big", "cs": "medio-alto"},
-    "JUV": {"att": 4, "def": 5, "style": "controllo+mod", "cs": "alto"},
-    "ATA": {"att": 4, "def": 3, "style": "volume offensivo", "cs": "medio"},
-    "ROM": {"att": 4, "def": 4, "style": "transizioni+mod", "cs": "medio-alto"},
-    "FIO": {"att": 3, "def": 3, "style": "possesso medio", "cs": "medio"},
-    "BOL": {"att": 3, "def": 4, "style": "solidità", "cs": "medio-alto"},
-    "LAZ": {"att": 3, "def": 3, "style": "fasce+rigori", "cs": "medio"},
-    "TOR": {"att": 2, "def": 3, "style": "blocco basso", "cs": "medio"},
-    "GEN": {"att": 2, "def": 3, "style": "difensivo", "cs": "medio"},
-    "UDI": {"att": 3, "def": 2, "style": "transizioni", "cs": "basso"},
-    "COM": {"att": 3, "def": 3, "style": "possesso/creazione", "cs": "medio"},
-    "SAS": {"att": 3, "def": 2, "style": "open games", "cs": "basso"},
-    "CRE": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso"},
-    "PAR": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso"},
-    "PIS": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso"},
-    "VER": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso"},
-    "CAG": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso"},
-    "LEC": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso"},
+    "INT": {"att": 5, "def": 5, "style": "top-attacco+mod", "cs": "alto", "sched": 2, "module": "3-5-2", "note": "UE carico; CS alto"},
+    "NAP": {"att": 5, "def": 4, "style": "attacco alto", "cs": "medio-alto", "sched": 3, "module": "4-3-3", "note": "volume offensivo"},
+    "MIL": {"att": 4, "def": 4, "style": "bilanciato big", "cs": "medio-alto", "sched": 3, "module": "4-2-3-1", "note": "rotazioni UE"},
+    "JUV": {"att": 4, "def": 5, "style": "controllo+mod", "cs": "alto", "sched": 3, "module": "3-4-2-1", "note": "mod forte"},
+    "ATA": {"att": 4, "def": 3, "style": "volume offensivo", "cs": "medio", "sched": 3, "module": "3-4-2-1", "note": "bonus C/A"},
+    "ROM": {"att": 4, "def": 4, "style": "transizioni+mod", "cs": "medio-alto", "sched": 3, "module": "3-4-2-1", "note": "Malen focus"},
+    "FIO": {"att": 3, "def": 3, "style": "possesso medio", "cs": "medio", "sched": 3, "module": "4-2-3-1", "note": "creazione"},
+    "BOL": {"att": 3, "def": 4, "style": "solidità", "cs": "medio-alto", "sched": 4, "module": "4-2-3-1", "note": "CS value"},
+    "LAZ": {"att": 3, "def": 3, "style": "fasce+rigori", "cs": "medio", "sched": 3, "module": "4-3-3", "note": "fasce bonus"},
+    "TOR": {"att": 2, "def": 3, "style": "blocco basso", "cs": "medio", "sched": 4, "module": "3-5-2", "note": "low ceiling"},
+    "GEN": {"att": 2, "def": 3, "style": "difensivo", "cs": "medio", "sched": 4, "module": "3-5-2", "note": "mod lowcost"},
+    "UDI": {"att": 3, "def": 2, "style": "transizioni", "cs": "basso", "sched": 4, "module": "3-5-2", "note": "open games"},
+    "COM": {"att": 3, "def": 3, "style": "possesso/creazione", "cs": "medio", "sched": 3, "module": "4-2-3-1", "note": "Paz/Kean upside"},
+    "SAS": {"att": 3, "def": 2, "style": "open games", "cs": "basso", "sched": 4, "module": "4-3-3", "note": "rigori+bonus"},
+    "CRE": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "3-5-2", "note": "volatilità"},
+    "PAR": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "4-2-3-1", "note": "depth only"},
+    "PIS": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "3-5-2", "note": "low floor"},
+    "VER": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso", "sched": 4, "module": "3-4-2-1", "note": "avoid overpay"},
+    "CAG": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso", "sched": 4, "module": "4-3-3", "note": "late targets"},
+    "LEC": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso", "sched": 4, "module": "4-3-3", "note": "late targets"},
+    "MON": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso", "sched": 4, "module": "3-4-2-1", "note": "low ceiling"},
+    "VEN": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso", "sched": 4, "module": "3-4-2-1", "note": "volatilità"},
+    "FRO": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "3-5-2", "note": "depth"},
+}
+
+# Mock/auction paid ranges at 6 teams × 1000 (guide/mock synthesis).
+MOCK_RANGES: dict[str, dict] = {
+    "Malen": {"low": 380, "mid": 430, "high": 480, "leave": 460},
+    "Martinez L.": {"low": 280, "mid": 330, "high": 380, "leave": 370},
+    "Thuram": {"low": 160, "mid": 200, "high": 240, "leave": 235},
+    "Hojlund": {"low": 140, "mid": 180, "high": 230, "leave": 220},
+    "Kean": {"low": 90, "mid": 120, "high": 150, "leave": 145},
+    "Dimarco": {"low": 160, "mid": 200, "high": 240, "leave": 225},
+    "Paz N.": {"low": 180, "mid": 230, "high": 290, "leave": 280},
+    "Calhanoglu": {"low": 140, "mid": 180, "high": 220, "leave": 215},
+    "McTominay": {"low": 130, "mid": 170, "high": 210, "leave": 205},
+    "Svilar": {"low": 70, "mid": 95, "high": 120, "leave": 115},
+    "Vicario": {"low": 45, "mid": 60, "high": 80, "leave": 78},
+    "Orsolini": {"low": 70, "mid": 95, "high": 120, "leave": 118},
+    "Pulisic": {"low": 80, "mid": 105, "high": 135, "leave": 130},
+    "Wesley": {"low": 70, "mid": 95, "high": 125, "leave": 120},
+    "Bremer": {"low": 55, "mid": 75, "high": 100, "leave": 95},
+    "Bastoni": {"low": 40, "mid": 55, "high": 75, "leave": 72},
+    "Scamacca": {"low": 70, "mid": 95, "high": 130, "leave": 110},
+    "Dybala": {"low": 40, "mid": 60, "high": 90, "leave": 75},
+    "Leao": {"low": 80, "mid": 110, "high": 150, "leave": 130},
+    "Yildiz": {"low": 60, "mid": 85, "high": 120, "leave": 115},
+    "Douvikas": {"low": 55, "mid": 75, "high": 100, "leave": 95},
+    "Carnesecchi": {"low": 35, "mid": 48, "high": 65, "leave": 62},
+    "Maignan": {"low": 30, "mid": 45, "high": 65, "leave": 60},
+    "Barella": {"low": 50, "mid": 70, "high": 95, "leave": 90},
+    "Zaccagni": {"low": 45, "mid": 65, "high": 90, "leave": 85},
+    "Da Cunha": {"low": 40, "mid": 55, "high": 75, "leave": 72},
+}
+
+# Scenario planner templates per role (A/B/C).
+SCENARIO_PLANS: dict[str, dict] = {
+    "P": {
+        "A": "1 cemento big (Svilar) + 2 titolari low-cost",
+        "B": "2 medi (Vicario/Carnesecchi/Maignan) + 1 backup 1–5",
+        "C": "3 titolari provincia se i top > leave",
+        "pivot": "Se Svilar > leave → Vicario+Mandas/Butez",
+    },
+    "D": {
+        "A": "1 bonus fascia (Dimarco/Wesley) + 4–5 cemento mod",
+        "B": "0 elite fascia + 2 value esterni + 5–6 voti mod",
+        "C": "solo cementi low-mid se Dimarco > leave",
+        "pivot": "Se Dimarco > ~220 → Molina/Wesley value + centrali",
+    },
+    "C": {
+        "A": "1 tra Paz/Calha/McT + 1 rigorista mid + volume",
+        "B": "0 super-top + 2 bonus (Orso/Pulisic/Zacca) + lowcost",
+        "C": "solo volume+rigoristi secondari se top gonfiano",
+        "pivot": "Se Paz esce caro → Calha/McT; se entrambi cari → Orso+Da Cunha",
+    },
+    "A": {
+        "A": "Malen + 1 semi + depth",
+        "B": "Anti-Malen 2+2 (Lautaro/Thuram/Kean/Douvikas)",
+        "C": "3 mid + upside se i top scappano",
+        "pivot": "Se Malen > leave → piano B 2+2; evita Vetro a prezzo pieno",
+    },
 }
 
 EXPERT_NOTES: dict[str, str] = {
@@ -108,12 +202,18 @@ def fitness_label(score: int | None) -> str:
 
 
 def score_fitness(name: str, age: int | None, starter_prob: int | None) -> tuple[int | None, str]:
-    if starter_prob is None and age is None and name not in FRAGILE:
+    if starter_prob is None and age is None and name not in FRAGILE and name not in INJURY_FINE:
         return None, "n/d"
     base = 72
     if starter_prob is not None:
         base = int(0.45 * starter_prob + 0.55 * 70)
     base -= FRAGILE.get(name, 1) * 8
+    fine = INJURY_FINE.get(name)
+    if fine:
+        base -= min(25, (fine.get("daysOut") or 0) // 8)
+        if fine.get("muscular"):
+            base -= 6
+        base -= int(fine.get("multiComp") or 0) * 3
     if age is not None:
         if age >= 34:
             base -= 18
@@ -127,13 +227,72 @@ def score_fitness(name: str, age: int | None, starter_prob: int | None) -> tuple
     return score, fitness_label(score)
 
 
+def minutes_model(
+    role: str,
+    pg: int | None,
+    playeds_expected: int | None,
+    starter: int | None,
+) -> dict:
+    """Proxy minutes / start / bench when true minutes feed is unavailable.
+
+    Fantacalcio `playedsExpected` is a 0–100 titolarità score, not apps.
+    Previous-season `pg` is appearances (0–38).
+    """
+    pe = playeds_expected if playeds_expected is not None else None
+    p = pg if pg is not None else None
+    if pe is None and p is None and starter is None:
+        return {
+            "minutesEst": None,
+            "appsEst": None,
+            "mpg": None,
+            "startRate": None,
+            "benchRate": None,
+            "minutesNote": "n/d",
+        }
+
+    start_rate = starter
+    if start_rate is None and pe is not None:
+        start_rate = int(min(100, max(0, pe)))
+    if start_rate is None and p is not None:
+        start_rate = int(round(100 * min(38, p) / 38))
+
+    # Apps: prefer last-season PG; else infer from start rate.
+    if p is not None:
+        apps = float(min(38, max(0, p)))
+    elif start_rate is not None:
+        apps = round(38 * start_rate / 100, 1)
+    else:
+        apps = 0.0
+
+    if start_rate is None:
+        mpg = 72
+    elif start_rate >= 85:
+        mpg = 87 if role in ("P", "D") else 84
+    elif start_rate >= 70:
+        mpg = 80
+    elif start_rate >= 50:
+        mpg = 68
+    else:
+        mpg = 45
+    minutes = int(round(apps * mpg)) if apps else None
+    if minutes is not None:
+        minutes = min(3420, minutes)  # hard cap 38×90
+    bench = None
+    if start_rate is not None:
+        bench = max(0, min(70, int(round((100 - start_rate) * 0.65))))
+    note = "proxy PG×mpg + Tit% (no feed minuti ufficiali)"
+    return {
+        "minutesEst": minutes,
+        "appsEst": int(round(apps)) if apps else None,
+        "mpg": mpg,
+        "startRate": start_rate,
+        "benchRate": bench,
+        "minutesNote": note,
+    }
+
+
 def est_minutes(pg: int | None, playeds_expected: int | None) -> int | None:
-    if playeds_expected is None and pg is None:
-        return None
-    pe = playeds_expected if playeds_expected is not None else 0
-    p = pg if pg is not None else 0
-    apps = 0.55 * pe + 0.45 * min(38, p)
-    return int(round(apps * 78))
+    return minutes_model("?", pg, playeds_expected, None)["minutesEst"]
 
 
 def production_metrics(
@@ -156,24 +315,46 @@ def production_metrics(
         "per90Goals": None,
         "per90Assists": None,
         "per90Prod": None,
+        "per90ProdNoPen": None,
         "bonusProxy": None,
+        "votePure": mv,
+        "bonusPure": None,
+        "gsPerApp": None,
+        "csProxy": None,
     }
+    if mv is not None and fm is not None:
+        out["bonusPure"] = round(fm - mv, 2)
+    if gs is not None and pg:
+        out["gsPerApp"] = round(gs / max(pg, 1), 2)
+        # Higher CS proxy when few goals conceded per app (P/D).
+        if role in ("P", "D"):
+            out["csProxy"] = round(max(0.0, 1.4 - (gs / max(pg, 1))), 2)
+
     if minutes and minutes >= 200:
         g90 = round(((goals or 0) * 90) / minutes, 3)
         a90 = round(((assists or 0) * 90) / minutes, 3)
+        pens90 = round(((pens or 0) * 90) / minutes, 3)
         out["per90Goals"] = g90
         out["per90Assists"] = a90
         out["per90Prod"] = round(g90 + a90, 3)
+        out["per90ProdNoPen"] = round(max(0.0, g90 - pens90) + a90, 3)
         bonus = (goals or 0) * 3 + (assists or 0) * 1 + (pens or 0) * 0.5
-        if role in ("P", "D") and gs is not None and pg:
-            bonus += max(0, 8 - (gs / max(pg, 1)))
+        if role in ("P", "D") and out["csProxy"] is not None:
+            bonus += out["csProxy"] * 6
         out["bonusProxy"] = round(bonus, 1)
     elif fm is not None:
         out["bonusProxy"] = round(max(0.0, (fm - (mv or 6.0)) * 12), 1)
     return out
 
 
-def fair_price(fvm: int, role: str, starter: int | None, fitness: int | None, prod: dict) -> dict:
+def fair_price(
+    fvm: int,
+    role: str,
+    starter: int | None,
+    fitness: int | None,
+    prod: dict,
+    name: str | None = None,
+) -> dict:
     base = max(1, fvm)
     mult = 1.0
     if starter is not None:
@@ -201,7 +382,96 @@ def fair_price(fvm: int, role: str, starter: int | None, fitness: int | None, pr
         elif p90 < 0.08 and role in ("A", "C"):
             mult -= 0.08
     fair = int(round(base * mult))
-    return {"fair": fair, "low": max(1, int(round(fair * 0.82))), "high": int(round(fair * 1.12))}
+    low = max(1, int(round(fair * 0.82)))
+    high = int(round(fair * 1.12))
+    mock = MOCK_RANGES.get(name or "")
+    leave = None
+    mock_mid = None
+    if mock:
+        leave = mock["leave"]
+        mock_mid = mock["mid"]
+        # Blend fair toward mock mid for top names.
+        fair = int(round(0.55 * fair + 0.45 * mock["mid"]))
+        low = min(low, mock["low"])
+        high = max(high, mock["high"])
+    return {
+        "fair": fair,
+        "low": low,
+        "high": high,
+        "leave": leave,
+        "mockMid": mock_mid,
+        "mockLow": mock["low"] if mock else None,
+        "mockHigh": mock["high"] if mock else None,
+    }
+
+
+def traffic_light(fvm: int, band: dict) -> str:
+    leave = band.get("leave")
+    high = band.get("high") or fvm
+    low = band.get("low") or fvm
+    fair = band.get("fair") or fvm
+    if leave and fvm >= leave:
+        return "overpay"
+    if fvm > high:
+        return "overpay"
+    if fvm < low:
+        return "value"
+    if abs(fvm - fair) <= max(5, fair * 0.08):
+        return "fair"
+    if fvm > fair:
+        return "rich"
+    return "value"
+
+
+def scenario_plans(role: str) -> dict:
+    return dict(SCENARIO_PLANS.get(role, {}))
+
+
+def injury_profile(name: str) -> dict | None:
+    fine = INJURY_FINE.get(name)
+    frag = FRAGILE.get(name)
+    if not fine and not frag:
+        return None
+    out = {
+        "fragile": frag or 0,
+        "label": None,
+        "daysOut": None,
+        "muscular": None,
+        "multiComp": None,
+        "note": None,
+    }
+    if fine:
+        out.update(
+            {
+                "label": fine.get("note") or "fragilità",
+                "daysOut": fine.get("daysOut"),
+                "muscular": fine.get("muscular"),
+                "multiComp": fine.get("multiComp"),
+                "note": fine.get("note"),
+            }
+        )
+    elif frag and frag >= 3:
+        out["label"] = "storico fragilità"
+    elif frag:
+        out["label"] = "monitorare"
+    return out
+
+
+def team_context(team: str) -> dict:
+    return dict(
+        TEAM_CONTEXT.get(
+            team,
+            {
+                "att": 3,
+                "def": 3,
+                "style": "n/d",
+                "cs": "n/d",
+                "sched": 3,
+                "module": "n/d",
+                "note": "",
+            },
+        )
+    )
 
 
 def squad_fit_hint(role: str, tier: str, fvm: int) -> str:
@@ -244,29 +514,44 @@ def build_scientific_note(
     penalty_label: str,
     flags: list[str],
 ) -> str:
-    minutes = est_minutes(pg, playeds_expected)
+    mins = minutes_model(role, pg, playeds_expected, starter)
+    minutes = mins["minutesEst"]
     prod = production_metrics(role, pg, fm, mv, goals, assists, pens, gs, minutes)
-    band = fair_price(fvm, role, starter, fitness, prod)
-    ctx = TEAM_CONTEXT.get(team, {"att": 3, "def": 3, "style": "n/d", "cs": "n/d"})
+    band = fair_price(fvm, role, starter, fitness, prod, name)
+    light = traffic_light(fvm, band)
+    ctx = TEAM_CONTEXT.get(
+        team,
+        {"att": 3, "def": 3, "style": "n/d", "cs": "n/d", "sched": 3, "module": "n/d", "note": ""},
+    )
     parts: list[str] = []
 
-    parts.append(f"Mercato: FVM {fvm}, fair ~{band['fair']} (banda {band['low']}–{band['high']}).")
-    if fvm > band["high"]:
-        parts.append("Listone sopra fair → rischio overpay.")
-    elif fvm < band["low"]:
-        parts.append("Listone sotto fair → possibile value.")
+    leave_txt = f", leave>{band['leave']}" if band.get("leave") else ""
+    mock_txt = ""
+    if band.get("mockMid") is not None:
+        mock_txt = f" Mock6 ~{band['mockLow']}–{band['mockHigh']} (mid {band['mockMid']})."
+    parts.append(
+        f"Mercato: FVM {fvm}, fair ~{band['fair']} (banda {band['low']}–{band['high']}{leave_txt}) [{light}].{mock_txt}"
+    )
+    if light == "overpay":
+        parts.append("Listone in zona overpay → non inseguire.")
+    elif light == "value":
+        parts.append("Listone sotto fair/mock → possibile value.")
 
-    if prod["per90Prod"] is not None:
+    if mins["minutesEst"] is not None:
         parts.append(
-            f"Prod/90: {prod['per90Prod']} (G{prod['per90Goals']}/A{prod['per90Assists']}) su ~{minutes}'."
+            f"Minuti proxy ~{mins['minutesEst']}' ({mins['appsEst']} app × {mins['mpg']}'"
+            f", start~{mins['startRate']}%, panch~{mins['benchRate']}%)."
         )
-    elif fm is not None:
-        bits = [f"FM {fm}"]
-        if mv is not None:
-            bits.append(f"MV {mv}")
-        if pg is not None:
-            bits.append(f"PG {pg}")
-        parts.append("Prev: " + ", ".join(bits) + ".")
+    if prod["per90Prod"] is not None:
+        nop = prod.get("per90ProdNoPen")
+        extra = f", no-rig {nop}" if nop is not None else ""
+        parts.append(
+            f"Prod/90: {prod['per90Prod']} (G{prod['per90Goals']}/A{prod['per90Assists']}{extra})."
+        )
+    if prod.get("bonusPure") is not None and prod.get("votePure") is not None:
+        parts.append(f"Voto puro MV {prod['votePure']} · bonus puro Δ {prod['bonusPure']:+}.")
+    if prod.get("csProxy") is not None:
+        parts.append(f"CS proxy {prod['csProxy']} (GS/app {prod.get('gsPerApp')}).")
     if goals is not None or assists is not None:
         g = goals or 0
         a = assists or 0
@@ -274,10 +559,19 @@ def build_scientific_note(
         extra = f", rig {p}" if p else ""
         parts.append(f"Bonus raw 25/26: {g}G+{a}A{extra}.")
 
-    parts.append(f"Contesto {team}: att{ctx['att']}/def{ctx['def']}, {ctx['style']}, CS {ctx['cs']}.")
+    sched_lbl = {1: "calendario duro", 2: "medio-duro", 3: "medio", 4: "morbido", 5: "molto morbido"}.get(
+        ctx.get("sched", 3), "medio"
+    )
+    parts.append(
+        f"Contesto {team}: att{ctx['att']}/def{ctx['def']}, {ctx['style']}, CS {ctx['cs']}, "
+        f"modulo {ctx.get('module','?')}, avvio {sched_lbl}."
+    )
+    if ctx.get("note"):
+        parts.append(ctx["note"] + ".")
     if role in ("P", "D"):
         parts.append("Mod: preferisci CS alto + voti stabili.")
 
+    fine = INJURY_FINE.get(name)
     frag = FRAGILE.get(name)
     if fitness is not None:
         tip = ""
@@ -286,6 +580,12 @@ def build_scientific_note(
         elif fitness < 55:
             tip = " Tetto stretto."
         parts.append(f"Durabilità: {fitness_lbl} ({fitness}/100).{tip}")
+    if fine:
+        mus = "sì" if fine.get("muscular") else "no"
+        parts.append(
+            f"Infortuni fini: ~{fine.get('daysOut', '?')}g out, muscolare {mus}, "
+            f"carico×comp {fine.get('multiComp', 0)} ({fine.get('note','')})."
+        )
     elif frag and frag >= 3:
         parts.append("Storico fragilità: sconto obbligatorio.")
 
@@ -297,14 +597,18 @@ def build_scientific_note(
         parts.append(f"Playeds attesi {playeds_expected}.")
 
     parts.append(squad_fit_hint(role, tier, fvm))
+    plan = SCENARIO_PLANS.get(role, {})
+    if plan:
+        parts.append(f"Scenario A: {plan.get('A','')}.")
+        parts.append(f"Pivot: {plan.get('pivot','')}.")
     if role == "A" and tier in ("super_top", "S"):
-        parts.append("Scenario: se rivali sparano >fair+15% → passa al piano B.")
+        parts.append("Se rivali sparano >leave/fair+15% → piano B 2+2.")
     elif role == "D" and (tier in ("super_top", "S") or name == "Dimarco"):
-        parts.append("Scenario: se >~220 a 6 → no-buy, prendi 2 fasce mid.")
+        parts.append("Se Dimarco >~220 a 6 → no-buy, 2 fasce mid.")
     elif role == "C" and tier in ("super_top", "top", "S", "A"):
-        parts.append("Scenario: alterna rigorista vs box-to-box in base a chi esce prima.")
+        parts.append("Alterna rigorista vs box-to-box in base a chi esce prima.")
     elif role == "P" and tier in ("super_top", "top", "S", "A"):
-        parts.append("Scenario: 1 elite P o 2 medi — non entrambi costosi.")
+        parts.append("1 elite P o 2 medi — non entrambi costosi.")
 
     if penalty_label and penalty_label != "—":
         parts.append(f"Flag: {penalty_label}.")
