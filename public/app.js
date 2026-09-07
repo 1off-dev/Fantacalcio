@@ -11,7 +11,14 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907q";
+const ASSET_V = "20260907r";
+const GITHUB_SYNC = {
+  owner: "1off-dev",
+  repo: "Fantacalcio",
+  branch: "gh-pages",
+  path: "asta-live.json",
+};
+const GITHUB_CFG_KEY = "fantacalcio-asta-github-sync";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -69,6 +76,15 @@ const els = {
   resetBtn: $("resetBtn"),
   exportBtn: $("exportBtn"),
   shareAuctionBtn: $("shareAuctionBtn"),
+  githubSyncBtn: $("githubSyncBtn"),
+  githubDialog: $("githubDialog"),
+  githubForm: $("githubForm"),
+  githubToken: $("githubToken"),
+  githubAutoPull: $("githubAutoPull"),
+  githubAutoPush: $("githubAutoPush"),
+  githubStatus: $("githubStatus"),
+  githubPullBtn: $("githubPullBtn"),
+  githubPushBtn: $("githubPushBtn"),
   sharePovBtn: $("sharePovBtn"),
   importBtn: $("importBtn"),
   importFile: $("importFile"),
@@ -109,6 +125,9 @@ const els = {
 let lastSavedAt = null;
 let persistTimer = null;
 let idbReady = null;
+let githubPollTimer = null;
+let lastRemoteSavedAt = null;
+let githubPushTimer = null;
 
 function defaultTeams() {
   const fromMeta = state.meta?.defaultTeams;
@@ -500,6 +519,208 @@ function exportSharedAuction() {
     `asta-condivisa-${new Date().toISOString().slice(0, 10)}.json`,
     sharedAuctionPayload()
   );
+}
+
+function readGithubCfg() {
+  try {
+    return JSON.parse(localStorage.getItem(GITHUB_CFG_KEY) || "{}") || {};
+  } catch {
+    return {};
+  }
+}
+
+function writeGithubCfg(patch) {
+  const next = { ...readGithubCfg(), ...patch };
+  try {
+    localStorage.setItem(GITHUB_CFG_KEY, JSON.stringify(next));
+  } catch (err) {
+    console.warn("github cfg save failed", err);
+  }
+  return next;
+}
+
+function githubRawUrl() {
+  const { owner, repo, branch, path } = GITHUB_SYNC;
+  return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}?t=${Date.now()}`;
+}
+
+function githubApiContentsUrl(withRef = true) {
+  const { owner, repo, path, branch } = GITHUB_SYNC;
+  const base = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+  return withRef ? `${base}?ref=${encodeURIComponent(branch)}` : base;
+}
+
+function setGithubStatus(text, ok = true) {
+  if (!els.githubStatus) return;
+  els.githubStatus.textContent = text;
+  els.githubStatus.classList.toggle("warn", !ok);
+}
+
+function openGithubDialog() {
+  const cfg = readGithubCfg();
+  if (els.githubToken) els.githubToken.value = cfg.token || "";
+  if (els.githubAutoPull) els.githubAutoPull.checked = Boolean(cfg.autoPull);
+  if (els.githubAutoPush) els.githubAutoPush.checked = Boolean(cfg.autoPush);
+  setGithubStatus(
+    lastRemoteSavedAt
+      ? `Ultimo remoto: ${new Date(lastRemoteSavedAt).toLocaleTimeString("it-IT")}`
+      : "Pronto. Aggiorna per leggere l’asta condivisa; Pubblica (host) per scriverla."
+  );
+  if (els.githubDialog && !els.githubDialog.open) els.githubDialog.showModal();
+}
+
+async function fetchGithubLive() {
+  // Prefer same-origin after deploy; fallback to raw.githubusercontent.
+  const urls = [
+    `./asta-live.json?t=${Date.now()}`,
+    githubRawUrl(),
+  ];
+  let lastErr = null;
+  for (const url of urls) {
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) throw new Error(`${res.status} ${url}`);
+      const data = await res.json();
+      if (!data || typeof data !== "object") throw new Error("JSON vuoto");
+      return data;
+    } catch (err) {
+      lastErr = err;
+    }
+  }
+  throw lastErr || new Error("Impossibile leggere asta-live.json");
+}
+
+async function pullGithubLive({ quiet = false } = {}) {
+  try {
+    const data = await fetchGithubLive();
+    if (!data.savedAt && !Object.keys(data.ownership || {}).length) {
+      if (!quiet) setGithubStatus("Remoto ancora vuoto: l’host deve pubblicare la prima volta.", false);
+      return false;
+    }
+    if (data.savedAt && data.savedAt === lastRemoteSavedAt) {
+      if (!quiet) setGithubStatus(`Già aggiornato · ${new Date(data.savedAt).toLocaleTimeString("it-IT")}`);
+      return false;
+    }
+    const before = JSON.stringify({
+      ownership: state.ownership,
+      teams: state.teams.map((t) => ({ id: t.id, name: t.name })),
+      auctionRole: state.auctionRole,
+    });
+    applySaved({ ...data, shared: true }, { keepPov: true });
+    persistPov();
+    persist();
+    render();
+    lastRemoteSavedAt = data.savedAt || null;
+    const after = JSON.stringify({
+      ownership: state.ownership,
+      teams: state.teams.map((t) => ({ id: t.id, name: t.name })),
+      auctionRole: state.auctionRole,
+    });
+    const changed = before !== after;
+    updateSaveStatus(true, changed ? "sync GitHub" : "sync GitHub (invariato)");
+    setGithubStatus(
+      `Aggiornato da GitHub · ${data.savedAt ? new Date(data.savedAt).toLocaleTimeString("it-IT") : "ok"} · ${Object.keys(state.ownership).length} assegnazioni`
+    );
+    return changed;
+  } catch (err) {
+    setGithubStatus(`Pull fallito: ${err.message || err}`, false);
+    if (!quiet) updateSaveStatus(false, "sync GitHub fallito");
+    return false;
+  }
+}
+
+function utf8ToBase64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binary = "";
+  bytes.forEach((b) => { binary += String.fromCharCode(b); });
+  return btoa(binary);
+}
+
+async function pushGithubLive() {
+  const token = (els.githubToken?.value || readGithubCfg().token || "").trim();
+  if (!token) {
+    setGithubStatus("Serve un token GitHub (Contents: Write) per pubblicare.", false);
+    alert("Per pubblicare su GitHub incolla un Personal Access Token fine-grained con permesso Contents: Write sul repo Fantacalcio. Il token resta solo in questo browser.");
+    return false;
+  }
+  writeGithubCfg({ token });
+  const payload = {
+    ...sharedAuctionPayload(),
+    shared: true,
+    publishedVia: "github-live",
+  };
+  const bodyText = JSON.stringify(payload, null, 2);
+  const apiGet = githubApiContentsUrl(true);
+  const apiPut = githubApiContentsUrl(false);
+  try {
+    let sha = null;
+    const getRes = await fetch(apiGet, {
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${token}`,
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    });
+    if (getRes.ok) {
+      const meta = await getRes.json();
+      sha = meta.sha || null;
+    } else if (getRes.status !== 404) {
+      const errText = await getRes.text();
+      throw new Error(`GET ${getRes.status}: ${errText.slice(0, 180)}`);
+    }
+    const putRes = await fetch(apiPut, {
+      method: "PUT",
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+      body: JSON.stringify({
+        message: `asta live ${payload.savedAt}`,
+        content: utf8ToBase64(bodyText),
+        branch: GITHUB_SYNC.branch,
+        sha: sha || undefined,
+      }),
+    });
+    if (!putRes.ok) {
+      const errText = await putRes.text();
+      throw new Error(`PUT ${putRes.status}: ${errText.slice(0, 220)}`);
+    }
+    lastRemoteSavedAt = payload.savedAt;
+    persist();
+    updateSaveStatus(true, "pubblicato su GitHub");
+    setGithubStatus(`Pubblicato · ${new Date(payload.savedAt).toLocaleTimeString("it-IT")}. Gli altri cliccano Aggiorna (o auto-pull).`);
+    return true;
+  } catch (err) {
+    setGithubStatus(`Publish fallito: ${err.message || err}`, false);
+    updateSaveStatus(false, "publish GitHub fallito");
+    return false;
+  }
+}
+
+function setGithubAutoPull(on) {
+  writeGithubCfg({ autoPull: Boolean(on) });
+  clearInterval(githubPollTimer);
+  githubPollTimer = null;
+  if (!on) return;
+  githubPollTimer = setInterval(() => {
+    pullGithubLive({ quiet: true });
+  }, 12000);
+}
+
+function scheduleGithubAutoPush() {
+  const cfg = readGithubCfg();
+  if (!cfg.autoPush || !(cfg.token || els.githubToken?.value)) return;
+  clearTimeout(githubPushTimer);
+  githubPushTimer = setTimeout(() => {
+    pushGithubLive();
+  }, 800);
+}
+
+function setGithubAutoPush(on) {
+  writeGithubCfg({ autoPush: Boolean(on) });
+  if (on && els.githubToken?.value) writeGithubCfg({ token: els.githubToken.value.trim() });
 }
 
 async function copyPovLink() {
@@ -1526,12 +1747,14 @@ function confirmAssign(price) {
   state.pendingId = null;
   state.selectedTeamId = teamId;
   render();
+  scheduleGithubAutoPush();
   return true;
 }
 
 function releasePlayer(id) {
   delete state.ownership[id];
   render();
+  scheduleGithubAutoPush();
 }
 
 function onAction(e) {
@@ -1597,6 +1820,7 @@ function bindEvents() {
     if (prev === name) return;
     state.teams = state.teams.map((t) => (t.id === id ? { ...t, name } : t));
     persist();
+    scheduleGithubAutoPush();
     // Aggiorna solo etichette dipendenti dal nome, senza re-montare gli input (evita perdita focus/value).
     document.querySelectorAll(`#buyTeam option[value="${id}"]`).forEach((opt) => {
       const rem = remainingByTeam(id);
@@ -1636,6 +1860,18 @@ function bindEvents() {
   });
   els.exportBtn.addEventListener("click", exportRoster);
   els.shareAuctionBtn?.addEventListener("click", exportSharedAuction);
+  els.githubSyncBtn?.addEventListener("click", openGithubDialog);
+  els.githubPullBtn?.addEventListener("click", () => pullGithubLive({ quiet: false }));
+  els.githubPushBtn?.addEventListener("click", () => pushGithubLive());
+  els.githubToken?.addEventListener("change", () => {
+    writeGithubCfg({ token: els.githubToken.value.trim() });
+  });
+  els.githubAutoPull?.addEventListener("change", (e) => {
+    setGithubAutoPull(e.target.checked);
+  });
+  els.githubAutoPush?.addEventListener("change", (e) => {
+    setGithubAutoPush(e.target.checked);
+  });
   els.sharePovBtn?.addEventListener("click", copyPovLink);
   els.importBtn.addEventListener("click", () => els.importFile.click());
   els.importFile.addEventListener("change", async (e) => {
@@ -1808,6 +2044,15 @@ async function init() {
   persistPov();
   render();
   updateSaveStatus(true, Object.keys(state.ownership).length ? "ripristinato" : "pronto");
+
+  const cfg = readGithubCfg();
+  const wantSync = new URLSearchParams(location.search).has("sync") || cfg.autoPull;
+  if (wantSync) {
+    if (els.githubAutoPull) els.githubAutoPull.checked = true;
+    setGithubAutoPull(true);
+    pullGithubLive({ quiet: true });
+  }
+  if (cfg.autoPush && els.githubAutoPush) els.githubAutoPush.checked = true;
 
   // Primo accesso / link senza POV: chiedi chi sei.
   if (!readPov()?.chosenAt || new URLSearchParams(location.search).has("choose")) {
