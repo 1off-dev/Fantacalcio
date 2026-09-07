@@ -2,14 +2,8 @@
   "kind": "fantacalcio-asta-snapshot",
   "version": 2,
   "shared": true,
-  "savedAt": "2026-09-07T20:22:29.374Z",
-  "ownership": {
-    "P-COM-Butez": {
-      "status": "taken",
-      "price": 26,
-      "teamId": "t2"
-    }
-  },
+  "savedAt": "2026-09-07T20:23:29.719Z",
+  "ownership": {},
   "teams": [
     {
       "id": "t1",
