@@ -1007,11 +1007,14 @@ td[data-col="starterProb"] {
   font-family: var(--display);
   font-size: 1.35rem;
 }
-.pov-dialog .hint {
-  margin: 0 0 14px;
-  color: var(--muted);
-  line-height: 1.45;
-  font-size: 0.92rem;
+.github-dialog .hint.warn,
+#githubStatus.warn {
+  color: var(--warn);
+  font-weight: 600;
+}
+.github-dialog .field input[type="password"] {
+  min-width: min(100%, 22rem);
+  width: 100%;
 }
 
 /* Teams bar */
