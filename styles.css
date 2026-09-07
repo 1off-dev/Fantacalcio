@@ -139,8 +139,8 @@ input[type="search"] {
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 8px;
   margin-bottom: 16px;
 }
 
@@ -148,19 +148,29 @@ input[type="search"] {
   background: rgba(238, 246, 241, 0.1);
   border: 1px solid rgba(238, 246, 241, 0.18);
   color: #eef6f1;
-  border-radius: 16px;
-  padding: 12px 14px;
+  border-radius: 14px;
+  padding: 10px 10px;
+  min-width: 0;
 }
 
 .stat strong {
   display: block;
-  font-size: 1.35rem;
+  font-size: clamp(0.95rem, 1.15vw, 1.25rem);
   font-family: var(--display);
+  line-height: 1.15;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .stat span {
-  font-size: 12px;
+  display: block;
+  font-size: 11px;
   opacity: 0.8;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .stat.warn strong { color: #ffb4a8; }
@@ -214,6 +224,30 @@ input[type="search"] {
 
 .col-priority {
   min-width: 0;
+}
+
+/* PC: listone riempie l'altezza utile della finestra */
+@media (min-width: 961px) {
+  .col-listone {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 12px;
+    height: calc(100dvh - 24px);
+    max-height: calc(100dvh - 24px);
+    align-self: start;
+  }
+
+  .col-listone .panel-head {
+    flex: 0 0 auto;
+  }
+
+  .col-listone .table-wrap {
+    flex: 1 1 auto;
+    max-height: none;
+    min-height: 0;
+    height: auto;
+  }
 }
 
 .col-roster .roster {
@@ -643,6 +677,12 @@ dialog::backdrop { background: rgba(10, 20, 16, 0.55); }
   .col-roster .roster { max-height: none; }
   .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .table-wrap { max-height: 55vh; }
+  .col-listone {
+    position: static;
+    height: auto;
+    max-height: none;
+    display: block;
+  }
 }
 
 @media (max-width: 560px) {
