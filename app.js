@@ -1086,12 +1086,17 @@ function openDetail(id) {
 function focusRoster(teamId) {
   state.selectedTeamId = teamId;
   render();
-  requestAnimationFrame(() => {
-    const panel = document.getElementById("rosterPanel") || els.roster?.closest(".panel") || els.roster;
-    panel?.scrollIntoView({ behavior: "smooth", block: "start" });
-    panel?.classList.add("roster-flash");
-    setTimeout(() => panel?.classList.remove("roster-flash"), 1200);
-  });
+  const scrollToRoster = () => {
+    const panel = document.getElementById("rosterPanel");
+    if (!panel) return;
+    const top = panel.getBoundingClientRect().top + window.scrollY - 16;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    panel.classList.add("roster-flash");
+    window.clearTimeout(focusRoster._flashTimer);
+    focusRoster._flashTimer = window.setTimeout(() => panel.classList.remove("roster-flash"), 1400);
+  };
+  requestAnimationFrame(() => requestAnimationFrame(scrollToRoster));
+  window.setTimeout(scrollToRoster, 80);
 }
 
 function renderRoster() {
