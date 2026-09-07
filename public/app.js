@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907u";
+const ASSET_V = "20260907v";
 const GITHUB_SYNC = {
   owner: "1off-dev",
   repo: "Fantacalcio",
@@ -727,50 +727,40 @@ function escapeHtml(s) {
     .replace(/"/g, "&quot;");
 }
 
-function mergeTeamNames(remoteTeams) {
-  if (!Array.isArray(remoteTeams) || remoteTeams.length !== 6) return false;
-  let changed = false;
-  const byId = new Map(remoteTeams.map((t) => [t.id || "", t]));
-  state.teams = (state.teams.length === 6 ? state.teams : defaultTeams()).map((t, i) => {
-    const remote = byId.get(t.id) || remoteTeams[i];
-    const name = String(remote?.name || t.name || `Squadra ${i + 1}`).trim() || `Squadra ${i + 1}`;
-    if (name !== t.name) changed = true;
-    return { ...t, id: t.id || remote?.id || `t${i + 1}`, name };
-  });
-  return changed;
+function preferLocalTeamNames(remote) {
+  // Admin con modifiche locali più recenti del remoto: non farle tornare indietro al pull.
+  if (!canWrite()) return false;
+  if (!lastSavedAt) return false;
+  if (!remote?.savedAt) return true;
+  return new Date(lastSavedAt).getTime() > new Date(remote.savedAt).getTime();
 }
 
 async function pullGithubLive({ quiet = false } = {}) {
   try {
     const data = await fetchGithubLive();
     const hasOwnership = Object.keys(data.ownership || {}).length > 0;
-    // Remoto ancora senza asta: applica comunque i nomi squadra (servono in privato).
+    // Remoto non pubblicato: non toccare i nomi locali (prima sovrascrivevano i rename admin).
     if (!data.savedAt && !hasOwnership) {
-      const renamed = mergeTeamNames(data.teams);
-      if (renamed) {
-        persist();
-        render();
-      }
-      if (!quiet) {
-        setGithubStatus(
-          renamed
-            ? "Remoto senza assegnazioni: aggiornati i nomi squadra."
-            : "Remoto ancora vuoto: l’host deve pubblicare la prima volta.",
-          !renamed
-        );
-      }
-      return renamed;
+      if (!quiet) setGithubStatus("Remoto ancora vuoto: l’host deve pubblicare la prima volta.", false);
+      return false;
     }
     if (data.savedAt && data.savedAt === lastRemoteSavedAt) {
       if (!quiet) setGithubStatus(`Già aggiornato · ${new Date(data.savedAt).toLocaleTimeString("it-IT")}`);
       return false;
     }
+    const keepTeams = preferLocalTeamNames(data)
+      ? state.teams.map((t) => ({ id: t.id, name: t.name, isMe: t.isMe }))
+      : null;
     const before = JSON.stringify({
       ownership: state.ownership,
       teams: state.teams.map((t) => ({ id: t.id, name: t.name })),
       auctionRole: state.auctionRole,
     });
     applySaved({ ...data, shared: true }, { keepPov: true });
+    if (keepTeams?.length === 6) {
+      state.teams = keepTeams;
+      syncOwnershipStatuses();
+    }
     persistPov();
     persist();
     render();
