@@ -346,8 +346,9 @@ th {
 }
 .name-cell {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
+  gap: 4px 6px;
   min-width: 0;
 }
 .name-cell .name {
@@ -419,6 +420,26 @@ tr.mine { background: #e7f6ef; }
 .badge.pen-1 { background: #ffe8c8; color: #7a3b00; }
 .badge.pen-2 { background: #e8eefc; color: #243b66; }
 .badge.pen-3 { background: #ececec; color: #444; }
+.badge.gk-slot {
+  background: #e7f0ea;
+  color: #0d5a40;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+}
+.badge.gk-slot.gk-1 { background: #dff3ea; color: #0d5a40; }
+.badge.gk-slot.gk-2 { background: #e8eefc; color: #243b66; }
+.badge.gk-slot.gk-3 { background: #eee; color: #555; }
+.badge.gk-slot.uncertain {
+  outline: 1px dashed #a15c12;
+}
+.badge.advanced {
+  background: #fff3df;
+  color: #7a3b00;
+  font-size: 10px;
+  max-width: 7.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .note-cell { min-width: 220px; max-width: 340px; white-space: normal; }
 .note { font-size: 12px; line-height: 1.35; color: var(--muted); }
