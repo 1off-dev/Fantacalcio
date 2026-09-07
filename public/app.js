@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907w";
+const ASSET_V = "20260907x";
 const GITHUB_SYNC = {
   owner: "1off-dev",
   repo: "Fantacalcio",
@@ -90,6 +90,7 @@ const els = {
   exportBtn: $("exportBtn"),
   shareAuctionBtn: $("shareAuctionBtn"),
   githubSyncBtn: $("githubSyncBtn"),
+  githubPullQuickBtn: $("githubPullQuickBtn"),
   githubDialog: $("githubDialog"),
   githubForm: $("githubForm"),
   githubToken: $("githubToken"),
@@ -179,8 +180,7 @@ function applyAuthUi() {
   document.body.classList.toggle("role-readonly", authSession?.role === "readonly");
   if (els.authStatus) {
     if (!authSession) els.authStatus.textContent = "";
-    else if (authSession.role === "admin") els.authStatus.textContent = "Accesso: Admin (scrittura)";
-    else els.authStatus.textContent = "Accesso: sola lettura";
+    else updateSyncStatus(true);
   }
   document.querySelectorAll(".write-only").forEach((el) => {
     el.disabled = !canWrite();
@@ -729,25 +729,64 @@ function openGithubDialog() {
   if (els.githubDialog && !els.githubDialog.open) els.githubDialog.showModal();
 }
 
+function githubApiHeaders() {
+  const headers = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+  const token = (els.githubToken?.value || readGithubCfg().token || "").trim();
+  if (token) headers.Authorization = `Bearer ${token}`;
+  return headers;
+}
+
+function decodeGithubContent(content, encoding) {
+  if (!content) throw new Error("content vuoto");
+  if (encoding && encoding !== "base64") throw new Error(`encoding ${encoding}`);
+  const cleaned = String(content).replace(/\n/g, "");
+  const binary = atob(cleaned);
+  const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+async function fetchGithubLiveFromApi() {
+  const url = `${githubApiContentsUrl(true)}&_=${Date.now()}`;
+  const res = await fetch(url, {
+    cache: "no-store",
+    headers: githubApiHeaders(),
+  });
+  if (!res.ok) throw new Error(`API ${res.status}`);
+  const meta = await res.json();
+  const text = decodeGithubContent(meta.content, meta.encoding || "base64");
+  const data = JSON.parse(text);
+  if (!data || typeof data !== "object") throw new Error("JSON API vuoto");
+  return data;
+}
+
 async function fetchGithubLive() {
-  // Prefer same-origin after deploy; fallback to raw.githubusercontent.
-  const urls = [
-    `./asta-live.json?t=${Date.now()}`,
-    githubRawUrl(),
-  ];
-  let lastErr = null;
+  // GitHub Pages cache fino a 10 minuti: NON usare ./asta-live.json come prima scelta.
+  // 1) Contents API (fresco) 2) raw 3) same-origin fallback.
+  const errors = [];
+  try {
+    return await fetchGithubLiveFromApi();
+  } catch (err) {
+    errors.push(`api: ${err.message || err}`);
+  }
+  const urls = [githubRawUrl(), `./asta-live.json?t=${Date.now()}`];
   for (const url of urls) {
     try {
-      const res = await fetch(url, { cache: "no-store" });
-      if (!res.ok) throw new Error(`${res.status} ${url}`);
+      const res = await fetch(url, {
+        cache: "no-store",
+        headers: { Accept: "application/json", "Cache-Control": "no-cache" },
+      });
+      if (!res.ok) throw new Error(`${res.status}`);
       const data = await res.json();
       if (!data || typeof data !== "object") throw new Error("JSON vuoto");
       return data;
     } catch (err) {
-      lastErr = err;
+      errors.push(`${url}: ${err.message || err}`);
     }
   }
-  throw lastErr || new Error("Impossibile leggere asta-live.json");
+  throw new Error(errors.join(" · ") || "Impossibile leggere asta-live.json");
 }
 
 function escapeHtml(s) {
@@ -782,7 +821,6 @@ async function pullGithubLive({ quiet = false } = {}) {
     const hasOwnership = Object.keys(data.ownership || {}).length > 0;
     const hasTeams = Array.isArray(data.teams) && data.teams.length === 6;
 
-    // Remoto non ancora pubblicato come asta: in sola lettura applica comunque i nomi se presenti.
     if (!data.savedAt && !hasOwnership) {
       if (!canWrite() && hasTeams && !new URLSearchParams(location.search).get("teams")) {
         if (applyRemoteTeams(data.teams)) {
@@ -791,10 +829,12 @@ async function pullGithubLive({ quiet = false } = {}) {
         }
       }
       if (!quiet) setGithubStatus("Remoto ancora vuoto: l’host deve pubblicare (GitHub live → Pubblica).", false);
+      updateSyncStatus(false, "remoto vuoto");
       return false;
     }
     if (data.savedAt && data.savedAt === lastRemoteSavedAt) {
       if (!quiet) setGithubStatus(`Già aggiornato · ${new Date(data.savedAt).toLocaleTimeString("it-IT")}`);
+      updateSyncStatus(true, "invariato");
       return false;
     }
     const keepTeams = preferLocalTeamNames(data)
@@ -812,7 +852,6 @@ async function pullGithubLive({ quiet = false } = {}) {
     } else if (!canWrite() && hasTeams) {
       applyRemoteTeams(data.teams);
     }
-    // URL ?teams= ha priorità in sola lettura / privato.
     if (!canWrite()) applyTeamsFromUrl();
     persistPov();
     persist();
@@ -825,15 +864,35 @@ async function pullGithubLive({ quiet = false } = {}) {
     });
     const changed = before !== after;
     updateSaveStatus(true, changed ? "sync GitHub" : "sync GitHub (invariato)");
+    updateSyncStatus(true, changed ? "aggiornato" : "invariato");
     setGithubStatus(
-      `Aggiornato da GitHub · ${data.savedAt ? new Date(data.savedAt).toLocaleTimeString("it-IT") : "ok"} · ${Object.keys(state.ownership).length} assegnazioni`
+      `Aggiornato da GitHub · ${data.savedAt ? new Date(data.savedAt).toLocaleTimeString("it-IT") : "ok"} · ${Object.keys(state.ownership).length} assegnazioni · ${state.teams.map((t) => t.name).join(", ")}`
     );
     return changed;
   } catch (err) {
     setGithubStatus(`Pull fallito: ${err.message || err}`, false);
+    updateSyncStatus(false, "pull fallito");
     if (!quiet) updateSaveStatus(false, "sync GitHub fallito");
     return false;
   }
+}
+
+function updateSyncStatus(ok, detail = "") {
+  if (!els.authStatus) return;
+  const role = authSession?.role === "admin"
+    ? "Admin (scrittura)"
+    : authSession?.role === "readonly"
+      ? "sola lettura"
+      : "";
+  const when = lastRemoteSavedAt
+    ? new Date(lastRemoteSavedAt).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+    : "—";
+  const names = state.teams?.length === 6 ? state.teams.map((t) => t.name).join(" · ") : "";
+  const bit = detail ? ` · ${detail}` : "";
+  els.authStatus.textContent = role
+    ? `Accesso: ${role} · sync ${when}${bit}${names ? ` · ${names}` : ""}`
+    : "";
+  els.authStatus.classList.toggle("warn", !ok);
 }
 
 function utf8ToBase64(str) {
@@ -912,9 +971,12 @@ function setGithubAutoPull(on) {
   clearInterval(githubPollTimer);
   githubPollTimer = null;
   if (!on) return;
+  // Senza token l’API pubblica ha rate limit basso: raw/API ogni 20s.
+  const token = (els.githubToken?.value || readGithubCfg().token || "").trim();
+  const ms = token ? 12000 : 20000;
   githubPollTimer = setInterval(() => {
     pullGithubLive({ quiet: true });
-  }, 12000);
+  }, ms);
 }
 
 function scheduleGithubAutoPush() {
@@ -2124,6 +2186,9 @@ function bindEvents() {
   els.exportBtn.addEventListener("click", exportRoster);
   els.shareAuctionBtn?.addEventListener("click", exportSharedAuction);
   els.githubSyncBtn?.addEventListener("click", openGithubDialog);
+  els.githubPullQuickBtn?.addEventListener("click", () => {
+    void pullGithubLive({ quiet: false });
+  });
   els.githubPullBtn?.addEventListener("click", () => pullGithubLive({ quiet: false }));
   els.githubPushBtn?.addEventListener("click", () => {
     if (!requireWrite("pubblicare su GitHub")) return;
