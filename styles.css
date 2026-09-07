@@ -1050,13 +1050,25 @@ td[data-col="starterProb"] {
   border: 1px solid transparent;
   border-radius: 8px;
   padding: 4px 6px;
-  background: transparent;
-  color: var(--ink);
+  background: #fff;
+  color: #14231e;
+  -webkit-text-fill-color: #14231e;
 }
 .team-name-field input:focus {
   border-color: var(--line);
   background: #fff;
   outline: none;
+}
+.team-name-text {
+  margin: 0;
+  padding: 4px 6px;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #14231e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .team-meta,
 .team-role {
@@ -1208,10 +1220,6 @@ body.role-readonly .write-only,
 body.auth-pending .write-only {
   opacity: 0.45;
   cursor: not-allowed;
-}
-body.role-readonly .team-name-field input[readonly] {
-  opacity: 0.85;
-  cursor: default;
 }
 
 @media (max-width: 1200px) {
