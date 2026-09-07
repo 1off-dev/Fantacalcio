@@ -1019,10 +1019,25 @@ td[data-col="starterProb"] {
 
 /* Teams bar */
 .teams-bar {
+  display: block;
+  margin-bottom: 16px;
+}
+.teams-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.teams-save-hint {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0f7a5a;
+}
+.teams-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 10px;
-  margin-bottom: 16px;
 }
 .team-card {
   background: var(--panel);
@@ -1257,8 +1272,8 @@ body.auth-pending .write-only {
 }
 
 @media (max-width: 1200px) {
-  .teams-bar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .teams-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
-  .teams-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .teams-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
