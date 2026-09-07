@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907v";
+const ASSET_V = "20260907w";
 const GITHUB_SYNC = {
   owner: "1off-dev",
   repo: "Fantacalcio",
@@ -241,9 +241,10 @@ function ensureAuth() {
 
 function afterAuthContinue() {
   applyAuthUi();
+  applyTeamsFromUrl();
   render();
   const cfg = readGithubCfg();
-  // In privato/sola lettura non c’è localStorage: scarica sempre la copia live (nomi + rose).
+  // Sola lettura / privato: scarica sempre la copia live (rose + nomi pubblicati).
   void pullGithubLive({ quiet: true });
   if (cfg.autoPull || new URLSearchParams(location.search).has("sync") || !canWrite()) {
     if (els.githubAutoPull) els.githubAutoPull.checked = true;
@@ -253,8 +254,38 @@ function afterAuthContinue() {
   if (!canWrite() && els.githubAutoPush) {
     els.githubAutoPush.checked = false;
   }
+  updateTeamsPublishHint();
   if (!readPov()?.chosenAt || new URLSearchParams(location.search).has("choose")) {
     openPovDialog();
+  }
+}
+
+function teamsQueryValue() {
+  return state.teams.map((t) => encodeURIComponent(String(t.name || "").trim() || "Squadra")).join(",");
+}
+
+function applyTeamsFromUrl() {
+  try {
+    const raw = new URLSearchParams(location.search).get("teams");
+    if (!raw) return false;
+    const names = raw.split(",").map((s) => {
+      try { return decodeURIComponent(s).trim(); } catch { return String(s || "").trim(); }
+    });
+    if (names.length !== 6 || names.some((n) => !n)) return false;
+    const base = state.teams.length === 6 ? state.teams : defaultTeams();
+    state.teams = base.map((t, i) => ({ ...t, name: names[i] }));
+    syncOwnershipStatuses();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function updateTeamsPublishHint() {
+  if (!els.saveStatus || !canWrite()) return;
+  const remoteEmpty = !lastRemoteSavedAt;
+  if (remoteEmpty) {
+    els.saveStatus.textContent = `${els.saveStatus.textContent || ""} · nomi: Pubblica su GitHub o Condividi link`.replace(/^ · /, "");
   }
 }
 
@@ -727,21 +758,39 @@ function escapeHtml(s) {
     .replace(/"/g, "&quot;");
 }
 
-function preferLocalTeamNames(remote) {
-  // Admin con modifiche locali più recenti del remoto: non farle tornare indietro al pull.
-  if (!canWrite()) return false;
-  if (!lastSavedAt) return false;
-  if (!remote?.savedAt) return true;
-  return new Date(lastSavedAt).getTime() > new Date(remote.savedAt).getTime();
+function preferLocalTeamNames(_remote) {
+  // L’admin è fonte di verità sui nomi: il pull non li deve mai ripristinare.
+  return canWrite();
+}
+
+function applyRemoteTeams(remoteTeams) {
+  if (!Array.isArray(remoteTeams) || remoteTeams.length !== 6) return false;
+  const base = state.teams.length === 6 ? state.teams : defaultTeams();
+  let changed = false;
+  state.teams = base.map((t, i) => {
+    const remote = remoteTeams.find((r) => r.id === t.id) || remoteTeams[i];
+    const name = String(remote?.name || t.name || `Squadra ${i + 1}`).trim() || `Squadra ${i + 1}`;
+    if (name !== t.name) changed = true;
+    return { ...t, id: t.id || remote?.id || `t${i + 1}`, name };
+  });
+  return changed;
 }
 
 async function pullGithubLive({ quiet = false } = {}) {
   try {
     const data = await fetchGithubLive();
     const hasOwnership = Object.keys(data.ownership || {}).length > 0;
-    // Remoto non pubblicato: non toccare i nomi locali (prima sovrascrivevano i rename admin).
+    const hasTeams = Array.isArray(data.teams) && data.teams.length === 6;
+
+    // Remoto non ancora pubblicato come asta: in sola lettura applica comunque i nomi se presenti.
     if (!data.savedAt && !hasOwnership) {
-      if (!quiet) setGithubStatus("Remoto ancora vuoto: l’host deve pubblicare la prima volta.", false);
+      if (!canWrite() && hasTeams && !new URLSearchParams(location.search).get("teams")) {
+        if (applyRemoteTeams(data.teams)) {
+          persist();
+          render();
+        }
+      }
+      if (!quiet) setGithubStatus("Remoto ancora vuoto: l’host deve pubblicare (GitHub live → Pubblica).", false);
       return false;
     }
     if (data.savedAt && data.savedAt === lastRemoteSavedAt) {
@@ -760,7 +809,11 @@ async function pullGithubLive({ quiet = false } = {}) {
     if (keepTeams?.length === 6) {
       state.teams = keepTeams;
       syncOwnershipStatuses();
+    } else if (!canWrite() && hasTeams) {
+      applyRemoteTeams(data.teams);
     }
+    // URL ?teams= ha priorità in sola lettura / privato.
+    if (!canWrite()) applyTeamsFromUrl();
     persistPov();
     persist();
     render();
@@ -874,6 +927,21 @@ function scheduleGithubAutoPush() {
   }, 800);
 }
 
+/** Pubblica i nomi anche senza auto-push: indispensabile per il privato. */
+function scheduleTeamsPublish() {
+  if (!canWrite()) return;
+  const cfg = readGithubCfg();
+  const token = (els.githubToken?.value || cfg.token || "").trim();
+  if (!token) {
+    updateSaveStatus(false, "nomi solo su questo browser — apri GitHub live → Pubblica");
+    return;
+  }
+  clearTimeout(githubPushTimer);
+  githubPushTimer = setTimeout(() => {
+    void pushGithubLive();
+  }, 600);
+}
+
 function setGithubAutoPush(on) {
   if (on && !requireWrite("attivare la pubblicazione automatica")) {
     if (els.githubAutoPush) els.githubAutoPush.checked = false;
@@ -886,13 +954,14 @@ function setGithubAutoPush(on) {
 async function copyPovLink() {
   const url = new URL(location.href);
   url.searchParams.set("me", state.myTeamId);
+  url.searchParams.set("teams", teamsQueryValue());
   const link = url.toString();
   try {
     await navigator.clipboard.writeText(link);
-    updateSaveStatus(true, "link POV copiato");
-    alert(`Link del tuo punto di vista copiato.\n\nMandalo all'altro giocatore dopo aver esportato l'asta condivisa:\n${link}`);
+    updateSaveStatus(true, "link POV+nomi copiato");
+    alert(`Link copiato (include i nomi squadra).\nAprilo in privato / sull’altro device:\n${link}`);
   } catch {
-    prompt("Copia questo link del punto di vista:", link);
+    prompt("Copia questo link (include i nomi squadra):", link);
   }
 }
 
@@ -1387,6 +1456,7 @@ function renderTeamsBar() {
     const selected = t.id === state.selectedTeamId;
     const writable = canWrite();
     const name = String(t.name || "").trim() || "Squadra";
+    // In sola lettura: testo sempre visibile. Admin: input con colore forzato.
     const nameBlock = writable
       ? `<label class="team-name-field">
            <span class="sr-only">Nome squadra</span>
@@ -2007,8 +2077,12 @@ function bindEvents() {
     if (prev === name) return;
     state.teams = state.teams.map((t) => (t.id === id ? { ...t, name } : t));
     persist();
+    scheduleTeamsPublish();
     scheduleGithubAutoPush();
     // Aggiorna solo etichette dipendenti dal nome, senza re-montare gli input (evita perdita focus/value).
+    document.querySelectorAll(`.team-card[data-team="${id}"] .team-name-text`).forEach((el) => {
+      el.textContent = name;
+    });
     document.querySelectorAll(`#buyTeam option[value="${id}"]`).forEach((opt) => {
       const rem = remainingByTeam(id);
       opt.textContent = `${name} (${rem} residui)${id === state.myTeamId ? " · tu" : ""}`;
