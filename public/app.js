@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260908b";
+const ASSET_V = "20260908c";
 const GITHUB_SYNC = {
   owner: "1off-dev",
   repo: "Fantacalcio",
@@ -89,6 +89,10 @@ const els = {
   loginReadonlyBtn: $("loginReadonlyBtn"),
   authStatus: $("authStatus"),
   liveStatus: $("liveStatus"),
+  teamNamesEditor: $("teamNamesEditor"),
+  teamNamesFields: $("teamNamesFields"),
+  saveTeamNamesBtn: $("saveTeamNamesBtn"),
+  teamNamesHint: $("teamNamesHint"),
   resetBtn: $("resetBtn"),
   exportBtn: $("exportBtn"),
   shareAuctionBtn: $("shareAuctionBtn"),
@@ -154,6 +158,8 @@ let realtimeReady = false;
 let applyingRealtime = false;
 let lastRealtimeSentAt = null;
 let teamNameEditLock = false;
+let teamNamesDirty = false;
+let teamNamesEditorBuilt = false;
 
 function readAuth() {
   try {
@@ -200,6 +206,9 @@ function applyAuthUi() {
   if (els.githubAutoPush) {
     els.githubAutoPush.disabled = !canWrite();
     if (!canWrite()) els.githubAutoPush.checked = false;
+  }
+  if (els.teamNamesEditor) {
+    els.teamNamesEditor.hidden = !canWrite();
   }
 }
 
@@ -260,7 +269,9 @@ function ensureAuth() {
 function afterAuthContinue() {
   applyAuthUi();
   applyTeamsFromUrl();
+  showTeamNamesEditor();
   render();
+  showTeamNamesEditor();
   const cfg = readGithubCfg();
   void pullGithubLive({ quiet: true });
   // Realtime sempre on: PeerJS + poll GitHub di backup.
@@ -879,6 +890,7 @@ async function pullGithubLive({ quiet = false } = {}) {
     persistPov();
     persist();
     render();
+    if (!teamNamesDirty) syncTeamNamesEditorFromState({ force: true });
     lastRemoteSavedAt = data.savedAt || null;
     const after = JSON.stringify({
       ownership: state.ownership,
@@ -1747,14 +1759,8 @@ function renderPlans() {
 }
 
 function renderTeamsBar() {
-  const writable = canWrite();
-  const toolbar = writable
-    ? `<div class="teams-toolbar">
-         <button type="button" class="btn" id="saveTeamNamesBtn">Salva nomi</button>
-         <span class="teams-save-hint" id="teamNamesHint">Modifica i nomi e premi Salva nomi (o Esci dal campo)</span>
-       </div>`
-    : "";
-  const cards = state.teams.map((t) => {
+  // I nomi si editano SOLO nel pannello fisso #teamNamesEditor (mai ricreato dal sync).
+  els.teamsBar.innerHTML = `<div class="teams-grid">${state.teams.map((t) => {
     const spent = spentByTeam(t.id);
     const rem = remainingByTeam(t.id);
     const role = state.auctionRole;
@@ -1763,14 +1769,8 @@ function renderTeamsBar() {
     const isMe = t.id === state.myTeamId;
     const selected = t.id === state.selectedTeamId;
     const name = String(t.name || "").trim() || "Squadra";
-    const nameBlock = writable
-      ? `<label class="team-name-field">
-           <span class="sr-only">Nome squadra</span>
-           <input type="text" data-team-name="${t.id}" value="${escapeAttr(name)}" maxlength="28" autocomplete="off" />
-         </label>`
-      : `<p class="team-name-text" title="${escapeAttr(name)}">${escapeHtml(name)}</p>`;
     return `<article class="team-card ${isMe ? "me" : ""} ${selected ? "selected" : ""}" data-team="${t.id}">
-      ${nameBlock}
+      <p class="team-name-text" title="${escapeAttr(name)}">${escapeHtml(name)}</p>
       <div class="team-meta"><strong>${spent}</strong> spesi · <strong>${rem}</strong> residui</div>
       <div class="team-role">${role}: ${filled}/${need}</div>
       <div class="team-actions">
@@ -1778,14 +1778,48 @@ function renderTeamsBar() {
         <button type="button" class="btn tiny ghost dark" data-action="select-team" data-id="${t.id}">Rosa</button>
       </div>
     </article>`;
-  }).join("");
-  els.teamsBar.innerHTML = `${toolbar}<div class="teams-grid">${cards}</div>`;
-  bindTeamNameInputs();
+  }).join("")}</div>`;
+}
+
+function syncTeamNamesEditorFromState({ force = false } = {}) {
+  if (!els.teamNamesFields || !canWrite()) return;
+  if (!force && teamNamesDirty) return;
+  if (!teamNamesEditorBuilt) {
+    els.teamNamesFields.innerHTML = state.teams.map((t, i) => `
+      <label class="field team-name-edit">
+        <span>Squadra ${i + 1}</span>
+        <input type="text" data-team-name="${t.id}" value="${escapeAttr(t.name || "")}" maxlength="28" autocomplete="off" />
+      </label>`).join("");
+    els.teamNamesFields.querySelectorAll("input[data-team-name]").forEach((input) => {
+      input.addEventListener("input", () => {
+        teamNamesDirty = true;
+        teamNameEditLock = true;
+        if (els.teamNamesHint) els.teamNamesHint.textContent = "Modifiche non salvate — clicca Salva nomi";
+      });
+    });
+    teamNamesEditorBuilt = true;
+  } else {
+    els.teamNamesFields.querySelectorAll("input[data-team-name]").forEach((input) => {
+      const team = state.teams.find((t) => t.id === input.dataset.teamName);
+      if (team) input.value = team.name || "";
+    });
+  }
+}
+
+function showTeamNamesEditor() {
+  if (!els.teamNamesEditor) return;
+  if (!canWrite()) {
+    els.teamNamesEditor.hidden = true;
+    return;
+  }
+  els.teamNamesEditor.hidden = false;
+  syncTeamNamesEditorFromState({ force: !teamNamesDirty });
 }
 
 function readTeamNamesFromDom() {
+  const root = els.teamNamesFields || els.teamsBar;
   const updates = [];
-  els.teamsBar?.querySelectorAll("input[data-team-name]")?.forEach((input) => {
+  root?.querySelectorAll("input[data-team-name]")?.forEach((input) => {
     const id = input.dataset.teamName;
     const name = String(input.value || "").trim() || "Squadra";
     input.value = name;
@@ -1809,65 +1843,44 @@ function applyTeamNameUpdates(updates) {
 
 function saveAllTeamNamesFromDom() {
   if (!canWrite()) {
-    alert("Serve accesso admin (admin/admin) per salvare i nomi.");
+    alert("Serve accesso admin (utente admin, password admin).");
     return false;
   }
   const updates = readTeamNamesFromDom();
+  if (updates.length !== 6) {
+    alert("Editor nomi non pronto: ricarica la pagina e riprova.");
+    return false;
+  }
   applyTeamNameUpdates(updates);
+  teamNamesDirty = false;
+  teamNameEditLock = false;
   const payload = persistSync();
   void idbPut(payload);
   broadcastRealtime("rename");
+  renderTeamsBar();
+  renderRoster();
   const names = state.teams.map((t) => t.name).join(" · ");
-  const hint = document.getElementById("teamNamesHint");
   const token = (els.githubToken?.value || readGithubCfg().token || "").trim();
-  updateSaveStatus(true, `nomi salvati`);
-  if (hint) hint.textContent = `Salvati qui: ${names}`;
+  updateSaveStatus(true, "nomi salvati");
+  if (els.teamNamesHint) els.teamNamesHint.textContent = `SALVATI: ${names}`;
+  alert(`Nomi salvati:\n${state.teams.map((t, i) => `${i + 1}. ${t.name}`).join("\n")}`);
   if (token) {
     void pushGithubLive().then((ok) => {
-      if (hint) {
-        hint.textContent = ok
-          ? `Salvati + pubblicati su GitHub: ${names}`
-          : `Salvati in questo browser (publish GitHub fallito): ${names}`;
+      if (els.teamNamesHint) {
+        els.teamNamesHint.textContent = ok
+          ? `SALVATI + GitHub: ${names}`
+          : `SALVATI in locale (GitHub fallito): ${names}`;
       }
       updateSaveStatus(ok, ok ? "nomi su GitHub" : "nomi solo locali");
     });
-  } else if (hint) {
-    hint.textContent = `Salvati in questo browser: ${names}. Per condividerli: GitHub live → token → Pubblica.`;
+  } else if (els.teamNamesHint) {
+    els.teamNamesHint.textContent = `SALVATI in questo browser: ${names}. Apri GitHub live e metti il token per condividerli.`;
   }
   return true;
 }
 
 function bindTeamNameInputs() {
-  const btn = document.getElementById("saveTeamNamesBtn");
-  if (btn) {
-    btn.onclick = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      saveAllTeamNamesFromDom();
-    };
-  }
-  els.teamsBar.querySelectorAll("input[data-team-name]").forEach((input) => {
-    input.onfocus = () => {
-      teamNameEditLock = true;
-    };
-    input.onblur = () => {
-      // Piccolo delay: se il click è su «Salva nomi», lascia passare il click prima.
-      setTimeout(() => {
-        if (document.activeElement && document.activeElement.matches?.("input[data-team-name]")) {
-          teamNameEditLock = true;
-          return;
-        }
-        teamNameEditLock = false;
-        saveAllTeamNamesFromDom();
-      }, 0);
-    };
-    input.onkeydown = (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        input.blur();
-      }
-    };
-  });
+  // no-op: editor fisso in index.html, binding in bindEvents/showTeamNamesEditor
 }
 
 function renderStats() {
@@ -2310,13 +2323,17 @@ function fillBuyTeamSelect(mode) {
 
 function isEditingTeamName() {
   const el = document.activeElement;
-  return Boolean(el && els.teamsBar?.contains(el) && el.matches?.("input[data-team-name]"));
+  return Boolean(
+    el
+    && el.matches?.("input[data-team-name]")
+    && (els.teamNamesFields?.contains(el) || els.teamsBar?.contains(el))
+  );
 }
 
 function render({ skipTeamsBar = false } = {}) {
   maybeAdvanceRole();
   renderPovBanner();
-  if (!skipTeamsBar && !isEditingTeamName()) renderTeamsBar();
+  if (!skipTeamsBar) renderTeamsBar();
   renderAuctionBanner();
   renderStats();
   renderScenarios();
@@ -2326,7 +2343,8 @@ function render({ skipTeamsBar = false } = {}) {
   renderRoster();
   syncRoleChips();
   applyAuthUi();
-  if (authSession?.role && !isEditingTeamName()) persist();
+  showTeamNamesEditor();
+  if (authSession?.role && !teamNamesDirty) persist();
 }
 
 function setSort(key) {
@@ -2463,6 +2481,10 @@ function bindEvents() {
   els.priorityBox.addEventListener("click", onAction);
   els.teamsBar.addEventListener("click", onAction);
   els.detailActions?.addEventListener("click", onAction);
+  els.saveTeamNamesBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    saveAllTeamNamesFromDom();
+  });
   els.buyTeam.addEventListener("change", () => {
     const rem = remainingByTeam(els.buyTeam.value);
     const cur = Number(els.buyPrice.value) || 1;
