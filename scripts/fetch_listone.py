@@ -306,6 +306,7 @@ def parse_prev_stats(html: str) -> dict[str, dict]:
         gol = _parse_num(col("gol"))
         ass = _parse_num(col("ass"))
         rig = _parse_num(col("rig"))  # scored portion of "x / y"
+        rp = _parse_num(col("rp"))  # rigori parati (portieri)
         gs = _parse_num(col("gs"))
         out[name] = {
             "pgPrev": int(pg) if pg is not None else None,
@@ -314,6 +315,7 @@ def parse_prev_stats(html: str) -> dict[str, dict]:
             "goalsPrev": int(gol) if gol is not None else None,
             "assistsPrev": int(ass) if ass is not None else None,
             "pensPrev": int(rig) if rig is not None else None,
+            "rpPrev": int(rp) if rp is not None else None,
             "gsPrev": int(gs) if gs is not None else None,
         }
     return out
@@ -478,6 +480,7 @@ def enrich(
         goals = prev.get("goalsPrev")
         assists = prev.get("assistsPrev")
         pens = prev.get("pensPrev")
+        rp = prev.get("rpPrev")
         gs = prev.get("gsPrev")
         age = ages.get(p["name"])
         start = starter_prob(p.get("playedsExpected"), pg_prev)
@@ -553,6 +556,7 @@ def enrich(
                 "goalsPrev": goals,
                 "assistsPrev": assists,
                 "pensPrev": pens,
+                "rpPrev": rp,
                 "gsPrev": gs,
                 "minutesEst": minutes,
                 "appsEst": mins.get("appsEst"),
@@ -695,6 +699,7 @@ def main() -> None:
     with_tit = sum(1 for p in enriched if p["starterProb"] is not None)
     with_age = sum(1 for p in enriched if p.get("age") is not None)
     with_gol = sum(1 for p in enriched if p.get("goalsPrev") is not None)
+    with_rp = sum(1 for p in enriched if (p.get("rpPrev") or 0) > 0)
     fragile = sum(1 for p in enriched if (p.get("fitness") or 100) < 55)
     with_min = sum(1 for p in enriched if p.get("minutesEst") is not None)
     with_p90 = sum(1 for p in enriched if p.get("per90Prod") is not None)
@@ -703,7 +708,7 @@ def main() -> None:
     sample = next((p for p in enriched if p["name"] == "Malen"), enriched[0])
     print(
         f"OK {len(players)} giocatori | fasce {shown} | rigoristi {pens} | "
-        f"FM {PREV_SEASON} {with_fm} | gol {with_gol} | Tit% {with_tit} | "
+        f"FM {PREV_SEASON} {with_fm} | gol {with_gol} | RP>0 {with_rp} | Tit% {with_tit} | "
         f"età {with_age} | min {with_min} | /90 {with_p90} | mock {with_mock} | "
         f"fragili {fragile} | missing pens {missing}"
     )

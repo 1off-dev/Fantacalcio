@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907l";
+const ASSET_V = "20260907n";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -37,7 +37,9 @@ const COLUMNS = [
   { key: "starterProb", label: "Tit%", type: "num", title: "Probabilità titolare" },
   { key: "fmPrev", label: "FM", type: "num", title: "FantaMedia 2025/26" },
   { key: "fitness", label: "Forma", type: "num", title: "Forma fisica %" },
-  { key: "gaPrev", label: "G+A", type: "num", title: "Gol + assist 2025/26" },
+  { key: "goalsPrev", label: "Gol", type: "num", title: "Gol 2025/26" },
+  { key: "assistsPrev", label: "Ass", type: "num", title: "Assist 2025/26" },
+  { key: "rpPrev", label: "RP", type: "num", title: "Rigori parati 2025/26 (portieri)" },
 ];
 
 const state = {
@@ -861,13 +863,6 @@ function adaptiveStrategyLines(role) {
 
 function sortValue(p, key, type) {
   if (key === "priority") return priorityScore(p);
-  if (key === "gaPrev") {
-    if (p.gaPrev != null) return Number(p.gaPrev);
-    const g = p.goalsPrev;
-    const a = p.assistsPrev;
-    if (g == null && a == null) return -Infinity;
-    return Number(g || 0) + Number(a || 0);
-  }
   if (key === "owner") {
     const o = state.ownership[p.id];
     return o ? (teamById(o.teamId)?.name || "") : "";
@@ -1101,6 +1096,17 @@ function fmtGa(p) {
   const aa = Number(a || 0);
   return `<span class="ga" title="${gg} gol · ${aa} assist 2025/26">${gg}+${aa}</span>`;
 }
+function fmtStatNum(v, title = "") {
+  if (v == null || Number.isNaN(Number(v))) return '<span class="muted">—</span>';
+  return `<span class="stat-num" title="${escapeAttr(title)}">${Number(v)}</span>`;
+}
+function fmtRp(p) {
+  if (p.role !== "P") return '<span class="muted">—</span>';
+  if (p.rpPrev == null) return '<span class="muted">—</span>';
+  const n = Number(p.rpPrev);
+  const cls = n > 0 ? "rp-hot" : "";
+  return `<span class="rp ${cls}" title="Rigori parati 2025/26">${n}</span>`;
+}
 function fmtFit(p) {
   if (p.fitness == null) return '<span class="muted">—</span>';
   const n = Math.round(Number(p.fitness));
@@ -1134,7 +1140,9 @@ function renderHead() {
       starterProb: "col-tit",
       fmPrev: "col-fm",
       fitness: "col-fit",
-      gaPrev: "col-ga",
+      goalsPrev: "col-gol",
+      assistsPrev: "col-ass",
+      rpPrev: "col-rp",
     }[col.key] || "";
     return `<th class="sortable ${active ? "sorted" : ""} ${cls}" data-sort="${col.key}" title="${col.title || col.label}" scope="col">${col.label}<span class="sort-ind">${arrow}</span></th>`;
   }).join("")}<th class="col-actions" aria-label="Azioni"></th></tr>`;
@@ -1182,7 +1190,9 @@ function renderTable() {
       <td class="col-tit">${fmtTit(p)}</td>
       <td class="col-fm">${fmtFm(p.fmPrev)}</td>
       <td class="col-fit">${fmtFitPct(p)}</td>
-      <td class="col-ga">${fmtGa(p)}</td>
+      <td class="col-gol">${fmtStatNum(p.goalsPrev, "Gol 2025/26")}</td>
+      <td class="col-ass">${fmtStatNum(p.assistsPrev, "Assist 2025/26")}</td>
+      <td class="col-rp">${fmtRp(p)}</td>
       <td class="col-actions"><div class="actions">${actions}</div></td>
     </tr>`;
   }).join("");
@@ -1261,7 +1271,9 @@ function openDetail(id) {
         ${metricCard("Forma", p.fitness != null ? `${p.fitnessLabel || ""} ${p.fitness}%`.trim() : "—")}
         ${metricCard("Età", p.age)}
         ${metricCard("FM 25/26", p.fmPrev != null ? Number(p.fmPrev).toFixed(2).replace(".", ",") : "—")}
-        ${metricCard("G+A 25/26", (p.goalsPrev != null || p.assistsPrev != null) ? `${Number(p.goalsPrev || 0)}+${Number(p.assistsPrev || 0)}` : "—", "Gol + assist stagione precedente")}
+        ${metricCard("Gol 25/26", p.goalsPrev)}
+        ${metricCard("Assist 25/26", p.assistsPrev)}
+        ${p.role === "P" ? metricCard("Rigori parati", p.rpPrev, "Stagione 2025/26") : ""}
         ${metricCard("Minuti stimati", p.minutesEst != null ? `${p.minutesEst}'` : "—", p.minutesNote || "Proxy da presenze")}
         ${metricCard("Panchina", p.benchRate != null ? `~${p.benchRate}%` : "—")}
       </div>
@@ -1636,12 +1648,7 @@ function normalizePlayer(raw) {
     fitnessLabel: raw.fitnessLabel ?? raw.fitness_label ?? null,
     goalsPrev: raw.goalsPrev ?? raw.goals_prev ?? null,
     assistsPrev: raw.assistsPrev ?? raw.assists_prev ?? null,
-    gaPrev: (() => {
-      const g = raw.goalsPrev ?? raw.goals_prev;
-      const a = raw.assistsPrev ?? raw.assists_prev;
-      if (g == null && a == null) return null;
-      return Number(g || 0) + Number(a || 0);
-    })(),
+    rpPrev: raw.rpPrev ?? raw.rp_prev ?? null,
     age: raw.age ?? null,
     penalty: raw.penalty ?? null,
     penaltyLabel: raw.penaltyLabel ?? raw.penalty_label ?? null,
