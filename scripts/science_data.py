@@ -71,29 +71,29 @@ AGES: dict[str, int] = {
 
 # Club context + opening schedule ease (1=duro, 5=morbido) + module hint.
 TEAM_CONTEXT: dict[str, dict] = {
-    "INT": {"att": 5, "def": 5, "style": "top-attacco+mod", "cs": "alto", "sched": 2, "module": "3-5-2", "note": "UE carico; CS alto"},
-    "NAP": {"att": 5, "def": 4, "style": "attacco alto", "cs": "medio-alto", "sched": 3, "module": "4-3-3", "note": "volume offensivo"},
-    "MIL": {"att": 4, "def": 4, "style": "bilanciato big", "cs": "medio-alto", "sched": 3, "module": "4-2-3-1", "note": "rotazioni UE"},
-    "JUV": {"att": 4, "def": 5, "style": "controllo+mod", "cs": "alto", "sched": 3, "module": "3-4-2-1", "note": "mod forte"},
-    "ATA": {"att": 4, "def": 3, "style": "volume offensivo", "cs": "medio", "sched": 3, "module": "3-4-2-1", "note": "bonus C/A"},
-    "ROM": {"att": 4, "def": 4, "style": "transizioni+mod", "cs": "medio-alto", "sched": 3, "module": "3-4-2-1", "note": "Malen focus"},
-    "FIO": {"att": 3, "def": 3, "style": "possesso medio", "cs": "medio", "sched": 3, "module": "4-2-3-1", "note": "creazione"},
-    "BOL": {"att": 3, "def": 4, "style": "solidità", "cs": "medio-alto", "sched": 4, "module": "4-2-3-1", "note": "CS value"},
-    "LAZ": {"att": 3, "def": 3, "style": "fasce+rigori", "cs": "medio", "sched": 3, "module": "4-3-3", "note": "fasce bonus"},
-    "TOR": {"att": 2, "def": 3, "style": "blocco basso", "cs": "medio", "sched": 4, "module": "3-5-2", "note": "low ceiling"},
-    "GEN": {"att": 2, "def": 3, "style": "difensivo", "cs": "medio", "sched": 4, "module": "3-5-2", "note": "mod lowcost"},
-    "UDI": {"att": 3, "def": 2, "style": "transizioni", "cs": "basso", "sched": 4, "module": "3-5-2", "note": "open games"},
-    "COM": {"att": 3, "def": 3, "style": "possesso/creazione", "cs": "medio", "sched": 3, "module": "4-2-3-1", "note": "Paz/Kean upside"},
-    "SAS": {"att": 3, "def": 2, "style": "open games", "cs": "basso", "sched": 4, "module": "4-3-3", "note": "rigori+bonus"},
-    "CRE": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "3-5-2", "note": "volatilità"},
-    "PAR": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "4-2-3-1", "note": "depth only"},
-    "PIS": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "3-5-2", "note": "low floor"},
-    "VER": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso", "sched": 4, "module": "3-4-2-1", "note": "avoid overpay"},
-    "CAG": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso", "sched": 4, "module": "4-3-3", "note": "late targets"},
-    "LEC": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso", "sched": 4, "module": "4-3-3", "note": "late targets"},
-    "MON": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso", "sched": 4, "module": "3-4-2-1", "note": "low ceiling"},
-    "VEN": {"att": 2, "def": 2, "style": "sopravvivenza", "cs": "basso", "sched": 4, "module": "3-4-2-1", "note": "volatilità"},
-    "FRO": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "3-5-2", "note": "depth"},
+    "INT": {"att": 5, "def": 5, "style": "attacco da big + modificatore", "cs": "alto", "sched": 2, "module": "3-5-2", "note": "carico europeo alto, ma ottima base per la porta inviolata"},
+    "NAP": {"att": 5, "def": 4, "style": "attacco alto", "cs": "medio-alto", "sched": 3, "module": "4-3-3", "note": "tanti cross e volume offensivo"},
+    "MIL": {"att": 4, "def": 4, "style": "bilanciato da big", "cs": "medio-alto", "sched": 3, "module": "4-2-3-1", "note": "rotazioni possibili per l’Europa"},
+    "JUV": {"att": 4, "def": 5, "style": "controllo e modificatore", "cs": "alto", "sched": 3, "module": "3-4-2-1", "note": "difesa forte da modificatore"},
+    "ATA": {"att": 4, "def": 3, "style": "volume offensivo", "cs": "medio", "sched": 3, "module": "3-4-2-1", "note": "buon contesto per bonus di centrocampisti e attaccanti"},
+    "ROM": {"att": 4, "def": 4, "style": "transizioni e modificatore", "cs": "medio-alto", "sched": 3, "module": "3-4-2-1", "note": "attacco concentrato su pochi riferimenti (Malen e dintorni)"},
+    "FIO": {"att": 3, "def": 3, "style": "possesso medio", "cs": "medio", "sched": 3, "module": "4-2-3-1", "note": "crea gioco, ma senza tetto da big"},
+    "BOL": {"att": 3, "def": 4, "style": "solidità", "cs": "medio-alto", "sched": 4, "module": "4-2-3-1", "note": "buona base per value da porta inviolata"},
+    "LAZ": {"att": 3, "def": 3, "style": "gioco sulle fasce e rigori", "cs": "medio", "sched": 3, "module": "4-3-3", "note": "gli esterni e i rigoristi possono fare la differenza"},
+    "TOR": {"att": 2, "def": 3, "style": "blocco basso", "cs": "medio", "sched": 4, "module": "3-5-2", "note": "tetto di produzione basso"},
+    "GEN": {"att": 2, "def": 3, "style": "difensivo", "cs": "medio", "sched": 4, "module": "3-5-2", "note": "utile soprattutto per low-cost da modificatore"},
+    "UDI": {"att": 3, "def": 2, "style": "transizioni", "cs": "basso", "sched": 4, "module": "3-5-2", "note": "partite aperte, più bonus ma anche più reti subite"},
+    "COM": {"att": 3, "def": 3, "style": "possesso e creazione", "cs": "medio", "sched": 3, "module": "4-2-3-1", "note": "contesto interessante per Paz e Kean"},
+    "SAS": {"att": 3, "def": 2, "style": "partite aperte", "cs": "basso", "sched": 4, "module": "4-3-3", "note": "rigori e bonus possibili, poca solidità"},
+    "CRE": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "3-5-2", "note": "andamento volatile"},
+    "PAR": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "4-2-3-1", "note": "soprattutto profondità di rosa"},
+    "PIS": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "3-5-2", "note": "pavimento basso"},
+    "VER": {"att": 2, "def": 2, "style": "lotta salvezza", "cs": "basso", "sched": 4, "module": "3-4-2-1", "note": "evita overpay"},
+    "CAG": {"att": 2, "def": 2, "style": "lotta salvezza", "cs": "basso", "sched": 4, "module": "4-3-3", "note": "target tardivi a basso costo"},
+    "LEC": {"att": 2, "def": 2, "style": "lotta salvezza", "cs": "basso", "sched": 4, "module": "4-3-3", "note": "target tardivi a basso costo"},
+    "MON": {"att": 2, "def": 2, "style": "lotta salvezza", "cs": "basso", "sched": 4, "module": "3-4-2-1", "note": "tetto basso"},
+    "VEN": {"att": 2, "def": 2, "style": "lotta salvezza", "cs": "basso", "sched": 4, "module": "3-4-2-1", "note": "andamento volatile"},
+    "FRO": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "3-5-2", "note": "soprattutto profondità"},
 }
 
 # Mock/auction paid ranges at 6 teams × 1000 (guide/mock synthesis).
@@ -126,64 +126,64 @@ MOCK_RANGES: dict[str, dict] = {
     "Da Cunha": {"low": 40, "mid": 55, "high": 75, "leave": 72},
 }
 
-# Scenario planner templates per role (A/B/C).
+# Scenario planner templates per role (A/B/C) — linguaggio naturale.
 SCENARIO_PLANS: dict[str, dict] = {
     "P": {
-        "A": "1 cemento big (Svilar) + 2 titolari low-cost",
-        "B": "2 medi (Vicario/Carnesecchi/Maignan) + 1 backup 1–5",
-        "C": "3 titolari provincia se i top > leave",
-        "pivot": "Se Svilar > leave → Vicario+Mandas/Butez",
+        "A": "un portiere big affidabile (tipo Svilar) più due titolari low-cost",
+        "B": "due portieri medi (Vicario/Carnesecchi/Maignan) più un backup da pochi crediti",
+        "C": "tre titolari di provincia se i top costano troppo",
+        "pivot": "se Svilar sfora il tetto, prendi Vicario più un titolare economico",
     },
     "D": {
-        "A": "1 bonus fascia (Dimarco/Wesley) + 4–5 cemento mod",
-        "B": "0 elite fascia + 2 value esterni + 5–6 voti mod",
-        "C": "solo cementi low-mid se Dimarco > leave",
-        "pivot": "Se Dimarco > ~220 → Molina/Wesley value + centrali",
+        "A": "un esterno da bonus (Dimarco/Wesley) più quattro-cinque cementi da modificatore",
+        "B": "niente elite di fascia, due esterni value e tanti voti da modificatore",
+        "C": "solo cementi a basso-medio prezzo se Dimarco è fuori budget",
+        "pivot": "se Dimarco passa i ~220, punta su Molina/Wesley value e centrali solidi",
     },
     "C": {
-        "A": "1 tra Paz/Calha/McT + 1 rigorista mid + volume",
-        "B": "0 super-top + 2 bonus (Orso/Pulisic/Zacca) + lowcost",
-        "C": "solo volume+rigoristi secondari se top gonfiano",
-        "pivot": "Se Paz esce caro → Calha/McT; se entrambi cari → Orso+Da Cunha",
+        "A": "uno tra Paz/Calhanoglu/McTominay più un rigorista medio e volume di voti",
+        "B": "niente super-top, due pezzi da bonus (Orsolini/Pulisic/Zaccagni) e low-cost",
+        "C": "solo volume e rigoristi secondari se i top gonfiano",
+        "pivot": "se Paz esce caro vai su Calhanoglu/McTominay; se anche loro sono cari, Orsolini + Da Cunha",
     },
     "A": {
-        "A": "Malen + 1 semi + depth",
-        "B": "Anti-Malen 2+2 (Lautaro/Thuram/Kean/Douvikas)",
-        "C": "3 mid + upside se i top scappano",
-        "pivot": "Se Malen > leave → piano B 2+2; evita Vetro a prezzo pieno",
+        "A": "Malen più un semi-top e profondità",
+        "B": "piano anti-Malen con due+due (Lautaro/Thuram/Kean/Douvikas)",
+        "C": "tre medi più upside se i top scappano di prezzo",
+        "pivot": "se Malen sfora il tetto, passa al piano B 2+2 e non inseguire i vetro a prezzo pieno",
     },
 }
 
 EXPERT_NOTES: dict[str, str] = {
-    "Malen": "Guide: top absolute post-exploit; SOS/Goal avvisano overpay oltre 420–450 a 6.",
-    "Martinez L.": "FCO: affidabilità gol+assist; piano B naturale se Malen scappa.",
-    "Dimarco": "Consensus: unico D da produzione C/A; a 6 spesso no-buy se costa >220.",
-    "Paz N.": "Hype young C; minutaggio Como da monitorare ma upside bonus altissimo.",
-    "Calhanoglu": "Rigorista+tiro; età 32: preferire se forma ok, altrimenti McTominay.",
-    "McTominay": "Box-to-box bonus; meno rigorista di Calha ma più cementato sui minuti.",
-    "Svilar": "Unica certezza P big col mod; non lasciarlo sotto 80–90 in lega a 6.",
-    "Thuram": "Gol+assist senza rigori Inter; value se Malen/Lautaro gonfiano.",
-    "Hojlund": "Napoli: upside ma concorrenza; non pagare da top1 senza certezze titolari.",
-    "Kean": "Titolare Como + bonus; semi-top concreto nelle guide mid-tier.",
-    "Leao": "Alti e bassi: solo a sconto, mai da top budget.",
-    "Dybala": "Magia a giorni alterni + infortuni: tetto basso, mai inseguire.",
-    "Scamacca": "Rigorista Atalanta ma vetro: fitness chiave, sconto obbligatorio.",
-    "De Bruyne": "Qualità top, età e carico: pochi gettoni a prezzo pieno.",
-    "Barella": "Motore Inter; meno gol di McT/Calha ma voti solidi.",
-    "Orsolini": "Specialista rigori Bologna: target C bonus nelle guide.",
-    "Pulisic": "Milano: bonus offensivi, gerarchia rigori aperta.",
-    "Bremer": "Mod+bonus se sano; storico muscolare → non overpay.",
-    "Bastoni": "Pilastro mod Inter; meno bonus di Dimarco, più continuità.",
-    "Wesley": "Esterno bonus emergente: molti mock lo mettono subito dopo Dimarco.",
-    "Molina N.": "Terzino bonus; cotazione guida alta ma sotto Dimarco.",
-    "Yildiz": "Upside Juve + possibili rigori; volatilità da giovane.",
-    "Douvikas": "Punta Como da minutaggio; value anti-Malen.",
-    "Ramos G.": "Milan: contendente offensivo/rigori; attenzione rotazioni.",
-    "Kolo Muani": "Juve: rigorista designato ma non cemento titolare.",
-    "Zaccagni": "Lazio: 1° rigore fluido + bonus; target C mid.",
-    "Lookman": "Bonus machine se sano e titolare.",
-    "Chiesa": "Talent + vetro: solo a forte sconto.",
-    "Vlahovic": "Alti/bassi + muscolari: tetto rigoroso.",
+    "Malen": "Le guide lo danno come top assoluto dopo l’exploit; oltre 420–450 a 6 squadre spesso conviene lasciarlo.",
+    "Martinez L.": "Affidabile su gol e assist: è il piano B naturale se Malen scappa di prezzo.",
+    "Dimarco": "È l’unico difensore che produce come un centrocampista/attaccante; a 6 squadre spesso non vale se passa i 220.",
+    "Paz N.": "Giovane di hype a Como: minutaggio da seguire, ma il potenziale bonus è altissimo.",
+    "Calhanoglu": "Rigorista e tiro da lontano; a 32 anni prendilo solo se la forma regge, altrimenti preferisci McTominay.",
+    "McTominay": "Box-to-box da bonus: meno rigorista di Calhanoglu, ma di solito più continuo sui minuti.",
+    "Svilar": "La certezza più chiara tra i portieri big col modificatore: sotto 80–90 in lega a 6 è difficile lasciarlo.",
+    "Thuram": "Gol e assist senza dipendere dai rigori Inter: value se Malen e Lautaro gonfiano.",
+    "Hojlund": "A Napoli ha upside ma anche concorrenza: non pagarlo da top 1 senza certezza di titolare.",
+    "Kean": "Titolare a Como con bonus: semi-top concreto nelle guide di fascia media.",
+    "Leao": "Alti e bassi: ha senso solo a sconto, mai da budget da top.",
+    "Dybala": "Qualità a giorni alterni e infortuni: tetto basso, non inseguire.",
+    "Scamacca": "Rigorista Atalanta ma fragile: la forma è tutto, chiedi sconto.",
+    "De Bruyne": "Qualità top, età e carico alti: pochi gettoni a prezzo pieno.",
+    "Barella": "Motore Inter: meno gol di McTominay/Calhanoglu, voti più solidi.",
+    "Orsolini": "Specialista rigori a Bologna: target da bonus tra i centrocampisti.",
+    "Pulisic": "A Milano porta bonus offensivi; la gerarchia rigoristi non è chiusa.",
+    "Bremer": "Modificatore e bonus se resta sano; storico muscolare → non overpay.",
+    "Bastoni": "Pilastro Inter da modificatore: meno bonus di Dimarco, più continuità.",
+    "Wesley": "Esterno emergente da bonus: nei mock spesso subito dopo Dimarco.",
+    "Molina N.": "Terzino da bonus; cotazione alta ma sotto Dimarco.",
+    "Yildiz": "Upside Juve e possibili rigori: volatilità da giovane.",
+    "Douvikas": "Punta Como con minutaggio: value nel piano anti-Malen.",
+    "Ramos G.": "A Milan contendente offensivo/rigori: attenzione alle rotazioni.",
+    "Kolo Muani": "A Juve è rigorista designato, ma non un cemento di titolarità.",
+    "Zaccagni": "Alla Lazio è primo rigorista fluido e porta bonus: target mid tra i C.",
+    "Lookman": "Macchina da bonus se resta sano e titolare.",
+    "Chiesa": "Talento fragile: solo a forte sconto.",
+    "Vlahovic": "Alti e bassi più muscolari: tieni un tetto rigoroso.",
 }
 
 
@@ -476,20 +476,39 @@ def team_context(team: str) -> dict:
 
 def squad_fit_hint(role: str, tier: str, fvm: int) -> str:
     if role == "P":
-        return "Fit P: 1 titolare + 1 backup; priorità CS/voto se budget ok."
+        return "In rosa ti serve un portiere titolare affidabile e un secondo a basso costo: non spendere due volte da top."
     if role == "D":
         if tier in ("super_top", "top", "top_bonus", "S") or fvm >= 80:
-            return "Fit D: profilo bonus/fascia — 1 slot elite, resto cemento mod."
-        return "Fit D: cemento modificatore / depth a basso costo."
+            return "Profilo da esterno/bonus: tienine al massimo uno costoso e riempi il resto con difensori da modificatore."
+        return "Profilo da cemento per il modificatore: utile a basso/medio prezzo per chiudere la difesa."
     if role == "C":
         if tier in ("super_top", "top", "S", "A") or fvm >= 100:
-            return "Fit C: motore bonus (rigori/inserimenti) — max 2 elite."
-        return "Fit C: volume voti + upside lowcost."
+            return "Centrocampista da bonus (rigori o inserimenti): al massimo due pezzi elite, poi volume di voti."
+        return "Centrocampista da volume: buono per riempire la rosa senza bruciare il budget."
     if tier in ("super_top", "S") or fvm >= 200:
-        return "Fit A: slot top — definisce budget stagione."
+        return "Attaccante da slot top: decide buona parte del budget di stagione."
     if fvm >= 80:
-        return "Fit A: semi-top / value secondario."
-    return "Fit A: depth/panchina a residuale."
+        return "Attaccante semi-top o value: utile come secondo/terzo pezzo dietro al big."
+    return "Attaccante da profondità: prendilo a residuo, non a prezzo pieno."
+
+
+def _sched_phrase(sched: int) -> str:
+    return {
+        1: "un avvio di calendario piuttosto duro",
+        2: "un avvio di calendario medio-duro",
+        3: "un avvio di calendario nella media",
+        4: "un avvio di calendario favorevole",
+        5: "un avvio di calendario molto favorevole",
+    }.get(sched, "un avvio di calendario nella media")
+
+
+def _traffic_phrase(light: str) -> str:
+    return {
+        "overpay": "Sul listone risulta caro rispetto al fair e ai mock: meglio non inseguirlo.",
+        "value": "Sul listone sembra sotto il prezzo giusto: possibile affare se la titolarità regge.",
+        "rich": "Sul listone è un po’ sopra il fair: paga solo se ti serve davvero nello schema.",
+        "fair": "Sul listone è in linea con il prezzo stimato.",
+    }.get(light, "")
 
 
 def build_scientific_note(
@@ -525,98 +544,211 @@ def build_scientific_note(
     )
     parts: list[str] = []
 
-    leave_txt = f", leave>{band['leave']}" if band.get("leave") else ""
-    mock_txt = ""
+    # Prezzo
+    price_bits = [
+        f"Quotazione listone {fvm}",
+        f"prezzo stimato intorno a {band['fair']} (fascia ragionevole {band['low']}–{band['high']})",
+    ]
+    if band.get("leave") is not None:
+        price_bits.append(f"meglio lasciarlo andare sopra {band['leave']}")
+    parts.append("Prezzo: " + "; ".join(price_bits) + ".")
     if band.get("mockMid") is not None:
-        mock_txt = f" Mock6 ~{band['mockLow']}–{band['mockHigh']} (mid {band['mockMid']})."
-    parts.append(
-        f"Mercato: FVM {fvm}, fair ~{band['fair']} (banda {band['low']}–{band['high']}{leave_txt}) [{light}].{mock_txt}"
-    )
-    if light == "overpay":
-        parts.append("Listone in zona overpay → non inseguire.")
-    elif light == "value":
-        parts.append("Listone sotto fair/mock → possibile value.")
+        parts.append(
+            f"Nelle aste a 6 squadre di solito esce tra {band['mockLow']} e {band['mockHigh']} "
+            f"(valore medio circa {band['mockMid']})."
+        )
+    traffic = _traffic_phrase(light)
+    if traffic:
+        parts.append(traffic)
 
-    if mins["minutesEst"] is not None:
-        parts.append(
-            f"Minuti proxy ~{mins['minutesEst']}' ({mins['appsEst']} app × {mins['mpg']}'"
-            f", start~{mins['startRate']}%, panch~{mins['benchRate']}%)."
-        )
-    if prod["per90Prod"] is not None:
-        nop = prod.get("per90ProdNoPen")
-        extra = f", no-rig {nop}" if nop is not None else ""
-        parts.append(
-            f"Prod/90: {prod['per90Prod']} (G{prod['per90Goals']}/A{prod['per90Assists']}{extra})."
-        )
-    if prod.get("bonusPure") is not None and prod.get("votePure") is not None:
-        parts.append(f"Voto puro MV {prod['votePure']} · bonus puro Δ {prod['bonusPure']:+}.")
-    if prod.get("csProxy") is not None:
-        parts.append(f"CS proxy {prod['csProxy']} (GS/app {prod.get('gsPerApp')}).")
+    # Minuti / titolarità
+    if mins["minutesEst"] is not None and mins.get("appsEst") is not None:
+        bench = mins.get("benchRate") or 0
+        start = mins.get("startRate")
+        if start is not None and start >= 85:
+            min_txt = (
+                f"Dovrebbe giocare molto: circa {mins['minutesEst']} minuti stimati "
+                f"({mins['appsEst']} partite × ~{mins['mpg']}'), con titolarità intorno al {start}%."
+            )
+        elif start is not None and start >= 55:
+            min_txt = (
+                f"Minutaggio da monitorare: circa {mins['minutesEst']} minuti stimati "
+                f"({mins['appsEst']} partite × ~{mins['mpg']}'), titolarità ~{start}% "
+                f"e rischio rotazioni/panchina intorno al {bench}%."
+            )
+        else:
+            min_txt = (
+                f"Non è un cemento di minuti: stima ~{mins['minutesEst']} minuti "
+                f"({mins['appsEst']} partite × ~{mins['mpg']}'), spesso a disposizione "
+                f"(panchina/subentri ~{bench}%)."
+            )
+        parts.append(min_txt + " Stima da presenze, non da feed minuti ufficiali.")
+    elif starter is not None:
+        parts.append(f"Probabilità di partire titolare intorno al {starter}%.")
+
+    # Produzione
     if goals is not None or assists is not None:
         g = goals or 0
         a = assists or 0
         p = pens or 0
-        extra = f", rig {p}" if p else ""
-        parts.append(f"Bonus raw 25/26: {g}G+{a}A{extra}.")
+        season = "Nella scorsa stagione"
+        if p:
+            parts.append(f"{season} ha fatto {g} gol e {a} assist (di cui {p} rigoristi).")
+        else:
+            parts.append(f"{season} ha fatto {g} gol e {a} assist.")
+    if prod["per90Prod"] is not None:
+        g90 = prod.get("per90Goals")
+        a90 = prod.get("per90Assists")
+        nop = prod.get("per90ProdNoPen")
+        line = (
+            f"Produzione stimata ogni 90 minuti: {prod['per90Prod']} tra gol e assist"
+        )
+        if g90 is not None and a90 is not None:
+            line += f" (gol {g90}, assist {a90}"
+            if nop is not None:
+                line += f"; senza rigori ~{nop}"
+            line += ")"
+        parts.append(line + ".")
+    if prod.get("bonusPure") is not None and prod.get("votePure") is not None:
+        delta = prod["bonusPure"]
+        if delta >= 0.4:
+            parts.append(
+                f"Il voto medio è {prod['votePure']}, ma i bonus alzano molto il rendimento "
+                f"(+{delta} rispetto al voto puro)."
+            )
+        elif delta <= -0.3:
+            parts.append(
+                f"Il voto medio è {prod['votePure']}: i bonus aiutano poco "
+                f"({delta:+} rispetto al voto puro), quindi conta soprattutto la continuità."
+            )
+        else:
+            parts.append(
+                f"Rendimento equilibrato tra voto ({prod['votePure']}) e bonus ({delta:+})."
+            )
+    if prod.get("csProxy") is not None and role in ("P", "D"):
+        gs_app = prod.get("gsPerApp")
+        cs = prod["csProxy"]
+        if cs >= 1.0:
+            parts.append(
+                f"Buona lettura da porta inviolata: pochi gol subiti a partita"
+                + (f" (~{gs_app})" if gs_app is not None else "")
+                + ", utile col modificatore."
+            )
+        else:
+            parts.append(
+                f"Contributo alla porta inviolata solo medio"
+                + (f" (gol subiti/partita ~{gs_app})" if gs_app is not None else "")
+                + ": meglio se entra a prezzo contenuto."
+            )
 
-    sched_lbl = {1: "calendario duro", 2: "medio-duro", 3: "medio", 4: "morbido", 5: "molto morbido"}.get(
-        ctx.get("sched", 3), "medio"
-    )
+    # Contesto club
+    att = ctx.get("att", 3)
+    deff = ctx.get("def", 3)
+    style = ctx.get("style", "n/d")
+    cs = ctx.get("cs", "n/d")
+    module = ctx.get("module", "?")
     parts.append(
-        f"Contesto {team}: att{ctx['att']}/def{ctx['def']}, {ctx['style']}, CS {ctx['cs']}, "
-        f"modulo {ctx.get('module','?')}, avvio {sched_lbl}."
+        f"Gioca nel {team} ({module}): attacco {att}/5, difesa {deff}/5, stile «{style}», "
+        f"propensione alla porta inviolata {cs}, {_sched_phrase(int(ctx.get('sched', 3)))}."
     )
     if ctx.get("note"):
-        parts.append(ctx["note"] + ".")
+        note = ctx["note"].rstrip(".")
+        parts.append(f"Contesto club: {note}.")
     if role in ("P", "D"):
-        parts.append("Mod: preferisci CS alto + voti stabili.")
+        parts.append("Col modificatore difesa conta avere voti stabili e poche reti subite.")
 
+    # Forma / infortuni / età
+    if fitness is not None:
+        if fitness < 45:
+            tip = " Conviene prenderlo solo a forte sconto."
+        elif fitness < 55:
+            tip = " Tieni un tetto basso e non inseguire."
+        else:
+            tip = ""
+        parts.append(f"Affidabilità fisica: {fitness_lbl} ({fitness}/100).{tip}")
     fine = INJURY_FINE.get(name)
     frag = FRAGILE.get(name)
-    if fitness is not None:
-        tip = ""
-        if fitness < 45:
-            tip = " Evita overpay / preferisci sconto."
-        elif fitness < 55:
-            tip = " Tetto stretto."
-        parts.append(f"Durabilità: {fitness_lbl} ({fitness}/100).{tip}")
     if fine:
-        mus = "sì" if fine.get("muscular") else "no"
+        days = fine.get("daysOut", "?")
+        mus = "con storicità muscolare" if fine.get("muscular") else "senza particolare ricorrenza muscolare"
+        load = fine.get("multiComp", 0)
+        load_txt = {
+            0: "carico di partite gestibile",
+            1: "un po’ di carico extra (coppe/nazionali)",
+            2: "carico alto per più competizioni",
+        }.get(load, "carico da monitorare")
+        detail = fine.get("note") or ""
         parts.append(
-            f"Infortuni fini: ~{fine.get('daysOut', '?')}g out, muscolare {mus}, "
-            f"carico×comp {fine.get('multiComp', 0)} ({fine.get('note','')})."
+            f"Storico disponibilità: circa {days} giorni persi di recente, {mus}, {load_txt}"
+            + (f" — {detail}" if detail else "")
+            + "."
         )
     elif frag and frag >= 3:
-        parts.append("Storico fragilità: sconto obbligatorio.")
+        parts.append("Ha uno storico di fragilità: non pagarlo come se fosse sempre disponibile.")
 
+    identity = []
     if age is not None:
-        parts.append(f"Età {age}.")
+        identity.append(f"{age} anni")
     if starter is not None:
-        parts.append(f"Tit~{starter}%.")
-    if playeds_expected is not None:
-        parts.append(f"Playeds attesi {playeds_expected}.")
+        identity.append(f"titolare stimato al {starter}%")
+    if playeds_expected is not None and starter is None:
+        identity.append(f"titolarità listone {playeds_expected}%")
+    if identity:
+        parts.append("Profilo: " + ", ".join(identity) + ".")
 
+    # Fit + scenari
     parts.append(squad_fit_hint(role, tier, fvm))
     plan = SCENARIO_PLANS.get(role, {})
     if plan:
-        parts.append(f"Scenario A: {plan.get('A','')}.")
-        parts.append(f"Pivot: {plan.get('pivot','')}.")
+        parts.append(f"Piano A sul ruolo: {plan.get('A', '').rstrip('.')}.")
+        if plan.get("pivot"):
+            parts.append(f"Se i top scappano: {plan.get('pivot', '').rstrip('.')}.")
+
     if role == "A" and tier in ("super_top", "S"):
-        parts.append("Se rivali sparano >leave/fair+15% → piano B 2+2.")
+        leave = band.get("leave") or band.get("high")
+        if leave:
+            parts.append(
+                f"Se i rivali lo spingono oltre {leave} (o oltre il fair +15%), passa al piano B con due attaccanti medi."
+            )
+        else:
+            parts.append("Se esce troppo caro, passa al piano B con due attaccanti medi.")
     elif role == "D" and (tier in ("super_top", "S") or name == "Dimarco"):
-        parts.append("Se Dimarco >~220 a 6 → no-buy, 2 fasce mid.")
+        parts.append("Se Dimarco supera circa 220 in lega a 6, meglio lasciarlo e prendere due esterni mid.")
     elif role == "C" and tier in ("super_top", "top", "S", "A"):
-        parts.append("Alterna rigorista vs box-to-box in base a chi esce prima.")
+        parts.append("Scegli tra rigorista e box-to-box in base a chi esce prima e a che prezzo.")
     elif role == "P" and tier in ("super_top", "top", "S", "A"):
-        parts.append("1 elite P o 2 medi — non entrambi costosi.")
+        parts.append("Prendi un portiere elite oppure due medi: non entrambi costosi.")
 
     if penalty_label and penalty_label != "—":
-        parts.append(f"Flag: {penalty_label}.")
-    if flags:
-        parts.append("Tag: " + ", ".join(flags[:4]) + ".")
+        parts.append(f"Sui rigoristi: {penalty_label}.")
+
+    # Soften flags into words (skip raw snake tags)
+    flag_tips = []
+    if "hype_post_gol" in flags:
+        flag_tips.append("c’è molto hype dopo i gol: attenzione all’overpay")
+    if "lasciare_se_overpay" in flags:
+        flag_tips.append("lascialo se il prezzo sfora")
+    if "mod_e_bonus" in flags:
+        flag_tips.append("unisce modificatore e bonus")
+    if "costa_come_centrocampista" in flags:
+        flag_tips.append("può costare come un centrocampista")
+    if "unica_certezza_big" in flags:
+        flag_tips.append("è tra le poche certezze tra i big")
+    if "sposta_asta_centrocampo" in flags:
+        flag_tips.append("può spostare tutta l’asta di centrocampo")
+    if "verificare_gerarchia" in flags:
+        flag_tips.append("verifica la gerarchia in porta/reparto")
+    if "rischio_fisico" in flags:
+        flag_tips.append("rischio fisico da considerare")
+    if "listone_overpay" in flags:
+        flag_tips.append("listone già alto")
+    if "listone_value" in flags:
+        flag_tips.append("listone interessante")
+    if flag_tips:
+        parts.append("Da ricordare: " + "; ".join(flag_tips[:4]) + ".")
 
     expert = EXPERT_NOTES.get(name)
     if expert:
-        parts.append(expert)
+        parts.append(expert if expert.endswith(".") else expert + ".")
 
-    return " ".join(parts)
+    return " ".join(p.strip() for p in parts if p and p.strip())
