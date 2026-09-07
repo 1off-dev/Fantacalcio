@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907p";
+const ASSET_V = "20260907q";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -1046,6 +1046,11 @@ function renderStats() {
 function renderAuctionBanner() {
   const role = state.auctionRole;
   const intel = marketIntel(role);
+  const caveats = state.meta?.rosterCaveats || [];
+  const removed = caveats.filter((c) => c.type === "removed");
+  const caveatBit = removed.length
+    ? `<p class="data-caveat" title="${escapeAttr(state.meta?.dataFreshness || "")}">Listone Fantacalcio corretto: esclusi ${removed.map((c) => `${c.name}→${c.to || "estero"}`).join(", ")}.</p>`
+    : "";
   els.auctionBanner.innerHTML = `
     <div class="auction-main">
       <p class="eyebrow">Asta a ruoli · 6 squadre · motore adattivo</p>
@@ -1055,6 +1060,7 @@ function renderAuctionBanner() {
         · Budget ruolo <strong>${roleBudgetLeft(role)}</strong>
         · spend-safe <strong>${safeSpend(role)}</strong>
         · rivali affamati <strong>${intel.hungryRivals}</strong></p>
+      ${caveatBit}
     </div>
     <div class="auction-actions">
       <button type="button" class="btn ghost dark" id="advanceRoleBtn">Ruolo fatto → avanza</button>
@@ -1753,6 +1759,16 @@ async function init() {
   const data = await res.json();
   state.meta = data.meta;
   state.players = data.players.map(normalizePlayer);
+  // Pulisci assegnazioni a giocatori non più nel board (es. trasferiti all'estero).
+  const liveIds = new Set(state.players.map((p) => p.id));
+  let pruned = false;
+  for (const id of Object.keys(state.ownership)) {
+    if (!liveIds.has(id)) {
+      delete state.ownership[id];
+      pruned = true;
+    }
+  }
+  if (pruned) persistSync();
 
   if (!state.teams.length) state.teams = defaultTeams();
 
