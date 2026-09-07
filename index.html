@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=20260906i" />
+  <link rel="stylesheet" href="./styles.css?v=20260907a" />
 </head>
 <body>
   <div class="bg-glow" aria-hidden="true"></div>
@@ -16,6 +16,7 @@
     <div>
       <p class="eyebrow">Classic · 6 squadre · 1000 · Mod. difesa · Asta a ruoli</p>
       <h1>Asta Scientifica <span>2026/27</span></h1>
+      <p class="save-status" id="saveStatus" aria-live="polite">Salvataggio…</p>
     </div>
     <div class="top-actions">
       <label class="field">
@@ -23,7 +24,9 @@
         <select id="budgetPlan"></select>
       </label>
       <button id="resetBtn" class="btn ghost" type="button">Reset asta</button>
-      <button id="exportBtn" class="btn" type="button">Esporta</button>
+      <button id="importBtn" class="btn ghost" type="button" title="Ripristina da file JSON">Importa</button>
+      <button id="exportBtn" class="btn" type="button" title="Scarica backup completo">Backup</button>
+      <input id="importFile" type="file" accept="application/json,.json" hidden />
     </div>
   </header>
 
@@ -72,6 +75,8 @@
         <ul>
           <li>Rinomina le <strong>6 squadre</strong> nella barra; <em>Compra</em> = tua, <em>Preso</em> = rivale + prezzo.</li>
           <li><strong>Pri</strong> e strategia si adattano a spese, slot e top presi dai rivali.</li>
+          <li>I dati si salvano in automatico sul browser (localStorage + IndexedDB).</li>
+          <li>Usa <strong>Backup</strong> / <strong>Importa</strong> per non perdere l’asta tra dispositivi o dopo pulizia cache.</li>
           <li>Note: fair band, prod/90, contesto club, durabilità, fit rosa, scenari.</li>
           <li>Asta a ruoli P→D→C→A finché tutte chiudono il ruolo.</li>
         </ul>
@@ -99,6 +104,6 @@
     </form>
   </dialog>
 
-  <script src="./app.js?v=20260906i"></script>
+  <script src="./app.js?v=20260907a"></script>
 </body>
 </html>
