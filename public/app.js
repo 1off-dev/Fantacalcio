@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907t";
+const ASSET_V = "20260907u";
 const GITHUB_SYNC = {
   owner: "1off-dev",
   repo: "Fantacalcio",
@@ -243,11 +243,11 @@ function afterAuthContinue() {
   applyAuthUi();
   render();
   const cfg = readGithubCfg();
-  const wantSync = new URLSearchParams(location.search).has("sync") || cfg.autoPull;
-  if (wantSync) {
+  // In privato/sola lettura non c’è localStorage: scarica sempre la copia live (nomi + rose).
+  void pullGithubLive({ quiet: true });
+  if (cfg.autoPull || new URLSearchParams(location.search).has("sync") || !canWrite()) {
     if (els.githubAutoPull) els.githubAutoPull.checked = true;
     setGithubAutoPull(true);
-    void pullGithubLive({ quiet: true });
   }
   if (cfg.autoPush && canWrite() && els.githubAutoPush) els.githubAutoPush.checked = true;
   if (!canWrite() && els.githubAutoPush) {
@@ -719,12 +719,47 @@ async function fetchGithubLive() {
   throw lastErr || new Error("Impossibile leggere asta-live.json");
 }
 
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function mergeTeamNames(remoteTeams) {
+  if (!Array.isArray(remoteTeams) || remoteTeams.length !== 6) return false;
+  let changed = false;
+  const byId = new Map(remoteTeams.map((t) => [t.id || "", t]));
+  state.teams = (state.teams.length === 6 ? state.teams : defaultTeams()).map((t, i) => {
+    const remote = byId.get(t.id) || remoteTeams[i];
+    const name = String(remote?.name || t.name || `Squadra ${i + 1}`).trim() || `Squadra ${i + 1}`;
+    if (name !== t.name) changed = true;
+    return { ...t, id: t.id || remote?.id || `t${i + 1}`, name };
+  });
+  return changed;
+}
+
 async function pullGithubLive({ quiet = false } = {}) {
   try {
     const data = await fetchGithubLive();
-    if (!data.savedAt && !Object.keys(data.ownership || {}).length) {
-      if (!quiet) setGithubStatus("Remoto ancora vuoto: l’host deve pubblicare la prima volta.", false);
-      return false;
+    const hasOwnership = Object.keys(data.ownership || {}).length > 0;
+    // Remoto ancora senza asta: applica comunque i nomi squadra (servono in privato).
+    if (!data.savedAt && !hasOwnership) {
+      const renamed = mergeTeamNames(data.teams);
+      if (renamed) {
+        persist();
+        render();
+      }
+      if (!quiet) {
+        setGithubStatus(
+          renamed
+            ? "Remoto senza assegnazioni: aggiornati i nomi squadra."
+            : "Remoto ancora vuoto: l’host deve pubblicare la prima volta.",
+          !renamed
+        );
+      }
+      return renamed;
     }
     if (data.savedAt && data.savedAt === lastRemoteSavedAt) {
       if (!quiet) setGithubStatus(`Già aggiornato · ${new Date(data.savedAt).toLocaleTimeString("it-IT")}`);
@@ -1361,11 +1396,15 @@ function renderTeamsBar() {
     const isMe = t.id === state.myTeamId;
     const selected = t.id === state.selectedTeamId;
     const writable = canWrite();
+    const name = String(t.name || "").trim() || "Squadra";
+    const nameBlock = writable
+      ? `<label class="team-name-field">
+           <span class="sr-only">Nome squadra</span>
+           <input type="text" data-team-name="${t.id}" value="${escapeAttr(name)}" maxlength="28" />
+         </label>`
+      : `<p class="team-name-text" title="${escapeAttr(name)}">${escapeHtml(name)}</p>`;
     return `<article class="team-card ${isMe ? "me" : ""} ${selected ? "selected" : ""}" data-team="${t.id}">
-      <label class="team-name-field">
-        <span class="sr-only">Nome squadra</span>
-        <input type="text" data-team-name="${t.id}" value="${escapeAttr(t.name)}" maxlength="28" ${writable ? "" : "readonly"} />
-      </label>
+      ${nameBlock}
       <div class="team-meta"><strong>${spent}</strong> spesi · <strong>${rem}</strong> residui</div>
       <div class="team-role">${role}: ${filled}/${need}</div>
       <div class="team-actions">
