@@ -833,6 +833,64 @@ td[data-col="starterProb"] {
 .strategy-lead { margin: 0 0 10px; color: var(--ink); font-size: 14px; }
 .panel-head h2 { margin: 0 0 10px; font-size: 1rem; }
 
+/* Punto di vista (secondo giocatore / multiplayer) */
+.pov-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(15, 122, 90, 0.28);
+  background:
+    linear-gradient(135deg, rgba(15, 122, 90, 0.12), transparent 55%),
+    var(--panel);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+}
+.pov-banner .eyebrow {
+  color: var(--muted);
+  opacity: 1;
+}
+.pov-main {
+  display: grid;
+  gap: 4px;
+  min-width: min(100%, 16rem);
+  flex: 1 1 16rem;
+}
+.pov-line {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.pov-line strong {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.pov-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pov-dialog {
+  width: min(92vw, 420px);
+}
+.pov-dialog h3 {
+  margin: 0 0 8px;
+  font-family: var(--display);
+  font-size: 1.35rem;
+}
+.pov-dialog .hint {
+  margin: 0 0 14px;
+  color: var(--muted);
+  line-height: 1.45;
+  font-size: 0.92rem;
+}
+
 /* Teams bar */
 .teams-bar {
   display: grid;

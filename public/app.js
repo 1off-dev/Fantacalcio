@@ -1,5 +1,6 @@
 /* Asta Scientifica Fantacalcio 2026/27 — 6 squadre, priorità adattiva */
 const STORAGE_KEY = "fantacalcio-asta-2026-27-500";
+const POV_KEY = "fantacalcio-asta-2026-27-500-pov";
 const LEGACY_STORAGE_KEYS = [
   "fantacalcio-asta-2026-27",
   "fantacalcio-asta-2026-27-v6",
@@ -10,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907g";
+const ASSET_V = "20260907i";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -62,9 +63,16 @@ const els = {
   budgetPlan: $("budgetPlan"),
   resetBtn: $("resetBtn"),
   exportBtn: $("exportBtn"),
+  shareAuctionBtn: $("shareAuctionBtn"),
+  sharePovBtn: $("sharePovBtn"),
   importBtn: $("importBtn"),
   importFile: $("importFile"),
   saveStatus: $("saveStatus"),
+  povBanner: $("povBanner"),
+  povDialog: $("povDialog"),
+  povForm: $("povForm"),
+  povTeam: $("povTeam"),
+  changePovBtn: $("changePovBtn"),
   teamsBar: $("teamsBar"),
   auctionBanner: $("auctionBanner"),
   stats: $("stats"),
@@ -167,7 +175,8 @@ async function idbPut(payload) {
 function snapshotPayload() {
   return {
     kind: SNAPSHOT_KIND,
-    version: 1,
+    version: 2,
+    shared: false,
     savedAt: new Date().toISOString(),
     plan: state.plan,
     ownership: state.ownership,
@@ -185,12 +194,99 @@ function snapshotPayload() {
   };
 }
 
-function applySaved(saved) {
+function sharedAuctionPayload() {
+  return {
+    kind: SNAPSHOT_KIND,
+    version: 2,
+    shared: true,
+    savedAt: new Date().toISOString(),
+    ownership: state.ownership,
+    teams: state.teams.map((t) => ({ id: t.id, name: t.name })),
+    auctionRole: state.auctionRole,
+    roleLock: state.roleLock,
+  };
+}
+
+function readPov() {
+  try {
+    const raw = localStorage.getItem(POV_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch { /* ignore */ }
+  return null;
+}
+
+function persistPov() {
+  try {
+    localStorage.setItem(POV_KEY, JSON.stringify({
+      myTeamId: state.myTeamId,
+      plan: state.plan,
+      chosenAt: new Date().toISOString(),
+    }));
+  } catch (err) {
+    console.warn("persist POV failed", err);
+  }
+}
+
+function syncOwnershipStatuses() {
+  for (const o of Object.values(state.ownership)) {
+    if (!o || !o.teamId) continue;
+    o.status = o.teamId === state.myTeamId ? "mine" : "taken";
+  }
+  state.teams = state.teams.map((t) => ({ ...t, isMe: t.id === state.myTeamId }));
+}
+
+function resolveTeamRef(ref) {
+  if (!ref) return null;
+  const raw = String(ref).trim();
+  const byId = state.teams.find((t) => t.id === raw);
+  if (byId) return byId;
+  const lower = raw.toLowerCase();
+  return state.teams.find((t) => t.name.toLowerCase() === lower)
+    || state.teams.find((t) => t.name.toLowerCase().includes(lower));
+}
+
+function setMyTeam(teamId, { updateUrl = true, quiet = false } = {}) {
+  const team = state.teams.find((t) => t.id === teamId) || resolveTeamRef(teamId);
+  if (!team) return false;
+  state.myTeamId = team.id;
+  state.selectedTeamId = team.id;
+  syncOwnershipStatuses();
+  persistPov();
+  if (updateUrl) {
+    try {
+      const url = new URL(location.href);
+      url.searchParams.set("me", team.id);
+      history.replaceState({}, "", url);
+    } catch { /* ignore */ }
+  }
+  if (!quiet) {
+    persist();
+    render();
+  }
+  return true;
+}
+
+function applyMeFromUrl() {
+  try {
+    const me = new URLSearchParams(location.search).get("me");
+    if (!me) return false;
+    return setMyTeam(me, { updateUrl: true, quiet: true });
+  } catch {
+    return false;
+  }
+}
+
+function applySaved(saved, { keepPov = false } = {}) {
   if (!saved || typeof saved !== "object") return false;
+  const povBefore = { myTeamId: state.myTeamId, plan: state.plan };
   Object.assign(state, {
     plan: saved.plan || state.plan,
     ownership: saved.ownership || {},
-    teams: Array.isArray(saved.teams) && saved.teams.length === 6 ? saved.teams : state.teams,
+    teams: Array.isArray(saved.teams) && saved.teams.length === 6 ? saved.teams.map((t, i) => ({
+      id: t.id || `t${i + 1}`,
+      name: t.name || `Squadra ${i + 1}`,
+      isMe: false,
+    })) : state.teams,
     myTeamId: saved.myTeamId || state.myTeamId,
     selectedTeamId: saved.selectedTeamId || saved.myTeamId || state.selectedTeamId,
     onlyTiered: saved.onlyTiered ?? state.onlyTiered,
@@ -205,6 +301,24 @@ function applySaved(saved) {
     ? state.auctionRole
     : saved.roleFilter || state.auctionRole;
   if (saved.savedAt) lastSavedAt = saved.savedAt;
+
+  const preferLocalPov = keepPov || saved.shared === true;
+  if (preferLocalPov) {
+    const local = readPov();
+    if (local?.myTeamId && state.teams.some((t) => t.id === local.myTeamId)) {
+      state.myTeamId = local.myTeamId;
+      // Piano budget resta personale.
+      if (local.plan) state.plan = local.plan;
+    } else if (povBefore.myTeamId && state.teams.some((t) => t.id === povBefore.myTeamId)) {
+      state.myTeamId = povBefore.myTeamId;
+      state.plan = povBefore.plan;
+    }
+  }
+  if (!state.teams.some((t) => t.id === state.myTeamId)) {
+    state.myTeamId = state.teams[0]?.id || "t1";
+  }
+  state.selectedTeamId = state.myTeamId;
+  syncOwnershipStatuses();
   return true;
 }
 
@@ -288,10 +402,9 @@ async function hydrateFromIdbIfNeeded() {
   }
 }
 
-function downloadSnapshot(filename) {
-  const payload = {
+function downloadSnapshot(filename, payload) {
+  const body = payload || {
     ...snapshotPayload(),
-    // Riepilogo leggibile (oltre allo state completo per restore).
     summary: state.teams.map((t) => ({
       id: t.id,
       name: t.name,
@@ -309,7 +422,7 @@ function downloadSnapshot(filename) {
   };
   const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
   const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(body, null, 2)], { type: "application/json" }));
   a.download = filename || `asta-fantacalcio-backup-${stamp}.json`;
   a.click();
   URL.revokeObjectURL(a.href);
@@ -328,9 +441,8 @@ function ownershipFromSummary(summaryTeams) {
           || state.players.find((p) => p.name.toLowerCase() === String(row.name).toLowerCase());
       }
       if (!player) continue;
-      const isMe = Boolean(t.isMe) || t.id === state.myTeamId;
       ownership[player.id] = {
-        status: isMe ? "mine" : "taken",
+        status: t.id === state.myTeamId ? "mine" : "taken",
         price: Number(row.price) || 1,
         teamId: t.id,
       };
@@ -341,39 +453,91 @@ function ownershipFromSummary(summaryTeams) {
 
 function importSnapshot(data) {
   if (!data || typeof data !== "object") throw new Error("File non valido");
+  const shared = data.shared === true;
 
-  // Formato snapshot completo.
   if (data.kind === SNAPSHOT_KIND || data.ownership) {
-    applySaved(data);
-    // Se manca ownership ma c'è summary, ricostruisci.
+    applySaved(data, { keepPov: true });
     if ((!data.ownership || !Object.keys(data.ownership).length) && data.summary) {
       state.ownership = ownershipFromSummary(data.summary);
+      syncOwnershipStatuses();
     }
   } else if (Array.isArray(data.teams)) {
-    // Vecchio export “rosa” senza ownership map.
     if (data.teams.length === 6) {
+      const keepId = state.myTeamId;
       state.teams = data.teams.map((t, i) => ({
         id: t.id || `t${i + 1}`,
         name: t.name || `Squadra ${i + 1}`,
-        isMe: Boolean(t.isMe),
+        isMe: false,
       }));
-      const me = state.teams.find((t) => t.isMe) || state.teams[0];
-      state.myTeamId = me.id;
-      state.selectedTeamId = me.id;
+      if (state.teams.some((t) => t.id === keepId)) state.myTeamId = keepId;
+      else state.myTeamId = state.teams[0].id;
+      state.selectedTeamId = state.myTeamId;
     }
-    if (data.plan) state.plan = data.plan;
+    if (data.plan && !shared) state.plan = data.plan;
     if (data.auctionRole) state.auctionRole = data.auctionRole;
     state.ownership = ownershipFromSummary(data.teams);
+    syncOwnershipStatuses();
   } else {
     throw new Error("JSON non riconosciuto come backup asta");
   }
 
+  persistPov();
   persist();
   render();
 }
 
 function exportRoster() {
   downloadSnapshot();
+}
+
+function exportSharedAuction() {
+  downloadSnapshot(
+    `asta-condivisa-${new Date().toISOString().slice(0, 10)}.json`,
+    sharedAuctionPayload()
+  );
+}
+
+async function copyPovLink() {
+  const url = new URL(location.href);
+  url.searchParams.set("me", state.myTeamId);
+  const link = url.toString();
+  try {
+    await navigator.clipboard.writeText(link);
+    updateSaveStatus(true, "link POV copiato");
+    alert(`Link del tuo punto di vista copiato.\n\nMandalo all'altro giocatore dopo aver esportato l'asta condivisa:\n${link}`);
+  } catch {
+    prompt("Copia questo link del punto di vista:", link);
+  }
+}
+
+function fillPovSelect() {
+  if (!els.povTeam) return;
+  els.povTeam.innerHTML = state.teams.map((t) =>
+    `<option value="${t.id}" ${t.id === state.myTeamId ? "selected" : ""}>${t.name}</option>`
+  ).join("");
+}
+
+function openPovDialog() {
+  fillPovSelect();
+  if (els.povDialog && !els.povDialog.open) els.povDialog.showModal();
+}
+
+function renderPovBanner() {
+  if (!els.povBanner) return;
+  const me = teamById(state.myTeamId);
+  els.povBanner.innerHTML = `
+    <div class="pov-main">
+      <p class="eyebrow">Punto di vista</p>
+      <p class="pov-line">Stai giocando come <strong>${me?.name || "—"}</strong>
+        · Pri, budget e Compra sono i tuoi
+        · i rivali usano <em>Preso</em></p>
+    </div>
+    <div class="pov-actions">
+      <button type="button" class="btn ghost dark" id="changePovBtn">Cambia giocatore</button>
+      <button type="button" class="btn ghost dark" id="sharePovBtnInline" title="Copia link ?me=">Copia link POV</button>
+    </div>`;
+  els.povBanner.querySelector("#changePovBtn")?.addEventListener("click", openPovDialog);
+  els.povBanner.querySelector("#sharePovBtnInline")?.addEventListener("click", copyPovLink);
 }
 
 const budgetTotal = () => Number(state.meta.budget || 500);
@@ -1172,6 +1336,7 @@ function fillBuyTeamSelect(mode) {
 
 function render() {
   maybeAdvanceRole();
+  renderPovBanner();
   renderTeamsBar();
   renderAuctionBanner();
   renderStats();
@@ -1271,15 +1436,16 @@ function onAction(e) {
   if (action === "release") releasePlayer(id);
   if (action === "detail") openDetail(id);
   if (action === "select-team") focusRoster(id);
-  if (action === "set-me") {
-    state.myTeamId = id;
-    state.teams = state.teams.map((t) => ({ ...t, isMe: t.id === id }));
-    focusRoster(id);
-  }
+  if (action === "set-me") setMyTeam(id);
 }
 
 function bindEvents() {
-  els.budgetPlan.addEventListener("change", (e) => { state.plan = e.target.value; render(); });
+  els.budgetPlan.addEventListener("change", (e) => {
+    state.plan = e.target.value;
+    persistPov();
+    persist();
+    render();
+  });
   els.search.addEventListener("input", (e) => { state.query = e.target.value; render(); });
   els.onlyTiered.addEventListener("change", (e) => { state.onlyTiered = e.target.checked; render(); });
   els.onlyPenalties.addEventListener("change", (e) => { state.onlyPenalties = e.target.checked; render(); });
@@ -1357,6 +1523,8 @@ function bindEvents() {
     render();
   });
   els.exportBtn.addEventListener("click", exportRoster);
+  els.shareAuctionBtn?.addEventListener("click", exportSharedAuction);
+  els.sharePovBtn?.addEventListener("click", copyPovLink);
   els.importBtn.addEventListener("click", () => els.importFile.click());
   els.importFile.addEventListener("change", async (e) => {
     const file = e.target.files?.[0];
@@ -1365,12 +1533,23 @@ function bindEvents() {
     try {
       const text = await file.text();
       const data = JSON.parse(text);
-      if (!confirm(`Importare il backup "${file.name}"? Sovrascrive lo stato attuale dell'asta.`)) return;
+      const shared = data.shared === true;
+      const msg = shared
+        ? `Importare l'asta condivisa "${file.name}"?\nIl tuo punto di vista (${teamById(state.myTeamId)?.name || "tu"}) resta invariato.`
+        : `Importare il backup "${file.name}"?\nIl tuo punto di vista resta quello attuale; si aggiornano rose e prezzi.`;
+      if (!confirm(msg)) return;
       importSnapshot(data);
-      alert(`Import ok: ${Object.keys(state.ownership).length} assegnazioni ripristinate.`);
+      alert(`Import ok: ${Object.keys(state.ownership).length} assegnazioni · tu sei ${teamById(state.myTeamId)?.name || "?"}.`);
+      if (shared) openPovDialog();
     } catch (err) {
       alert(`Import fallito: ${err.message || err}`);
     }
+  });
+  els.povForm?.addEventListener("submit", (e) => {
+    if (e.submitter?.value === "cancel") return;
+    e.preventDefault();
+    const id = els.povTeam?.value;
+    if (setMyTeam(id)) els.povDialog?.close();
   });
   window.addEventListener("beforeunload", () => {
     persistSync();
@@ -1450,17 +1629,29 @@ async function init() {
   state.players = data.players.map(normalizePlayer);
 
   if (!state.teams.length) state.teams = defaultTeams();
+
+  // Punto di vista: URL ?me= ha priorità, poi POV salvato in locale.
+  const fromUrl = applyMeFromUrl();
+  if (!fromUrl) {
+    const pov = readPov();
+    if (pov?.myTeamId && state.teams.some((t) => t.id === pov.myTeamId)) {
+      state.myTeamId = pov.myTeamId;
+      if (pov.plan && state.meta.budgets[pov.plan]) state.plan = pov.plan;
+    }
+  }
   if (!state.teams.some((t) => t.id === state.myTeamId)) {
-    state.myTeamId = state.teams.find((t) => t.isMe)?.id || state.teams[0].id;
+    state.myTeamId = state.teams[0].id;
   }
-  if (!state.teams.some((t) => t.id === state.selectedTeamId)) {
-    state.selectedTeamId = state.myTeamId;
-  }
+  state.selectedTeamId = state.myTeamId;
+  syncOwnershipStatuses();
+
   for (const [, o] of Object.entries(state.ownership)) {
     if (o && !o.teamId) {
       o.teamId = o.status === "mine" ? state.myTeamId : (rivals()[0]?.id || state.teams[1]?.id);
     }
   }
+  syncOwnershipStatuses();
+
   if (!state.meta.budgets[state.plan]) state.plan = Object.keys(state.meta.budgets)[0];
   if (!ROLES.includes(state.auctionRole)) state.auctionRole = "P";
   if (state.roleLock) state.roleFilter = state.auctionRole;
@@ -1472,8 +1663,14 @@ async function init() {
 
   renderPlans();
   bindEvents();
+  persistPov();
   render();
   updateSaveStatus(true, Object.keys(state.ownership).length ? "ripristinato" : "pronto");
+
+  // Primo accesso / link senza POV: chiedi chi sei.
+  if (!readPov()?.chosenAt || new URLSearchParams(location.search).has("choose")) {
+    openPovDialog();
+  }
 }
 
 init().catch((err) => {
