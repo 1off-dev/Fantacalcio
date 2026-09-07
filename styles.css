@@ -1179,6 +1179,41 @@ td[data-col="starterProb"] {
 }
 .linkish:hover { text-decoration: underline; }
 
+/* Auth gate */
+.auth-status {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted, #5a6a64);
+}
+body.role-admin .auth-status { color: var(--ok, #0f7a5a); }
+body.role-readonly .auth-status { color: var(--warn, #b45309); }
+body.auth-pending > :not(.bg-glow):not(#loginDialog) {
+  visibility: hidden;
+  pointer-events: none;
+}
+body.auth-pending #loginDialog {
+  visibility: visible;
+  pointer-events: auto;
+}
+.login-dialog .login-actions {
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.login-dialog .hint.warn {
+  color: var(--warn, #b45309);
+  font-weight: 600;
+}
+body.role-readonly .write-only,
+body.auth-pending .write-only {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+body.role-readonly .team-name-field input[readonly] {
+  opacity: 0.85;
+  cursor: default;
+}
+
 @media (max-width: 1200px) {
   .teams-bar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
