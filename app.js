@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907o";
+const ASSET_V = "20260907p";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -750,8 +750,13 @@ function priorityScore(p) {
   if (role === "P" && mineByRole("P").some((m) => (m.fitness || 0) >= 70) && (p.fitness || 0) < 60) s -= 8;
   if (role === "D" && p.name === "Dimarco" && intel.hungryRivals >= 2) s -= 4;
   if (role === "A" && p.name === "Malen") {
-    if (intel.avgRivalRem > budgetTotal() * 0.7) s += 3;
-    if ((p.cap || 0) > roleLeft * 0.7) s -= 5;
+    if (state.plan === "malen_first") {
+      s += 18;
+      if ((p.cap || 0) <= roleLeft) s += 6;
+    } else {
+      if (intel.avgRivalRem > budgetTotal() * 0.7) s += 3;
+      if ((p.cap || 0) > roleLeft * 0.7) s -= 5;
+    }
   }
   if (role === "C" && intel.myElite && p.penalty === 1) s += 6;
 
@@ -776,6 +781,7 @@ function priorityWhy(p) {
   if (p.leave != null) bits.push(`leave ${p.leave}`);
   if (rosterFitDelta(p) >= 6) bits.push("fit rosa+");
   if (rosterFitDelta(p) <= -8) bits.push("fit rosa−");
+  if (state.plan === "malen_first" && p.name === "Malen") bits.push("target Malen first");
   if (intel.hungryRivals >= 3) bits.push("rivali affamati");
   if (intel.brokeRivals >= 3) bits.push("rivali corti");
   if (intel.eliteTaken.length >= 2) bits.push("top usciti→value");
@@ -806,16 +812,52 @@ function scenarioPlansFor(role) {
   return sample?.scenarios || {};
 }
 
+function currentPlanMeta() {
+  return state.meta?.budgets?.[state.plan] || null;
+}
+
 function adaptiveStrategyLines(role) {
   const intel = marketIntel(role);
   const lines = [];
+  const plan = currentPlanMeta();
+  const playbook = plan?.playbook?.[role];
   const base = {
     P: "Base: 1 cemento (Tit%+Forma), poi titolari low-cost.",
     D: "Base: voti mod prima, 1 esterno bonus sotto spend-safe.",
     C: "Base: max uno tra Paz/Calha/McT, poi rigoristi/bonus Forma≥55.",
     A: "Base: se Malen > fair/leave, piano 2+2 value.",
   };
-  lines.push(base[role]);
+  if (state.plan === "malen_first") {
+    lines.push(playbook || {
+      P: "Malen first · P: porta low-cost, non bruciare crediti.",
+      D: "Malen first · D: solo modificatore, zero elite di fascia.",
+      C: "Malen first · C: niente super-top, volume + al massimo 1 bonus mid.",
+      A: "Malen first · A: target 215, leave 230, hard stop 245. Poi filler.",
+    }[role]);
+  } else {
+    lines.push(playbook || base[role]);
+  }
+
+  if (state.plan === "malen_first" && role === "A") {
+    const malen = state.players.find((p) => p.name === "Malen");
+    const own = malen ? state.ownership[malen.id] : null;
+    const band = plan?.malen || {};
+    if (own?.teamId === state.myTeamId) {
+      lines.push(band.afterWin || "Malen è tuo: chiudi A con 1 mid-low e filler a 1, niente secondo listone.");
+    } else if (own) {
+      const owner = teamById(own.teamId)?.name || "?";
+      lines.push(`Malen a ${owner} per ${own.price}. ${band.afterLose || "Ripiega sul 2+2 value."}`);
+      if (own.price >= (band.hardStop || 245)) {
+        lines.push("Uscito sopra hard stop: mercato A più soft → alza aggressività su Thuram/Kean/Douvikas.");
+      }
+    } else {
+      lines.push(`Malen ancora free: mira ${band.target ?? 215}, lascia sopra ${band.leave ?? 230}, stop duro ${band.hardStop ?? 245}.`);
+      const aLeft = roleBudgetLeft("A");
+      if (aLeft < (band.leave || 230)) {
+        lines.push(`Warchest A residuo ${aLeft}: sotto leave — se non lo chiudi ora, passa mentalmente al 2+2.`);
+      }
+    }
+  }
 
   if (intel.eliteTaken.length === 0) {
     lines.push("Top ancora disponibili: non sparare il primo nome se i rivali hanno budget pieno.");
@@ -1030,8 +1072,13 @@ function renderAuctionBanner() {
 
 function renderStrategy() {
   const lines = adaptiveStrategyLines(state.auctionRole);
+  const plan = currentPlanMeta();
+  const planBit = plan
+    ? `<p class="strategy-plan"><strong>${plan.label}</strong>${plan.summary ? ` — ${plan.summary}` : ""} · P${plan.P}/D${plan.D}/C${plan.C}/A${plan.A}</p>`
+    : "";
   els.strategyBox.innerHTML = `
     <div class="panel-head"><h2>Strategia live</h2></div>
+    ${planBit}
     <p class="strategy-lead">${lines[0]}</p>
     <ul>${lines.slice(1).map((l) => `<li>${l}</li>`).join("")}</ul>`;
 }
