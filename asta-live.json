@@ -2,7 +2,7 @@
   "kind": "fantacalcio-asta-snapshot",
   "version": 2,
   "shared": true,
-  "savedAt": "2026-09-07T20:13:20.626Z",
+  "savedAt": "2026-09-07T20:16:20.187Z",
   "ownership": {},
   "teams": [
     {
@@ -11,7 +11,7 @@
     },
     {
       "id": "t2",
-      "name": "Vittorio"
+      "name": "Vitto"
     },
     {
       "id": "t3",
