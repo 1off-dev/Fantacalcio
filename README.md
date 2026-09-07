@@ -1,6 +1,6 @@
 # Fantacalcio Asta 2026/27
 
-Assistente per l'asta **Classic** (rosa 3-8-8-6, **1000 crediti**, **6 squadre**, **modificatore difesa**) + dossier strategia aggiornato.
+Assistente per l'asta **Classic** (rosa 3-8-8-6, **500 crediti**, **6 squadre**, **modificatore difesa**) + dossier strategia aggiornato.
 
 ## Cosa include
 

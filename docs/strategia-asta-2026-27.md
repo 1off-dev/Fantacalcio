@@ -1,10 +1,10 @@
 # Dossier asta Fantacalcio 2026/27 — metodo a ruoli
 
 **Aggiornato:** 7 settembre 2026  
-**Lega:** 6 squadre · Classic · rosa **3-8-8-6** · **1000 crediti** · **modificatore difesa**  
+**Lega:** 6 squadre · Classic · rosa **3-8-8-6** · **500 crediti** · **modificatore difesa**  
 **Formato asta:** chiamata **per ruolo** (P → D → C → A). Si resta su un ruolo finché tutte le rose hanno chiuso quegli slot.
 
-Il tool (`public/`) calcola live **Pri** (con fit rosa), **Tit%**, **Forma**, **Età**, FM 25/26, **fair/mock/leave**, semaforo overpay, prod/90, **scenari A/B/C** e note scientifiche per ogni giocatore.
+Il tool (`public/`) calcola live **Pri** (con fit rosa), **Tit%**, **Forma**, **Età**, FM 25/26, **fair/mock/leave**, semaforo overpay, prod/90, **scenari A/B/C** e note scientifiche per ogni giocatore. I prezzi (FVM asta / fair / leave) sono **riscalati ×0.5** rispetto al listone Fantacalcio pensato su scala ~1000.
 
 ### Tracking 6 squadre (live)
 1. Rinomina le 6 squadre nella barra (la tua + 5 rivali).
@@ -34,9 +34,9 @@ In asta **a ruoli**:
 
 | Strategia | P | D | C | A | Uso |
 |---|---:|---:|---:|---:|---|
-| **Modificatore first** | 100 | 250 | 270 | 380 | Default scientifici + mod |
-| Equilibrata + mod | 90 | 210 | 300 | 400 | Più peso C |
-| Anti-Malen 2+2 | 85 | 200 | 315 | 400 | Se Malen > 420–450 |
+| **Modificatore first** | 50 | 125 | 135 | 190 | Default scientifici + mod |
+| Equilibrata + mod | 45 | 105 | 150 | 200 | Più peso C |
+| Anti-Malen 2+2 | 40 | 100 | 160 | 200 | Se Malen > 210–230 |
 
 Durante la fase P spendi solo il budget P (salvo aggiustamenti manuali). Il motore Pri penalizza chi sforerebbe lo spend-safe.
 
@@ -51,7 +51,7 @@ Durante la fase P spendi solo il budget P (salvo aggiustamenti manuali). Il moto
 
 ### Difensori
 - Prima i **voti mod** (centrali affidabili), poi 1 esterno bonus se resta spend-safe.
-- Dimarco solo se dopo restano ≥180 sul budget D.
+- Dimarco solo se dopo restano ≥90 sul budget D.
 - Forma Fragile/Vetro sui centrali = sconto obbligatorio.
 
 ### Centrocampisti

@@ -1,15 +1,16 @@
 /* Asta Scientifica Fantacalcio 2026/27 — 6 squadre, priorità adattiva */
-const STORAGE_KEY = "fantacalcio-asta-2026-27";
+const STORAGE_KEY = "fantacalcio-asta-2026-27-500";
 const LEGACY_STORAGE_KEYS = [
+  "fantacalcio-asta-2026-27",
   "fantacalcio-asta-2026-27-v6",
   "fantacalcio-asta-2026-27-v5",
   "fantacalcio-asta-2026-27-v4",
 ];
 const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
-const IDB_KEY = "current";
+const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907f";
+const ASSET_V = "20260907g";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -29,7 +30,7 @@ const COLUMNS = [
   { key: "priority", label: "Pri", type: "num", title: "Priorità dinamica vs rivali + fit rosa" },
   { key: "name", label: "Giocatore", type: "text" },
   { key: "team", label: "Sq", type: "text" },
-  { key: "fvm", label: "FVM", type: "num" },
+  { key: "fvm", label: "FVM", type: "num", title: "FVM riscalato ×0.5 per asta 6×500" },
   { key: "fair", label: "Fair", type: "num", title: "Fair market stimato" },
   { key: "traffic", label: "Semaforo", type: "text", title: "Value / Fair / Ricco / Overpay vs FVM" },
   { key: "starterProb", label: "Tit%", type: "num", title: "Probabilità titolare" },
@@ -375,7 +376,7 @@ function exportRoster() {
   downloadSnapshot();
 }
 
-const budgetTotal = () => Number(state.meta.budget || 1000);
+const budgetTotal = () => Number(state.meta.budget || 500);
 const rosterSlots = () => state.meta.roster;
 const teamsCount = () => Number(state.meta.teams || 6);
 const currentBudget = () => state.meta.budgets[state.plan];
@@ -578,7 +579,7 @@ function priorityScore(p) {
   if (role === "P" && mineByRole("P").some((m) => (m.fitness || 0) >= 70) && (p.fitness || 0) < 60) s -= 8;
   if (role === "D" && p.name === "Dimarco" && intel.hungryRivals >= 2) s -= 4;
   if (role === "A" && p.name === "Malen") {
-    if (intel.avgRivalRem > 700) s += 3;
+    if (intel.avgRivalRem > budgetTotal() * 0.7) s += 3;
     if ((p.cap || 0) > roleLeft * 0.7) s -= 5;
   }
   if (role === "C" && intel.myElite && p.penalty === 1) s += 6;
@@ -670,8 +671,9 @@ function adaptiveStrategyLines(role) {
 
   const myRem = remainingBudget();
   const avgR = Math.round(intel.avgRivalRem);
-  if (myRem > avgR + 120) lines.push(`Hai +${myRem - avgR} vs media rivali: puoi forzare 1 pezzo chiave ora.`);
-  else if (myRem < avgR - 120) lines.push(`Sei −${avgR - myRem} vs media rivali: difendi il warchest dei ruoli successivi.`);
+  const gap = Math.round(budgetTotal() * 0.12);
+  if (myRem > avgR + gap) lines.push(`Hai +${myRem - avgR} vs media rivali: puoi forzare 1 pezzo chiave ora.`);
+  else if (myRem < avgR - gap) lines.push(`Sei −${avgR - myRem} vs media rivali: difendi il warchest dei ruoli successivi.`);
 
   if (intel.myElite) lines.push("Hai già un elite nel ruolo: priorità cemento/minuti, non un secondo listone.");
 
@@ -1045,7 +1047,7 @@ function openDetail(id) {
     <section class="detail-section">
       <h4>Prezzo e mercato</h4>
       <div class="metric-grid">
-        ${metricCard("FVM", p.fvm, "Quotazione listone")}
+        ${metricCard("FVM asta", p.fvm, p.fvmListone != null ? `Listone Fantacalcio ${p.fvmListone}` : "Riscalato ×0.5 per 6×500")}
         ${metricCard("Fair", p.fair, `Fascia ${fairBand}`)}
         ${metricCard("Leave", p.leave, "Tetto oltre cui lasciare")}
         ${metricCard("Cap", p.cap, "Cap asta consigliato")}
@@ -1395,6 +1397,7 @@ function normalizePlayer(raw) {
     team: raw.team,
     role: raw.role,
     fvm,
+    fvmListone: raw.fvmListone ?? null,
     cap,
     fair,
     fairLow,

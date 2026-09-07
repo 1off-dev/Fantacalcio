@@ -96,49 +96,59 @@ TEAM_CONTEXT: dict[str, dict] = {
     "FRO": {"att": 2, "def": 2, "style": "neopromossa", "cs": "basso", "sched": 3, "module": "3-5-2", "note": "soprattutto profondità"},
 }
 
-# Mock/auction paid ranges at 6 teams × 1000 (guide/mock synthesis).
+# Mock/auction paid ranges at 6 teams × 500 (sintesi guide/mock, riscalati da 1000).
 MOCK_RANGES: dict[str, dict] = {
-    "Malen": {"low": 380, "mid": 430, "high": 480, "leave": 460},
-    "Martinez L.": {"low": 280, "mid": 330, "high": 380, "leave": 370},
-    "Thuram": {"low": 160, "mid": 200, "high": 240, "leave": 235},
-    "Hojlund": {"low": 140, "mid": 180, "high": 230, "leave": 220},
-    "Kean": {"low": 90, "mid": 120, "high": 150, "leave": 145},
-    "Dimarco": {"low": 160, "mid": 200, "high": 240, "leave": 225},
-    "Paz N.": {"low": 180, "mid": 230, "high": 290, "leave": 280},
-    "Calhanoglu": {"low": 140, "mid": 180, "high": 220, "leave": 215},
-    "McTominay": {"low": 130, "mid": 170, "high": 210, "leave": 205},
-    "Svilar": {"low": 70, "mid": 95, "high": 120, "leave": 115},
-    "Vicario": {"low": 45, "mid": 60, "high": 80, "leave": 78},
-    "Orsolini": {"low": 70, "mid": 95, "high": 120, "leave": 118},
-    "Pulisic": {"low": 80, "mid": 105, "high": 135, "leave": 130},
-    "Wesley": {"low": 70, "mid": 95, "high": 125, "leave": 120},
-    "Bremer": {"low": 55, "mid": 75, "high": 100, "leave": 95},
-    "Bastoni": {"low": 40, "mid": 55, "high": 75, "leave": 72},
-    "Scamacca": {"low": 70, "mid": 95, "high": 130, "leave": 110},
-    "Dybala": {"low": 40, "mid": 60, "high": 90, "leave": 75},
-    "Leao": {"low": 80, "mid": 110, "high": 150, "leave": 130},
-    "Yildiz": {"low": 60, "mid": 85, "high": 120, "leave": 115},
-    "Douvikas": {"low": 55, "mid": 75, "high": 100, "leave": 95},
-    "Carnesecchi": {"low": 35, "mid": 48, "high": 65, "leave": 62},
-    "Maignan": {"low": 30, "mid": 45, "high": 65, "leave": 60},
-    "Barella": {"low": 50, "mid": 70, "high": 95, "leave": 90},
-    "Zaccagni": {"low": 45, "mid": 65, "high": 90, "leave": 85},
-    "Da Cunha": {"low": 40, "mid": 55, "high": 75, "leave": 72},
+    "Malen": {"low": 190, "mid": 215, "high": 240, "leave": 230},
+    "Martinez L.": {"low": 140, "mid": 165, "high": 190, "leave": 185},
+    "Thuram": {"low": 80, "mid": 100, "high": 120, "leave": 118},
+    "Hojlund": {"low": 70, "mid": 90, "high": 115, "leave": 110},
+    "Kean": {"low": 45, "mid": 60, "high": 75, "leave": 72},
+    "Dimarco": {"low": 80, "mid": 100, "high": 120, "leave": 112},
+    "Paz N.": {"low": 90, "mid": 115, "high": 145, "leave": 140},
+    "Calhanoglu": {"low": 70, "mid": 90, "high": 110, "leave": 108},
+    "McTominay": {"low": 65, "mid": 85, "high": 105, "leave": 102},
+    "Svilar": {"low": 35, "mid": 48, "high": 60, "leave": 58},
+    "Vicario": {"low": 22, "mid": 30, "high": 40, "leave": 39},
+    "Orsolini": {"low": 35, "mid": 48, "high": 60, "leave": 59},
+    "Pulisic": {"low": 40, "mid": 52, "high": 68, "leave": 65},
+    "Wesley": {"low": 35, "mid": 48, "high": 62, "leave": 60},
+    "Bremer": {"low": 28, "mid": 38, "high": 50, "leave": 48},
+    "Bastoni": {"low": 20, "mid": 28, "high": 38, "leave": 36},
+    "Scamacca": {"low": 35, "mid": 48, "high": 65, "leave": 55},
+    "Dybala": {"low": 20, "mid": 30, "high": 45, "leave": 38},
+    "Leao": {"low": 40, "mid": 55, "high": 75, "leave": 65},
+    "Yildiz": {"low": 30, "mid": 42, "high": 60, "leave": 58},
+    "Douvikas": {"low": 28, "mid": 38, "high": 50, "leave": 48},
+    "Carnesecchi": {"low": 18, "mid": 24, "high": 32, "leave": 31},
+    "Maignan": {"low": 15, "mid": 22, "high": 32, "leave": 30},
+    "Barella": {"low": 25, "mid": 35, "high": 48, "leave": 45},
+    "Zaccagni": {"low": 22, "mid": 32, "high": 45, "leave": 42},
+    "Da Cunha": {"low": 20, "mid": 28, "high": 38, "leave": 36},
 }
 
-# Scenario planner templates per role (A/B/C) — linguaggio naturale.
+# Crediti asta (lega 6×500). FVM Fantacalcio è tipicamente su scala ~1000.
+BUDGET_TOTAL = 500
+FVM_SCALE = 0.5
+
+
+def to_auction_credits(fvm: int | float | None) -> int:
+    if fvm is None:
+        return 1
+    return max(1, int(round(float(fvm) * FVM_SCALE)))
+
+# Scenario planner templates per role (A/B/C) — linguaggio naturale · asta 6×500.
 SCENARIO_PLANS: dict[str, dict] = {
     "P": {
         "A": "un portiere big affidabile (tipo Svilar) più due titolari low-cost",
         "B": "due portieri medi (Vicario/Carnesecchi/Maignan) più un backup da pochi crediti",
         "C": "tre titolari di provincia se i top costano troppo",
-        "pivot": "se Svilar sfora il tetto, prendi Vicario più un titolare economico",
+        "pivot": "se Svilar sfora il tetto (~58), prendi Vicario più un titolare economico",
     },
     "D": {
         "A": "un esterno da bonus (Dimarco/Wesley) più quattro-cinque cementi da modificatore",
         "B": "niente elite di fascia, due esterni value e tanti voti da modificatore",
         "C": "solo cementi a basso-medio prezzo se Dimarco è fuori budget",
-        "pivot": "se Dimarco passa i ~220, punta su Molina/Wesley value e centrali solidi",
+        "pivot": "se Dimarco passa i ~110, punta su Molina/Wesley value e centrali solidi",
     },
     "C": {
         "A": "uno tra Paz/Calhanoglu/McTominay più un rigorista medio e volume di voti",
@@ -150,18 +160,18 @@ SCENARIO_PLANS: dict[str, dict] = {
         "A": "Malen più un semi-top e profondità",
         "B": "piano anti-Malen con due+due (Lautaro/Thuram/Kean/Douvikas)",
         "C": "tre medi più upside se i top scappano di prezzo",
-        "pivot": "se Malen sfora il tetto, passa al piano B 2+2 e non inseguire i vetro a prezzo pieno",
+        "pivot": "se Malen sfora il tetto (~230), passa al piano B 2+2 e non inseguire i vetro a prezzo pieno",
     },
 }
 
 EXPERT_NOTES: dict[str, str] = {
-    "Malen": "Le guide lo danno come top assoluto dopo l’exploit; oltre 420–450 a 6 squadre spesso conviene lasciarlo.",
+    "Malen": "Le guide lo danno come top assoluto dopo l’exploit; oltre 210–230 a 6×500 spesso conviene lasciarlo.",
     "Martinez L.": "Affidabile su gol e assist: è il piano B naturale se Malen scappa di prezzo.",
-    "Dimarco": "È l’unico difensore che produce come un centrocampista/attaccante; a 6 squadre spesso non vale se passa i 220.",
+    "Dimarco": "È l’unico difensore che produce come un centrocampista/attaccante; a 6×500 spesso non vale se passa i 110.",
     "Paz N.": "Giovane di hype a Como: minutaggio da seguire, ma il potenziale bonus è altissimo.",
     "Calhanoglu": "Rigorista e tiro da lontano; a 32 anni prendilo solo se la forma regge, altrimenti preferisci McTominay.",
     "McTominay": "Box-to-box da bonus: meno rigorista di Calhanoglu, ma di solito più continuo sui minuti.",
-    "Svilar": "La certezza più chiara tra i portieri big col modificatore: sotto 80–90 in lega a 6 è difficile lasciarlo.",
+    "Svilar": "La certezza più chiara tra i portieri big col modificatore: sotto 40–48 in lega a 6×500 è difficile lasciarlo.",
     "Thuram": "Gol e assist senza dipendere dai rigori Inter: value se Malen e Lautaro gonfiano.",
     "Hojlund": "A Napoli ha upside ma anche concorrenza: non pagarlo da top 1 senza certezza di titolare.",
     "Kean": "Titolare a Como con bonus: semi-top concreto nelle guide di fascia media.",
@@ -475,19 +485,20 @@ def team_context(team: str) -> dict:
 
 
 def squad_fit_hint(role: str, tier: str, fvm: int) -> str:
+    """fvm is already in auction credits (6×500)."""
     if role == "P":
         return "In rosa ti serve un portiere titolare affidabile e un secondo a basso costo: non spendere due volte da top."
     if role == "D":
-        if tier in ("super_top", "top", "top_bonus", "S") or fvm >= 80:
+        if tier in ("super_top", "top", "top_bonus", "S") or fvm >= 40:
             return "Profilo da esterno/bonus: tienine al massimo uno costoso e riempi il resto con difensori da modificatore."
         return "Profilo da cemento per il modificatore: utile a basso/medio prezzo per chiudere la difesa."
     if role == "C":
-        if tier in ("super_top", "top", "S", "A") or fvm >= 100:
+        if tier in ("super_top", "top", "S", "A") or fvm >= 50:
             return "Centrocampista da bonus (rigori o inserimenti): al massimo due pezzi elite, poi volume di voti."
         return "Centrocampista da volume: buono per riempire la rosa senza bruciare il budget."
-    if tier in ("super_top", "S") or fvm >= 200:
+    if tier in ("super_top", "S") or fvm >= 100:
         return "Attaccante da slot top: decide buona parte del budget di stagione."
-    if fvm >= 80:
+    if fvm >= 40:
         return "Attaccante semi-top o value: utile come secondo/terzo pezzo dietro al big."
     return "Attaccante da profondità: prendilo a residuo, non a prezzo pieno."
 
@@ -517,6 +528,7 @@ def build_scientific_note(
     role: str,
     team: str,
     fvm: int,
+    fvm_listone: int | None = None,
     tier: str,
     age: int | None,
     starter: int | None,
@@ -544,9 +556,10 @@ def build_scientific_note(
     )
     parts: list[str] = []
 
-    # Prezzo
+    # Prezzo (crediti asta 6×500)
+    listone = fvm_listone if fvm_listone is not None else int(round(fvm / FVM_SCALE))
     price_bits = [
-        f"Quotazione listone {fvm}",
+        f"Listone Fantacalcio {listone} → ≈{fvm} in asta 6×{BUDGET_TOTAL}",
         f"prezzo stimato intorno a {band['fair']} (fascia ragionevole {band['low']}–{band['high']})",
     ]
     if band.get("leave") is not None:
@@ -554,7 +567,7 @@ def build_scientific_note(
     parts.append("Prezzo: " + "; ".join(price_bits) + ".")
     if band.get("mockMid") is not None:
         parts.append(
-            f"Nelle aste a 6 squadre di solito esce tra {band['mockLow']} e {band['mockHigh']} "
+            f"Nelle aste a 6×{BUDGET_TOTAL} di solito esce tra {band['mockLow']} e {band['mockHigh']} "
             f"(valore medio circa {band['mockMid']})."
         )
     traffic = _traffic_phrase(light)
@@ -713,7 +726,7 @@ def build_scientific_note(
         else:
             parts.append("Se esce troppo caro, passa al piano B con due attaccanti medi.")
     elif role == "D" and (tier in ("super_top", "S") or name == "Dimarco"):
-        parts.append("Se Dimarco supera circa 220 in lega a 6, meglio lasciarlo e prendere due esterni mid.")
+        parts.append("Se Dimarco supera circa 110 in lega a 6×500, meglio lasciarlo e prendere due esterni mid.")
     elif role == "C" and tier in ("super_top", "top", "S", "A"):
         parts.append("Scegli tra rigorista e box-to-box in base a chi esce prima e a che prezzo.")
     elif role == "P" and tier in ("super_top", "top", "S", "A"):

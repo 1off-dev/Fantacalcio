@@ -14,6 +14,8 @@ from pathlib import Path
 
 from science_data import (
     AGES,
+    BUDGET_TOTAL,
+    FVM_SCALE,
     SCENARIO_PLANS,
     build_scientific_note,
     fair_price,
@@ -23,6 +25,7 @@ from science_data import (
     scenario_plans,
     score_fitness,
     team_context,
+    to_auction_credits,
     traffic_light,
 )
 
@@ -186,24 +189,24 @@ PENALTIES: dict[str, dict] = {
 
 BUDGETS = {
     "modificatore_first": {
-        "P": 100,
-        "D": 250,
-        "C": 270,
-        "A": 380,
+        "P": 50,
+        "D": 125,
+        "C": 135,
+        "A": 190,
         "label": "Modificatore first",
     },
     "equilibrata_mod": {
-        "P": 90,
-        "D": 210,
-        "C": 300,
-        "A": 400,
+        "P": 45,
+        "D": 105,
+        "C": 150,
+        "A": 200,
         "label": "Equilibrata + mod",
     },
     "anti_malen": {
-        "P": 85,
-        "D": 200,
-        "C": 315,
-        "A": 400,
+        "P": 40,
+        "D": 100,
+        "C": 160,
+        "A": 200,
         "label": "Anti-Malen (2+2 attacco)",
     },
 }
@@ -445,19 +448,20 @@ def flags_for(name: str, penalty: dict | None) -> list[str]:
     return flags
 
 
-def cap_for(fvm: int, qa: int) -> int:
-    if fvm >= 200:
+def cap_for(fvm_auction: int, qa: int) -> int:
+    """Cap in crediti asta (già riscalati a 6×500)."""
+    if fvm_auction >= 100:
         factor = 1.12
-    elif fvm >= 80:
+    elif fvm_auction >= 40:
         factor = 1.08
-    elif fvm >= 30:
+    elif fvm_auction >= 15:
         factor = 1.05
     else:
         factor = 1.0
-    cap = int(round(fvm * factor))
-    if qa <= 1 and fvm <= 5:
-        cap = max(1, min(cap, 5))
-    return cap
+    cap = int(round(fvm_auction * factor))
+    if qa <= 1 and fvm_auction <= 3:
+        cap = max(1, min(cap, 3))
+    return min(cap, BUDGET_TOTAL)
 
 
 def enrich(
@@ -483,8 +487,10 @@ def enrich(
         prod = production_metrics(
             p["role"], pg_prev, fm_prev, mv_prev, goals, assists, pens, gs, minutes
         )
-        band = fair_price(p["fvm"], p["role"], start, fitness, prod, p["name"])
-        light = traffic_light(p["fvm"], band)
+        fvm_listone = int(p["fvm"] or 0)
+        fvm_auction = to_auction_credits(fvm_listone)
+        band = fair_price(fvm_auction, p["role"], start, fitness, prod, p["name"])
+        light = traffic_light(fvm_auction, band)
         injury = injury_profile(p["name"])
         ctx = team_context(p["team"])
         scenarios = scenario_plans(p["role"])
@@ -503,7 +509,8 @@ def enrich(
             name=p["name"],
             role=p["role"],
             team=p["team"],
-            fvm=p["fvm"],
+            fvm=fvm_auction,
+            fvm_listone=fvm_listone,
             tier=tier,
             age=age,
             starter=start,
@@ -524,7 +531,9 @@ def enrich(
         out.append(
             {
                 **base,
-                "cap": cap_for(p["fvm"], p["qa"]),
+                "fvmListone": fvm_listone,
+                "fvm": fvm_auction,
+                "cap": cap_for(fvm_auction, p["qa"]),
                 "fair": band["fair"],
                 "fairLow": band["low"],
                 "fairHigh": band["high"],
@@ -627,7 +636,12 @@ def main() -> None:
             "season": "2026/27",
             "mode": "Classic",
             "teams": 6,
-            "budget": 1000,
+            "budget": BUDGET_TOTAL,
+            "fvmScale": FVM_SCALE,
+            "fvmScaleNote": (
+                f"FVM listone Fantacalcio riscalato ×{FVM_SCALE} per asta "
+                f"6 squadre × {BUDGET_TOTAL} crediti (fair/cap/leave in crediti asta)."
+            ),
             "roster": {"P": 3, "D": 8, "C": 8, "A": 6},
             "modifier": "difesa",
             "auction": "ruoli",

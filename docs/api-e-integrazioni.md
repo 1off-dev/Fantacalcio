@@ -33,7 +33,7 @@ Il motore in `scripts/science_data.py` completa i 8 punti con i migliori proxy d
 ### Cosa fa questo repo
 
 - `scripts/fetch_listone.py` → aggiorna `data/listone-2026-27.json` e ricalcola `data/asta-board-2026-27.json` dalla pagina ufficiale quotazioni.
-- Il tool asta usa FVM + fasce curate + cap per lega 6×1000.
+- Il tool asta usa FVM riscalato ×0.5 + fasce curate + cap per lega **6×500**.
 
 **Raccomandazione pratica:** per l’asta usa listone ufficiale + guide aggiornate; per la stagione, Sofascore/FBref come supporto “minuti/xG”, e i voti dalla piattaforma della tua lega.
 
