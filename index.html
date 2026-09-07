@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=20260907i" />
+  <link rel="stylesheet" href="./styles.css?v=20260907j" />
 </head>
 <body>
   <div class="bg-glow" aria-hidden="true"></div>
@@ -52,7 +52,7 @@
   </section>
 
   <main class="layout">
-    <section class="panel">
+    <section class="panel col-listone">
       <div class="panel-head">
         <h2>Listone prioritizzato</h2>
         <p id="resultCount"></p>
@@ -65,26 +65,27 @@
       </div>
     </section>
 
-    <aside class="side">
+    <aside class="side col-priority">
       <section class="panel" id="priorityBox"></section>
       <section class="panel" id="scenarioBox"></section>
       <section class="panel" id="strategyBox"></section>
-      <section class="panel" id="rosterPanel">
-        <div class="panel-head"><h2>Rose &amp; budget</h2></div>
-        <div id="roster" class="roster"></div>
-      </section>
       <section class="panel tips">
         <div class="panel-head"><h2>Metodo</h2></div>
         <ul>
+          <li><strong>Pri adattiva:</strong> la lista Priorità e i punteggi Pri dipendono dalla <em>tua</em> rosa, budget e da chi è già uscito — non è uguale per tutti.</li>
           <li><strong>Chi sei?</strong> scegli la tua squadra (o apri un link <code>?me=t2</code>): Pri, budget e Compra sono i tuoi.</li>
           <li>Per un altro giocatore: <em>Condividi asta</em> → lui <em>Importa</em> → poi sceglie la sua squadra / apre il suo link POV.</li>
           <li>Rinomina le 6 squadre; <em>Compra</em> = tua, <em>Preso</em> = rivale + prezzo.</li>
           <li>Clicca un giocatore sul listone per la scheda dettaglio.</li>
-          <li>I dati locali si salvano in automatico; Backup resta per questo dispositivo.</li>
         </ul>
         <p class="fine">Dati Fantacalcio.it + motore scientifico · <code>npm run fetch</code></p>
       </section>
     </aside>
+
+    <section class="panel col-roster" id="rosterPanel">
+      <div class="panel-head"><h2>Rose &amp; budget</h2></div>
+      <div id="roster" class="roster"></div>
+    </section>
   </main>
 
   <dialog id="povDialog" class="pov-dialog">
@@ -133,6 +134,6 @@
     </div>
   </dialog>
 
-  <script src="./app.js?v=20260907i"></script>
+  <script src="./app.js?v=20260907j"></script>
 </body>
 </html>

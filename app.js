@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907i";
+const ASSET_V = "20260907j";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -1048,12 +1048,14 @@ function renderScenarios() {
 
 function renderPriorities() {
   const rows = topPriorities(8);
+  const meName = teamById(state.myTeamId)?.name || "tu";
   if (!rows.length) {
-    els.priorityBox.innerHTML = '<div class="panel-head"><h2>Priorità</h2></div><p class="muted">Nessuna priorità.</p>';
+    els.priorityBox.innerHTML = `<div class="panel-head"><h2>Priorità</h2></div><p class="muted">Nessuna priorità per ${meName} in questo ruolo.</p>`;
     return;
   }
   els.priorityBox.innerHTML = `
-    <div class="panel-head"><h2>Priorità ${ROLE_LABEL[state.auctionRole]}</h2></div>
+    <div class="panel-head"><h2>Priorità ${ROLE_LABEL[state.auctionRole]}</h2>
+      <p>per ${meName}</p></div>
     <ol class="priority-list">${rows.map(({ p, score }) => `<li>
       <div><strong>${p.name}</strong>
         <span class="meta">${p.team} · fair ${p.fair ?? "—"} · leave ${p.leave ?? "—"} · Tit ${p.starterProb ?? "—"}%</span>
