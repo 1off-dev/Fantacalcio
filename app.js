@@ -35,6 +35,9 @@ const COLUMNS = [
   { key: "fair", label: "Fair", type: "num", title: "Fair market stimato" },
   { key: "traffic", label: "Semaforo", type: "text", title: "Value / Fair / Ricco / Overpay vs FVM" },
   { key: "starterProb", label: "Tit%", type: "num", title: "Probabilità titolare" },
+  { key: "fmPrev", label: "FM", type: "num", title: "FantaMedia 2025/26" },
+  { key: "fitness", label: "Forma", type: "num", title: "Forma fisica %" },
+  { key: "gaPrev", label: "G+A", type: "num", title: "Gol + assist 2025/26" },
 ];
 
 const state = {
@@ -858,6 +861,13 @@ function adaptiveStrategyLines(role) {
 
 function sortValue(p, key, type) {
   if (key === "priority") return priorityScore(p);
+  if (key === "gaPrev") {
+    if (p.gaPrev != null) return Number(p.gaPrev);
+    const g = p.goalsPrev;
+    const a = p.assistsPrev;
+    if (g == null && a == null) return -Infinity;
+    return Number(g || 0) + Number(a || 0);
+  }
   if (key === "owner") {
     const o = state.ownership[p.id];
     return o ? (teamById(o.teamId)?.name || "") : "";
@@ -1077,6 +1087,20 @@ function fmtTit(p) {
   const cls = n >= 80 ? "tit-high" : n >= 55 ? "tit-mid" : "tit-low";
   return `<span class="tit ${cls}">${n}%</span>`;
 }
+function fmtFitPct(p) {
+  if (p.fitness == null) return '<span class="muted">—</span>';
+  const n = Math.round(Number(p.fitness));
+  const cls = n >= 80 ? "fit-high" : n >= 55 ? "fit-mid" : "fit-low";
+  return `<span class="fit ${cls}" title="${escapeAttr(p.fitnessLabel || `Forma ${n}%`)}">${n}%</span>`;
+}
+function fmtGa(p) {
+  const g = p.goalsPrev;
+  const a = p.assistsPrev;
+  if (g == null && a == null) return '<span class="muted">—</span>';
+  const gg = Number(g || 0);
+  const aa = Number(a || 0);
+  return `<span class="ga" title="${gg} gol · ${aa} assist 2025/26">${gg}+${aa}</span>`;
+}
 function fmtFit(p) {
   if (p.fitness == null) return '<span class="muted">—</span>';
   const n = Math.round(Number(p.fitness));
@@ -1108,6 +1132,9 @@ function renderHead() {
       fair: "col-num",
       traffic: "col-traffic",
       starterProb: "col-tit",
+      fmPrev: "col-fm",
+      fitness: "col-fit",
+      gaPrev: "col-ga",
     }[col.key] || "";
     return `<th class="sortable ${active ? "sorted" : ""} ${cls}" data-sort="${col.key}" title="${col.title || col.label}" scope="col">${col.label}<span class="sort-ind">${arrow}</span></th>`;
   }).join("")}<th class="col-actions" aria-label="Azioni"></th></tr>`;
@@ -1153,6 +1180,9 @@ function renderTable() {
       <td class="col-num" title="${escapeAttr(fairTitle)}">${p.fair ?? "—"}</td>
       <td class="col-traffic">${fmtTraffic(p)}</td>
       <td class="col-tit">${fmtTit(p)}</td>
+      <td class="col-fm">${fmtFm(p.fmPrev)}</td>
+      <td class="col-fit">${fmtFitPct(p)}</td>
+      <td class="col-ga">${fmtGa(p)}</td>
       <td class="col-actions"><div class="actions">${actions}</div></td>
     </tr>`;
   }).join("");
@@ -1228,9 +1258,10 @@ function openDetail(id) {
       <h4>Affidabilità e profilo</h4>
       <div class="metric-grid">
         ${metricCard("Titolarità", p.starterProb != null ? `${Math.round(p.starterProb)}%` : "—")}
-        ${metricCard("Forma", p.fitness != null ? `${p.fitnessLabel || ""} ${p.fitness}`.trim() : "—")}
+        ${metricCard("Forma", p.fitness != null ? `${p.fitnessLabel || ""} ${p.fitness}%`.trim() : "—")}
         ${metricCard("Età", p.age)}
         ${metricCard("FM 25/26", p.fmPrev != null ? Number(p.fmPrev).toFixed(2).replace(".", ",") : "—")}
+        ${metricCard("G+A 25/26", (p.goalsPrev != null || p.assistsPrev != null) ? `${Number(p.goalsPrev || 0)}+${Number(p.assistsPrev || 0)}` : "—", "Gol + assist stagione precedente")}
         ${metricCard("Minuti stimati", p.minutesEst != null ? `${p.minutesEst}'` : "—", p.minutesNote || "Proxy da presenze")}
         ${metricCard("Panchina", p.benchRate != null ? `~${p.benchRate}%` : "—")}
       </div>
@@ -1603,6 +1634,14 @@ function normalizePlayer(raw) {
     starterProb: raw.starterProb ?? raw.starter_prob ?? raw.playedsExpected ?? null,
     fitness: raw.fitness ?? null,
     fitnessLabel: raw.fitnessLabel ?? raw.fitness_label ?? null,
+    goalsPrev: raw.goalsPrev ?? raw.goals_prev ?? null,
+    assistsPrev: raw.assistsPrev ?? raw.assists_prev ?? null,
+    gaPrev: (() => {
+      const g = raw.goalsPrev ?? raw.goals_prev;
+      const a = raw.assistsPrev ?? raw.assists_prev;
+      if (g == null && a == null) return null;
+      return Number(g || 0) + Number(a || 0);
+    })(),
     age: raw.age ?? null,
     penalty: raw.penalty ?? null,
     penaltyLabel: raw.penaltyLabel ?? raw.penalty_label ?? null,
