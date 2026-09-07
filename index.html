@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=20260908b" />
+  <link rel="stylesheet" href="./styles.css?v=20260908c" />
 </head>
 <body class="auth-pending">
   <div class="bg-glow" aria-hidden="true"></div>
@@ -35,6 +35,15 @@
       <input id="importFile" type="file" accept="application/json,.json" hidden />
     </div>
   </header>
+
+  <section class="team-names-editor" id="teamNamesEditor" hidden>
+    <div class="team-names-editor-head">
+      <h2>Nomi delle 6 squadre</h2>
+      <button type="button" class="btn" id="saveTeamNamesBtn">Salva nomi</button>
+    </div>
+    <div class="team-names-fields" id="teamNamesFields"></div>
+    <p class="teams-save-hint" id="teamNamesHint">Scrivi i nomi qui e clicca Salva nomi. Questi campi non vengono ricreati dal sync.</p>
+  </section>
 
   <section class="pov-banner" id="povBanner" aria-live="polite"></section>
   <section class="teams-bar" id="teamsBar" aria-label="Squadre asta"></section>
@@ -179,6 +188,6 @@
     </div>
   </dialog>
 
-  <script src="./app.js?v=20260908b"></script>
+  <script src="./app.js?v=20260908c"></script>
 </body>
 </html>
