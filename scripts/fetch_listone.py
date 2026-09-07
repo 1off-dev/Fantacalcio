@@ -17,10 +17,13 @@ from science_data import (
     BUDGET_TOTAL,
     FVM_SCALE,
     SCENARIO_PLANS,
+    advanced_profile,
+    assign_gk_depth,
     build_scientific_note,
     fair_price,
     injury_profile,
     minutes_model,
+    parse_mantra,
     production_metrics,
     scenario_plans,
     score_fitness,
@@ -267,12 +270,14 @@ def parse_players(html: str) -> list[dict]:
         name = unescape(name_m.group(1)).strip() if name_m else (attr("keywords") or "")
         team = team_m.group(1) if team_m else "???"
         playeds = _parse_num(attr("playeds"))
+        mantra = parse_mantra(attr("role-mantra"))
         players.append(
             {
                 "id": f"{role}-{team}-{name}".replace(" ", "_"),
                 "name": name,
                 "team": team,
                 "role": role,
+                "mantra": mantra,
                 "qi": int(col("c_qi") or 0),
                 "qa": int(col("c_qa") or 0),
                 "fvm": int(col("c_fvm") or 0),
@@ -508,6 +513,10 @@ def enrich(
             flags.append("listone_value")
         if injury and (injury.get("daysOut") or 0) >= 40:
             flags.append("infortunio_fine")
+        adv = advanced_profile(p["role"], p.get("mantra") or [])
+        if adv:
+            flags.append("gioca_avanzato")
+            flags.append(f"avanzato_{adv['advancedKind']}")
         note = build_scientific_note(
             name=p["name"],
             role=p["role"],
@@ -587,8 +596,14 @@ def enrich(
                 "teamSched": ctx.get("sched"),
                 "teamModule": ctx.get("module"),
                 "scenarios": scenarios,
+                "mantra": p.get("mantra") or [],
+                "playAdvanced": bool(adv),
+                "advancedKind": adv.get("advancedKind") if adv else None,
+                "advancedLabel": adv.get("advancedLabel") if adv else None,
+                "advancedHint": adv.get("advancedHint") if adv else None,
             }
         )
+    assign_gk_depth(out)
     return out
 
 

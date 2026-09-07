@@ -765,3 +765,105 @@ def build_scientific_note(
         parts.append(expert if expert.endswith(".") else expert + ".")
 
     return " ".join(p.strip() for p in parts if p and p.strip())
+
+
+def parse_mantra(raw: str | None) -> list[str]:
+    """Codici Mantra Fantacalcio (por, dc, e, t, …) da data-filter-role-mantra."""
+    if not raw:
+        return []
+    return [c.strip().lower() for c in raw.split("|") if c.strip()]
+
+
+def advanced_profile(role: str, mantra: list[str]) -> dict | None:
+    """Segnala D/C che in Mantra giocano più avanti del ruolo Classic."""
+    codes = set(mantra or [])
+    if role == "D":
+        if codes & {"e", "w"}:
+            if "w" in codes:
+                return {
+                    "playAdvanced": True,
+                    "advancedKind": "esterno_ala",
+                    "advancedLabel": "Esterno/ala",
+                    "advancedHint": "Mantra esterno/ala: profilo offensivo da bonus",
+                }
+            return {
+                "playAdvanced": True,
+                "advancedKind": "terzino_esterno",
+                "advancedLabel": "Terzino/esterno",
+                "advancedHint": "Mantra terzino o esterno: sale e porta bonus",
+            }
+        if "b" in codes and codes & {"e", "dd", "ds"}:
+            return {
+                "playAdvanced": True,
+                "advancedKind": "braccetto",
+                "advancedLabel": "Braccetto",
+                "advancedHint": "Braccetto di difesa a 3: può salire sulla fascia",
+            }
+        return None
+    if role == "C":
+        if codes & {"t", "a"}:
+            kind = "trequartista" if "t" in codes else "centrocampista_offensivo"
+            label = "Trequartista" if "t" in codes else "Offensivo"
+            return {
+                "playAdvanced": True,
+                "advancedKind": kind,
+                "advancedLabel": label,
+                "advancedHint": "Mantra trequartista/attacco: gioca più avanti del classico C",
+            }
+        if "w" in codes:
+            return {
+                "playAdvanced": True,
+                "advancedKind": "ala_centrocampo",
+                "advancedLabel": "Ala/esterno",
+                "advancedHint": "Mantra ala/wing: profilo offensivo da fascia",
+            }
+        if "e" in codes and "m" not in codes:
+            return {
+                "playAdvanced": True,
+                "advancedKind": "esterno_centrocampo",
+                "advancedLabel": "Esterno",
+                "advancedHint": "Mantra esterno di centrocampo",
+            }
+        return None
+    return None
+
+
+def assign_gk_depth(players: list[dict]) -> None:
+    """Assegna P1/P2/P3 per squadra (mutates list in place)."""
+    by_team: dict[str, list[dict]] = {}
+    for p in players:
+        if p.get("role") != "P":
+            continue
+        by_team.setdefault(p.get("team") or "?", []).append(p)
+
+    def sort_key(p: dict) -> tuple:
+        return (
+            -(p.get("starterProb") if p.get("starterProb") is not None else -1),
+            -(p.get("playedsExpected") if p.get("playedsExpected") is not None else -1),
+            -(p.get("fvm") or 0),
+            -(p.get("pgPrev") if p.get("pgPrev") is not None else -1),
+            p.get("name") or "",
+        )
+
+    for team, keepers in by_team.items():
+        ranked = sorted(keepers, key=sort_key)
+        uncertain = any("verificare_gerarchia" in (p.get("flags") or []) for p in ranked[:2])
+        if len(ranked) >= 2:
+            top = ranked[0].get("starterProb") or 0
+            second = ranked[1].get("starterProb") or 0
+            if top - second < 20 and top < 95:
+                uncertain = True
+        labels = {1: "Titolare", 2: "Secondo", 3: "Terzo"}
+        for i, p in enumerate(ranked):
+            slot = i + 1 if i < 3 else None
+            p["gkSlot"] = slot
+            p["gkSlotLabel"] = labels.get(slot)
+            p["gkUncertain"] = bool(uncertain and slot in (1, 2))
+            if slot and slot <= 3:
+                flags = list(p.get("flags") or [])
+                tag = f"porta_{slot}"
+                if tag not in flags:
+                    flags.append(tag)
+                if uncertain and slot in (1, 2) and "verificare_gerarchia" not in flags:
+                    flags.append("verificare_gerarchia")
+                p["flags"] = flags

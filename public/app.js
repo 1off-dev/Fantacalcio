@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907n";
+const ASSET_V = "20260907o";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -1174,12 +1174,20 @@ function renderTable() {
     const ownerBit = own
       ? `<span class="row-owner ${own.teamId === state.myTeamId ? "mine" : "riv"}">${teamById(own.teamId)?.name || "?"} · ${own.price}</span>`
       : "";
+    const roleBits = [];
+    if (p.role === "P" && p.gkSlotLabel) {
+      roleBits.push(`<span class="badge gk-slot gk-${p.gkSlot}${p.gkUncertain ? " uncertain" : ""}" title="${escapeAttr((p.gkUncertain ? "Gerarchia da verificare · " : "") + (p.gkSlotLabel || ""))}">${p.gkSlot === 1 ? "Tit" : p.gkSlot === 2 ? "2°" : "3°"}</span>`);
+    }
+    if (p.playAdvanced && p.advancedLabel) {
+      roleBits.push(`<span class="badge advanced" title="${escapeAttr(p.advancedHint || p.advancedLabel)}">${p.advancedLabel}</span>`);
+    }
     return `<tr class="${rowClass}" data-id="${p.id}" title="Apri scheda ${escapeAttr(p.name)}">
       <td class="col-pri"><strong class="pri">${pri < 0 ? "—" : pri}</strong></td>
       <td class="col-name">
         <div class="name-cell">
           <span class="badge role-${p.role}">${p.role}</span>
           <span class="name">${p.name}</span>
+          ${roleBits.join("")}
         </div>
         ${ownerBit}
       </td>
@@ -1243,11 +1251,15 @@ function openDetail(id) {
         <p class="detail-sub">
           ${ownerName ? `Assegnato a <strong>${ownerName}</strong> per ${own.price}` : "Disponibile"}
           ${p.penaltyLabel ? ` · ${p.penaltyLabel}` : ""}
+          ${p.role === "P" && p.gkSlotLabel ? ` · Porta: <strong>${p.gkSlotLabel}</strong>${p.gkUncertain ? " (da verificare)" : ""}` : ""}
+          ${p.playAdvanced && p.advancedLabel ? ` · <strong>${p.advancedLabel}</strong>` : ""}
           ${pri >= 0 ? ` · Pri ${pri}` : ""}
         </p>
       </div>
       <div class="detail-head-side">
         ${fmtTraffic(p)}
+        ${p.role === "P" && p.gkSlotLabel ? `<span class="badge gk-slot gk-${p.gkSlot}${p.gkUncertain ? " uncertain" : ""}">${p.gkSlotLabel}</span>` : ""}
+        ${p.playAdvanced && p.advancedLabel ? `<span class="badge advanced">${p.advancedLabel}</span>` : ""}
         <span class="badge ${p.tier || ""}">${TIER_LABEL[p.tier] || p.tier || "—"}</span>
       </div>
     </header>
@@ -1675,6 +1687,14 @@ function normalizePlayer(raw) {
     teamSched: raw.teamSched ?? null,
     teamModule: raw.teamModule ?? null,
     scenarios: raw.scenarios ?? null,
+    mantra: Array.isArray(raw.mantra) ? raw.mantra : [],
+    gkSlot: raw.gkSlot ?? null,
+    gkSlotLabel: raw.gkSlotLabel ?? null,
+    gkUncertain: Boolean(raw.gkUncertain),
+    playAdvanced: Boolean(raw.playAdvanced),
+    advancedKind: raw.advancedKind ?? null,
+    advancedLabel: raw.advancedLabel ?? null,
+    advancedHint: raw.advancedHint ?? null,
   };
 }
 
