@@ -57,6 +57,19 @@
     "source_stats": "https://www.fantacalcio.it/statistiche-serie-a/2025-26",
     "prevSeason": "2025/26",
     "updated": "2026-09-07",
+    "dataFreshness": "Il board riparte dal listone ufficiale Fantacalcio.it (Classic). Può restare indietro sul calciomercato: applichiamo override curati (OUT_OF_SERIE_A / TEAM_OVERRIDES) per uscite ufficiali non ancora riflesse.",
+    "rosterCaveats": [
+      {
+        "type": "removed",
+        "name": "Di Gregorio",
+        "fromTeam": "JUV",
+        "asOf": "2026-08-25",
+        "to": "AFC Bournemouth",
+        "deal": "prestito con riscatto",
+        "reason": "Ufficiale Juventus→Bournemouth; non più eleggibile per Fantacalcio Serie A Classic.",
+        "source": "https://www.juventus.com / comunicati agosto 2026"
+      }
+    ],
     "budgets": {
       "modificatore_first": {
         "P": 50,
@@ -9460,87 +9473,6 @@
       "advancedKind": null,
       "advancedLabel": null,
       "advancedHint": null
-    },
-    {
-      "id": "P-JUV-Di_Gregorio",
-      "name": "Di Gregorio",
-      "team": "JUV",
-      "role": "P",
-      "mantra": [
-        "por"
-      ],
-      "qi": 9,
-      "qa": 9,
-      "fvm": 5,
-      "playedsExpected": 0,
-      "fvmListone": 10,
-      "cap": 5,
-      "fair": 3,
-      "fairLow": 2,
-      "fairHigh": 3,
-      "leave": null,
-      "mockLow": null,
-      "mockMid": null,
-      "mockHigh": null,
-      "traffic": "overpay",
-      "tier": "lowcost",
-      "flags": [
-        "rischio_fisico",
-        "listone_overpay",
-        "porta_2"
-      ],
-      "penalty": null,
-      "penaltyLabel": null,
-      "note": "Prezzo: Listone Fantacalcio 10 → ≈5 in asta 6×500; prezzo stimato intorno a 3 (fascia ragionevole 2–3). Sul listone risulta caro rispetto al fair e ai mock: meglio non inseguirlo. Non è un cemento di minuti: stima ~1350 minuti (30 partite × ~45'), spesso a disposizione (panchina/subentri ~49%). Stima da presenze, non da feed minuti ufficiali. Nella scorsa stagione ha fatto 0 gol e 0 assist. Produzione stimata ogni 90 minuti: 0.0 tra gol e assist (gol 0.0, assist 0.0; senza rigori ~0.0). Il voto medio è 6.08: i bonus aiutano poco (-0.75 rispetto al voto puro), quindi conta soprattutto la continuità. Contributo alla porta inviolata solo medio (gol subiti/partita ~0.83): meglio se entra a prezzo contenuto. Gioca nel JUV (3-4-2-1): attacco 4/5, difesa 5/5, stile «controllo e modificatore», propensione alla porta inviolata alto, un avvio di calendario nella media. Contesto club: difesa forte da modificatore. Col modificatore difesa conta avere voti stabili e poche reti subite. Affidabilità fisica: fragilità (41/100). Conviene prenderlo solo a forte sconto. Profilo: 29 anni, titolare stimato al 24%. In rosa ti serve un portiere titolare affidabile e un secondo a basso costo: non spendere due volte da top. Piano A sul ruolo: un portiere big affidabile (tipo Svilar) più due titolari low-cost. Se i top scappano: se Svilar sfora il tetto (~58), prendi Vicario più un titolare economico. Da ricordare: rischio fisico da considerare; listone già alto.",
-      "pgPrev": 30,
-      "mvPrev": 6.08,
-      "fmPrev": 5.33,
-      "goalsPrev": 0,
-      "assistsPrev": 0,
-      "pensPrev": 0,
-      "rpPrev": 1,
-      "gsPrev": 25,
-      "minutesEst": 1350,
-      "appsEst": 30,
-      "mpg": 45,
-      "startRate": 24,
-      "benchRate": 49,
-      "minutesNote": "proxy PG×mpg + Tit% (no feed minuti ufficiali)",
-      "per90Prod": 0.0,
-      "per90ProdNoPen": 0.0,
-      "per90Goals": 0.0,
-      "per90Assists": 0.0,
-      "votePure": 6.08,
-      "bonusPure": -0.75,
-      "csProxy": 0.57,
-      "bonusProxy": 3.4,
-      "starterProb": 24,
-      "age": 29,
-      "fitness": 41,
-      "fitnessLabel": "fragilità",
-      "injuryRisk": null,
-      "injuryDaysOut": null,
-      "injuryMuscular": null,
-      "injuryMultiComp": null,
-      "teamAtt": 4,
-      "teamDef": 5,
-      "teamStyle": "controllo e modificatore",
-      "teamCs": "alto",
-      "teamSched": 3,
-      "teamModule": "3-4-2-1",
-      "scenarios": {
-        "A": "un portiere big affidabile (tipo Svilar) più due titolari low-cost",
-        "B": "due portieri medi (Vicario/Carnesecchi/Maignan) più un backup da pochi crediti",
-        "C": "tre titolari di provincia se i top costano troppo",
-        "pivot": "se Svilar sfora il tetto (~58), prendi Vicario più un titolare economico"
-      },
-      "playAdvanced": false,
-      "advancedKind": null,
-      "advancedLabel": null,
-      "advancedHint": null,
-      "gkSlot": 2,
-      "gkSlotLabel": "Secondo",
-      "gkUncertain": false
     },
     {
       "id": "C-JUV-Locatelli",
@@ -19514,7 +19446,7 @@
         "rischio_fisico",
         "over_30",
         "listone_overpay",
-        "porta_3"
+        "porta_2"
       ],
       "penalty": null,
       "penaltyLabel": null,
@@ -19565,8 +19497,8 @@
       "advancedKind": null,
       "advancedLabel": null,
       "advancedHint": null,
-      "gkSlot": 3,
-      "gkSlotLabel": "Terzo",
+      "gkSlot": 2,
+      "gkSlotLabel": "Secondo",
       "gkUncertain": false
     },
     {
@@ -40860,7 +40792,8 @@
       "tier": "pool",
       "flags": [
         "rischio_fisico",
-        "over_30"
+        "over_30",
+        "porta_3"
       ],
       "penalty": null,
       "penaltyLabel": null,
@@ -40911,8 +40844,8 @@
       "advancedKind": null,
       "advancedLabel": null,
       "advancedHint": null,
-      "gkSlot": null,
-      "gkSlotLabel": null,
+      "gkSlot": 3,
+      "gkSlotLabel": "Terzo",
       "gkUncertain": false
     },
     {

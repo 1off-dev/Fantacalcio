@@ -6,6 +6,8 @@
 
 Il tool (`public/`) calcola live **Pri** (con fit rosa), **Tit%**, **Forma**, **Età**, FM 25/26, **fair/mock/leave**, semaforo overpay, prod/90, **scenari A/B/C** e note scientifiche per ogni giocatore. I prezzi (FVM asta / fair / leave) sono **riscalati ×0.5** rispetto al listone Fantacalcio pensato su scala ~1000.
 
+**Freschezza dati:** il board parte dal listone ufficiale Fantacalcio.it, che a volte resta indietro sul calciomercato. Override curati in `OUT_OF_SERIE_A` / `TEAM_OVERRIDES` (es. Di Gregorio→Bournemouth escluso). Aggiorna con `npm run fetch`.
+
 ### Tracking 6 squadre (live)
 1. Rinomina le 6 squadre nella barra (la tua + 5 rivali).
 2. **Compra** = assegna a te + prezzo; **Preso** = assegna a un rivale + prezzo.

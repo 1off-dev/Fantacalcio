@@ -16,7 +16,9 @@ from science_data import (
     AGES,
     BUDGET_TOTAL,
     FVM_SCALE,
+    OUT_OF_SERIE_A,
     SCENARIO_PLANS,
+    TEAM_OVERRIDES,
     advanced_profile,
     assign_gk_depth,
     build_scientific_note,
@@ -265,6 +267,36 @@ DEFAULT_TEAMS = [
     {"id": "t5", "name": "Riva 5", "isMe": False},
     {"id": "t6", "name": "Riva 6", "isMe": False},
 ]
+
+
+def apply_roster_overrides(players: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Corregge maglie / esclude chi è uscito dalla Serie A (lag listone)."""
+    caveats: list[dict] = []
+    kept: list[dict] = []
+    for p in players:
+        name = p.get("name") or ""
+        out = OUT_OF_SERIE_A.get(name)
+        if out:
+            caveats.append({
+                "type": "removed",
+                "name": name,
+                "fromTeam": p.get("team"),
+                **out,
+            })
+            continue
+        ov = TEAM_OVERRIDES.get(name)
+        if ov and ov.get("team") and ov["team"] != p.get("team"):
+            caveats.append({
+                "type": "team_override",
+                "name": name,
+                "fromTeam": p.get("team"),
+                "toTeam": ov["team"],
+                "asOf": ov.get("asOf"),
+                "reason": ov.get("reason"),
+            })
+            p = {**p, "team": ov["team"], "id": f"{p.get('role')}-{ov['team']}-{name}".replace(" ", "_")}
+        kept.append(p)
+    return kept, caveats
 
 
 def fetch_html(url: str = URL) -> str:
@@ -657,6 +689,7 @@ def main() -> None:
     players = parse_players(html)
     if len(players) < 400:
         raise SystemExit(f"Parse fallito: solo {len(players)} giocatori")
+    players, roster_caveats = apply_roster_overrides(players)
 
     stats_html = fetch_html(STATS_URL)
     prev_stats = parse_prev_stats(stats_html)
@@ -717,6 +750,12 @@ def main() -> None:
             "source_stats": STATS_URL,
             "prevSeason": PREV_SEASON,
             "updated": str(date.today()),
+            "dataFreshness": (
+                "Il board riparte dal listone ufficiale Fantacalcio.it (Classic). "
+                "Può restare indietro sul calciomercato: applichiamo override curati "
+                "(OUT_OF_SERIE_A / TEAM_OVERRIDES) per uscite ufficiali non ancora riflesse."
+            ),
+            "rosterCaveats": roster_caveats,
             "budgets": BUDGETS,
             "tiers": TIERS,
             "penaltiesSource": "Sintesi guide rigoristi Serie A 2026/27 (FCO/SOS/Goal)",
@@ -765,11 +804,17 @@ def main() -> None:
     missing = [n for n in PENALTIES if n not in {p["name"] for p in players}]
     sample = next((p for p in enriched if p["name"] == "Malen"), enriched[0])
     print(
-        f"OK {len(players)} giocatori | fasce {shown} | rigoristi {pens} | "
+        f"OK {len(enriched)} giocatori | fasce {shown} | rigoristi {pens} | "
         f"FM {PREV_SEASON} {with_fm} | gol {with_gol} | RP>0 {with_rp} | Tit% {with_tit} | "
         f"età {with_age} | min {with_min} | /90 {with_p90} | mock {with_mock} | "
         f"fragili {fragile} | missing pens {missing}"
     )
+    if roster_caveats:
+        for c in roster_caveats:
+            if c["type"] == "removed":
+                print(f"Override REMOVE {c['name']} ({c.get('fromTeam')}→{c.get('to')}): {c.get('reason')}")
+            else:
+                print(f"Override TEAM {c['name']} {c.get('fromTeam')}→{c.get('toTeam')}: {c.get('reason')}")
     print(f"Sample note ({sample['name']}): {sample['note'][:220]}…")
 
 

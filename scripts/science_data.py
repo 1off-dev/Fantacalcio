@@ -6,7 +6,23 @@ true minutes/injury feeds are not on Fantacalcio listone pages.
 
 from __future__ import annotations
 
-# Historical / curated fragility (0–5). Higher = more injury risk.
+# Listone Fantacalcio a volte resta indietro sul mercato: override manuali.
+# Chi è uscito dalla Serie A non deve restare nel board Classic.
+OUT_OF_SERIE_A: dict[str, dict] = {
+    "Di Gregorio": {
+        "asOf": "2026-08-25",
+        "to": "AFC Bournemouth",
+        "deal": "prestito con riscatto",
+        "reason": "Ufficiale Juventus→Bournemouth; non più eleggibile per Fantacalcio Serie A Classic.",
+        "source": "https://www.juventus.com / comunicati agosto 2026",
+    },
+}
+
+# Correzione club se il listone mostra ancora la vecchia maglia (ma resta in Serie A).
+TEAM_OVERRIDES: dict[str, dict] = {
+    # es. "Nome": {"team": "INT", "asOf": "2026-08-01", "reason": "..."},
+}
+
 FRAGILE: dict[str, int] = {
     "Scalvini": 5, "Scamacca": 4, "Dybala": 4, "Chiesa": 4, "Zaniolo": 4,
     "Bremer": 3, "De Bruyne": 3, "Vlahovic": 3, "Leao": 2, "Lookman": 2,

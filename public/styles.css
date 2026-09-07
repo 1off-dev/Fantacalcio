@@ -810,6 +810,12 @@ td[data-col="starterProb"] {
   opacity: 0.8;
 }
 .auction-banner p { margin: 0; opacity: 0.92; font-size: 14px; }
+.auction-banner .data-caveat {
+  margin-top: 8px;
+  font-size: 12px;
+  opacity: 0.85;
+  color: #f0c9a8;
+}
 .auction-banner .btn.ghost,
 .auction-banner .btn.ghost.dark {
   color: #eef6f1;
