@@ -1,0 +1,36 @@
+name: Deploy GitHub Pages
+
+# Disabilitato di default: il token Actions non puo' creare il sito Pages (403).
+# Pubblicazione attiva via branch `gh-pages` (Settings → Pages → Deploy from a branch).
+# Questo workflow resta disponibile solo a mano, se Pages e' gia' abilitato su Actions.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

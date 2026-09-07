@@ -1,0 +1,11 @@
+{
+  "name": "fantacalcio-asta",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Assistente asta Fantacalcio Classic 2026/27 — 6 squadre, 500 crediti, modificatore difesa",
+  "scripts": {
+    "start": "python3 -m http.server 4173 --directory public",
+    "fetch": "python3 scripts/fetch_listone.py",
+    "sync": "npm run fetch && npm start"
+  }
+}

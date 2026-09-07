@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Asta Scientifica Fantacalcio 2026/27 — 6 squadre · Ruoli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css?v=20260907r" />
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="top">
+    <div>
+      <p class="eyebrow">Classic · 6 squadre · 500 · Mod. difesa · Asta a ruoli</p>
+      <h1>Asta Scientifica <span>2026/27</span></h1>
+      <p class="save-status" id="saveStatus" aria-live="polite">Salvataggio…</p>
+    </div>
+    <div class="top-actions">
+      <label class="field">
+        <span>Piano budget (tu)</span>
+        <select id="budgetPlan"></select>
+      </label>
+      <button id="resetBtn" class="btn ghost" type="button">Reset asta</button>
+      <button id="importBtn" class="btn ghost" type="button" title="Importa asta condivisa o backup">Importa</button>
+      <button id="shareAuctionBtn" class="btn ghost" type="button" title="Esporta solo rose/prezzi da mandare agli altri">Condividi file</button>
+      <button id="githubSyncBtn" class="btn ghost" type="button" title="Asta condivisa su GitHub per tutti">GitHub live</button>
+      <button id="exportBtn" class="btn" type="button" title="Backup completo su questo dispositivo">Backup</button>
+      <input id="importFile" type="file" accept="application/json,.json" hidden />
+    </div>
+  </header>
+
+  <section class="pov-banner" id="povBanner" aria-live="polite"></section>
+  <section class="teams-bar" id="teamsBar" aria-label="Squadre asta"></section>
+  <section class="auction-banner" id="auctionBanner"></section>
+  <section class="stats" id="stats"></section>
+
+  <section class="controls">
+    <input id="search" type="search" placeholder="Cerca giocatore, squadra, nota…" autocomplete="off" />
+    <div class="chips" id="roleChips">
+      <button type="button" data-role="ALL" class="chip">Tutti</button>
+      <button type="button" data-role="P" class="chip active">P</button>
+      <button type="button" data-role="D" class="chip">D</button>
+      <button type="button" data-role="C" class="chip">C</button>
+      <button type="button" data-role="A" class="chip">A</button>
+    </div>
+    <label class="check"><input type="checkbox" id="roleLock" checked /> Solo ruolo di fase</label>
+    <label class="check"><input type="checkbox" id="onlyTiered" /> Solo fasce</label>
+    <label class="check"><input type="checkbox" id="onlyPenalties" /> Solo rigoristi</label>
+    <label class="check"><input type="checkbox" id="hideTaken" checked /> Nascondi presi rivali</label>
+  </section>
+
+  <main class="layout">
+    <section class="panel col-listone">
+      <div class="panel-head">
+        <h2>Listone prioritizzato</h2>
+        <p id="resultCount"></p>
+      </div>
+      <div class="table-wrap">
+        <table class="listone">
+          <thead id="playerHead"></thead>
+          <tbody id="playerTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <aside class="side col-priority">
+      <section class="panel" id="priorityBox"></section>
+      <section class="panel" id="scenarioBox"></section>
+      <section class="panel" id="strategyBox"></section>
+      <section class="panel tips">
+        <div class="panel-head"><h2>Metodo</h2></div>
+        <ul>
+          <li><strong>GitHub live:</strong> l’host pubblica l’asta su GitHub; tutti gli altri aggiornano da lì (anche in anonimo).</li>
+          <li><strong>Chi sei?</strong> scegli la tua squadra (o <code>?me=t2</code>): Pri, budget e Compra sono i tuoi.</li>
+          <li>Locale: i dati restano nel browser; Backup/Importa restano disponibili offline.</li>
+          <li>Fonte listone Fantacalcio.it + override curati (es. uscite all’estero).</li>
+        </ul>
+        <p class="fine">Fonte listone: Fantacalcio.it (può restare indietro sul mercato). Override curati per uscite ufficiali. Aggiorna board con <code>npm run fetch</code>.</p>
+      </section>
+    </aside>
+
+    <section class="panel col-roster" id="rosterPanel">
+      <div class="panel-head"><h2>Rose &amp; budget</h2></div>
+      <div id="roster" class="roster"></div>
+    </section>
+  </main>
+
+  <dialog id="povDialog" class="pov-dialog">
+    <form method="dialog" id="povForm">
+      <h3>Chi sei in questa asta?</h3>
+      <p class="hint">Ogni giocatore apre la UI dal proprio punto di vista. Pri, piano budget e pulsante Compra si riferiscono a te.</p>
+      <label class="field">
+        <span>La mia squadra</span>
+        <select id="povTeam"></select>
+      </label>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn ghost dark" type="submit">Annulla</button>
+        <button value="default" class="btn" type="submit">Entra come questo giocatore</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="githubDialog" class="pov-dialog github-dialog">
+    <form method="dialog" id="githubForm">
+      <h3>Asta live su GitHub</h3>
+      <p class="hint">Un file pubblico <code>asta-live.json</code> sul branch <code>gh-pages</code> è la copia condivisa. Tutti possono <strong>aggiornare</strong> senza login. Solo l’host ha bisogno di un token per <strong>pubblicare</strong>.</p>
+      <label class="field">
+        <span>Token GitHub (solo host, resta in questo browser)</span>
+        <input id="githubToken" type="password" autocomplete="off" placeholder="ghp_… fine-grained con Contents: Write" />
+      </label>
+      <label class="check"><input type="checkbox" id="githubAutoPull" /> Aggiorna automaticamente ogni 12s</label>
+      <label class="check"><input type="checkbox" id="githubAutoPush" /> Pubblica in automatico dopo Compra/Preso (solo host)</label>
+      <p class="hint" id="githubStatus">Stato: non sincronizzato</p>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn ghost dark" type="submit">Chiudi</button>
+        <button id="githubPullBtn" class="btn ghost dark" type="button">Aggiorna da GitHub</button>
+        <button id="githubPushBtn" class="btn" type="button">Pubblica su GitHub</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="buyDialog">
+    <form method="dialog" id="buyForm">
+      <h3 id="buyTitle">Acquista</h3>
+      <label class="field">
+        <span>Squadra</span>
+        <select id="buyTeam"></select>
+      </label>
+      <label class="field">
+        <span>Prezzo pagato</span>
+        <input id="buyPrice" type="number" min="1" max="500" required />
+      </label>
+      <p class="hint" id="buyHint"></p>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn ghost dark" type="submit">Annulla</button>
+        <button value="default" class="btn" type="submit">Conferma</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="detailDialog" class="detail-dialog">
+    <div class="detail-shell">
+      <div id="detailBody" class="detail-scroll"></div>
+      <div class="detail-footer">
+        <div id="detailActions" class="detail-actions"></div>
+        <form method="dialog">
+          <button value="cancel" class="btn ghost dark" id="detailClose" type="submit">Chiudi</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="./app.js?v=20260907r"></script>
+</body>
+</html>

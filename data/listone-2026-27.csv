@@ -1,0 +1,594 @@
+id,name,team,role,qi,qa,fvm,playedsExpected
+A-ROM-Malen,Malen,ROM,A,34,38,450,100
+A-INT-Martinez_L.,Martinez L.,INT,A,35,33,361,100
+D-INT-Dimarco,Dimarco,INT,D,32,31,240,100
+C-COM-Paz_N.,Paz N.,COM,C,30,29,245,100
+C-INT-Calhanoglu,Calhanoglu,INT,C,27,28,243,100
+A-INT-Thuram,Thuram,INT,A,29,28,249,67
+A-NAP-Hojlund,Hojlund,NAP,A,28,28,260,100
+A-MIL-Ramos_G.,Ramos G.,MIL,A,27,27,237,100
+C-NAP-McTominay,McTominay,NAP,C,28,27,220,67
+C-BOL-Orsolini,Orsolini,BOL,C,26,25,177,67
+A-JUV-Kolo_Muani,Kolo Muani,JUV,A,26,25,165,100
+A-COM-Kean,Kean,COM,A,25,24,183,67
+C-MIL-Pulisic,Pulisic,MIL,C,25,24,150,0
+C-MIL-Rabiot,Rabiot,MIL,C,22,23,145,100
+A-JUV-Woltemade,Woltemade,JUV,A,23,23,160,33
+A-COM-Douvikas,Douvikas,COM,A,20,22,185,100
+A-JUV-Yildiz,Yildiz,JUV,A,23,22,100,33
+C-COM-Baturina,Baturina,COM,C,19,20,105,100
+C-ROM-Mora,Mora,ROM,C,19,20,100,100
+A-ATA-Scamacca,Scamacca,ATA,A,19,19,110,100
+P-ROM-Svilar,Svilar,ROM,P,18,19,85,100
+A-SAS-Berardi,Berardi,SAS,A,18,19,106,67
+A-UDI-Davis_K.,Davis K.,UDI,A,19,19,108,33
+A-ATA-Krstovic,Krstovic,ATA,A,18,18,98,100
+C-COM-Da_Cunha,Da Cunha,COM,C,18,18,87,100
+C-INT-Barella,Barella,INT,C,17,18,81,100
+A-MIL-Leao,Leao,MIL,A,18,18,75,0
+D-ROM-Wesley,Wesley,ROM,D,17,18,87,100
+C-UDI-Zaniolo,Zaniolo,UDI,C,18,18,80,33
+D-ROM-Molina_N.,Molina N.,ROM,D,18,18,78,67
+P-ATA-Carnesecchi,Carnesecchi,ATA,P,16,17,55,100
+A-ATA-De_Ketelaere,De Ketelaere,ATA,A,17,17,95,100
+P-INT-Martinez_Jo.,Martinez Jo.,INT,P,17,17,68,100
+A-INT-Esposito_F.P.,Esposito F.P.,INT,A,16,17,105,100
+C-JUV-McKennie,McKennie,JUV,C,17,17,70,33
+C-NAP-De_Bruyne,De Bruyne,NAP,C,15,17,108,100
+P-JUV-Vicario,Vicario,JUV,P,16,17,70,100
+D-JUV-Bremer,Bremer,JUV,D,15,16,60,100
+C-LAZ-Zaccagni,Zaccagni,LAZ,C,16,16,87,67
+D-ROM-Mancini,Mancini,ROM,D,15,16,50,100
+A-ROM-Dybala,Dybala,ROM,A,14,16,100,100
+A-BOL-Dovbyk,Dovbyk,BOL,A,16,15,51,100
+P-COM-Butez,Butez,COM,P,16,15,50,100
+C-FIO-Atta,Atta,FIO,C,17,15,78,100
+D-INT-Akanji,Akanji,INT,D,16,15,47,100
+P-MIL-Maignan,Maignan,MIL,P,15,15,52,100
+D-NAP-Rrahmani,Rrahmani,NAP,D,14,15,51,100
+A-SAS-Laurientè,Laurientè,SAS,A,15,15,83,100
+A-ATA-Raspadori,Raspadori,ATA,A,13,14,73,67
+D-INT-Bastoni,Bastoni,INT,D,14,14,43,100
+D-JUV-Kalulu,Kalulu,JUV,D,13,14,47,100
+D-MIL-Pavlovic,Pavlovic,MIL,D,14,14,49,100
+A-NAP-Santos_A.,Santos A.,NAP,A,14,14,61,100
+A-FIO-Pellegrino_M.,Pellegrino M.,FIO,A,15,14,40,100
+A-ROM-Castro_S.,Castro S.,ROM,A,14,14,70,100
+A-TOR-Simeone,Simeone,TOR,A,15,14,80,100
+A-FIO-Beto,Beto,FIO,A,14,14,50,33
+C-ATA-Samardzic,Samardzic,ATA,C,12,13,44,100
+C-JUV-Conceicao,Conceicao,JUV,C,12,13,68,100
+C-LAZ-Taylor_K.,Taylor K.,LAZ,C,13,13,53,67
+D-MIL-Gila,Gila,MIL,D,12,13,31,100
+A-MIL-Nkunku,Nkunku,MIL,A,13,13,20,0
+D-ROM-N'Dicka,N'Dicka,ROM,D,13,13,42,67
+A-ROM-Soulè,Soulè,ROM,A,12,13,48,100
+C-TOR-Vlasic,Vlasic,TOR,C,14,13,73,100
+D-UDI-Solet,Solet,UDI,D,13,13,46,67
+C-ATA-Ederson_D.S.,Ederson D.S.,ATA,C,12,12,46,100
+A-SAS-Esposito_Se.,Esposito Se.,SAS,A,13,12,40,0
+A-COM-Diao,Diao,COM,A,11,12,50,100
+C-LAZ-Gudmundsson_A.,Gudmundsson A.,LAZ,C,13,12,40,33
+D-INT-Bisseck,Bisseck,INT,D,11,12,36,100
+D-INT-Stones,Stones,INT,D,12,12,25,67
+C-INT-Zielinski,Zielinski,INT,C,10,12,45,100
+C-MIL-Modric,Modric,MIL,C,12,12,45,100
+D-NAP-Di_Lorenzo,Di Lorenzo,NAP,D,12,12,39,100
+A-LAZ-Pinamonti,Pinamonti,LAZ,A,13,12,53,0
+C-UDI-Ekkelenkamp,Ekkelenkamp,UDI,C,10,12,57,67
+A-CAG-Kevin_Carlos,Kevin Carlos,CAG,A,13,12,36,33
+C-INT-Jones_C.,Jones C.,INT,C,12,12,47,67
+C-JUV-Gonzalez_N.,Gonzalez N.,JUV,C,11,12,45,67
+C-ATA-Kessiè,Kessiè,ATA,C,12,12,47,0
+C-FIO-Goncalves_P.,Goncalves P.,FIO,C,12,12,50,0
+C-COM-Rodriguez_Je.,Rodriguez Je.,COM,C,12,11,31,33
+P-FIO-De_Gea,De Gea,FIO,P,13,11,30,100
+D-GEN-Ostigard,Ostigard,GEN,D,11,11,41,100
+C-GEN-Baldanzi,Baldanzi,GEN,C,11,11,28,100
+A-GEN-Colombo,Colombo,GEN,A,11,11,52,100
+C-JUV-Alajbegovic,Alajbegovic,JUV,C,12,11,42,67
+C-MIL-Saelemaekers,Saelemaekers,MIL,C,10,11,35,100
+P-NAP-Meret,Meret,NAP,P,11,11,48,100
+D-ROM-Hermoso,Hermoso,ROM,D,10,11,26,100
+A-VEN-Adams_A.,Adams A.,VEN,A,12,11,35,100
+C-FIO-Mastantuono,Mastantuono,FIO,C,12,11,50,100
+D-INT-Spence,Spence,INT,D,12,11,37,0
+C-MIL-Moreira,Moreira,MIL,C,12,11,45,33
+D-ATA-Scalvini,Scalvini,ATA,D,10,10,28,100
+P-BOL-Skorupski,Skorupski,BOL,P,10,10,32,100
+C-BOL-Bernardeschi,Bernardeschi,BOL,C,9,10,27,100
+C-ATA-Rowe,Rowe,ATA,C,11,10,40,33
+P-CAG-Caprile,Caprile,CAG,P,9,10,25,67
+D-COM-Ramon,Ramon,COM,D,10,10,31,100
+C-COM-Perrone,Perrone,COM,C,10,10,34,100
+C-LAZ-Frattesi,Frattesi,LAZ,C,7,10,75,67
+P-LAZ-Mandas,Mandas,LAZ,P,9,10,36,67
+A-LAZ-Dia,Dia,LAZ,A,10,10,20,67
+C-NAP-Zambo_Anguissa,Zambo Anguissa,NAP,C,11,10,41,100
+C-NAP-Vergara,Vergara,NAP,C,8,10,35,67
+A-NAP-Lukaku,Lukaku,NAP,A,10,10,45,0
+C-ROM-Konè_M.,Konè M.,ROM,C,10,10,42,100
+C-SAS-Thorstvedt,Thorstvedt,SAS,C,10,10,39,100
+A-TOR-Adams_C.,Adams C.,TOR,A,9,10,33,100
+A-PAR-Tourè_E.,Tourè E.,PAR,A,11,10,37,100
+D-COM-Chalobah_T.,Chalobah T.,COM,D,9,10,32,100
+A-PAR-Romero_D.,Romero D.,PAR,A,10,10,37,67
+D-FIO-Dodò,Dodò,FIO,D,10,9,20,33
+A-FRO-Raimondo,Raimondo,FRO,A,7,9,27,100
+D-GEN-Vasquez,Vasquez,GEN,D,9,9,30,100
+C-INT-Diouf,Diouf,INT,C,8,9,43,67
+C-INT-Sucic_P.,Sucic P.,INT,C,8,9,21,100
+P-JUV-Di_Gregorio,Di Gregorio,JUV,P,9,9,10,0
+C-JUV-Locatelli,Locatelli,JUV,C,8,9,33,100
+C-JUV-Thuram_K.,Thuram K.,JUV,C,10,9,25,0
+C-LAZ-Cancellieri,Cancellieri,LAZ,C,9,9,25,67
+C-LAZ-Isaksen,Isaksen,LAZ,C,9,9,22,67
+A-LAZ-Ratkov,Ratkov,LAZ,A,10,9,22,0
+C-MON-Colpani,Colpani,MON,C,8,9,15,100
+A-MON-Cutrone,Cutrone,MON,A,9,9,23,67
+C-NAP-Politano,Politano,NAP,C,10,9,37,100
+C-ROM-Cristante,Cristante,ROM,C,8,9,29,100
+C-SAS-Volpato,Volpato,SAS,C,7,9,25,100
+A-SAS-Bowie,Bowie,SAS,A,10,9,32,100
+C-TOR-Casadei,Casadei,TOR,C,10,9,27,33
+P-UDI-Okoye,Okoye,UDI,P,9,9,28,67
+D-UDI-Vojvoda,Vojvoda,UDI,D,8,9,19,67
+D-UDI-Kamara_H.,Kamara H.,UDI,D,6,9,12,67
+A-VEN-Yeboah_J.,Yeboah J.,VEN,A,8,9,27,100
+C-ROM-Pellegrini_Lo.,Pellegrini Lo.,ROM,C,10,9,20,0
+A-FRO-Bobcek,Bobcek,FRO,A,9,9,31,0
+P-TOR-Perri,Perri,TOR,P,9,9,26,33
+D-ATA-Zappacosta,Zappacosta,ATA,D,8,8,19,100
+C-ATA-Pasalic,Pasalic,ATA,C,9,8,22,100
+D-BOL-Miranda_J.,Miranda J.,BOL,D,8,8,23,67
+C-BOL-Odgaard,Odgaard,BOL,C,8,8,17,100
+C-BOL-Cambiaghi,Cambiaghi,BOL,C,8,8,25,100
+A-BOL-Dallinga,Dallinga,BOL,A,8,8,10,0
+C-TOR-Mandragora,Mandragora,TOR,C,9,8,23,100
+A-BOL-Piccoli,Piccoli,BOL,A,8,8,29,100
+C-FRO-Calò,Calò,FRO,C,7,8,27,100
+A-FRO-Ghedjemis,Ghedjemis,FRO,A,9,8,23,33
+P-GEN-Bijlow,Bijlow,GEN,P,8,8,15,100
+D-GEN-Norton-Cuffy,Norton-Cuffy,GEN,D,8,8,15,67
+A-GEN-Vitinha_O.,Vitinha O.,GEN,A,8,8,13,100
+D-JUV-Celik,Celik,JUV,D,8,8,16,100
+D-JUV-Cambiaso,Cambiaso,JUV,D,9,8,18,33
+A-JUV-David,David,JUV,A,9,8,25,33
+D-LAZ-Doekhi,Doekhi,LAZ,D,7,8,16,67
+P-LEC-Falcone,Falcone,LEC,P,8,8,26,67
+D-LEC-Tiago_Gabriel,Tiago Gabriel,LEC,D,7,8,20,67
+A-LEC-Geubbels,Geubbels,LEC,A,9,8,23,67
+D-MIL-Bartesaghi,Bartesaghi,MIL,D,8,8,22,67
+C-MIL-Chukwueze,Chukwueze,MIL,C,6,8,22,100
+D-NAP-Gutierrez,Gutierrez,NAP,D,8,8,26,0
+D-NAP-Spinazzola,Spinazzola,NAP,D,8,8,25,100
+C-NAP-Lobotka,Lobotka,NAP,C,7,8,23,100
+D-PAR-Delprato,Delprato,PAR,D,8,8,21,100
+D-PAR-Valeri,Valeri,PAR,D,8,8,22,100
+D-ROM-Koulierakis,Koulierakis,ROM,D,8,8,15,33
+C-SAS-Konè_I.,Konè I.,SAS,C,9,8,20,0
+D-TOR-Comuzzo,Comuzzo,TOR,D,6,8,13,100
+D-COM-Couto,Couto,COM,D,8,8,25,100
+C-FRO-Schmid,Schmid,FRO,C,8,8,25,100
+A-GEN-Osmajic,Osmajic,GEN,A,8,8,28,67
+D-BOL-Theate,Theate,BOL,D,8,8,20,33
+C-MIL-Hutchinson,Hutchinson,MIL,C,8,8,25,0
+D-PAR-Diego_Carlos,Diego Carlos,PAR,D,8,8,26,33
+C-BOL-Mbangula,Mbangula,BOL,C,8,8,28,0
+P-COM-Sanchez_Ro.,Sanchez Ro.,COM,P,8,8,25,0
+D-ATA-Djimsiti,Djimsiti,ATA,D,7,7,16,0
+D-ATA-Hien,Hien,ATA,D,8,7,11,0
+C-ATA-Gaetano,Gaetano,ATA,C,7,7,30,100
+C-ATA-Zalewski,Zalewski,ATA,C,6,7,18,100
+D-JUV-Lucumì,Lucumì,JUV,D,8,7,17,67
+D-BOL-Zortea,Zortea,BOL,D,6,7,19,67
+C-BOL-Ferguson,Ferguson,BOL,C,7,7,23,100
+D-CAG-Mina,Mina,CAG,D,8,7,20,0
+D-CAG-Obert,Obert,CAG,D,7,7,15,67
+C-CAG-Adopo,Adopo,CAG,C,6,7,13,67
+C-CAG-Romano,Romano,CAG,C,5,7,21,67
+D-FIO-Dragusin,Dragusin,FIO,D,8,7,20,100
+D-FIO-Jimenez_A.,Jimenez A.,FIO,D,8,7,18,67
+C-FIO-Fagioli,Fagioli,FIO,C,8,7,20,100
+C-FIO-Ndour,Ndour,FIO,C,8,7,22,100
+D-FRO-Bracaglia,Bracaglia,FRO,D,5,7,15,100
+C-GEN-Frendrup,Frendrup,GEN,C,7,7,19,100
+A-INT-Bonny,Bonny,INT,A,7,7,15,33
+C-JUV-Koopmeiners,Koopmeiners,JUV,C,5,7,15,67
+A-JUV-Boga,Boga,JUV,A,6,7,27,100
+D-LAZ-Tavares_N.,Tavares N.,LAZ,D,6,7,25,33
+C-LAZ-Rovella,Rovella,LAZ,C,6,7,16,67
+C-LEC-Coulibaly_L.,Coulibaly L.,LEC,C,6,7,17,67
+D-MIL-Gabbia,Gabbia,MIL,D,7,7,15,33
+D-MON-Mangas,Mangas,MON,D,6,7,15,100
+C-MON-Akinsanmiro,Akinsanmiro,MON,C,6,7,11,67
+A-MON-Varela_G.,Varela G.,MON,A,3,7,40,67
+P-PAR-Suzuki,Suzuki,PAR,P,7,7,20,0
+C-PAR-Bernabè,Bernabè,PAR,C,7,7,34,67
+C-ROM-Pisilli,Pisilli,ROM,C,5,7,19,67
+P-SAS-Muric,Muric,SAS,P,7,7,15,100
+D-SAS-Idzes,Idzes,SAS,D,7,7,19,67
+D-TOR-Coco,Coco,TOR,D,7,7,14,100
+D-TOR-Ismajli,Ismajli,TOR,D,7,7,13,100
+C-UDI-Karlstrom,Karlstrom,UDI,C,6,7,20,67
+C-UDI-Unai_Gomez,Unai Gomez,UDI,C,7,7,16,33
+A-VEN-Rrahmani_Al.,Rrahmani Al.,VEN,A,8,7,13,33
+C-GEN-Sow,Sow,GEN,C,7,7,15,100
+C-ATA-Elmas,Elmas,ATA,C,7,7,22,67
+D-NAP-Badiashile,Badiashile,NAP,D,7,7,18,33
+D-LAZ-Sutalo_J.,Sutalo J.,LAZ,D,7,7,19,0
+C-LEC-Monteiro_J.,Monteiro J.,LEC,C,7,7,23,0
+D-TOR-Belghali,Belghali,TOR,D,7,7,20,33
+C-JUV-Sarr_P.,Sarr P.,JUV,C,7,7,25,0
+A-FIO-Gnonto,Gnonto,FIO,A,7,7,25,33
+C-GEN-El_Shaarawy,El Shaarawy,GEN,C,7,7,25,0
+D-ATA-Kolasinac,Kolasinac,ATA,D,5,6,8,100
+D-ATA-Ahanor,Ahanor,ATA,D,6,6,13,0
+D-ATA-Bellanova,Bellanova,ATA,D,6,6,17,33
+D-ATA-Bernasconi,Bernasconi,ATA,D,6,6,18,33
+A-ATA-Sulemana_K.,Sulemana K.,ATA,A,6,6,8,0
+D-BOL-Heggem,Heggem,BOL,D,6,6,15,100
+D-BOL-Holm,Holm,BOL,D,5,6,13,100
+C-BOL-Pobega,Pobega,BOL,C,6,6,12,67
+C-CAG-Winks,Winks,CAG,C,6,6,15,67
+C-CAG-Fazzini,Fazzini,CAG,C,7,6,23,67
+A-CAG-Mutandwa,Mutandwa,CAG,A,6,6,7,0
+D-COM-Kaiki,Kaiki,COM,D,7,6,13,0
+D-COM-Valle,Valle,COM,D,6,6,21,100
+C-COM-Milla,Milla,COM,C,5,6,30,67
+C-COM-Caqueret,Caqueret,COM,C,6,6,17,67
+C-COM-Liberali,Liberali,COM,C,6,6,21,33
+D-FIO-Viery,Viery,FIO,D,6,6,12,67
+C-FIO-Oulai,Oulai,FIO,C,6,6,18,100
+D-FRO-Monterisi,Monterisi,FRO,D,6,6,13,67
+D-FRO-Oyono_A.,Oyono A.,FRO,D,5,6,10,100
+C-FRO-Zerbin,Zerbin,FRO,C,5,6,12,67
+A-FRO-Kvernadze,Kvernadze,FRO,A,4,6,24,100
+D-GEN-Marcandalli,Marcandalli,GEN,D,6,6,14,100
+C-GEN-Ellertsson,Ellertsson,GEN,C,6,6,16,100
+D-INT-Pavard,Pavard,INT,D,6,6,14,33
+D-INT-Carlos_Augusto,Carlos Augusto,INT,D,7,6,20,33
+P-JUV-Perin,Perin,JUV,P,6,6,5,0
+C-JUV-Zhegrova,Zhegrova,JUV,C,6,6,17,33
+D-LAZ-Romagnoli,Romagnoli,LAZ,D,7,6,20,0
+D-LAZ-Pedraza,Pedraza,LAZ,D,5,6,14,67
+D-LAZ-Marusic,Marusic,LAZ,D,6,6,20,33
+A-LAZ-Noslin,Noslin,LAZ,A,6,6,8,0
+D-LEC-Veiga_D.,Veiga D.,LEC,D,5,6,12,67
+D-LEC-Gallo,Gallo,LEC,D,6,6,12,33
+C-LEC-Pierotti,Pierotti,LEC,C,6,6,19,67
+A-LEC-Stulic,Stulic,LEC,A,7,6,11,67
+D-MIL-Tomori,Tomori,MIL,D,7,6,8,0
+A-MIL-Gimenez,Gimenez,MIL,A,6,6,10,0
+C-MON-Pessina,Pessina,MON,C,7,6,15,0
+D-NAP-Beukema,Beukema,NAP,D,6,6,12,0
+D-NAP-Buongiorno,Buongiorno,NAP,D,7,6,15,0
+A-NAP-Neres,Neres,NAP,A,6,6,20,33
+P-PAR-Daffara,Daffara,PAR,P,7,6,7,0
+D-PAR-Circati,Circati,PAR,D,6,6,18,0
+C-PAR-Nicolussi_Caviglia,Nicolussi Caviglia,PAR,C,6,6,16,0
+C-SAS-Matic,Matic,SAS,C,5,6,15,100
+C-SAS-Adzic,Adzic,SAS,C,5,6,16,100
+C-SAS-Bakola,Bakola,SAS,C,5,6,14,67
+C-TOR-Cacciamani,Cacciamani,TOR,C,5,6,24,100
+C-TOR-Oristanio,Oristanio,TOR,C,7,6,12,0
+A-TOR-Zapata_D.,Zapata D.,TOR,A,7,6,12,0
+D-ATA-Kristensen_T.,Kristensen T.,ATA,D,7,6,20,0
+C-UDI-Piotrowski,Piotrowski,UDI,C,5,6,15,67
+P-VEN-Stankovic_F.,Stankovic F.,VEN,P,6,6,11,100
+C-VEN-Basic,Basic,VEN,C,6,6,19,67
+D-SAS-Obrador,Obrador,SAS,D,6,6,13,33
+C-MON-Tourè_I.,Tourè I.,MON,C,6,6,14,0
+D-TOR-Fortini,Fortini,TOR,D,5,6,12,100
+D-SAS-Leysen_F.,Leysen F.,SAS,D,5,6,12,100
+D-ROM-Balerdi,Balerdi,ROM,D,6,6,11,33
+D-SAS-Caleta-Car,Caleta-Car,SAS,D,6,6,15,0
+A-MON-Zeballos,Zeballos,MON,A,6,6,18,0
+D-CAG-Sugawara,Sugawara,CAG,D,6,6,15,0
+C-TOR-Braganca,Braganca,TOR,C,6,6,20,33
+A-CAG-Maldini,Maldini,CAG,A,5,5,21,67
+C-BOL-Amondarain,Amondarain,BOL,C,5,5,10,33
+D-CAG-Kofler,Kofler,CAG,D,5,5,8,33
+D-CAG-Zè_Pedro,Zè Pedro,CAG,D,5,5,13,67
+C-CAG-Felici,Felici,CAG,C,5,5,7,33
+D-COM-Kempf,Kempf,COM,D,5,5,13,33
+D-FIO-Valdepenas,Valdepenas,FIO,D,6,5,16,67
+P-FRO-Palmisani,Palmisani,FRO,P,4,5,12,100
+D-FRO-Calvani,Calvani,FRO,D,4,5,13,100
+C-GEN-Meichtry,Meichtry,GEN,C,5,5,11,67
+C-INT-Luis_Henrique,Luis Henrique,INT,C,4,5,12,67
+D-JUV-Kelly_L.,Kelly L.,JUV,D,5,5,12,67
+C-LAZ-Dele-Bashiru,Dele-Bashiru,LAZ,C,5,5,13,33
+D-LEC-Gaspar_K.,Gaspar K.,LEC,D,5,5,12,67
+D-MIL-De_Winter,De Winter,MIL,D,3,5,20,100
+C-MIL-Jashari,Jashari,MIL,C,4,5,13,67
+P-NAP-Milinkovic-Savic_V.,Milinkovic-Savic V.,NAP,P,5,5,5,0
+D-NAP-Olivera,Olivera,NAP,D,5,5,13,33
+C-PAR-Keita_M.,Keita M.,PAR,C,5,5,15,100
+C-PAR-Ondrejka,Ondrejka,PAR,C,5,5,18,0
+D-ROM-Ghilardi,Ghilardi,ROM,D,4,5,10,67
+D-SAS-Doig,Doig,SAS,D,4,5,10,100
+D-TOR-Pedersen,Pedersen,TOR,D,5,5,12,33
+C-TOR-Fitz-Jim,Fitz-Jim,TOR,C,4,5,18,100
+C-TOR-Gineitis,Gineitis,TOR,C,5,5,12,100
+D-VEN-Bella-Kotchap,Bella-Kotchap,VEN,D,6,5,13,67
+D-VEN-Correia_T.,Correia T.,VEN,D,4,5,12,67
+D-VEN-Haps,Haps,VEN,D,5,5,10,100
+C-VEN-Busio,Busio,VEN,C,5,5,14,100
+C-VEN-Sohm,Sohm,VEN,C,5,5,11,67
+C-VEN-Perez_K.,Perez K.,VEN,C,5,5,15,100
+C-MIL-Cissè_A.,Cissè A.,MIL,C,3,5,24,100
+A-FRO-Birligea,Birligea,FRO,A,5,5,11,0
+A-MON-Ngonge,Ngonge,MON,A,5,5,13,0
+D-TOR-Patterson,Patterson,TOR,D,5,5,12,33
+D-TOR-Rodriguez_R.,Rodriguez R.,TOR,D,5,5,12,0
+D-ATA-Kossounou,Kossounou,ATA,D,3,4,12,100
+C-ROM-De_Roon,De Roon,ROM,C,4,4,10,0
+D-BOL-Vitik,Vitik,BOL,D,5,4,10,0
+C-BOL-Moro_N.,Moro N.,BOL,C,4,4,14,33
+C-SAS-Dominguez_B.,Dominguez B.,SAS,C,3,4,12,67
+D-CAG-Rodriguez_Ju.,Rodriguez Ju.,CAG,D,3,4,14,67
+D-CAG-Zappa,Zappa,CAG,D,4,4,7,33
+C-CAG-Prati,Prati,CAG,C,4,4,7,0
+A-CAG-Borrelli,Borrelli,CAG,A,4,4,9,33
+A-CAG-Mendy_P.,Mendy P.,CAG,A,4,4,12,67
+D-COM-Smolcic_I.,Smolcic I.,COM,D,4,4,10,33
+C-COM-Addai,Addai,COM,C,5,4,10,0
+A-COM-Morata,Morata,COM,A,4,4,7,0
+D-FIO-Pongracic,Pongracic,FIO,D,4,4,8,33
+D-FIO-Parisi,Parisi,FIO,D,5,4,10,0
+C-PAR-Fabbian,Fabbian,PAR,C,4,4,8,33
+D-FRO-Cittadini,Cittadini,FRO,D,3,4,8,100
+C-FRO-Cichella,Cichella,FRO,C,4,4,12,67
+C-FRO-Koutsoupias,Koutsoupias,FRO,C,4,4,11,0
+C-FRO-Fini,Fini,FRO,C,3,4,13,100
+D-GEN-Martin,Martin,GEN,D,5,4,8,0
+D-GEN-Mitaj,Mitaj,GEN,D,4,4,10,0
+C-GEN-Amorim,Amorim,GEN,C,4,4,11,67
+C-GEN-Messias,Messias,GEN,C,3,4,8,100
+C-GEN-Traorè_Hj.,Traorè Hj.,GEN,C,5,4,11,0
+A-GEN-Havel,Havel,GEN,A,4,4,5,0
+C-INT-Mkhitaryan,Mkhitaryan,INT,C,5,4,9,0
+D-JUV-Gatti,Gatti,JUV,D,4,4,10,33
+C-JUV-Douglas_Luiz,Douglas Luiz,JUV,C,4,4,15,100
+D-LAZ-Provstgaard,Provstgaard,LAZ,D,3,4,13,67
+D-LAZ-Floriani_Mussolini,Floriani Mussolini,LAZ,D,3,4,10,67
+C-LAZ-Cataldi,Cataldi,LAZ,C,4,4,12,0
+D-LEC-Siebert,Siebert,LEC,D,4,4,12,67
+C-LEC-Ngom,Ngom,LEC,C,4,4,12,67
+C-LEC-Berisha_M.,Berisha M.,LEC,C,5,4,12,0
+C-LEC-Gandelman,Gandelman,LEC,C,5,4,10,0
+A-LEC-N'Dri,N'Dri,LEC,A,3,4,12,67
+C-MIL-Fofana_Y.,Fofana Y.,MIL,C,5,4,10,0
+C-COM-Ricci_S.,Ricci S.,COM,C,4,4,12,0
+C-MIL-Loftus-Cheek,Loftus-Cheek,MIL,C,4,4,16,100
+A-MIL-Camarda,Camarda,MIL,A,5,4,20,0
+P-MON-Thiam,Thiam,MON,P,5,4,5,67
+D-MON-Delli_Carri,Delli Carri,MON,D,4,4,11,33
+D-MON-Birindelli,Birindelli,MON,D,4,4,12,100
+A-MON-Mota,Mota,MON,A,5,4,8,33
+C-MON-Folorunsho,Folorunsho,MON,C,4,4,17,67
+A-NAP-Giovane,Giovane,NAP,A,4,4,7,0
+A-NAP-Lang,Lang,NAP,A,3,4,14,67
+A-NAP-Lucca,Lucca,NAP,A,3,4,12,67
+D-PAR-Valenti,Valenti,PAR,D,4,4,10,33
+C-PAR-Almqvist,Almqvist,PAR,C,4,4,11,67
+A-PAR-Frigan,Frigan,PAR,A,5,4,6,33
+D-ROM-Rensch,Rensch,ROM,D,5,4,14,0
+C-ROM-El_Aynaoui,El Aynaoui,ROM,C,4,4,13,0
+D-SAS-Walukiewicz,Walukiewicz,SAS,D,4,4,10,0
+D-TOR-Comert,Comert,TOR,D,4,4,12,67
+C-TOR-Ilkhan,Ilkhan,TOR,C,4,4,8,33
+C-FIO-Njie,Njie,FIO,C,4,4,28,67
+A-TOR-Kulenovic,Kulenovic,TOR,A,4,4,9,33
+D-UDI-Kabasele,Kabasele,UDI,D,4,4,12,0
+D-UDI-Bertola,Bertola,UDI,D,4,4,10,33
+D-UDI-Zanoli,Zanoli,UDI,D,4,4,10,0
+D-UDI-Arizala,Arizala,UDI,D,4,4,8,0
+C-UDI-Miller_L.,Miller L.,UDI,C,3,4,12,67
+A-UDI-Gueye,Gueye,UDI,A,4,4,7,67
+D-VEN-Moreno_M.,Moreno M.,VEN,D,5,4,6,33
+D-VEN-Hainaut,Hainaut,VEN,D,3,4,12,100
+A-VEN-Adorante,Adorante,VEN,A,5,4,8,0
+A-MON-Robinson_J.,Robinson J.,MON,A,4,4,5,33
+C-FRO-Grillitsch,Grillitsch,FRO,C,5,4,10,0
+D-FRO-Terzic,Terzic,FRO,D,4,4,8,67
+A-JUV-Milik,Milik,JUV,A,5,4,10,0
+D-NAP-Favasuli,Favasuli,NAP,D,4,4,11,0
+A-LEC-Fatah,Fatah,LEC,A,4,4,14,33
+C-CAG-Massolin,Massolin,CAG,C,4,4,12,0
+D-VEN-Juan_Jesus,Juan Jesus,VEN,D,4,4,10,0
+A-CAG-Nzola,Nzola,CAG,A,4,4,10,0
+D-GEN-Ehizibue,Ehizibue,GEN,D,4,4,10,33
+C-SAS-Sulemana_I.,Sulemana I.,SAS,C,3,3,7,33
+D-BOL-Casale,Casale,BOL,D,3,3,5,0
+D-BOL-Helland,Helland,BOL,D,2,3,12,67
+D-CAG-Idrissi_R.,Idrissi R.,CAG,D,3,3,3,0
+C-CAG-Deiola,Deiola,CAG,C,3,3,8,67
+A-COM-Kuhn,Kuhn,COM,A,3,3,5,0
+D-FIO-Ranieri_L.,Ranieri L.,FIO,D,3,3,10,33
+D-FIO-Joao_Mario,Joao Mario,FIO,D,3,3,12,67
+C-FIO-Brescianini,Brescianini,FIO,C,3,3,11,100
+D-FRO-Akpoguma,Akpoguma,FRO,D,3,3,6,0
+C-FRO-Gelli_F.,Gelli F.,FRO,C,3,3,6,0
+C-FRO-Masini,Masini,FRO,C,2,3,8,100
+C-INT-Stankovic_A.,Stankovic A.,INT,C,3,3,7,0
+C-JUV-Miretti,Miretti,JUV,C,3,3,7,0
+A-JUV-Ekhator,Ekhator,JUV,A,3,3,10,0
+C-LEC-Gorter,Gorter,LEC,C,1,3,12,67
+C-LEC-Maleh,Maleh,LEC,C,2,3,7,67
+D-MIL-Athekame,Athekame,MIL,D,3,3,8,0
+D-MIL-Estupinan,Estupinan,MIL,D,3,3,13,67
+C-MIL-Musah,Musah,MIL,C,2,3,15,100
+D-MON-Lucchesi,Lucchesi,MON,D,4,3,11,100
+D-MON-Kouadio,Kouadio,MON,D,3,3,14,100
+D-MON-Carboni_A.,Carboni A.,MON,D,3,3,9,100
+C-MON-Colombo_L.,Colombo L.,MON,C,3,3,4,33
+C-NAP-Gilmour,Gilmour,NAP,C,3,3,10,0
+D-PAR-Troilo,Troilo,PAR,D,3,3,14,100
+D-PAR-Britschgi,Britschgi,PAR,D,3,3,10,67
+C-PAR-Ordonez_C.,Ordonez C.,PAR,C,2,3,10,100
+C-PAR-Sorensen_O.,Sorensen O.,PAR,C,3,3,12,0
+C-PAR-Diallo_O.,Diallo O.,PAR,C,3,3,12,33
+A-PAR-Elphege,Elphege,PAR,A,3,3,11,33
+D-ROM-Angelino,Angelino,ROM,D,3,3,12,0
+D-SAS-Candè,Candè,SAS,D,3,3,7,0
+C-TOR-Aboukhlal,Aboukhlal,TOR,C,3,3,5,67
+D-UDI-Palma,Palma,UDI,D,2,3,11,33
+D-UDI-Ebosse,Ebosse,UDI,D,2,3,5,67
+D-VEN-Halhal,Halhal,VEN,D,4,3,10,67
+D-VEN-Schingtienne,Schingtienne,VEN,D,3,3,10,100
+D-VEN-Sverko,Sverko,VEN,D,3,3,7,0
+D-VEN-Franjic,Franjic,VEN,D,2,3,7,67
+C-VEN-Helgason,Helgason,VEN,C,3,3,3,0
+A-PAR-Lontani,Lontani,PAR,A,1,3,11,100
+D-SAS-Odenthal,Odenthal,SAS,D,1,3,8,33
+D-FRO-Tchato,Tchato,FRO,D,3,3,8,0
+D-COM-Kambwala,Kambwala,COM,D,3,3,8,0
+C-CAG-Gagliardini,Gagliardini,CAG,C,3,3,8,0
+D-GEN-Drameh,Drameh,GEN,D,3,3,10,0
+C-VEN-Fernandez_T.,Fernandez T.,VEN,C,3,3,8,33
+D-BOL-Alhassane,Alhassane,BOL,D,2,2,6,67
+C-BOL-El_Azzouzi_O.,El Azzouzi O.,BOL,C,2,2,10,33
+D-SAS-Van_Der_Brempt,Van Der Brempt,SAS,D,2,2,11,0
+C-CAG-Fadera,Fadera,CAG,C,2,2,12,33
+P-FRO-Desplanches,Desplanches,FRO,P,2,2,1,0
+C-FRO-Hasa,Hasa,FRO,C,2,2,5,33
+D-GEN-Otoa,Otoa,GEN,D,2,2,5,33
+D-GEN-Puczka,Puczka,GEN,D,2,2,3,0
+D-GEN-Sabelli,Sabelli,GEN,D,2,2,5,33
+C-GEN-Venturino,Venturino,GEN,C,2,2,4,0
+P-INT-Provedel,Provedel,INT,P,2,2,5,0
+D-LAZ-Lazzari,Lazzari,LAZ,D,2,2,5,0
+D-LAZ-Pellegrini_Lu.,Pellegrini Lu.,LAZ,D,2,2,7,0
+C-LAZ-Belahyane,Belahyane,LAZ,C,1,2,3,33
+D-LEC-Jean,Jean,LEC,D,2,2,4,0
+D-LEC-Ndaba,Ndaba,LEC,D,1,2,5,67
+D-MIL-Diawara_S.,Diawara S.,MIL,D,2,2,4,0
+D-MON-Bakoune,Bakoune,MON,D,1,2,4,33
+C-MON-Ciurria,Ciurria,MON,C,2,2,6,0
+A-MON-Petagna,Petagna,MON,A,2,2,5,0
+D-NAP-Marin_R.,Marin R.,NAP,D,2,2,8,100
+P-PAR-Corvi,Corvi,PAR,P,1,2,10,100
+D-PAR-Ndiaye,Ndiaye,PAR,D,1,2,8,33
+C-PAR-Cremaschi,Cremaschi,PAR,C,1,2,3,33
+C-SAS-Boloca,Boloca,SAS,C,2,2,5,0
+C-SAS-Lipani,Lipani,SAS,C,2,2,5,33
+D-TOR-Biraghi,Biraghi,TOR,D,2,2,5,0
+D-UDI-Abankwah,Abankwah,UDI,D,1,2,10,67
+C-UDI-Zarraga,Zarraga,UDI,C,1,2,4,33
+C-UDI-Chakvetadze,Chakvetadze,UDI,C,2,2,6,0
+A-UDI-Buksa,Buksa,UDI,A,2,2,4,0
+D-VEN-Sagrado,Sagrado,VEN,D,2,2,4,33
+C-VEN-Duncan,Duncan,VEN,C,2,2,4,0
+D-CAG-Aurelio,Aurelio,CAG,D,2,2,5,0
+C-MON-Forson_O.,Forson O.,MON,C,1,2,1,67
+D-MON-Goglichidze,Goglichidze,MON,D,2,2,5,0
+D-SAS-Cinquegrano,Cinquegrano,SAS,D,1,2,4,100
+C-MON-Foe_Ondoa,Foe Ondoa,MON,C,1,2,2,33
+D-MIL-Terracciano_F.,Terracciano F.,MIL,D,2,2,4,0
+D-ROM-Lulli,Lulli,ROM,D,1,2,10,100
+D-PAR-Drobnic,Drobnic,PAR,D,1,2,1,33
+C-UDI-Jovanovic,Jovanovic,UDI,C,2,2,5,0
+A-BOL-Enem,Enem,BOL,A,2,2,4,0
+P-ATA-Rossi_F.,Rossi F.,ATA,P,1,1,1,0
+P-ATA-Sportiello,Sportiello,ATA,P,1,1,1,0
+P-BOL-Happonen,Happonen,BOL,P,1,1,1,0
+P-BOL-Pessina_Mas.,Pessina Mas.,BOL,P,1,1,1,0
+D-BOL-De_Silvestri,De Silvestri,BOL,D,1,1,4,0
+P-CAG-Ciocci,Ciocci,CAG,P,1,1,1,0
+P-CAG-Sherri,Sherri,CAG,P,1,1,1,0
+D-CAG-Raterink,Raterink,CAG,D,1,1,1,0
+C-CAG-Liteta,Liteta,CAG,C,1,1,1,0
+A-CAG-Albarracin,Albarracin,CAG,A,1,1,1,0
+A-CAG-Trepy,Trepy,CAG,A,1,1,2,0
+P-MON-Tornqvist,Tornqvist,MON,P,1,1,10,0
+P-COM-Vigorito,Vigorito,COM,P,1,1,1,0
+D-COM-Goldaniga,Goldaniga,COM,D,1,1,1,0
+D-COM-Cuenca_A.,Cuenca A.,COM,D,1,1,8,0
+C-COM-Lahdo,Lahdo,COM,C,1,1,1,0
+A-COM-Azon,Azon,COM,A,1,1,1,0
+P-FIO-Christensen_O.,Christensen O.,FIO,P,1,1,1,0
+P-FIO-Lezzerini,Lezzerini,FIO,P,1,1,1,0
+P-FRO-Lolic,Lolic,FRO,P,1,1,1,0
+D-FRO-Amey,Amey,FRO,D,1,1,1,0
+D-FRO-Gelli_J.,Gelli J.,FRO,D,1,1,1,0
+D-FRO-Oyono_J.,Oyono J.,FRO,D,1,1,2,0
+D-FRO-Corrado,Corrado,FRO,D,1,1,1,0
+C-FRO-El_Azzouzi_A.,El Azzouzi A.,FRO,C,1,1,1,0
+C-FRO-Kone_B.,Kone B.,FRO,C,1,1,3,0
+P-GEN-Sommariva,Sommariva,GEN,P,1,1,1,0
+P-GEN-Stolz,Stolz,GEN,P,1,1,1,0
+D-GEN-Vogliacco,Vogliacco,GEN,D,1,1,2,0
+D-GEN-Matturro,Matturro,GEN,D,1,1,2,0
+P-INT-Di_Gennaro,Di Gennaro,INT,P,1,1,1,0
+P-JUV-Pinsoglio,Pinsoglio,JUV,P,1,1,1,0
+D-JUV-Rugani,Rugani,JUV,D,1,1,3,0
+D-JUV-Cabal,Cabal,JUV,D,1,1,4,0
+P-LAZ-Motta,Motta,LAZ,P,1,1,1,0
+P-LAZ-Renzetti,Renzetti,LAZ,P,1,1,1,0
+D-LAZ-Patric,Patric,LAZ,D,1,1,1,0
+C-LAZ-Przyborek,Przyborek,LAZ,C,1,1,5,0
+P-LEC-Fruchtl,Fruchtl,LEC,P,1,1,1,0
+P-LEC-Samooja,Samooja,LEC,P,1,1,1,0
+D-LEC-Perez_M.,Perez M.,LEC,D,1,1,1,0
+C-LEC-Kaba,Kaba,LEC,C,1,1,2,0
+C-LEC-Fofana_Sa.,Fofana Sa.,LEC,C,1,1,1,0
+P-MIL-Terracciano,Terracciano,MIL,P,1,1,1,0
+P-MIL-Torriani,Torriani,MIL,P,1,1,1,0
+P-MON-Pizzignacco,Pizzignacco,MON,P,1,1,1,33
+P-MON-Strajnar,Strajnar,MON,P,1,1,1,0
+D-MON-Antov,Antov,MON,D,1,1,2,0
+P-NAP-Contini,Contini,NAP,P,1,1,1,0
+D-NAP-Marianucci,Marianucci,NAP,D,1,1,3,0
+D-VEN-Mazzocchi,Mazzocchi,VEN,D,1,1,10,0
+D-PAR-Carboni_F.,Carboni F.,PAR,D,1,1,3,0
+P-ROM-De_Marzi,De Marzi,ROM,P,1,1,1,0
+P-ROM-Gollini,Gollini,ROM,P,1,1,1,0
+D-MON-Ziolkowski,Ziolkowski,MON,D,1,1,8,0
+A-ROM-Vaz,Vaz,ROM,A,1,1,4,0
+P-SAS-Russo_A.,Russo A.,SAS,P,1,1,1,0
+P-SAS-Turati,Turati,SAS,P,1,1,1,0
+D-SAS-Missori,Missori,SAS,D,1,1,2,0
+D-SAS-Pieragnolo,Pieragnolo,SAS,D,1,1,1,0
+C-SAS-Iannoni,Iannoni,SAS,C,1,1,1,0
+A-SAS-Moro_L.,Moro L.,SAS,A,1,1,1,0
+P-TOR-Mascardi,Mascardi,TOR,P,1,1,5,67
+P-TOR-Paleari,Paleari,TOR,P,1,1,1,0
+P-TOR-Siviero,Siviero,TOR,P,1,1,1,0
+C-LEC-Ilic,Ilic,LEC,C,1,1,10,33
+C-TOR-Anjorin,Anjorin,TOR,C,1,1,4,0
+P-UDI-Padelli,Padelli,UDI,P,1,1,1,0
+P-UDI-Piana,Piana,UDI,P,1,1,1,0
+D-UDI-Mlacic,Mlacic,UDI,D,1,1,3,0
+C-UDI-Camara_A.,Camara A.,UDI,C,1,1,3,0
+A-UDI-Bayo_V.,Bayo V.,UDI,A,1,1,3,33
+P-VEN-Grandi,Grandi,VEN,P,1,1,1,0
+P-VEN-Pozzi,Pozzi,VEN,P,1,1,1,0
+D-VEN-Gomes,Gomes,VEN,D,1,1,1,0
+C-VEN-Bjarkason,Bjarkason,VEN,C,1,1,3,0
+C-VEN-Dagasso,Dagasso,VEN,C,1,1,1,33
+A-VEN-Lisman,Lisman,VEN,A,1,1,1,0
+A-VEN-Lauberbach,Lauberbach,VEN,A,1,1,1,33
+P-ATA-Vismara,Vismara,ATA,P,1,1,1,0
+P-SAS-Satalino,Satalino,SAS,P,1,1,1,0
+P-LEC-Penev,Penev,LEC,P,1,1,1,0
+P-FRO-Pisseri,Pisseri,FRO,P,1,1,1,0
+P-CAG-Radunovic,Radunovic,CAG,P,1,1,1,0
+A-PAR-De_Martis,De Martis,PAR,A,1,1,1,0
+P-VEN-Montipò,Montipò,VEN,P,1,1,1,0
+D-FRO-Omar_Fayed,Omar Fayed,FRO,D,1,1,1,0
+P-LEC-Bleve,Bleve,LEC,P,1,1,1,0
+C-LEC-Laerke,Laerke,LEC,C,1,1,1,0
+C-MIL-Comotto,Comotto,MIL,C,1,1,1,0
+D-SAS-Macchioni,Macchioni,SAS,D,1,1,1,0
+C-MON-Mout,Mout,MON,C,1,1,12,33
+C-CAG-Ciervo,Ciervo,CAG,C,1,1,1,0
+P-JUV-Grabara,Grabara,JUV,P,1,1,1,0
+D-MON-Maye,Maye,MON,D,1,1,1,0
+P-UDI-Mrozek,Mrozek,UDI,P,1,1,1,0
+D-LEC-Dembelè_A.,Dembelè A.,LEC,D,1,1,2,0
+P-PAR-Ghidotti,Ghidotti,PAR,P,1,1,1,0
+A-GEN-Robinho_Junior,Robinho Junior,GEN,A,1,1,3,0
+P-ATA-Pompei,Pompei,ATA,P,1,1,1,0
+C-PAR-Sierro,Sierro,PAR,C,1,1,1,0

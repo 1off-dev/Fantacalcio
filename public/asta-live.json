@@ -1,0 +1,18 @@
+{
+  "kind": "fantacalcio-asta-snapshot",
+  "version": 2,
+  "shared": true,
+  "savedAt": null,
+  "ownership": {},
+  "teams": [
+    { "id": "t1", "name": "La mia squadra" },
+    { "id": "t2", "name": "Riva 2" },
+    { "id": "t3", "name": "Riva 3" },
+    { "id": "t4", "name": "Riva 4" },
+    { "id": "t5", "name": "Riva 5" },
+    { "id": "t6", "name": "Riva 6" }
+  ],
+  "auctionRole": "P",
+  "roleLock": true,
+  "note": "File live condiviso su GitHub Pages. L'host pubblica con «Pubblica su GitHub»; gli altri usano «Aggiorna da GitHub»."
+}
