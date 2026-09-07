@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907r";
+const ASSET_V = "20260907t";
 const GITHUB_SYNC = {
   owner: "1off-dev",
   repo: "Fantacalcio",
@@ -19,6 +19,10 @@ const GITHUB_SYNC = {
   path: "asta-live.json",
 };
 const GITHUB_CFG_KEY = "fantacalcio-asta-github-sync";
+const AUTH_KEY = "fantacalcio-asta-auth";
+const AUTH_USERS = {
+  admin: { password: "admin", role: "admin", label: "Admin" },
+};
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -73,6 +77,15 @@ const state = {
 const $ = (id) => document.getElementById(id);
 const els = {
   budgetPlan: $("budgetPlan"),
+  logoutBtn: $("logoutBtn"),
+  loginDialog: $("loginDialog"),
+  loginForm: $("loginForm"),
+  loginUser: $("loginUser"),
+  loginPass: $("loginPass"),
+  loginError: $("loginError"),
+  loginAdminBtn: $("loginAdminBtn"),
+  loginReadonlyBtn: $("loginReadonlyBtn"),
+  authStatus: $("authStatus"),
   resetBtn: $("resetBtn"),
   exportBtn: $("exportBtn"),
   shareAuctionBtn: $("shareAuctionBtn"),
@@ -128,6 +141,122 @@ let idbReady = null;
 let githubPollTimer = null;
 let lastRemoteSavedAt = null;
 let githubPushTimer = null;
+let authSession = null;
+
+function readAuth() {
+  try {
+    return JSON.parse(sessionStorage.getItem(AUTH_KEY) || "null");
+  } catch {
+    return null;
+  }
+}
+
+function writeAuth(session) {
+  authSession = session;
+  try {
+    if (session) sessionStorage.setItem(AUTH_KEY, JSON.stringify(session));
+    else sessionStorage.removeItem(AUTH_KEY);
+  } catch (err) {
+    console.warn("auth persist failed", err);
+  }
+  applyAuthUi();
+}
+
+function canWrite() {
+  return authSession?.role === "admin";
+}
+
+function requireWrite(action = "questa azione") {
+  if (canWrite()) return true;
+  alert(`Sola lettura: non puoi ${action}. Entra come admin per modificare.`);
+  return false;
+}
+
+function applyAuthUi() {
+  const authed = Boolean(authSession?.role);
+  document.body.classList.toggle("auth-pending", !authed);
+  document.body.classList.toggle("role-admin", authSession?.role === "admin");
+  document.body.classList.toggle("role-readonly", authSession?.role === "readonly");
+  if (els.authStatus) {
+    if (!authSession) els.authStatus.textContent = "";
+    else if (authSession.role === "admin") els.authStatus.textContent = "Accesso: Admin (scrittura)";
+    else els.authStatus.textContent = "Accesso: sola lettura";
+  }
+  document.querySelectorAll(".write-only").forEach((el) => {
+    el.disabled = !canWrite();
+    el.title = canWrite() ? (el.getAttribute("data-title") || el.title || "") : "Solo admin";
+  });
+  if (els.githubAutoPush) {
+    els.githubAutoPush.disabled = !canWrite();
+    if (!canWrite()) els.githubAutoPush.checked = false;
+  }
+}
+
+function loginAsAdmin(user, pass) {
+  const u = String(user || "").trim().toLowerCase();
+  const account = AUTH_USERS[u];
+  if (!account || account.password !== String(pass || "")) return false;
+  writeAuth({
+    user: u,
+    role: account.role,
+    label: account.label,
+    at: new Date().toISOString(),
+  });
+  try { els.loginDialog?.close(); } catch { /* ignore */ }
+  return true;
+}
+
+function loginReadonly() {
+  writeAuth({
+    user: "guest",
+    role: "readonly",
+    label: "Sola lettura",
+    at: new Date().toISOString(),
+  });
+  try { els.loginDialog?.close(); } catch { /* ignore */ }
+}
+
+function logout() {
+  writeAuth(null);
+  if (els.loginPass) els.loginPass.value = "";
+  if (els.loginError) els.loginError.hidden = true;
+  clearInterval(githubPollTimer);
+  githubPollTimer = null;
+  openLoginDialog();
+}
+
+function openLoginDialog() {
+  applyAuthUi();
+  if (els.loginDialog && !els.loginDialog.open) els.loginDialog.showModal();
+  queueMicrotask(() => els.loginUser?.focus());
+}
+
+function ensureAuth() {
+  authSession = readAuth();
+  applyAuthUi();
+  if (authSession?.role) return true;
+  openLoginDialog();
+  return false;
+}
+
+function afterAuthContinue() {
+  applyAuthUi();
+  render();
+  const cfg = readGithubCfg();
+  const wantSync = new URLSearchParams(location.search).has("sync") || cfg.autoPull;
+  if (wantSync) {
+    if (els.githubAutoPull) els.githubAutoPull.checked = true;
+    setGithubAutoPull(true);
+    void pullGithubLive({ quiet: true });
+  }
+  if (cfg.autoPush && canWrite() && els.githubAutoPush) els.githubAutoPush.checked = true;
+  if (!canWrite() && els.githubAutoPush) {
+    els.githubAutoPush.checked = false;
+  }
+  if (!readPov()?.chosenAt || new URLSearchParams(location.search).has("choose")) {
+    openPovDialog();
+  }
+}
 
 function defaultTeams() {
   const fromMeta = state.meta?.defaultTeams;
@@ -637,6 +766,7 @@ function utf8ToBase64(str) {
 }
 
 async function pushGithubLive() {
+  if (!requireWrite("pubblicare su GitHub")) return false;
   const token = (els.githubToken?.value || readGithubCfg().token || "").trim();
   if (!token) {
     setGithubStatus("Serve un token GitHub (Contents: Write) per pubblicare.", false);
@@ -710,6 +840,7 @@ function setGithubAutoPull(on) {
 }
 
 function scheduleGithubAutoPush() {
+  if (!canWrite()) return;
   const cfg = readGithubCfg();
   if (!cfg.autoPush || !(cfg.token || els.githubToken?.value)) return;
   clearTimeout(githubPushTimer);
@@ -719,6 +850,10 @@ function scheduleGithubAutoPush() {
 }
 
 function setGithubAutoPush(on) {
+  if (on && !requireWrite("attivare la pubblicazione automatica")) {
+    if (els.githubAutoPush) els.githubAutoPush.checked = false;
+    return;
+  }
   writeGithubCfg({ autoPush: Boolean(on) });
   if (on && els.githubToken?.value) writeGithubCfg({ token: els.githubToken.value.trim() });
 }
@@ -1225,10 +1360,11 @@ function renderTeamsBar() {
     const need = rosterSlots()[role];
     const isMe = t.id === state.myTeamId;
     const selected = t.id === state.selectedTeamId;
+    const writable = canWrite();
     return `<article class="team-card ${isMe ? "me" : ""} ${selected ? "selected" : ""}" data-team="${t.id}">
       <label class="team-name-field">
         <span class="sr-only">Nome squadra</span>
-        <input type="text" data-team-name="${t.id}" value="${escapeAttr(t.name)}" maxlength="28" />
+        <input type="text" data-team-name="${t.id}" value="${escapeAttr(t.name)}" maxlength="28" ${writable ? "" : "readonly"} />
       </label>
       <div class="team-meta"><strong>${spent}</strong> spesi · <strong>${rem}</strong> residui</div>
       <div class="team-role">${role}: ${filled}/${need}</div>
@@ -1284,17 +1420,20 @@ function renderAuctionBanner() {
       ${caveatBit}
     </div>
     <div class="auction-actions">
-      <button type="button" class="btn ghost dark" id="advanceRoleBtn">Ruolo fatto → avanza</button>
+      <button type="button" class="btn ghost dark write-only" id="advanceRoleBtn">Ruolo fatto → avanza</button>
     </div>`;
   document.getElementById("advanceRoleBtn")?.addEventListener("click", () => {
+    if (!requireWrite("avanzare di ruolo")) return;
     if (remainingSlots(role) > 0 && !confirm(`Ti mancano ${remainingSlots(role)} ${ROLE_LABEL[role]}. Avanzare?`)) return;
     const idx = ROLES.indexOf(state.auctionRole);
     if (idx < ROLES.length - 1) {
       state.auctionRole = ROLES[idx + 1];
       if (state.roleLock) state.roleFilter = state.auctionRole;
       render();
+      scheduleGithubAutoPush();
     } else alert("Sei già sugli Attaccanti.");
   });
+  applyAuthUi();
 }
 
 function renderStrategy() {
@@ -1342,7 +1481,7 @@ function renderPriorities() {
         <span class="meta">${p.team} · fair ${p.fair ?? "—"} · leave ${p.leave ?? "—"} · Tit ${p.starterProb ?? "—"}%</span>
         <span class="meta">${priorityWhy(p)}</span></div>
       <div class="priority-side"><span class="pri-score">${score}</span>
-        <button class="btn small" data-action="buy" data-id="${p.id}">Compra</button></div>
+        ${canWrite() ? `<button class="btn small" data-action="buy" data-id="${p.id}">Compra</button>` : ""}</div>
     </li>`).join("")}</ol>`;
 }
 
@@ -1439,11 +1578,15 @@ function renderTable() {
       p.mockLow != null ? `mock ${p.mockLow}–${p.mockHigh}` : null,
     ].filter(Boolean).join(" · ");
     let actions = "";
-    if (own) {
-      actions = `<button class="btn tiny danger" data-action="release" data-id="${p.id}" title="Libera">Libera</button>`;
-    } else {
-      actions = `<button class="btn tiny" data-action="buy" data-id="${p.id}" title="Compra">Compra</button>
+    if (canWrite()) {
+      if (own) {
+        actions = `<button class="btn tiny danger" data-action="release" data-id="${p.id}" title="Libera">Libera</button>`;
+      } else {
+        actions = `<button class="btn tiny" data-action="buy" data-id="${p.id}" title="Compra">Compra</button>
       <button class="btn tiny ghost dark" data-action="take" data-id="${p.id}" title="Preso da rivale">Preso</button>`;
+      }
+    } else {
+      actions = `<span class="muted tiny">sola lettura</span>`;
     }
     const ownerBit = own
       ? `<span class="row-owner ${own.teamId === state.myTeamId ? "mine" : "riv"}">${teamById(own.teamId)?.name || "?"} · ${own.price}</span>`
@@ -1509,12 +1652,16 @@ function openDetail(id) {
     : "—";
 
   let actions = "";
-  if (own) {
-    actions = `<button type="button" class="btn danger" data-action="release" data-id="${p.id}">Libera</button>`;
-  } else {
-    actions = `
+  if (canWrite()) {
+    if (own) {
+      actions = `<button type="button" class="btn danger" data-action="release" data-id="${p.id}">Libera</button>`;
+    } else {
+      actions = `
       <button type="button" class="btn" data-action="buy" data-id="${p.id}">Compra</button>
       <button type="button" class="btn ghost dark" data-action="take" data-id="${p.id}">Preso</button>`;
+    }
+  } else {
+    actions = `<span class="muted">Modalità sola lettura</span>`;
   }
 
   els.detailBody.innerHTML = `
@@ -1679,7 +1826,8 @@ function render() {
   renderTable();
   renderRoster();
   syncRoleChips();
-  persist();
+  applyAuthUi();
+  if (authSession?.role) persist();
 }
 
 function setSort(key) {
@@ -1692,6 +1840,7 @@ function setSort(key) {
 }
 
 function openAssign(id, mode) {
+  if (!requireWrite(mode === "buy" ? "comprare" : "assegnare a un rivale")) return;
   const player = state.players.find((p) => p.id === id);
   if (!player) return;
   if (state.roleLock && player.role !== state.auctionRole) {
@@ -1729,6 +1878,7 @@ function openAssign(id, mode) {
 }
 
 function confirmAssign(price) {
+  if (!requireWrite("confermare l'acquisto")) return false;
   const player = state.players.find((p) => p.id === state.pendingId);
   if (!player) return false;
   const teamId = els.buyTeam.value;
@@ -1752,6 +1902,7 @@ function confirmAssign(price) {
 }
 
 function releasePlayer(id) {
+  if (!requireWrite("liberare un giocatore")) return;
   delete state.ownership[id];
   render();
   scheduleGithubAutoPush();
@@ -1776,6 +1927,7 @@ function onAction(e) {
 
 function bindEvents() {
   els.budgetPlan.addEventListener("change", (e) => {
+    // Piano budget è POV locale: anche in sola lettura puoi cambiare la vista.
     state.plan = e.target.value;
     persistPov();
     persist();
@@ -1813,6 +1965,12 @@ function bindEvents() {
   els.teamsBar.addEventListener("click", onAction);
   els.detailActions?.addEventListener("click", onAction);
   const renameTeamFromInput = (input) => {
+    if (!canWrite()) {
+      const id = input.dataset.teamName;
+      const prev = state.teams.find((t) => t.id === id)?.name;
+      if (prev != null) input.value = prev;
+      return;
+    }
     const id = input.dataset.teamName;
     if (!id) return;
     const name = input.value.trim() || "Squadra";
@@ -1851,18 +2009,23 @@ function bindEvents() {
     if (cur > rem) els.buyPrice.value = Math.max(1, rem);
   });
   els.resetBtn.addEventListener("click", () => {
+    if (!requireWrite("resettare l'asta")) return;
     if (!confirm("Azzerare tutti gli acquisti delle 6 squadre e tornare ai Portieri?")) return;
     state.ownership = {};
     state.auctionRole = "P";
     state.roleFilter = "P";
     state.selectedTeamId = state.myTeamId;
     render();
+    scheduleGithubAutoPush();
   });
   els.exportBtn.addEventListener("click", exportRoster);
   els.shareAuctionBtn?.addEventListener("click", exportSharedAuction);
   els.githubSyncBtn?.addEventListener("click", openGithubDialog);
   els.githubPullBtn?.addEventListener("click", () => pullGithubLive({ quiet: false }));
-  els.githubPushBtn?.addEventListener("click", () => pushGithubLive());
+  els.githubPushBtn?.addEventListener("click", () => {
+    if (!requireWrite("pubblicare su GitHub")) return;
+    void pushGithubLive();
+  });
   els.githubToken?.addEventListener("change", () => {
     writeGithubCfg({ token: els.githubToken.value.trim() });
   });
@@ -1873,11 +2036,15 @@ function bindEvents() {
     setGithubAutoPush(e.target.checked);
   });
   els.sharePovBtn?.addEventListener("click", copyPovLink);
-  els.importBtn.addEventListener("click", () => els.importFile.click());
+  els.importBtn.addEventListener("click", () => {
+    if (!requireWrite("importare")) return;
+    els.importFile.click();
+  });
   els.importFile.addEventListener("change", async (e) => {
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
+    if (!requireWrite("importare")) return;
     try {
       const text = await file.text();
       const data = JSON.parse(text);
@@ -1892,6 +2059,33 @@ function bindEvents() {
     } catch (err) {
       alert(`Import fallito: ${err.message || err}`);
     }
+  });
+  els.loginForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const user = String(els.loginUser?.value || "").trim();
+    const pass = String(els.loginPass?.value || "");
+    if (loginAsAdmin(user, pass)) {
+      if (els.loginError) els.loginError.hidden = true;
+      updateSaveStatus(true, "accesso admin");
+      afterAuthContinue();
+    } else {
+      if (els.loginError) els.loginError.hidden = false;
+      if (els.loginPass) els.loginPass.value = "";
+      els.loginPass?.focus();
+    }
+  });
+  els.loginReadonlyBtn?.addEventListener("click", () => {
+    if (els.loginError) els.loginError.hidden = true;
+    loginReadonly();
+    updateSaveStatus(true, "sola lettura");
+    afterAuthContinue();
+  });
+  els.logoutBtn?.addEventListener("click", () => {
+    logout();
+    updateSaveStatus(true, "sessione chiusa");
+  });
+  els.loginDialog?.addEventListener("cancel", (e) => {
+    if (!authSession?.role) e.preventDefault();
   });
   els.povForm?.addEventListener("submit", (e) => {
     if (e.submitter?.value === "cancel") return;
@@ -2045,19 +2239,8 @@ async function init() {
   render();
   updateSaveStatus(true, Object.keys(state.ownership).length ? "ripristinato" : "pronto");
 
-  const cfg = readGithubCfg();
-  const wantSync = new URLSearchParams(location.search).has("sync") || cfg.autoPull;
-  if (wantSync) {
-    if (els.githubAutoPull) els.githubAutoPull.checked = true;
-    setGithubAutoPull(true);
-    pullGithubLive({ quiet: true });
-  }
-  if (cfg.autoPush && els.githubAutoPush) els.githubAutoPush.checked = true;
-
-  // Primo accesso / link senza POV: chiedi chi sei.
-  if (!readPov()?.chosenAt || new URLSearchParams(location.search).has("choose")) {
-    openPovDialog();
-  }
+  if (!ensureAuth()) return;
+  afterAuthContinue();
 }
 
 init().catch((err) => {
