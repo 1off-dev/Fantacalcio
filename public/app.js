@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907z";
+const ASSET_V = "20260908a";
 const GITHUB_SYNC = {
   owner: "1off-dev",
   repo: "Fantacalcio",
@@ -2367,24 +2367,27 @@ function bindEvents() {
   els.priorityBox.addEventListener("click", onAction);
   els.teamsBar.addEventListener("click", onAction);
   els.detailActions?.addEventListener("click", onAction);
-  const renameTeamFromInput = (input, { commit = false } = {}) => {
+  const renameTeamFromInput = (input) => {
     if (!canWrite()) {
       const id = input.dataset.teamName;
       const prev = state.teams.find((t) => t.id === id)?.name;
       if (prev != null) input.value = prev;
-      return;
+      return false;
     }
     const id = input.dataset.teamName;
-    if (!id) return;
-    const name = input.value.trim() || "Squadra";
-    const prev = state.teams.find((t) => t.id === id)?.name;
-    if (prev === name) return;
-    state.teams = state.teams.map((t) => (t.id === id ? { ...t, name } : t));
-    // Durante la digitazione: solo stato locale. Commit (salvataggio + LIVE) su blur/change.
-    if (!commit) return;
+    if (!id) return false;
+    const name = String(input.value || "").trim() || "Squadra";
     if (input.value !== name) input.value = name;
-    persist();
+    const prev = state.teams.find((t) => t.id === id)?.name;
+    const changed = prev !== name;
+    if (changed) {
+      state.teams = state.teams.map((t) => (t.id === id ? { ...t, name } : t));
+    }
+    // Sempre persist + publish al commit (blur/Enter), anche se lo state era già aggiornato.
+    persistSync();
+    void idbPut(snapshotPayload());
     publishLiveChange("rename");
+    updateSaveStatus(true, changed ? `salvato: ${name}` : `nome ok: ${name}`);
     document.querySelectorAll(`#buyTeam option[value="${id}"]`).forEach((opt) => {
       const rem = remainingByTeam(id);
       opt.textContent = `${name} (${rem} residui)${id === state.myTeamId ? " · tu" : ""}`;
@@ -2392,24 +2395,26 @@ function bindEvents() {
     document.querySelectorAll(`#roster [data-action="select-team"][data-id="${id}"]`).forEach((btn) => {
       btn.textContent = `${name}${id === state.myTeamId ? " ★" : ""}`;
     });
+    document.querySelectorAll(`.team-card[data-team="${id}"] .team-name-text`).forEach((el) => {
+      el.textContent = name;
+    });
+    return true;
   };
-  els.teamsBar.addEventListener("input", (e) => {
-    const input = e.target.closest("[data-team-name]");
-    if (input) renameTeamFromInput(input, { commit: false });
-  });
+  // Niente listener "input": aggiornare lo state a ogni tasto faceva saltare il save su blur.
   els.teamsBar.addEventListener("change", (e) => {
     const input = e.target.closest("[data-team-name]");
-    if (input) renameTeamFromInput(input, { commit: true });
+    if (input) renameTeamFromInput(input);
   });
   els.teamsBar.addEventListener("focusout", (e) => {
     const input = e.target.closest("[data-team-name]");
-    if (input) renameTeamFromInput(input, { commit: true });
+    if (input) renameTeamFromInput(input);
   });
   els.teamsBar.addEventListener("keydown", (e) => {
     const input = e.target.closest("[data-team-name]");
     if (!input) return;
     if (e.key === "Enter") {
       e.preventDefault();
+      renameTeamFromInput(input);
       input.blur();
     }
   });
