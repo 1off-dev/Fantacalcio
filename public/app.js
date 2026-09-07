@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907j";
+const ASSET_V = "20260907k";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -519,7 +519,9 @@ function fillPovSelect() {
 
 function openPovDialog() {
   fillPovSelect();
-  if (els.povDialog && !els.povDialog.open) els.povDialog.showModal();
+  if (!els.povDialog) return;
+  if (els.povDialog.open) els.povDialog.close();
+  els.povDialog.showModal();
 }
 
 function renderPovBanner() {
@@ -1551,7 +1553,16 @@ function bindEvents() {
     if (e.submitter?.value === "cancel") return;
     e.preventDefault();
     const id = els.povTeam?.value;
-    if (setMyTeam(id)) els.povDialog?.close();
+    if (id && setMyTeam(id)) {
+      try { els.povDialog?.close(); } catch { /* ignore */ }
+    }
+  });
+  els.povDialog?.querySelector('button[value="default"]')?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const id = els.povTeam?.value;
+    if (id && setMyTeam(id)) {
+      try { els.povDialog?.close(); } catch { /* ignore */ }
+    }
   });
   window.addEventListener("beforeunload", () => {
     persistSync();
