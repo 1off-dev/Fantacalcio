@@ -37,6 +37,15 @@ In asta **a ruoli**:
 | **Modificatore first** | 50 | 125 | 135 | 190 | Default scientifici + mod |
 | Equilibrata + mod | 45 | 105 | 150 | 200 | Più peso C |
 | Anti-Malen 2+2 | 40 | 100 | 160 | 200 | Se Malen > 210–230 |
+| **Malen first** | 40 | 90 | 110 | 260 | Warchest A per prendere Malen |
+
+### Piano Malen first (dettaglio)
+Obiettivo: chiudere **Malen** nella fascia mock **~215**, con tetto soft **leave 230** e **hard stop 245** (sotto cap 252).
+
+1. **P (≤40):** niente big gonfi; 1 titolare mid + 2 filler.
+2. **D (≤90):** solo cementi da modificatore; **niente Dimarco/Wesley elite**.
+3. **C (≤110):** niente Paz/Calha/McT; al massimo 1 bonus mid (Orsolini/Zaccagni) + volume.
+4. **A (260):** apri aggressivo su Malen. Se lo prendi ≤230 restano ~30 per 1 mid-low + filler a 1. Se supera 245 → abort e **2+2** col residuo (come Anti-Malen).
 
 Durante la fase P spendi solo il budget P (salvo aggiustamenti manuali). Il motore Pri penalizza chi sforerebbe lo spend-safe.
 
@@ -60,7 +69,8 @@ Durante la fase P spendi solo il budget P (salvo aggiustamenti manuali). Il moto
 - Se i top scappano, non inseguire: ruota su Orsolini / Zaccagni / Da Cunha value.
 
 ### Attaccanti
-- Se Malen > cap, attiva **2+2**.
+- Piano **Malen first**: warchest A 260, target 215 / leave 230 / hard stop 245.
+- Se Malen > cap sul piano standard, attiva **2+2** (Anti-Malen).
 - Ranking scientifico: FM × Tit% × Forma / prezzo, non il nome.
 - Scamacca/Dybala/Chiesa: solo a forte sconto (Vetro).
 

@@ -157,15 +157,15 @@ SCENARIO_PLANS: dict[str, dict] = {
         "pivot": "se Paz esce caro vai su Calhanoglu/McTominay; se anche loro sono cari, Orsolini + Da Cunha",
     },
     "A": {
-        "A": "Malen più un semi-top e profondità",
+        "A": "Malen first: warchest A (~260), Malen ≤230–245 + profondità a 1",
         "B": "piano anti-Malen con due+due (Lautaro/Thuram/Kean/Douvikas)",
         "C": "tre medi più upside se i top scappano di prezzo",
-        "pivot": "se Malen sfora il tetto (~230), passa al piano B 2+2 e non inseguire i vetro a prezzo pieno",
+        "pivot": "con piano Malen first tieni hard stop ~245; se sfora, passa al B 2+2. Con gli altri piani, leave ~230 attiva già il B",
     },
 }
 
 EXPERT_NOTES: dict[str, str] = {
-    "Malen": "Le guide lo danno come top assoluto dopo l’exploit; oltre 210–230 a 6×500 spesso conviene lasciarlo.",
+    "Malen": "Top assoluto post-exploit: col piano Malen first punta 215 e non superare 245; oltre leave (~230) sugli altri piani spesso conviene il 2+2.",
     "Martinez L.": "Affidabile su gol e assist: è il piano B naturale se Malen scappa di prezzo.",
     "Dimarco": "È l’unico difensore che produce come un centrocampista/attaccante; a 6×500 spesso non vale se passa i 110.",
     "Paz N.": "Giovane di hype a Como: minutaggio da seguire, ma il potenziale bonus è altissimo.",

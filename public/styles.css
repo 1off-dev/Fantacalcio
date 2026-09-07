@@ -939,6 +939,12 @@ td[data-col="starterProb"] {
 }
 
 .strategy-lead { margin: 0 0 10px; color: var(--ink); font-size: 14px; }
+.strategy-plan {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
 .panel-head h2 { margin: 0 0 10px; font-size: 1rem; }
 
 /* Punto di vista (secondo giocatore / multiplayer) */

@@ -197,6 +197,13 @@ BUDGETS = {
         "C": 135,
         "A": 190,
         "label": "Modificatore first",
+        "summary": "Difesa da modificatore + attacco value; Malen solo sotto leave.",
+        "playbook": {
+            "P": "1 cemento (Tit% alto) + 2 low-cost; non inseguire il secondo big.",
+            "D": "Prima i voti mod, poi al massimo 1 esterno bonus sotto spend-safe.",
+            "C": "Max uno tra Paz/Calha/McT, poi rigoristi/bonus Forma≥55.",
+            "A": "Se Malen > leave (~230) passa al 2+2; altrimenti Malen + profondità.",
+        },
     },
     "equilibrata_mod": {
         "P": 45,
@@ -204,6 +211,13 @@ BUDGETS = {
         "C": 150,
         "A": 200,
         "label": "Equilibrata + mod",
+        "summary": "Più peso al centrocampo, difesa snella, A flessibile.",
+        "playbook": {
+            "P": "Titolare affidabile low-mid, evita overpay sui big.",
+            "D": "Cementi mod; esterno solo value (Wesley/Molina), niente Dimarco caro.",
+            "C": "Puoi salire su un top C; tieni warchest per 1 bonus secondario.",
+            "A": "Malen solo a sconto; altrimenti semi-top + depth.",
+        },
     },
     "anti_malen": {
         "P": 40,
@@ -211,6 +225,35 @@ BUDGETS = {
         "C": 160,
         "A": 200,
         "label": "Anti-Malen (2+2 attacco)",
+        "summary": "Lascia Malen se gonfia; costruisci due+due in A e spingi sul C.",
+        "playbook": {
+            "P": "Tre titolari economici; non bruciare crediti in porta.",
+            "D": "Solo modificatore e 1 esterno mid; zero elite di fascia.",
+            "C": "Qui investi: 1 top + rigoristi/bonus (Orsolini/Zaccagni/Da Cunha).",
+            "A": "2+2 (Lautaro/Thuram/Kean/Douvikas): niente inseguimento su Malen >210–230.",
+        },
+    },
+    "malen_first": {
+        "P": 40,
+        "D": 90,
+        "C": 110,
+        "A": 260,
+        "label": "Malen first",
+        "summary": "Warchest A per prendere Malen; P/D/C snelli senza elite costosi.",
+        "playbook": {
+            "P": "Skip big se gonfiano: 1 titolare mid (Skorupski/Caprile/…) + 2 da 1–5. Obiettivo ≤40.",
+            "D": "Solo cementi da modificatore (Bremer/Mancini/Bastoni a sconto). Niente Dimarco/Wesley elite: ti servono i crediti in A.",
+            "C": "Niente Paz/Calha/McT. Max un bonus mid (Orsolini/Zaccagni) + volume di voti. Chiudi il ruolo sotto ~110.",
+            "A": "Apri aggressivo su Malen: target mock 215, tetto soft leave 230, hard stop 245 (sotto cap 252). Se lo prendi ≤230 ti restano ~30 per 1 semi cheap + filler a 1. Se supera 245 → abort e ripiega su 2+2 con il warchest residuo (piano Anti-Malen).",
+        },
+        "malen": {
+            "target": 215,
+            "leave": 230,
+            "hardStop": 245,
+            "cap": 252,
+            "afterWin": "Con Malen in rosa: 1 attaccante mid-low (Kean/Douvikas/Raspadori a sconto) e il resto a 1 credito. Non comprare un secondo listone.",
+            "afterLose": "Se Malen esce ad altri ≤230, non inseguire il piano B a prezzo pieno: prendi Thuram/Lautaro + Kean/Douvikas. Se esce >245 a un rivale, il mercato A si sgonfia: alza aggressività sui semi-top value.",
+        },
     },
 }
 
