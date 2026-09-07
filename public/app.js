@@ -1,6 +1,15 @@
 /* Asta Scientifica Fantacalcio 2026/27 — 6 squadre, priorità adattiva */
-const STORAGE_KEY = "fantacalcio-asta-2026-27-v6";
-const ASSET_V = "20260906i";
+const STORAGE_KEY = "fantacalcio-asta-2026-27";
+const LEGACY_STORAGE_KEYS = [
+  "fantacalcio-asta-2026-27-v6",
+  "fantacalcio-asta-2026-27-v5",
+  "fantacalcio-asta-2026-27-v4",
+];
+const IDB_NAME = "fantacalcio-asta";
+const IDB_STORE = "snapshots";
+const IDB_KEY = "current";
+const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
+const ASSET_V = "20260907a";
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -56,6 +65,9 @@ const els = {
   budgetPlan: $("budgetPlan"),
   resetBtn: $("resetBtn"),
   exportBtn: $("exportBtn"),
+  importBtn: $("importBtn"),
+  importFile: $("importFile"),
+  saveStatus: $("saveStatus"),
   teamsBar: $("teamsBar"),
   auctionBanner: $("auctionBanner"),
   stats: $("stats"),
@@ -79,6 +91,10 @@ const els = {
   buyHint: $("buyHint"),
 };
 
+let lastSavedAt = null;
+let persistTimer = null;
+let idbReady = null;
+
 function defaultTeams() {
   const fromMeta = state.meta?.defaultTeams;
   if (Array.isArray(fromMeta) && fromMeta.length === 6) {
@@ -98,30 +114,59 @@ function defaultTeams() {
   ];
 }
 
-function loadSaved() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
-    if (!saved) return;
-    Object.assign(state, {
-      plan: saved.plan || state.plan,
-      ownership: saved.ownership || {},
-      teams: Array.isArray(saved.teams) && saved.teams.length === 6 ? saved.teams : [],
-      myTeamId: saved.myTeamId || state.myTeamId,
-      selectedTeamId: saved.selectedTeamId || saved.myTeamId || state.selectedTeamId,
-      onlyTiered: saved.onlyTiered ?? false,
-      onlyPenalties: saved.onlyPenalties ?? false,
-      hideTaken: saved.hideTaken ?? true,
-      sortKey: saved.sortKey || "priority",
-      sortDir: saved.sortDir || "desc",
-      auctionRole: saved.auctionRole || "P",
-      roleLock: saved.roleLock ?? true,
-    });
-    state.roleFilter = state.roleLock ? state.auctionRole : (saved.roleFilter || state.auctionRole);
-  } catch { /* ignore */ }
+function openIdb() {
+  if (idbReady) return idbReady;
+  idbReady = new Promise((resolve, reject) => {
+    if (!window.indexedDB) {
+      resolve(null);
+      return;
+    }
+    const req = indexedDB.open(IDB_NAME, 1);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(IDB_STORE)) db.createObjectStore(IDB_STORE);
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => resolve(null);
+  });
+  return idbReady;
 }
 
-function persist() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+async function idbGet() {
+  const db = await openIdb();
+  if (!db) return null;
+  return new Promise((resolve) => {
+    try {
+      const tx = db.transaction(IDB_STORE, "readonly");
+      const req = tx.objectStore(IDB_STORE).get(IDB_KEY);
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => resolve(null);
+    } catch {
+      resolve(null);
+    }
+  });
+}
+
+async function idbPut(payload) {
+  const db = await openIdb();
+  if (!db) return false;
+  return new Promise((resolve) => {
+    try {
+      const tx = db.transaction(IDB_STORE, "readwrite");
+      tx.objectStore(IDB_STORE).put(payload, IDB_KEY);
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => resolve(false);
+    } catch {
+      resolve(false);
+    }
+  });
+}
+
+function snapshotPayload() {
+  return {
+    kind: SNAPSHOT_KIND,
+    version: 1,
+    savedAt: new Date().toISOString(),
     plan: state.plan,
     ownership: state.ownership,
     teams: state.teams,
@@ -135,7 +180,198 @@ function persist() {
     auctionRole: state.auctionRole,
     roleLock: state.roleLock,
     roleFilter: state.roleFilter,
-  }));
+  };
+}
+
+function applySaved(saved) {
+  if (!saved || typeof saved !== "object") return false;
+  Object.assign(state, {
+    plan: saved.plan || state.plan,
+    ownership: saved.ownership || {},
+    teams: Array.isArray(saved.teams) && saved.teams.length === 6 ? saved.teams : state.teams,
+    myTeamId: saved.myTeamId || state.myTeamId,
+    selectedTeamId: saved.selectedTeamId || saved.myTeamId || state.selectedTeamId,
+    onlyTiered: saved.onlyTiered ?? state.onlyTiered,
+    onlyPenalties: saved.onlyPenalties ?? state.onlyPenalties,
+    hideTaken: saved.hideTaken ?? state.hideTaken,
+    sortKey: saved.sortKey || state.sortKey,
+    sortDir: saved.sortDir || state.sortDir,
+    auctionRole: saved.auctionRole || state.auctionRole,
+    roleLock: saved.roleLock ?? state.roleLock,
+  });
+  state.roleFilter = state.roleLock
+    ? state.auctionRole
+    : saved.roleFilter || state.auctionRole;
+  if (saved.savedAt) lastSavedAt = saved.savedAt;
+  return true;
+}
+
+function readLocalStorageSnapshot() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch { /* ignore */ }
+  for (const key of LEGACY_STORAGE_KEYS) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+      const parsed = JSON.parse(raw);
+      if (parsed) {
+        // Migra sulla chiave stabile.
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...parsed, savedAt: parsed.savedAt || new Date().toISOString() }));
+        return parsed;
+      }
+    } catch { /* ignore */ }
+  }
+  return null;
+}
+
+function loadSaved() {
+  const saved = readLocalStorageSnapshot();
+  if (saved) applySaved(saved);
+}
+
+function updateSaveStatus(ok, detail = "") {
+  if (!els.saveStatus) return;
+  if (!ok) {
+    els.saveStatus.textContent = detail || "Salvataggio non riuscito";
+    els.saveStatus.classList.add("warn");
+    return;
+  }
+  const when = lastSavedAt ? new Date(lastSavedAt) : new Date();
+  const time = when.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  const n = Object.keys(state.ownership || {}).length;
+  els.saveStatus.textContent = `Salvato alle ${time} · ${n} giocatori assegnati${detail ? ` · ${detail}` : ""}`;
+  els.saveStatus.classList.remove("warn");
+}
+
+function persistSync() {
+  const payload = snapshotPayload();
+  lastSavedAt = payload.savedAt;
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    // Pulisci chiavi legacy dopo migrazione riuscita.
+    for (const key of LEGACY_STORAGE_KEYS) localStorage.removeItem(key);
+  } catch (err) {
+    updateSaveStatus(false, "localStorage pieno o bloccato");
+    console.warn("persist localStorage failed", err);
+    return payload;
+  }
+  updateSaveStatus(true, "browser");
+  return payload;
+}
+
+function persist() {
+  const payload = persistSync();
+  // IndexedDB in background (più resistente alla pulizia cache aggressiva).
+  clearTimeout(persistTimer);
+  persistTimer = setTimeout(() => {
+    idbPut(payload).then((ok) => {
+      if (ok) updateSaveStatus(true, "browser + IndexedDB");
+    });
+  }, 120);
+  return payload;
+}
+
+async function hydrateFromIdbIfNeeded() {
+  const hasLocal = Boolean(localStorage.getItem(STORAGE_KEY))
+    || LEGACY_STORAGE_KEYS.some((k) => localStorage.getItem(k));
+  if (hasLocal && Object.keys(state.ownership).length) return;
+  const fromIdb = await idbGet();
+  if (!fromIdb) return;
+  // Preferisci IndexedDB se localStorage è vuoto o senza ownership.
+  if (!hasLocal || Object.keys(state.ownership).length === 0) {
+    applySaved(fromIdb);
+    persistSync();
+  }
+}
+
+function downloadSnapshot(filename) {
+  const payload = {
+    ...snapshotPayload(),
+    // Riepilogo leggibile (oltre allo state completo per restore).
+    summary: state.teams.map((t) => ({
+      id: t.id,
+      name: t.name,
+      isMe: t.id === state.myTeamId,
+      spent: spentByTeam(t.id),
+      remaining: remainingByTeam(t.id),
+      rosa: ROLES.flatMap((role) => teamByRole(t.id, role).map((p) => ({
+        id: p.id,
+        role,
+        name: p.name,
+        club: p.team,
+        price: state.ownership[p.id].price,
+      }))),
+    })),
+  };
+  const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
+  a.download = filename || `asta-fantacalcio-backup-${stamp}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  updateSaveStatus(true, "file scaricato");
+}
+
+function ownershipFromSummary(summaryTeams) {
+  const byId = Object.fromEntries(state.players.map((p) => [p.id, p]));
+  const byNameRole = new Map(state.players.map((p) => [`${p.role}|${p.name}`.toLowerCase(), p]));
+  const ownership = {};
+  for (const t of summaryTeams || []) {
+    for (const row of t.rosa || []) {
+      let player = row.id ? byId[row.id] : null;
+      if (!player && row.name) {
+        player = byNameRole.get(`${row.role || ""}|${row.name}`.toLowerCase())
+          || state.players.find((p) => p.name.toLowerCase() === String(row.name).toLowerCase());
+      }
+      if (!player) continue;
+      const isMe = Boolean(t.isMe) || t.id === state.myTeamId;
+      ownership[player.id] = {
+        status: isMe ? "mine" : "taken",
+        price: Number(row.price) || 1,
+        teamId: t.id,
+      };
+    }
+  }
+  return ownership;
+}
+
+function importSnapshot(data) {
+  if (!data || typeof data !== "object") throw new Error("File non valido");
+
+  // Formato snapshot completo.
+  if (data.kind === SNAPSHOT_KIND || data.ownership) {
+    applySaved(data);
+    // Se manca ownership ma c'è summary, ricostruisci.
+    if ((!data.ownership || !Object.keys(data.ownership).length) && data.summary) {
+      state.ownership = ownershipFromSummary(data.summary);
+    }
+  } else if (Array.isArray(data.teams)) {
+    // Vecchio export “rosa” senza ownership map.
+    if (data.teams.length === 6) {
+      state.teams = data.teams.map((t, i) => ({
+        id: t.id || `t${i + 1}`,
+        name: t.name || `Squadra ${i + 1}`,
+        isMe: Boolean(t.isMe),
+      }));
+      const me = state.teams.find((t) => t.isMe) || state.teams[0];
+      state.myTeamId = me.id;
+      state.selectedTeamId = me.id;
+    }
+    if (data.plan) state.plan = data.plan;
+    if (data.auctionRole) state.auctionRole = data.auctionRole;
+    state.ownership = ownershipFromSummary(data.teams);
+  } else {
+    throw new Error("JSON non riconosciuto come backup asta");
+  }
+
+  persist();
+  render();
+}
+
+function exportRoster() {
+  downloadSnapshot();
 }
 
 const budgetTotal = () => Number(state.meta.budget || 1000);
@@ -743,32 +979,6 @@ function releasePlayer(id) {
   render();
 }
 
-function exportRoster() {
-  const teams = state.teams.map((t) => ({
-    id: t.id,
-    name: t.name,
-    isMe: t.id === state.myTeamId,
-    spent: spentByTeam(t.id),
-    remaining: remainingByTeam(t.id),
-    rosa: ROLES.flatMap((role) => teamByRole(t.id, role).map((p) => ({
-      role, name: p.name, club: p.team, price: state.ownership[p.id].price,
-      fvm: p.fvm, fair: p.fair, cap: p.cap,
-    }))),
-  }));
-  const payload = {
-    exportedAt: new Date().toISOString(),
-    plan: state.plan,
-    auctionRole: state.auctionRole,
-    budget: budgetTotal(),
-    teams,
-  };
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
-  a.download = "asta-6-squadre-2026-27.json";
-  a.click();
-  URL.revokeObjectURL(a.href);
-}
-
 function onAction(e) {
   const btn = e.target.closest("[data-action]");
   if (!btn) return;
@@ -853,6 +1063,27 @@ function bindEvents() {
     render();
   });
   els.exportBtn.addEventListener("click", exportRoster);
+  els.importBtn.addEventListener("click", () => els.importFile.click());
+  els.importFile.addEventListener("change", async (e) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      if (!confirm(`Importare il backup "${file.name}"? Sovrascrive lo stato attuale dell'asta.`)) return;
+      importSnapshot(data);
+      alert(`Import ok: ${Object.keys(state.ownership).length} assegnazioni ripristinate.`);
+    } catch (err) {
+      alert(`Import fallito: ${err.message || err}`);
+    }
+  });
+  window.addEventListener("beforeunload", () => {
+    persistSync();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") persistSync();
+  });
   els.buyForm.addEventListener("submit", (e) => {
     if (e.submitter?.value === "cancel") { state.pendingId = null; return; }
     e.preventDefault();
@@ -892,6 +1123,7 @@ function normalizePlayer(raw) {
 
 async function init() {
   loadSaved();
+  await hydrateFromIdbIfNeeded();
   const res = await fetch(`./asta-board-2026-27.json?v=${ASSET_V}`, { cache: "no-store" });
   if (!res.ok) throw new Error("Impossibile caricare asta-board-2026-27.json");
   const data = await res.json();
@@ -922,6 +1154,7 @@ async function init() {
   renderPlans();
   bindEvents();
   render();
+  updateSaveStatus(true, Object.keys(state.ownership).length ? "ripristinato" : "pronto");
 }
 
 init().catch((err) => {
