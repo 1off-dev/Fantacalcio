@@ -876,6 +876,9 @@ td[data-col="starterProb"] {
     var(--panel);
   box-shadow: var(--shadow);
   color: var(--ink);
+  position: sticky;
+  top: 8px;
+  z-index: 5;
 }
 .pov-banner .eyebrow {
   color: var(--muted);
