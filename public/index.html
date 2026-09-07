@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=20260907x" />
+  <link rel="stylesheet" href="./styles.css?v=20260907y" />
 </head>
 <body class="auth-pending">
   <div class="bg-glow" aria-hidden="true"></div>
@@ -18,6 +18,7 @@
       <h1>Asta Scientifica <span>2026/27</span></h1>
       <p class="save-status" id="saveStatus" aria-live="polite">Salvataggio…</p>
       <p class="auth-status" id="authStatus" aria-live="polite"></p>
+      <p class="live-status" id="liveStatus" hidden aria-live="polite">LIVE…</p>
     </div>
     <div class="top-actions">
       <label class="field">
@@ -76,7 +77,8 @@
       <section class="panel tips">
         <div class="panel-head"><h2>Metodo</h2></div>
         <ul>
-          <li><strong>Nomi in privato:</strong> admin → <em>GitHub live → Pubblica</em>, oppure <em>Copia link POV</em> (il link include <code>?teams=</code>).</li>
+          <li><strong>LIVE:</strong> l’admin tiene la pagina aperta; gli altri in sola lettura ricevono Compra/nomi in tempo reale (PeerJS). GitHub resta il backup.</li>
+          <li><strong>Nomi in privato:</strong> admin con token → pubblicazione automatica; oppure <em>Copia link POV</em> (<code>?teams=</code>).</li>
           <li><strong>Accesso:</strong> admin (scrittura) oppure <em>Entra in sola lettura</em>.</li>
           <li><strong>GitHub live:</strong> l’admin pubblica; tutti aggiornano da lì (anche in anonimo/sola lettura).</li>
           <li><strong>Chi sei?</strong> scegli la tua squadra (o <code>?me=t2</code>): Pri e budget locali sono i tuoi.</li>
@@ -130,13 +132,13 @@
   <dialog id="githubDialog" class="pov-dialog github-dialog">
     <form method="dialog" id="githubForm">
       <h3>Asta live su GitHub</h3>
-      <p class="hint">Un file pubblico <code>asta-live.json</code> sul branch <code>gh-pages</code> è la copia condivisa. Tutti possono <strong>aggiornare</strong>. Solo l’host pubblica con token. I nomi squadra restano invisibili in privato finché non pubblichi (o non mandi un link con <code>?teams=</code>).</p>
+      <p class="hint">Sync <strong>LIVE</strong> peer-to-peer in tempo reale (admin = host). GitHub <code>asta-live.json</code> è il backup persistente: con token l’host pubblica in automatico. Il CDN di Pages può ritardare; il canale LIVE no.</p>
       <label class="field">
         <span>Token GitHub (solo host, resta in questo browser)</span>
         <input id="githubToken" type="password" autocomplete="off" placeholder="ghp_… fine-grained con Contents: Write" />
       </label>
-      <label class="check"><input type="checkbox" id="githubAutoPull" /> Aggiorna automaticamente ogni 12s</label>
-      <label class="check"><input type="checkbox" id="githubAutoPush" /> Pubblica in automatico dopo Compra/Preso (solo host)</label>
+      <label class="check"><input type="checkbox" id="githubAutoPull" /> Backup: aggiorna da GitHub ogni ~2.5s</label>
+      <label class="check"><input type="checkbox" id="githubAutoPush" /> Pubblica su GitHub dopo ogni modifica (host + token)</label>
       <p class="hint" id="githubStatus">Stato: non sincronizzato</p>
       <div class="dialog-actions">
         <button value="cancel" class="btn ghost dark" type="submit">Chiudi</button>
@@ -177,6 +179,6 @@
     </div>
   </dialog>
 
-  <script src="./app.js?v=20260907x"></script>
+  <script src="./app.js?v=20260907y"></script>
 </body>
 </html>
