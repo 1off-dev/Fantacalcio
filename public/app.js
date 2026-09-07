@@ -11,7 +11,7 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907y";
+const ASSET_V = "20260907z";
 const GITHUB_SYNC = {
   owner: "1off-dev",
   repo: "Fantacalcio",
@@ -994,7 +994,8 @@ function broadcastRealtime(reason = "update") {
   if (!canWrite() || applyingRealtime) return;
   const payload = realtimePayload();
   lastRealtimeSentAt = payload.savedAt;
-  lastRemoteSavedAt = payload.savedAt;
+  // Non aggiornare lastRemoteSavedAt qui: altrimenti il poll GitHub
+  // vede un timestamp “futuro”, fa render e toglie il focus dai nomi.
   let sent = 0;
   for (const conn of [...realtimeGuests]) {
     try {
@@ -2211,10 +2212,15 @@ function fillBuyTeamSelect(mode) {
   els.buyTeam.disabled = mode === "buy";
 }
 
-function render() {
+function isEditingTeamName() {
+  const el = document.activeElement;
+  return Boolean(el && els.teamsBar?.contains(el) && el.matches?.("input[data-team-name]"));
+}
+
+function render({ skipTeamsBar = false } = {}) {
   maybeAdvanceRole();
   renderPovBanner();
-  renderTeamsBar();
+  if (!skipTeamsBar && !isEditingTeamName()) renderTeamsBar();
   renderAuctionBanner();
   renderStats();
   renderScenarios();
@@ -2224,7 +2230,7 @@ function render() {
   renderRoster();
   syncRoleChips();
   applyAuthUi();
-  if (authSession?.role) persist();
+  if (authSession?.role && !isEditingTeamName()) persist();
 }
 
 function setSort(key) {
@@ -2361,7 +2367,7 @@ function bindEvents() {
   els.priorityBox.addEventListener("click", onAction);
   els.teamsBar.addEventListener("click", onAction);
   els.detailActions?.addEventListener("click", onAction);
-  const renameTeamFromInput = (input) => {
+  const renameTeamFromInput = (input, { commit = false } = {}) => {
     if (!canWrite()) {
       const id = input.dataset.teamName;
       const prev = state.teams.find((t) => t.id === id)?.name;
@@ -2374,12 +2380,11 @@ function bindEvents() {
     const prev = state.teams.find((t) => t.id === id)?.name;
     if (prev === name) return;
     state.teams = state.teams.map((t) => (t.id === id ? { ...t, name } : t));
+    // Durante la digitazione: solo stato locale. Commit (salvataggio + LIVE) su blur/change.
+    if (!commit) return;
+    if (input.value !== name) input.value = name;
     persist();
     publishLiveChange("rename");
-    // Aggiorna solo etichette dipendenti dal nome, senza re-montare gli input (evita perdita focus/value).
-    document.querySelectorAll(`.team-card[data-team="${id}"] .team-name-text`).forEach((el) => {
-      el.textContent = name;
-    });
     document.querySelectorAll(`#buyTeam option[value="${id}"]`).forEach((opt) => {
       const rem = remainingByTeam(id);
       opt.textContent = `${name} (${rem} residui)${id === state.myTeamId ? " · tu" : ""}`;
@@ -2387,21 +2392,26 @@ function bindEvents() {
     document.querySelectorAll(`#roster [data-action="select-team"][data-id="${id}"]`).forEach((btn) => {
       btn.textContent = `${name}${id === state.myTeamId ? " ★" : ""}`;
     });
-    document.querySelectorAll(`.team-card[data-team="${id}"] .team-name-field input`).forEach((input) => {
-      if (document.activeElement !== input) input.value = name;
-    });
   };
   els.teamsBar.addEventListener("input", (e) => {
     const input = e.target.closest("[data-team-name]");
-    if (input) renameTeamFromInput(input);
+    if (input) renameTeamFromInput(input, { commit: false });
   });
   els.teamsBar.addEventListener("change", (e) => {
     const input = e.target.closest("[data-team-name]");
-    if (input) renameTeamFromInput(input);
+    if (input) renameTeamFromInput(input, { commit: true });
   });
   els.teamsBar.addEventListener("focusout", (e) => {
     const input = e.target.closest("[data-team-name]");
-    if (input) renameTeamFromInput(input);
+    if (input) renameTeamFromInput(input, { commit: true });
+  });
+  els.teamsBar.addEventListener("keydown", (e) => {
+    const input = e.target.closest("[data-team-name]");
+    if (!input) return;
+    if (e.key === "Enter") {
+      e.preventDefault();
+      input.blur();
+    }
   });
   els.buyTeam.addEventListener("change", () => {
     const rem = remainingByTeam(els.buyTeam.value);
