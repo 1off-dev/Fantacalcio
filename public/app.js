@@ -11,14 +11,20 @@ const IDB_NAME = "fantacalcio-asta";
 const IDB_STORE = "snapshots";
 const IDB_KEY = "current-500";
 const SNAPSHOT_KIND = "fantacalcio-asta-snapshot";
-const ASSET_V = "20260907r";
+const ASSET_V = "20260908c";
 const GITHUB_SYNC = {
   owner: "1off-dev",
   repo: "Fantacalcio",
   branch: "gh-pages",
   path: "asta-live.json",
 };
+const REALTIME_PEER_ID = "fantacalcio-1off-asta-live";
+const REALTIME_POLL_MS = 2500;
 const GITHUB_CFG_KEY = "fantacalcio-asta-github-sync";
+const AUTH_KEY = "fantacalcio-asta-auth";
+const AUTH_USERS = {
+  admin: { password: "admin", role: "admin", label: "Admin" },
+};
 const ROLES = ["P", "D", "C", "A"];
 const ROLE_LABEL = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti" };
 const TIER_LABEL = {
@@ -73,10 +79,25 @@ const state = {
 const $ = (id) => document.getElementById(id);
 const els = {
   budgetPlan: $("budgetPlan"),
+  logoutBtn: $("logoutBtn"),
+  loginDialog: $("loginDialog"),
+  loginForm: $("loginForm"),
+  loginUser: $("loginUser"),
+  loginPass: $("loginPass"),
+  loginError: $("loginError"),
+  loginAdminBtn: $("loginAdminBtn"),
+  loginReadonlyBtn: $("loginReadonlyBtn"),
+  authStatus: $("authStatus"),
+  liveStatus: $("liveStatus"),
+  teamNamesEditor: $("teamNamesEditor"),
+  teamNamesFields: $("teamNamesFields"),
+  saveTeamNamesBtn: $("saveTeamNamesBtn"),
+  teamNamesHint: $("teamNamesHint"),
   resetBtn: $("resetBtn"),
   exportBtn: $("exportBtn"),
   shareAuctionBtn: $("shareAuctionBtn"),
   githubSyncBtn: $("githubSyncBtn"),
+  githubPullQuickBtn: $("githubPullQuickBtn"),
   githubDialog: $("githubDialog"),
   githubForm: $("githubForm"),
   githubToken: $("githubToken"),
@@ -128,6 +149,178 @@ let idbReady = null;
 let githubPollTimer = null;
 let lastRemoteSavedAt = null;
 let githubPushTimer = null;
+let authSession = null;
+let realtimePeer = null;
+let realtimeHostConn = null;
+const realtimeGuests = new Set();
+let realtimeRole = null; // "host" | "guest" | null
+let realtimeReady = false;
+let applyingRealtime = false;
+let lastRealtimeSentAt = null;
+let teamNameEditLock = false;
+let teamNamesDirty = false;
+let teamNamesEditorBuilt = false;
+
+function readAuth() {
+  try {
+    return JSON.parse(sessionStorage.getItem(AUTH_KEY) || "null");
+  } catch {
+    return null;
+  }
+}
+
+function writeAuth(session) {
+  authSession = session;
+  try {
+    if (session) sessionStorage.setItem(AUTH_KEY, JSON.stringify(session));
+    else sessionStorage.removeItem(AUTH_KEY);
+  } catch (err) {
+    console.warn("auth persist failed", err);
+  }
+  applyAuthUi();
+}
+
+function canWrite() {
+  return authSession?.role === "admin";
+}
+
+function requireWrite(action = "questa azione") {
+  if (canWrite()) return true;
+  alert(`Sola lettura: non puoi ${action}. Entra come admin per modificare.`);
+  return false;
+}
+
+function applyAuthUi() {
+  const authed = Boolean(authSession?.role);
+  document.body.classList.toggle("auth-pending", !authed);
+  document.body.classList.toggle("role-admin", authSession?.role === "admin");
+  document.body.classList.toggle("role-readonly", authSession?.role === "readonly");
+  if (els.authStatus) {
+    if (!authSession) els.authStatus.textContent = "";
+    else updateSyncStatus(true);
+  }
+  document.querySelectorAll(".write-only").forEach((el) => {
+    el.disabled = !canWrite();
+    el.title = canWrite() ? (el.getAttribute("data-title") || el.title || "") : "Solo admin";
+  });
+  if (els.githubAutoPush) {
+    els.githubAutoPush.disabled = !canWrite();
+    if (!canWrite()) els.githubAutoPush.checked = false;
+  }
+  if (els.teamNamesEditor) {
+    els.teamNamesEditor.hidden = !canWrite();
+  }
+}
+
+function loginAsAdmin(user, pass) {
+  const u = String(user || "").trim().toLowerCase();
+  const account = AUTH_USERS[u];
+  if (!account || account.password !== String(pass || "")) return false;
+  writeAuth({
+    user: u,
+    role: account.role,
+    label: account.label,
+    at: new Date().toISOString(),
+  });
+  try { els.loginDialog?.close(); } catch { /* ignore */ }
+  return true;
+}
+
+function loginReadonly() {
+  writeAuth({
+    user: "guest",
+    role: "readonly",
+    label: "Sola lettura",
+    at: new Date().toISOString(),
+  });
+  try { els.loginDialog?.close(); } catch { /* ignore */ }
+}
+
+function logout() {
+  writeAuth(null);
+  if (els.loginPass) els.loginPass.value = "";
+  if (els.loginError) els.loginError.hidden = true;
+  clearInterval(githubPollTimer);
+  githubPollTimer = null;
+  try { realtimePeer?.destroy(); } catch { /* ignore */ }
+  realtimePeer = null;
+  realtimeGuests.clear();
+  realtimeHostConn = null;
+  realtimeReady = false;
+  realtimeRole = null;
+  updateLiveBadge();
+  openLoginDialog();
+}
+
+function openLoginDialog() {
+  applyAuthUi();
+  if (els.loginDialog && !els.loginDialog.open) els.loginDialog.showModal();
+  queueMicrotask(() => els.loginUser?.focus());
+}
+
+function ensureAuth() {
+  authSession = readAuth();
+  applyAuthUi();
+  if (authSession?.role) return true;
+  openLoginDialog();
+  return false;
+}
+
+function afterAuthContinue() {
+  applyAuthUi();
+  applyTeamsFromUrl();
+  showTeamNamesEditor();
+  render();
+  showTeamNamesEditor();
+  const cfg = readGithubCfg();
+  void pullGithubLive({ quiet: true });
+  // Realtime sempre on: PeerJS + poll GitHub di backup.
+  if (els.githubAutoPull) els.githubAutoPull.checked = true;
+  setGithubAutoPull(true);
+  if (canWrite()) {
+    // Host: pubblica in automatico se c’è token.
+    if (cfg.token || els.githubToken?.value) {
+      if (els.githubAutoPush) els.githubAutoPush.checked = true;
+      writeGithubCfg({ autoPush: true, token: (els.githubToken?.value || cfg.token || "").trim() });
+    }
+  } else if (els.githubAutoPush) {
+    els.githubAutoPush.checked = false;
+  }
+  void startRealtime();
+  updateTeamsPublishHint();
+  if (!readPov()?.chosenAt || new URLSearchParams(location.search).has("choose")) {
+    openPovDialog();
+  }
+}
+
+function teamsQueryValue() {
+  return state.teams.map((t) => encodeURIComponent(String(t.name || "").trim() || "Squadra")).join(",");
+}
+
+function applyTeamsFromUrl() {
+  try {
+    const raw = new URLSearchParams(location.search).get("teams");
+    if (!raw) return false;
+    const names = raw.split(",").map((s) => {
+      try { return decodeURIComponent(s).trim(); } catch { return String(s || "").trim(); }
+    });
+    if (names.length !== 6 || names.some((n) => !n)) return false;
+    const base = state.teams.length === 6 ? state.teams : defaultTeams();
+    state.teams = base.map((t, i) => ({ ...t, name: names[i] }));
+    syncOwnershipStatuses();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function updateTeamsPublishHint() {
+  if (!els.saveStatus || !canWrite()) return;
+  const remoteEmpty = !lastRemoteSavedAt;
+  if (remoteEmpty) {
+    els.saveStatus.textContent = `${els.saveStatus.textContent || ""} · nomi: Pubblica su GitHub o Condividi link`.replace(/^ · /, "");
+  }
+}
 
 function defaultTeams() {
   const fromMeta = state.meta?.defaultTeams;
@@ -569,47 +762,135 @@ function openGithubDialog() {
   if (els.githubDialog && !els.githubDialog.open) els.githubDialog.showModal();
 }
 
+function githubApiHeaders() {
+  const headers = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+  const token = (els.githubToken?.value || readGithubCfg().token || "").trim();
+  if (token) headers.Authorization = `Bearer ${token}`;
+  return headers;
+}
+
+function decodeGithubContent(content, encoding) {
+  if (!content) throw new Error("content vuoto");
+  if (encoding && encoding !== "base64") throw new Error(`encoding ${encoding}`);
+  const cleaned = String(content).replace(/\n/g, "");
+  const binary = atob(cleaned);
+  const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+async function fetchGithubLiveFromApi() {
+  const url = `${githubApiContentsUrl(true)}&_=${Date.now()}`;
+  const res = await fetch(url, {
+    cache: "no-store",
+    headers: githubApiHeaders(),
+  });
+  if (!res.ok) throw new Error(`API ${res.status}`);
+  const meta = await res.json();
+  const text = decodeGithubContent(meta.content, meta.encoding || "base64");
+  const data = JSON.parse(text);
+  if (!data || typeof data !== "object") throw new Error("JSON API vuoto");
+  return data;
+}
+
 async function fetchGithubLive() {
-  // Prefer same-origin after deploy; fallback to raw.githubusercontent.
-  const urls = [
-    `./asta-live.json?t=${Date.now()}`,
-    githubRawUrl(),
-  ];
-  let lastErr = null;
+  // GitHub Pages cache fino a 10 minuti: NON usare ./asta-live.json come prima scelta.
+  // 1) Contents API (fresco) 2) raw 3) same-origin fallback.
+  const errors = [];
+  try {
+    return await fetchGithubLiveFromApi();
+  } catch (err) {
+    errors.push(`api: ${err.message || err}`);
+  }
+  const urls = [githubRawUrl(), `./asta-live.json?t=${Date.now()}`];
   for (const url of urls) {
     try {
-      const res = await fetch(url, { cache: "no-store" });
-      if (!res.ok) throw new Error(`${res.status} ${url}`);
+      const res = await fetch(url, {
+        cache: "no-store",
+        headers: { Accept: "application/json", "Cache-Control": "no-cache" },
+      });
+      if (!res.ok) throw new Error(`${res.status}`);
       const data = await res.json();
       if (!data || typeof data !== "object") throw new Error("JSON vuoto");
       return data;
     } catch (err) {
-      lastErr = err;
+      errors.push(`${url}: ${err.message || err}`);
     }
   }
-  throw lastErr || new Error("Impossibile leggere asta-live.json");
+  throw new Error(errors.join(" · ") || "Impossibile leggere asta-live.json");
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function preferLocalTeamNames(_remote) {
+  // L’admin è fonte di verità sui nomi: il pull non li deve mai ripristinare.
+  return canWrite();
+}
+
+function applyRemoteTeams(remoteTeams) {
+  if (!Array.isArray(remoteTeams) || remoteTeams.length !== 6) return false;
+  const base = state.teams.length === 6 ? state.teams : defaultTeams();
+  let changed = false;
+  state.teams = base.map((t, i) => {
+    const remote = remoteTeams.find((r) => r.id === t.id) || remoteTeams[i];
+    const name = String(remote?.name || t.name || `Squadra ${i + 1}`).trim() || `Squadra ${i + 1}`;
+    if (name !== t.name) changed = true;
+    return { ...t, id: t.id || remote?.id || `t${i + 1}`, name };
+  });
+  return changed;
 }
 
 async function pullGithubLive({ quiet = false } = {}) {
   try {
+    if (teamNameEditLock || isEditingTeamName()) return false;
     const data = await fetchGithubLive();
-    if (!data.savedAt && !Object.keys(data.ownership || {}).length) {
-      if (!quiet) setGithubStatus("Remoto ancora vuoto: l’host deve pubblicare la prima volta.", false);
+    const hasOwnership = Object.keys(data.ownership || {}).length > 0;
+    const hasTeams = Array.isArray(data.teams) && data.teams.length === 6;
+
+    if (!data.savedAt && !hasOwnership) {
+      if (!canWrite() && hasTeams && !new URLSearchParams(location.search).get("teams")) {
+        if (applyRemoteTeams(data.teams)) {
+          persist();
+          render();
+        }
+      }
+      if (!quiet) setGithubStatus("Remoto ancora vuoto: l’host deve pubblicare (GitHub live → Pubblica).", false);
+      updateSyncStatus(false, "remoto vuoto");
       return false;
     }
     if (data.savedAt && data.savedAt === lastRemoteSavedAt) {
       if (!quiet) setGithubStatus(`Già aggiornato · ${new Date(data.savedAt).toLocaleTimeString("it-IT")}`);
+      updateSyncStatus(true, "invariato");
       return false;
     }
+    const keepTeams = preferLocalTeamNames(data)
+      ? state.teams.map((t) => ({ id: t.id, name: t.name, isMe: t.isMe }))
+      : null;
     const before = JSON.stringify({
       ownership: state.ownership,
       teams: state.teams.map((t) => ({ id: t.id, name: t.name })),
       auctionRole: state.auctionRole,
     });
     applySaved({ ...data, shared: true }, { keepPov: true });
+    if (keepTeams?.length === 6) {
+      state.teams = keepTeams;
+      syncOwnershipStatuses();
+    } else if (!canWrite() && hasTeams) {
+      applyRemoteTeams(data.teams);
+    }
+    if (!canWrite()) applyTeamsFromUrl();
     persistPov();
     persist();
     render();
+    if (!teamNamesDirty) syncTeamNamesEditorFromState({ force: true });
     lastRemoteSavedAt = data.savedAt || null;
     const after = JSON.stringify({
       ownership: state.ownership,
@@ -618,15 +899,252 @@ async function pullGithubLive({ quiet = false } = {}) {
     });
     const changed = before !== after;
     updateSaveStatus(true, changed ? "sync GitHub" : "sync GitHub (invariato)");
+    updateSyncStatus(true, changed ? "aggiornato" : "invariato");
     setGithubStatus(
-      `Aggiornato da GitHub · ${data.savedAt ? new Date(data.savedAt).toLocaleTimeString("it-IT") : "ok"} · ${Object.keys(state.ownership).length} assegnazioni`
+      `Aggiornato da GitHub · ${data.savedAt ? new Date(data.savedAt).toLocaleTimeString("it-IT") : "ok"} · ${Object.keys(state.ownership).length} assegnazioni · ${state.teams.map((t) => t.name).join(", ")}`
     );
     return changed;
   } catch (err) {
     setGithubStatus(`Pull fallito: ${err.message || err}`, false);
+    updateSyncStatus(false, "pull fallito");
     if (!quiet) updateSaveStatus(false, "sync GitHub fallito");
     return false;
   }
+}
+
+function updateSyncStatus(ok, detail = "") {
+  if (!els.authStatus) return;
+  const role = authSession?.role === "admin"
+    ? "Admin (scrittura)"
+    : authSession?.role === "readonly"
+      ? "sola lettura"
+      : "";
+  const when = lastRemoteSavedAt
+    ? new Date(lastRemoteSavedAt).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+    : "—";
+  const names = state.teams?.length === 6 ? state.teams.map((t) => t.name).join(" · ") : "";
+  const live = realtimeReady
+    ? (realtimeRole === "host" ? "LIVE host" : "LIVE")
+    : "LIVE off";
+  const bit = detail ? ` · ${detail}` : "";
+  els.authStatus.textContent = role
+    ? `Accesso: ${role} · ${live} · sync ${when}${bit}${names ? ` · ${names}` : ""}`
+    : "";
+  els.authStatus.classList.toggle("warn", !ok);
+  updateLiveBadge();
+}
+
+function updateLiveBadge() {
+  if (!els.liveStatus) return;
+  const on = Boolean(realtimeReady);
+  els.liveStatus.hidden = !authSession?.role;
+  els.liveStatus.classList.toggle("on", on);
+  els.liveStatus.classList.toggle("host", realtimeRole === "host");
+  if (!authSession?.role) {
+    els.liveStatus.textContent = "";
+    return;
+  }
+  if (!on) {
+    els.liveStatus.textContent = "LIVE…";
+    return;
+  }
+  const n = realtimeRole === "host" ? realtimeGuests.size : 0;
+  els.liveStatus.textContent = realtimeRole === "host"
+    ? `LIVE · host${n ? ` · ${n} collegati` : ""}`
+    : "LIVE · collegato";
+}
+
+function loadPeerJs() {
+  if (window.Peer) return Promise.resolve();
+  return new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = "https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js";
+    s.async = true;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error("PeerJS non caricabile"));
+    document.head.appendChild(s);
+  });
+}
+
+function realtimePayload() {
+  return {
+    ...sharedAuctionPayload(),
+    shared: true,
+    publishedVia: "realtime-peer",
+  };
+}
+
+function applyRealtimeSnapshot(data, source = "live") {
+  if (!data || typeof data !== "object") return false;
+  if (applyingRealtime) return false;
+  if (data.savedAt && data.savedAt === lastRemoteSavedAt && data.savedAt === lastRealtimeSentAt) {
+    return false;
+  }
+  applyingRealtime = true;
+  try {
+    const keepTeams = canWrite()
+      ? state.teams.map((t) => ({ id: t.id, name: t.name, isMe: t.isMe }))
+      : null;
+    applySaved({ ...data, shared: true }, { keepPov: true });
+    if (keepTeams?.length === 6) {
+      state.teams = keepTeams;
+      syncOwnershipStatuses();
+    } else if (!canWrite() && Array.isArray(data.teams)) {
+      applyRemoteTeams(data.teams);
+    }
+    if (!canWrite()) applyTeamsFromUrl();
+    if (data.savedAt) lastRemoteSavedAt = data.savedAt;
+    persistPov();
+    persist();
+    render();
+    updateSyncStatus(true, source);
+    return true;
+  } finally {
+    applyingRealtime = false;
+  }
+}
+
+function broadcastRealtime(reason = "update") {
+  if (!canWrite() || applyingRealtime) return;
+  const payload = realtimePayload();
+  lastRealtimeSentAt = payload.savedAt;
+  // Non aggiornare lastRemoteSavedAt qui: altrimenti il poll GitHub
+  // vede un timestamp “futuro”, fa render e toglie il focus dai nomi.
+  let sent = 0;
+  for (const conn of [...realtimeGuests]) {
+    try {
+      if (conn.open) {
+        conn.send({ type: "snapshot", reason, payload });
+        sent += 1;
+      }
+    } catch (err) {
+      console.warn("realtime send failed", err);
+    }
+  }
+  updateLiveBadge();
+  if (sent) updateSyncStatus(true, `push live ×${sent}`);
+}
+
+function wireGuestConnection(conn) {
+  realtimeHostConn = conn;
+  conn.on("open", () => {
+    realtimeReady = true;
+    realtimeRole = "guest";
+    updateLiveBadge();
+    updateSyncStatus(true, "peer collegato");
+    try { conn.send({ type: "hello", role: "readonly" }); } catch { /* ignore */ }
+  });
+  conn.on("data", (msg) => {
+    if (msg?.type === "snapshot" && msg.payload) {
+      applyRealtimeSnapshot(msg.payload, "peer");
+    }
+  });
+  conn.on("close", () => {
+    realtimeReady = false;
+    updateLiveBadge();
+    updateSyncStatus(false, "peer disconnesso");
+    // ritenta tra poco
+    setTimeout(() => { if (!canWrite()) void connectRealtimeGuest(); }, 1500);
+  });
+  conn.on("error", () => {
+    realtimeReady = false;
+    updateLiveBadge();
+  });
+}
+
+function wireHostConnection(conn) {
+  realtimeGuests.add(conn);
+  conn.on("open", () => {
+    realtimeReady = true;
+    updateLiveBadge();
+    try {
+      conn.send({ type: "snapshot", reason: "welcome", payload: realtimePayload() });
+    } catch { /* ignore */ }
+  });
+  conn.on("close", () => {
+    realtimeGuests.delete(conn);
+    updateLiveBadge();
+  });
+  conn.on("error", () => {
+    realtimeGuests.delete(conn);
+    updateLiveBadge();
+  });
+  conn.on("data", (msg) => {
+    if (msg?.type === "hello") updateLiveBadge();
+  });
+}
+
+async function startRealtimeHost() {
+  realtimeRole = "host";
+  realtimePeer = new window.Peer(REALTIME_PEER_ID, { debug: 0 });
+  realtimePeer.on("open", () => {
+    realtimeReady = true;
+    updateLiveBadge();
+    updateSyncStatus(true, "host live");
+    broadcastRealtime("host-open");
+  });
+  realtimePeer.on("connection", wireHostConnection);
+  realtimePeer.on("error", (err) => {
+    console.warn("realtime host error", err);
+    // ID già preso: prova come guest (un altro admin è host)
+    if (String(err?.type || err?.message || "").includes("unavailable")) {
+      try { realtimePeer.destroy(); } catch { /* ignore */ }
+      realtimePeer = null;
+      void connectRealtimeGuest();
+      return;
+    }
+    realtimeReady = false;
+    updateLiveBadge();
+    updateSyncStatus(false, "host error");
+  });
+}
+
+async function connectRealtimeGuest() {
+  realtimeRole = "guest";
+  if (!realtimePeer) {
+    realtimePeer = new window.Peer(undefined, { debug: 0 });
+  }
+  const connect = () => {
+    const conn = realtimePeer.connect(REALTIME_PEER_ID, { reliable: true });
+    wireGuestConnection(conn);
+  };
+  if (realtimePeer.open) connect();
+  else realtimePeer.on("open", connect);
+  realtimePeer.on("error", (err) => {
+    console.warn("realtime guest error", err);
+    realtimeReady = false;
+    updateLiveBadge();
+  });
+}
+
+async function startRealtime() {
+  try {
+    await loadPeerJs();
+  } catch (err) {
+    console.warn(err);
+    updateSyncStatus(false, "PeerJS offline → solo GitHub");
+    return;
+  }
+  try {
+    if (realtimePeer) {
+      try { realtimePeer.destroy(); } catch { /* ignore */ }
+      realtimePeer = null;
+      realtimeGuests.clear();
+      realtimeHostConn = null;
+      realtimeReady = false;
+    }
+    if (canWrite()) await startRealtimeHost();
+    else await connectRealtimeGuest();
+  } catch (err) {
+    console.warn("realtime start failed", err);
+    updateSyncStatus(false, "live non disponibile");
+  }
+}
+
+function publishLiveChange(reason = "update") {
+  if (!canWrite() || applyingRealtime) return;
+  broadcastRealtime(reason);
+  scheduleGithubAutoPush(true);
 }
 
 function utf8ToBase64(str) {
@@ -637,6 +1155,7 @@ function utf8ToBase64(str) {
 }
 
 async function pushGithubLive() {
+  if (!requireWrite("pubblicare su GitHub")) return false;
   const token = (els.githubToken?.value || readGithubCfg().token || "").trim();
   if (!token) {
     setGithubStatus("Serve un token GitHub (Contents: Write) per pubblicare.", false);
@@ -689,8 +1208,9 @@ async function pushGithubLive() {
     }
     lastRemoteSavedAt = payload.savedAt;
     persist();
+    broadcastRealtime("github-publish");
     updateSaveStatus(true, "pubblicato su GitHub");
-    setGithubStatus(`Pubblicato · ${new Date(payload.savedAt).toLocaleTimeString("it-IT")}. Gli altri cliccano Aggiorna (o auto-pull).`);
+    setGithubStatus(`Pubblicato · ${new Date(payload.savedAt).toLocaleTimeString("it-IT")}. Gli altri in LIVE lo vedono subito; Aggiorna resta come backup.`);
     return true;
   } catch (err) {
     setGithubStatus(`Publish fallito: ${err.message || err}`, false);
@@ -704,21 +1224,42 @@ function setGithubAutoPull(on) {
   clearInterval(githubPollTimer);
   githubPollTimer = null;
   if (!on) return;
+  // Backup del canale LIVE (PeerJS). Intervallo corto.
   githubPollTimer = setInterval(() => {
     pullGithubLive({ quiet: true });
-  }, 12000);
+  }, REALTIME_POLL_MS);
 }
 
-function scheduleGithubAutoPush() {
+function scheduleGithubAutoPush(force = false) {
+  if (!canWrite()) return;
   const cfg = readGithubCfg();
-  if (!cfg.autoPush || !(cfg.token || els.githubToken?.value)) return;
+  const token = (els.githubToken?.value || cfg.token || "").trim();
+  if (!token) return;
+  if (!force && !cfg.autoPush) return;
   clearTimeout(githubPushTimer);
   githubPushTimer = setTimeout(() => {
     pushGithubLive();
-  }, 800);
+  }, force ? 400 : 800);
+}
+
+/** Pubblica i nomi anche senza auto-push: indispensabile per il privato. */
+function scheduleTeamsPublish() {
+  if (!canWrite()) return;
+  const cfg = readGithubCfg();
+  const token = (els.githubToken?.value || cfg.token || "").trim();
+  if (!token) {
+    updateSaveStatus(false, "nomi solo su questo browser — apri GitHub live → Pubblica (token)");
+    broadcastRealtime("rename-local");
+    return;
+  }
+  publishLiveChange("rename");
 }
 
 function setGithubAutoPush(on) {
+  if (on && !requireWrite("attivare la pubblicazione automatica")) {
+    if (els.githubAutoPush) els.githubAutoPush.checked = false;
+    return;
+  }
   writeGithubCfg({ autoPush: Boolean(on) });
   if (on && els.githubToken?.value) writeGithubCfg({ token: els.githubToken.value.trim() });
 }
@@ -726,13 +1267,14 @@ function setGithubAutoPush(on) {
 async function copyPovLink() {
   const url = new URL(location.href);
   url.searchParams.set("me", state.myTeamId);
+  url.searchParams.set("teams", teamsQueryValue());
   const link = url.toString();
   try {
     await navigator.clipboard.writeText(link);
-    updateSaveStatus(true, "link POV copiato");
-    alert(`Link del tuo punto di vista copiato.\n\nMandalo all'altro giocatore dopo aver esportato l'asta condivisa:\n${link}`);
+    updateSaveStatus(true, "link POV+nomi copiato");
+    alert(`Link copiato (include i nomi squadra).\nAprilo in privato / sull’altro device:\n${link}`);
   } catch {
-    prompt("Copia questo link del punto di vista:", link);
+    prompt("Copia questo link (include i nomi squadra):", link);
   }
 }
 
@@ -1217,7 +1759,8 @@ function renderPlans() {
 }
 
 function renderTeamsBar() {
-  els.teamsBar.innerHTML = state.teams.map((t) => {
+  // I nomi si editano SOLO nel pannello fisso #teamNamesEditor (mai ricreato dal sync).
+  els.teamsBar.innerHTML = `<div class="teams-grid">${state.teams.map((t) => {
     const spent = spentByTeam(t.id);
     const rem = remainingByTeam(t.id);
     const role = state.auctionRole;
@@ -1225,11 +1768,9 @@ function renderTeamsBar() {
     const need = rosterSlots()[role];
     const isMe = t.id === state.myTeamId;
     const selected = t.id === state.selectedTeamId;
+    const name = String(t.name || "").trim() || "Squadra";
     return `<article class="team-card ${isMe ? "me" : ""} ${selected ? "selected" : ""}" data-team="${t.id}">
-      <label class="team-name-field">
-        <span class="sr-only">Nome squadra</span>
-        <input type="text" data-team-name="${t.id}" value="${escapeAttr(t.name)}" maxlength="28" />
-      </label>
+      <p class="team-name-text" title="${escapeAttr(name)}">${escapeHtml(name)}</p>
       <div class="team-meta"><strong>${spent}</strong> spesi · <strong>${rem}</strong> residui</div>
       <div class="team-role">${role}: ${filled}/${need}</div>
       <div class="team-actions">
@@ -1237,7 +1778,109 @@ function renderTeamsBar() {
         <button type="button" class="btn tiny ghost dark" data-action="select-team" data-id="${t.id}">Rosa</button>
       </div>
     </article>`;
-  }).join("");
+  }).join("")}</div>`;
+}
+
+function syncTeamNamesEditorFromState({ force = false } = {}) {
+  if (!els.teamNamesFields || !canWrite()) return;
+  if (!force && teamNamesDirty) return;
+  if (!teamNamesEditorBuilt) {
+    els.teamNamesFields.innerHTML = state.teams.map((t, i) => `
+      <label class="field team-name-edit">
+        <span>Squadra ${i + 1}</span>
+        <input type="text" data-team-name="${t.id}" value="${escapeAttr(t.name || "")}" maxlength="28" autocomplete="off" />
+      </label>`).join("");
+    els.teamNamesFields.querySelectorAll("input[data-team-name]").forEach((input) => {
+      input.addEventListener("input", () => {
+        teamNamesDirty = true;
+        teamNameEditLock = true;
+        if (els.teamNamesHint) els.teamNamesHint.textContent = "Modifiche non salvate — clicca Salva nomi";
+      });
+    });
+    teamNamesEditorBuilt = true;
+  } else {
+    els.teamNamesFields.querySelectorAll("input[data-team-name]").forEach((input) => {
+      const team = state.teams.find((t) => t.id === input.dataset.teamName);
+      if (team) input.value = team.name || "";
+    });
+  }
+}
+
+function showTeamNamesEditor() {
+  if (!els.teamNamesEditor) return;
+  if (!canWrite()) {
+    els.teamNamesEditor.hidden = true;
+    return;
+  }
+  els.teamNamesEditor.hidden = false;
+  syncTeamNamesEditorFromState({ force: !teamNamesDirty });
+}
+
+function readTeamNamesFromDom() {
+  const root = els.teamNamesFields || els.teamsBar;
+  const updates = [];
+  root?.querySelectorAll("input[data-team-name]")?.forEach((input) => {
+    const id = input.dataset.teamName;
+    const name = String(input.value || "").trim() || "Squadra";
+    input.value = name;
+    updates.push({ id, name });
+  });
+  return updates;
+}
+
+function applyTeamNameUpdates(updates) {
+  if (!updates.length) return false;
+  let changed = false;
+  const byId = new Map(updates.map((u) => [u.id, u.name]));
+  state.teams = state.teams.map((t) => {
+    if (!byId.has(t.id)) return t;
+    const name = byId.get(t.id);
+    if (name !== t.name) changed = true;
+    return { ...t, name };
+  });
+  return changed;
+}
+
+function saveAllTeamNamesFromDom() {
+  if (!canWrite()) {
+    alert("Serve accesso admin (utente admin, password admin).");
+    return false;
+  }
+  const updates = readTeamNamesFromDom();
+  if (updates.length !== 6) {
+    alert("Editor nomi non pronto: ricarica la pagina e riprova.");
+    return false;
+  }
+  applyTeamNameUpdates(updates);
+  teamNamesDirty = false;
+  teamNameEditLock = false;
+  const payload = persistSync();
+  void idbPut(payload);
+  broadcastRealtime("rename");
+  renderTeamsBar();
+  renderRoster();
+  const names = state.teams.map((t) => t.name).join(" · ");
+  const token = (els.githubToken?.value || readGithubCfg().token || "").trim();
+  updateSaveStatus(true, "nomi salvati");
+  if (els.teamNamesHint) els.teamNamesHint.textContent = `SALVATI: ${names}`;
+  alert(`Nomi salvati:\n${state.teams.map((t, i) => `${i + 1}. ${t.name}`).join("\n")}`);
+  if (token) {
+    void pushGithubLive().then((ok) => {
+      if (els.teamNamesHint) {
+        els.teamNamesHint.textContent = ok
+          ? `SALVATI + GitHub: ${names}`
+          : `SALVATI in locale (GitHub fallito): ${names}`;
+      }
+      updateSaveStatus(ok, ok ? "nomi su GitHub" : "nomi solo locali");
+    });
+  } else if (els.teamNamesHint) {
+    els.teamNamesHint.textContent = `SALVATI in questo browser: ${names}. Apri GitHub live e metti il token per condividerli.`;
+  }
+  return true;
+}
+
+function bindTeamNameInputs() {
+  // no-op: editor fisso in index.html, binding in bindEvents/showTeamNamesEditor
 }
 
 function renderStats() {
@@ -1284,17 +1927,20 @@ function renderAuctionBanner() {
       ${caveatBit}
     </div>
     <div class="auction-actions">
-      <button type="button" class="btn ghost dark" id="advanceRoleBtn">Ruolo fatto → avanza</button>
+      <button type="button" class="btn ghost dark write-only" id="advanceRoleBtn">Ruolo fatto → avanza</button>
     </div>`;
   document.getElementById("advanceRoleBtn")?.addEventListener("click", () => {
+    if (!requireWrite("avanzare di ruolo")) return;
     if (remainingSlots(role) > 0 && !confirm(`Ti mancano ${remainingSlots(role)} ${ROLE_LABEL[role]}. Avanzare?`)) return;
     const idx = ROLES.indexOf(state.auctionRole);
     if (idx < ROLES.length - 1) {
       state.auctionRole = ROLES[idx + 1];
       if (state.roleLock) state.roleFilter = state.auctionRole;
       render();
+      publishLiveChange("advance-role");
     } else alert("Sei già sugli Attaccanti.");
   });
+  applyAuthUi();
 }
 
 function renderStrategy() {
@@ -1342,7 +1988,7 @@ function renderPriorities() {
         <span class="meta">${p.team} · fair ${p.fair ?? "—"} · leave ${p.leave ?? "—"} · Tit ${p.starterProb ?? "—"}%</span>
         <span class="meta">${priorityWhy(p)}</span></div>
       <div class="priority-side"><span class="pri-score">${score}</span>
-        <button class="btn small" data-action="buy" data-id="${p.id}">Compra</button></div>
+        ${canWrite() ? `<button class="btn small" data-action="buy" data-id="${p.id}">Compra</button>` : ""}</div>
     </li>`).join("")}</ol>`;
 }
 
@@ -1439,11 +2085,15 @@ function renderTable() {
       p.mockLow != null ? `mock ${p.mockLow}–${p.mockHigh}` : null,
     ].filter(Boolean).join(" · ");
     let actions = "";
-    if (own) {
-      actions = `<button class="btn tiny danger" data-action="release" data-id="${p.id}" title="Libera">Libera</button>`;
-    } else {
-      actions = `<button class="btn tiny" data-action="buy" data-id="${p.id}" title="Compra">Compra</button>
+    if (canWrite()) {
+      if (own) {
+        actions = `<button class="btn tiny danger" data-action="release" data-id="${p.id}" title="Libera">Libera</button>`;
+      } else {
+        actions = `<button class="btn tiny" data-action="buy" data-id="${p.id}" title="Compra">Compra</button>
       <button class="btn tiny ghost dark" data-action="take" data-id="${p.id}" title="Preso da rivale">Preso</button>`;
+      }
+    } else {
+      actions = `<span class="muted tiny">sola lettura</span>`;
     }
     const ownerBit = own
       ? `<span class="row-owner ${own.teamId === state.myTeamId ? "mine" : "riv"}">${teamById(own.teamId)?.name || "?"} · ${own.price}</span>`
@@ -1509,12 +2159,16 @@ function openDetail(id) {
     : "—";
 
   let actions = "";
-  if (own) {
-    actions = `<button type="button" class="btn danger" data-action="release" data-id="${p.id}">Libera</button>`;
-  } else {
-    actions = `
+  if (canWrite()) {
+    if (own) {
+      actions = `<button type="button" class="btn danger" data-action="release" data-id="${p.id}">Libera</button>`;
+    } else {
+      actions = `
       <button type="button" class="btn" data-action="buy" data-id="${p.id}">Compra</button>
       <button type="button" class="btn ghost dark" data-action="take" data-id="${p.id}">Preso</button>`;
+    }
+  } else {
+    actions = `<span class="muted">Modalità sola lettura</span>`;
   }
 
   els.detailBody.innerHTML = `
@@ -1667,10 +2321,19 @@ function fillBuyTeamSelect(mode) {
   els.buyTeam.disabled = mode === "buy";
 }
 
-function render() {
+function isEditingTeamName() {
+  const el = document.activeElement;
+  return Boolean(
+    el
+    && el.matches?.("input[data-team-name]")
+    && (els.teamNamesFields?.contains(el) || els.teamsBar?.contains(el))
+  );
+}
+
+function render({ skipTeamsBar = false } = {}) {
   maybeAdvanceRole();
   renderPovBanner();
-  renderTeamsBar();
+  if (!skipTeamsBar) renderTeamsBar();
   renderAuctionBanner();
   renderStats();
   renderScenarios();
@@ -1679,7 +2342,9 @@ function render() {
   renderTable();
   renderRoster();
   syncRoleChips();
-  persist();
+  applyAuthUi();
+  showTeamNamesEditor();
+  if (authSession?.role && !teamNamesDirty) persist();
 }
 
 function setSort(key) {
@@ -1692,6 +2357,7 @@ function setSort(key) {
 }
 
 function openAssign(id, mode) {
+  if (!requireWrite(mode === "buy" ? "comprare" : "assegnare a un rivale")) return;
   const player = state.players.find((p) => p.id === id);
   if (!player) return;
   if (state.roleLock && player.role !== state.auctionRole) {
@@ -1729,6 +2395,7 @@ function openAssign(id, mode) {
 }
 
 function confirmAssign(price) {
+  if (!requireWrite("confermare l'acquisto")) return false;
   const player = state.players.find((p) => p.id === state.pendingId);
   if (!player) return false;
   const teamId = els.buyTeam.value;
@@ -1747,14 +2414,15 @@ function confirmAssign(price) {
   state.pendingId = null;
   state.selectedTeamId = teamId;
   render();
-  scheduleGithubAutoPush();
+  publishLiveChange("assign");
   return true;
 }
 
 function releasePlayer(id) {
+  if (!requireWrite("liberare un giocatore")) return;
   delete state.ownership[id];
   render();
-  scheduleGithubAutoPush();
+  publishLiveChange("release");
 }
 
 function onAction(e) {
@@ -1776,6 +2444,7 @@ function onAction(e) {
 
 function bindEvents() {
   els.budgetPlan.addEventListener("change", (e) => {
+    // Piano budget è POV locale: anche in sola lettura puoi cambiare la vista.
     state.plan = e.target.value;
     persistPov();
     persist();
@@ -1812,38 +2481,9 @@ function bindEvents() {
   els.priorityBox.addEventListener("click", onAction);
   els.teamsBar.addEventListener("click", onAction);
   els.detailActions?.addEventListener("click", onAction);
-  const renameTeamFromInput = (input) => {
-    const id = input.dataset.teamName;
-    if (!id) return;
-    const name = input.value.trim() || "Squadra";
-    const prev = state.teams.find((t) => t.id === id)?.name;
-    if (prev === name) return;
-    state.teams = state.teams.map((t) => (t.id === id ? { ...t, name } : t));
-    persist();
-    scheduleGithubAutoPush();
-    // Aggiorna solo etichette dipendenti dal nome, senza re-montare gli input (evita perdita focus/value).
-    document.querySelectorAll(`#buyTeam option[value="${id}"]`).forEach((opt) => {
-      const rem = remainingByTeam(id);
-      opt.textContent = `${name} (${rem} residui)${id === state.myTeamId ? " · tu" : ""}`;
-    });
-    document.querySelectorAll(`#roster [data-action="select-team"][data-id="${id}"]`).forEach((btn) => {
-      btn.textContent = `${name}${id === state.myTeamId ? " ★" : ""}`;
-    });
-    document.querySelectorAll(`.team-card[data-team="${id}"] .team-name-field input`).forEach((input) => {
-      if (document.activeElement !== input) input.value = name;
-    });
-  };
-  els.teamsBar.addEventListener("input", (e) => {
-    const input = e.target.closest("[data-team-name]");
-    if (input) renameTeamFromInput(input);
-  });
-  els.teamsBar.addEventListener("change", (e) => {
-    const input = e.target.closest("[data-team-name]");
-    if (input) renameTeamFromInput(input);
-  });
-  els.teamsBar.addEventListener("focusout", (e) => {
-    const input = e.target.closest("[data-team-name]");
-    if (input) renameTeamFromInput(input);
+  els.saveTeamNamesBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    saveAllTeamNamesFromDom();
   });
   els.buyTeam.addEventListener("change", () => {
     const rem = remainingByTeam(els.buyTeam.value);
@@ -1851,18 +2491,26 @@ function bindEvents() {
     if (cur > rem) els.buyPrice.value = Math.max(1, rem);
   });
   els.resetBtn.addEventListener("click", () => {
+    if (!requireWrite("resettare l'asta")) return;
     if (!confirm("Azzerare tutti gli acquisti delle 6 squadre e tornare ai Portieri?")) return;
     state.ownership = {};
     state.auctionRole = "P";
     state.roleFilter = "P";
     state.selectedTeamId = state.myTeamId;
     render();
+    publishLiveChange("reset");
   });
   els.exportBtn.addEventListener("click", exportRoster);
   els.shareAuctionBtn?.addEventListener("click", exportSharedAuction);
   els.githubSyncBtn?.addEventListener("click", openGithubDialog);
+  els.githubPullQuickBtn?.addEventListener("click", () => {
+    void pullGithubLive({ quiet: false });
+  });
   els.githubPullBtn?.addEventListener("click", () => pullGithubLive({ quiet: false }));
-  els.githubPushBtn?.addEventListener("click", () => pushGithubLive());
+  els.githubPushBtn?.addEventListener("click", () => {
+    if (!requireWrite("pubblicare su GitHub")) return;
+    void pushGithubLive();
+  });
   els.githubToken?.addEventListener("change", () => {
     writeGithubCfg({ token: els.githubToken.value.trim() });
   });
@@ -1873,11 +2521,15 @@ function bindEvents() {
     setGithubAutoPush(e.target.checked);
   });
   els.sharePovBtn?.addEventListener("click", copyPovLink);
-  els.importBtn.addEventListener("click", () => els.importFile.click());
+  els.importBtn.addEventListener("click", () => {
+    if (!requireWrite("importare")) return;
+    els.importFile.click();
+  });
   els.importFile.addEventListener("change", async (e) => {
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
+    if (!requireWrite("importare")) return;
     try {
       const text = await file.text();
       const data = JSON.parse(text);
@@ -1892,6 +2544,33 @@ function bindEvents() {
     } catch (err) {
       alert(`Import fallito: ${err.message || err}`);
     }
+  });
+  els.loginForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const user = String(els.loginUser?.value || "").trim();
+    const pass = String(els.loginPass?.value || "");
+    if (loginAsAdmin(user, pass)) {
+      if (els.loginError) els.loginError.hidden = true;
+      updateSaveStatus(true, "accesso admin");
+      afterAuthContinue();
+    } else {
+      if (els.loginError) els.loginError.hidden = false;
+      if (els.loginPass) els.loginPass.value = "";
+      els.loginPass?.focus();
+    }
+  });
+  els.loginReadonlyBtn?.addEventListener("click", () => {
+    if (els.loginError) els.loginError.hidden = true;
+    loginReadonly();
+    updateSaveStatus(true, "sola lettura");
+    afterAuthContinue();
+  });
+  els.logoutBtn?.addEventListener("click", () => {
+    logout();
+    updateSaveStatus(true, "sessione chiusa");
+  });
+  els.loginDialog?.addEventListener("cancel", (e) => {
+    if (!authSession?.role) e.preventDefault();
   });
   els.povForm?.addEventListener("submit", (e) => {
     if (e.submitter?.value === "cancel") return;
@@ -2045,19 +2724,8 @@ async function init() {
   render();
   updateSaveStatus(true, Object.keys(state.ownership).length ? "ripristinato" : "pronto");
 
-  const cfg = readGithubCfg();
-  const wantSync = new URLSearchParams(location.search).has("sync") || cfg.autoPull;
-  if (wantSync) {
-    if (els.githubAutoPull) els.githubAutoPull.checked = true;
-    setGithubAutoPull(true);
-    pullGithubLive({ quiet: true });
-  }
-  if (cfg.autoPush && els.githubAutoPush) els.githubAutoPush.checked = true;
-
-  // Primo accesso / link senza POV: chiedi chi sei.
-  if (!readPov()?.chosenAt || new URLSearchParams(location.search).has("choose")) {
-    openPovDialog();
-  }
+  if (!ensureAuth()) return;
+  afterAuthContinue();
 }
 
 init().catch((err) => {

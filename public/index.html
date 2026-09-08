@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=20260907r" />
+  <link rel="stylesheet" href="./styles.css?v=20260908c" />
 </head>
-<body>
+<body class="auth-pending">
   <div class="bg-glow" aria-hidden="true"></div>
 
   <header class="top">
@@ -17,20 +17,33 @@
       <p class="eyebrow">Classic · 6 squadre · 500 · Mod. difesa · Asta a ruoli</p>
       <h1>Asta Scientifica <span>2026/27</span></h1>
       <p class="save-status" id="saveStatus" aria-live="polite">Salvataggio…</p>
+      <p class="auth-status" id="authStatus" aria-live="polite"></p>
+      <p class="live-status" id="liveStatus" hidden aria-live="polite">LIVE…</p>
     </div>
     <div class="top-actions">
       <label class="field">
         <span>Piano budget (tu)</span>
         <select id="budgetPlan"></select>
       </label>
-      <button id="resetBtn" class="btn ghost" type="button">Reset asta</button>
-      <button id="importBtn" class="btn ghost" type="button" title="Importa asta condivisa o backup">Importa</button>
+      <button id="resetBtn" class="btn ghost write-only" type="button">Reset asta</button>
+      <button id="importBtn" class="btn ghost write-only" type="button" title="Importa asta condivisa o backup">Importa</button>
       <button id="shareAuctionBtn" class="btn ghost" type="button" title="Esporta solo rose/prezzi da mandare agli altri">Condividi file</button>
       <button id="githubSyncBtn" class="btn ghost" type="button" title="Asta condivisa su GitHub per tutti">GitHub live</button>
+      <button id="githubPullQuickBtn" class="btn ghost" type="button" title="Scarica subito asta-live da GitHub">Aggiorna</button>
       <button id="exportBtn" class="btn" type="button" title="Backup completo su questo dispositivo">Backup</button>
+      <button id="logoutBtn" class="btn ghost" type="button">Esci</button>
       <input id="importFile" type="file" accept="application/json,.json" hidden />
     </div>
   </header>
+
+  <section class="team-names-editor" id="teamNamesEditor" hidden>
+    <div class="team-names-editor-head">
+      <h2>Nomi delle 6 squadre</h2>
+      <button type="button" class="btn" id="saveTeamNamesBtn">Salva nomi</button>
+    </div>
+    <div class="team-names-fields" id="teamNamesFields"></div>
+    <p class="teams-save-hint" id="teamNamesHint">Scrivi i nomi qui e clicca Salva nomi. Questi campi non vengono ricreati dal sync.</p>
+  </section>
 
   <section class="pov-banner" id="povBanner" aria-live="polite"></section>
   <section class="teams-bar" id="teamsBar" aria-label="Squadre asta"></section>
@@ -73,10 +86,12 @@
       <section class="panel tips">
         <div class="panel-head"><h2>Metodo</h2></div>
         <ul>
-          <li><strong>GitHub live:</strong> l’host pubblica l’asta su GitHub; tutti gli altri aggiornano da lì (anche in anonimo).</li>
-          <li><strong>Chi sei?</strong> scegli la tua squadra (o <code>?me=t2</code>): Pri, budget e Compra sono i tuoi.</li>
-          <li>Locale: i dati restano nel browser; Backup/Importa restano disponibili offline.</li>
-          <li>Fonte listone Fantacalcio.it + override curati (es. uscite all’estero).</li>
+          <li><strong>LIVE:</strong> l’admin tiene la pagina aperta; gli altri in sola lettura ricevono Compra/nomi in tempo reale (PeerJS). GitHub resta il backup.</li>
+          <li><strong>Nomi in privato:</strong> admin con token → pubblicazione automatica; oppure <em>Copia link POV</em> (<code>?teams=</code>).</li>
+          <li><strong>Accesso:</strong> admin (scrittura) oppure <em>Entra in sola lettura</em>.</li>
+          <li><strong>GitHub live:</strong> l’admin pubblica; tutti aggiornano da lì (anche in anonimo/sola lettura).</li>
+          <li><strong>Chi sei?</strong> scegli la tua squadra (o <code>?me=t2</code>): Pri e budget locali sono i tuoi.</li>
+          <li>Locale: i dati restano nel browser; Backup resta disponibile offline.</li>
         </ul>
         <p class="fine">Fonte listone: Fantacalcio.it (può restare indietro sul mercato). Override curati per uscite ufficiali. Aggiorna board con <code>npm run fetch</code>.</p>
       </section>
@@ -87,6 +102,26 @@
       <div id="roster" class="roster"></div>
     </section>
   </main>
+
+  <dialog id="loginDialog" class="pov-dialog login-dialog">
+    <form id="loginForm">
+      <h3>Accesso asta</h3>
+      <p class="hint">Due accessi: <strong>admin</strong> (scrittura, password <code>admin</code>) oppure <strong>sola lettura</strong> senza modifica.</p>
+      <label class="field">
+        <span>Utente</span>
+        <input id="loginUser" type="text" autocomplete="username" value="admin" required />
+      </label>
+      <label class="field">
+        <span>Password</span>
+        <input id="loginPass" type="password" autocomplete="current-password" placeholder="admin" required />
+      </label>
+      <p class="hint warn" id="loginError" hidden>Credenziali non valide.</p>
+      <div class="dialog-actions login-actions">
+        <button id="loginReadonlyBtn" class="btn ghost dark" type="button">Entra in sola lettura</button>
+        <button id="loginAdminBtn" class="btn" type="submit">Entra come admin</button>
+      </div>
+    </form>
+  </dialog>
 
   <dialog id="povDialog" class="pov-dialog">
     <form method="dialog" id="povForm">
@@ -106,18 +141,18 @@
   <dialog id="githubDialog" class="pov-dialog github-dialog">
     <form method="dialog" id="githubForm">
       <h3>Asta live su GitHub</h3>
-      <p class="hint">Un file pubblico <code>asta-live.json</code> sul branch <code>gh-pages</code> è la copia condivisa. Tutti possono <strong>aggiornare</strong> senza login. Solo l’host ha bisogno di un token per <strong>pubblicare</strong>.</p>
+      <p class="hint">Sync <strong>LIVE</strong> peer-to-peer in tempo reale (admin = host). GitHub <code>asta-live.json</code> è il backup persistente: con token l’host pubblica in automatico. Il CDN di Pages può ritardare; il canale LIVE no.</p>
       <label class="field">
         <span>Token GitHub (solo host, resta in questo browser)</span>
         <input id="githubToken" type="password" autocomplete="off" placeholder="ghp_… fine-grained con Contents: Write" />
       </label>
-      <label class="check"><input type="checkbox" id="githubAutoPull" /> Aggiorna automaticamente ogni 12s</label>
-      <label class="check"><input type="checkbox" id="githubAutoPush" /> Pubblica in automatico dopo Compra/Preso (solo host)</label>
+      <label class="check"><input type="checkbox" id="githubAutoPull" /> Backup: aggiorna da GitHub ogni ~2.5s</label>
+      <label class="check"><input type="checkbox" id="githubAutoPush" /> Pubblica su GitHub dopo ogni modifica (host + token)</label>
       <p class="hint" id="githubStatus">Stato: non sincronizzato</p>
       <div class="dialog-actions">
         <button value="cancel" class="btn ghost dark" type="submit">Chiudi</button>
         <button id="githubPullBtn" class="btn ghost dark" type="button">Aggiorna da GitHub</button>
-        <button id="githubPushBtn" class="btn" type="button">Pubblica su GitHub</button>
+        <button id="githubPushBtn" class="btn write-only" type="button">Pubblica su GitHub</button>
       </div>
     </form>
   </dialog>
@@ -153,6 +188,6 @@
     </div>
   </dialog>
 
-  <script src="./app.js?v=20260907r"></script>
+  <script src="./app.js?v=20260908c"></script>
 </body>
 </html>
