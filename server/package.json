@@ -1,0 +1,19 @@
+{
+  "name": "fantacalcio-asta-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Backend realtime SQLite + WebSocket per asta Fantacalcio",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "express": "^4.21.2",
+    "ws": "^8.18.1"
+  }
+}
